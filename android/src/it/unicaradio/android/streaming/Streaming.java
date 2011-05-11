@@ -1,33 +1,63 @@
+/**
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; version 2 of the License.
+ * 
+ * This program is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with this program; if not, write to the Free Software Foundation, Inc., 
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *
+ * Copyright UnicaRadio
+ */
+
 package it.unicaradio.android.streaming;
 
-import java.io.IOException;
+import it.unicaradio.android.streaming.events.OnInfoListener;
+
+import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnInfoListener;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author Paolo Cortis
+ * 
+ */
 public class Streaming extends Activity
 {
-	private MediaPlayer mediaPlayer;
+	private StreamingMediaPlayer mediaPlayer;
 
 	private ImageView playPauseButton;
 
-	private static final String STREAM_URL = "http://streaming.unicaradio.it:8000";
+	final Handler mHandler = new Handler();
 
-	// private static final String STREAM_URL =
-	// "http://www.pocketjourney.com/downloads/pj/tutorials/audio.mp3";
+	String[] trackInfo;
+
+	private TextView trackTitle;
+
+	// Create runnable for posting
+	final Runnable mUpdateResults = new Runnable() {
+		public void run()
+		{
+			setTrackInfo();
+		}
+	};
 
 	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
@@ -53,17 +83,25 @@ public class Streaming extends Activity
 
 		setContentView(R.layout.main);
 
+		trackTitle = (TextView) findViewById(R.id.trackTitle);
+
 		playPauseButton = (ImageView) findViewById(R.id.playPauseButton);
 		playPauseButton.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View view)
 			{
-				if(mediaPlayer.isPlaying()) {
-					mediaPlayer.stop();
-				} else {
-					mediaPlayer.start();
-				}
+
+			}
+		});
+
+		mediaPlayer = new StreamingMediaPlayer(
+				"http://streaming.unicaradio.it:80/unica64.aac");
+		mediaPlayer.addOnInfoListener(new OnInfoListener() {
+
+			public void onInfo(String[] infos)
+			{
+				trackInfo = infos;
+				mHandler.post(mUpdateResults);
 			}
 		});
 
@@ -72,8 +110,8 @@ public class Streaming extends Activity
 
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-		boolean isConnected = cm.getActiveNetworkInfo() != null && cm
-				.getActiveNetworkInfo().isConnected() || false;
+		boolean isConnected = cm.getActiveNetworkInfo() != null
+				&& cm.getActiveNetworkInfo().isConnected() || false;
 
 		if(isConnected) {
 			play();
@@ -85,46 +123,15 @@ public class Streaming extends Activity
 
 	}
 
+	protected void setTrackInfo()
+	{
+		trackTitle.setText(StringUtils.join(trackInfo, " - "));
+	}
+
 	private void play()
 	{
-		if(mediaPlayer == null) {
-			try {
-				mediaPlayer = new MediaPlayer();
-				mediaPlayer.setDataSource(STREAM_URL);
-				mediaPlayer.prepareAsync();
-				mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
-
-					@Override
-					public void onPrepared(MediaPlayer player)
-					{
-						player.start();
-						ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-						progressBar.setVisibility(View.GONE);
-						playPauseButton.setImageResource(R.drawable.stop);
-					}
-				});
-				mediaPlayer.setOnInfoListener(new OnInfoListener() {
-
-					@Override
-					public boolean onInfo(MediaPlayer player, int what,
-							int extra)
-					{
-						if(what == MediaPlayer.MEDIA_INFO_METADATA_UPDATE) {
-
-							return true;
-						}
-						return false;
-					}
-				});
-			} catch(IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch(IllegalStateException e) {
-				e.printStackTrace();
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			// TODO
+		if(!mediaPlayer.isAlive()) {
+			mediaPlayer.start();
 		}
 	}
 }
