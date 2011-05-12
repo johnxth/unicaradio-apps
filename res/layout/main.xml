@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
@@ -6,12 +6,15 @@
 	android:layout_height="fill_parent"
 	android:padding="10px">
 	<TableLayout
+		android:id="@+id/tableLayout"
 		android:stretchColumns="1"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content">
 		<TableRow>
 			<ImageView
-				android:src="@drawable/play" />
+				android:src="@drawable/play"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
 			<TextView
 				android:id="@+id/title"
 				android:text="UnicaRadio"
@@ -19,19 +22,17 @@
 				android:layout_gravity="center_vertical"
 				android:textSize="20dp" />
 		</TableRow>
-		<TableRow>
-			<ProgressBar
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:id="@+id/progressBar1" />
-		</TableRow>
-		<TableRow>
-			<TextView
-				android:id="@+id/trackTitle"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content" />
-		</TableRow>
 	</TableLayout>
+	<TextView
+		android:id="@+id/trackAuthor"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/tableLayout" />
+	<TextView
+		android:id="@+id/trackTitle"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/trackAuthor" />
 	<ImageView
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
