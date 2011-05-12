@@ -26,7 +26,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -46,17 +45,17 @@ public class StreamingMediaPlayer extends Thread
 
 	private int metaint;
 
-	private final AudioTrack track;
+	private AudioTrack track;
 
 	private final List<OnInfoListener> listenerList;
+
+	private boolean done;
 
 	public StreamingMediaPlayer(String url)
 	{
 		this.urlString = url;
-		track = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
-				AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
-				8000, AudioTrack.MODE_STREAM);
 		listenerList = new ArrayList<OnInfoListener>();
+		done = false;
 	}
 
 	@Override
@@ -66,6 +65,7 @@ public class StreamingMediaPlayer extends Thread
 		try {
 			url = new URL(urlString);
 			URLConnection conn = url.openConnection();
+			conn.addRequestProperty("Icy-MetaData", "1");
 			for(int i = 0;; i++) {
 				String headerName = conn.getHeaderFieldKey(i);
 				String headerValue = conn.getHeaderField(i);
@@ -86,10 +86,14 @@ public class StreamingMediaPlayer extends Thread
 			}
 
 			InputStream inputStream = conn.getInputStream();
+			track = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
+					AudioFormat.CHANNEL_CONFIGURATION_MONO,
+					AudioFormat.ENCODING_PCM_16BIT, 8000,
+					AudioTrack.MODE_STREAM);
 			track.play();
 
 			int count = 0;
-			while(true) {
+			while(!this.done) {
 				if(count == metaint) {
 					int length = inputStream.read() * 16;
 					count = 0;
@@ -99,8 +103,8 @@ public class StreamingMediaPlayer extends Thread
 						String metadataString = new String(metadata);
 						String artistAndTitle = StringUtils.substringBetween(
 								metadataString, "'");
-						String[] infos = StringUtils.split(artistAndTitle,
-								SEPARATOR);
+						String[] infos = StringUtils.splitByWholeSeparator(
+								artistAndTitle, SEPARATOR);
 						// infos contiene:
 						// [0] == artista
 						// [1] == titolo canzone
@@ -111,9 +115,9 @@ public class StreamingMediaPlayer extends Thread
 					}
 				}
 				int readData = inputStream.read();
-				byte[] buffer = new byte[2];
-				Arrays.fill(buffer, (byte) readData);
-				track.write(buffer, 0, 1);
+				// byte[] buffer = new byte[1];
+				// buffer[0] = (byte) readData;
+				// track.write(buffer, 0, 1);
 				count++;
 			}
 		} catch(MalformedURLException e) {
@@ -121,6 +125,11 @@ public class StreamingMediaPlayer extends Thread
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void done()
+	{
+		this.done = true;
 	}
 
 	public void addOnInfoListener(OnInfoListener listener)
