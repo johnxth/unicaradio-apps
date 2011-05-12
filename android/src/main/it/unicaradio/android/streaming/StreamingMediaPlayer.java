@@ -54,8 +54,8 @@ public class StreamingMediaPlayer extends Thread
 	{
 		this.urlString = url;
 		track = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
-				AudioFormat.CHANNEL_CONFIGURATION_MONO,
-				AudioFormat.ENCODING_PCM_16BIT, 8000, AudioTrack.MODE_STREAM);
+				AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
+				8000, AudioTrack.MODE_STREAM);
 		listenerList = new ArrayList<OnInfoListener>();
 	}
 
@@ -66,7 +66,6 @@ public class StreamingMediaPlayer extends Thread
 		try {
 			url = new URL(urlString);
 			URLConnection conn = url.openConnection();
-			conn.addRequestProperty("Icy-MetaData", "1");
 			for(int i = 0;; i++) {
 				String headerName = conn.getHeaderFieldKey(i);
 				String headerValue = conn.getHeaderField(i);
@@ -87,11 +86,7 @@ public class StreamingMediaPlayer extends Thread
 			}
 
 			InputStream inputStream = conn.getInputStream();
-			 try {
-			 track.play();
-			 } catch(Exception e) {
-			 e.printStackTrace();
-			 }
+			track.play();
 
 			int count = 0;
 			while(true) {
