@@ -14,14 +14,14 @@
  * 
  * Copyright UnicaRadio
  */
+package it.unicaradio.android.streaming.streamers;
 
-package it.unicaradio.android.streaming;
-
+import it.unicaradio.android.streaming.buffer.Bufferable;
+import it.unicaradio.android.streaming.buffer.ByteArrayBuffer;
 import it.unicaradio.android.streaming.events.OnInfoListener;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
@@ -30,76 +30,82 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
 import android.util.Log;
 
 /**
  * @author Paolo Cortis
+ * 
  */
-public class StreamingMediaPlayer extends Thread
+public class IcecastStreamer extends Bufferable implements Streamable
 {
+
 	private static final String SEPARATOR = " - ";
-
-	private final String urlString; // "http://streaming.unicaradio.it:80/unica64.aac"
-
-	private AudioTrack track;
 
 	private final List<OnInfoListener> listenerList;
 
+	URL url;
+
 	private boolean done;
 
-	public StreamingMediaPlayer(String url)
+	private boolean ready;
+
+	public IcecastStreamer(URL url)
 	{
-		this.urlString = url;
 		listenerList = new ArrayList<OnInfoListener>();
+
+		this.buffer = new ByteArrayBuffer();
+
 		done = false;
+
+		ready = false;
+
+		startStreaming();
 	}
 
-	@Override
-	public void run()
+	private void startStreaming()
 	{
-		try {
-			URL url = new URL(urlString);
-			URLConnection conn = url.openConnection();
-			conn.addRequestProperty("Icy-MetaData", "1");
+		Thread t = new Thread(new Runnable() {
 
-			int metaint = getMetaInt(conn);
+			public void run()
+			{
+				URLConnection conn;
+				try {
+					conn = url.openConnection();
+					conn.addRequestProperty("Icy-MetaData", "1");
+					InputStream inputStream = conn.getInputStream();
 
-			InputStream inputStream = conn.getInputStream();
-			System.out.println(AudioTrack.getMinBufferSize(44100,
-					AudioFormat.CHANNEL_OUT_STEREO,
-					AudioFormat.ENCODING_PCM_16BIT));
-
-			track = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
-					AudioFormat.CHANNEL_OUT_STEREO,
-					AudioFormat.ENCODING_PCM_16BIT, metaint,
-					AudioTrack.MODE_STREAM);
-			track.play();
-
-			int count = 0;
-			byte[] buffer = new byte[metaint];
-			while(!this.done) {
-				if(count == metaint) {
-					track.write(buffer, 0, metaint);
-					buffer = new byte[metaint];
-					count = 0;
-
-					getIcyInfos(inputStream);
+					int metaint = getMetaInt(conn);
+					int count = 0;
+					while(!done) {
+						if(count == metaint) {
+							count = 0;
+							getIcyInfos(inputStream);
+						}
+						int readData = inputStream.read();
+						buffer.add(readData);
+						checkBuffer();
+						count++;
+					}
+				} catch(IOException e) {
+					e.printStackTrace();
 				}
-				int readData = inputStream.read();
-				buffer[count] = (byte) readData;
-				// byte[] buffer = new byte[1];
-				// buffer[0] = (byte) readData;
-				// track.write(buffer, 0, 1);
-				count++;
 			}
-		} catch(MalformedURLException e) {
-			e.printStackTrace();
-		} catch(IOException e) {
-			e.printStackTrace();
+		});
+		t.start();
+	}
+
+	protected void checkBuffer()
+	{
+		// 1300 is the size of about 20 mp3 frames at 192bpm, 44100Hz
+		if(buffer.size() > 1300) {
+			if(!ready) {
+				fireOnBufferReadyEvent();
+				ready = true;
+			}
+		} else {
+			ready = false;
 		}
+		fireOnNewDataEvent();
 	}
 
 	private int getMetaInt(URLConnection conn)
@@ -117,7 +123,7 @@ public class StreamingMediaPlayer extends Thread
 			if(headerName != null && headerValue != null) {
 				String output = MessageFormat.format("{0}: {1}", headerName,
 						headerValue);
-				Log.i(StreamingMediaPlayer.class.getName(), output);
+				Log.i(IcecastStreamer.class.getName(), output);
 			}
 
 			if(headerName != null && headerName.equals("icy-metaint")) {
@@ -144,14 +150,14 @@ public class StreamingMediaPlayer extends Thread
 			// [1] == titolo canzone
 			// oppure se infos è grande 1, in [0] contiene il titolo
 			// di un programma
-			Log.i(StreamingMediaPlayer.class.getName(), metadataString);
+			Log.i(IcecastStreamer.class.getName(), metadataString);
 			fireOnInfoEvent(infos);
 		}
 	}
 
-	public void done()
+	public void stopStreaming()
 	{
-		this.done = true;
+		done = true;
 	}
 
 	public void addOnInfoListener(OnInfoListener listener)
@@ -170,4 +176,5 @@ public class StreamingMediaPlayer extends Thread
 			listener.onInfo(infos);
 		}
 	}
+
 }

@@ -17,7 +17,8 @@ import android.widget.Toast;
 
 public class Streaming extends Activity
 {
-	private StreamingMediaPlayer player;
+	private ShoutCastMediaPlayer player;
+	// private StreamingMediaPlayer player;
 
 	private ImageView playPauseButton;
 
@@ -70,7 +71,8 @@ public class Streaming extends Activity
 			public void onClick(View view)
 			{
 				if(player != null) {
-					player.done();
+					// player.done();
+					player.stop();
 					player = null;
 					// } else {
 					// play();
@@ -109,8 +111,10 @@ public class Streaming extends Activity
 	private void play()
 	{
 		if(player == null) {
-			player = new StreamingMediaPlayer(STREAM_URL);
-			player.start();
+			// player = new StreamingMediaPlayer(STREAM_URL);
+			// player.start();
+			player = new ShoutCastMediaPlayer(getApplicationContext());
+			player.startStreaming(STREAM_URL);
 			player.addOnInfoListener(new OnInfoListener() {
 				public void onInfo(String[] infos)
 				{
