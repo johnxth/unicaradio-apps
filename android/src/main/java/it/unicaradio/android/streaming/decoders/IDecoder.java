@@ -22,5 +22,5 @@ package it.unicaradio.android.streaming.decoders;
  */
 public interface IDecoder
 {
-
+	public void decodeFrame();
 }
