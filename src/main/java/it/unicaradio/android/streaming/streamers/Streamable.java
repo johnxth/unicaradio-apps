@@ -16,15 +16,43 @@
  */
 package it.unicaradio.android.streaming.streamers;
 
+import it.unicaradio.android.streaming.buffer.Bufferable;
 import it.unicaradio.android.streaming.events.OnInfoListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Paolo Cortis
  * 
  */
-public interface Streamable
+public abstract class Streamable extends Bufferable
 {
-	public void addOnInfoListener(OnInfoListener listener);
+	private final List<OnInfoListener> onInfolistenerList;
 
-	public void removeOnInfoListener(OnInfoListener listener);
+	public Streamable()
+	{
+		onInfolistenerList = new ArrayList<OnInfoListener>();
+	}
+
+	public void addOnInfoListener(OnInfoListener listener)
+	{
+		onInfolistenerList.add(listener);
+	}
+
+	public void removeOnInfoListener(OnInfoListener listener)
+	{
+		onInfolistenerList.remove(listener);
+	}
+
+	protected void fireOnInfoEvent(String infos[])
+	{
+		for(OnInfoListener listener : onInfolistenerList) {
+			listener.onInfo(infos);
+		}
+	}
+
+	public abstract void startStreaming();
+
+	public abstract void stopStreaming();
 }

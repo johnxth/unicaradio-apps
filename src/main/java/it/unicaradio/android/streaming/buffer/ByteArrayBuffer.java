@@ -16,6 +16,9 @@
  */
 package it.unicaradio.android.streaming.buffer;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 /**
  * @author Paolo Cortis
  * 
@@ -134,6 +137,18 @@ public class ByteArrayBuffer implements IBuffer
 				return oldBuffer;
 			}
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public InputStream getInputStream()
+	{
+		InputStream stream = new ByteArrayInputStream(buffer);
+		buffer = new byte[this.size];
+		count = 0;
+
+		return stream;
 	}
 
 	/**

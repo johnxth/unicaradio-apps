@@ -3,41 +3,81 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:padding="10px">
+	android:layout_height="fill_parent">
 	<TableLayout
 		android:id="@+id/tableLayout"
 		android:stretchColumns="1"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:background="@android:drawable/bottom_bar"
+		android:paddingTop="10dip"
+		android:paddingLeft="10dip">
 		<TableRow>
-			<ImageView
-				android:src="@drawable/play"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content" />
 			<TextView
 				android:id="@+id/title"
 				android:text="UnicaRadio"
 				android:layout_column="1"
 				android:layout_gravity="center_vertical"
-				android:textSize="20dp" />
+				android:textSize="30dp"
+				android:textColor="#FFFFFF" />
 		</TableRow>
 	</TableLayout>
+	<ImageView
+		android:id="@+id/cover"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:layout_below="@+id/tableLayout" />
 	<TextView
 		android:id="@+id/trackAuthor"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/tableLayout" />
+		android:layout_below="@+id/cover" />
 	<TextView
 		android:id="@+id/trackTitle"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/trackAuthor" />
-	<ImageView
+
+	<TextView
+		android:layout_above="@+id/footer"
+		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:src="@drawable/play"
+		android:text="prova" />
+	<TableLayout
+		android:id="@+id/footer"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
 		android:layout_alignParentBottom="true"
-		android:layout_centerInParent="true"
-		android:id="@+id/playPauseButton" />
+		android:background="@android:drawable/bottom_bar"
+		android:paddingTop="12dip">
+		<TableRow>
+			<ImageButton
+				android:layout_height="fill_parent"
+				android:layout_width="0dip"
+				android:layout_weight="1"
+				android:id="@+id/playPauseButton" />
+			<ImageButton
+				android:layout_height="fill_parent"
+				android:layout_width="0dip"
+				android:layout_weight="1"
+				android:src="@drawable/play" />
+			<ImageButton
+				android:layout_height="fill_parent"
+				android:layout_width="0dip"
+				android:layout_weight="1"
+				android:src="@drawable/play" />
+			<ImageButton
+				android:layout_height="fill_parent"
+				android:layout_width="0dip"
+				android:layout_weight="1"
+				android:src="@drawable/play" />
+			<ImageButton
+				android:layout_height="fill_parent"
+				android:layout_width="0dip"
+				android:layout_weight="1"
+				android:src="@drawable/play" />
+		</TableRow>
+	</TableLayout>
 </RelativeLayout>
