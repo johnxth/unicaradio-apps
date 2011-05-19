@@ -19,6 +19,7 @@ package it.unicaradio.android.streaming.buffer;
 import it.unicaradio.android.streaming.events.OnBufferReadyListener;
 import it.unicaradio.android.streaming.events.OnNewDataListener;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,16 @@ import java.util.List;
 public abstract class Bufferable
 {
 	protected IBuffer buffer;
+
+	public byte[] get(int size)
+	{
+		return buffer.get(size);
+	}
+
+	public InputStream getInputStream()
+	{
+		return buffer.getInputStream();
+	}
 
 	private final List<OnBufferReadyListener> onBufferReadylistenerList;
 

@@ -16,17 +16,13 @@
  */
 package it.unicaradio.android.streaming.streamers;
 
-import it.unicaradio.android.streaming.buffer.Bufferable;
 import it.unicaradio.android.streaming.buffer.ByteArrayBuffer;
-import it.unicaradio.android.streaming.events.OnInfoListener;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -36,12 +32,9 @@ import android.util.Log;
  * @author Paolo Cortis
  * 
  */
-public class IcecastStreamer extends Bufferable implements Streamable
+public class IcecastStreamer extends Streamable
 {
-
 	private static final String SEPARATOR = " - ";
-
-	private final List<OnInfoListener> listenerList;
 
 	URL url;
 
@@ -51,18 +44,17 @@ public class IcecastStreamer extends Bufferable implements Streamable
 
 	public IcecastStreamer(URL url)
 	{
-		listenerList = new ArrayList<OnInfoListener>();
+		super();
 
 		this.buffer = new ByteArrayBuffer();
-
 		done = false;
-
 		ready = false;
 
 		startStreaming();
 	}
 
-	private void startStreaming()
+	@Override
+	public void startStreaming()
 	{
 		Thread t = new Thread(new Runnable() {
 
@@ -94,7 +86,7 @@ public class IcecastStreamer extends Bufferable implements Streamable
 		t.start();
 	}
 
-	protected void checkBuffer()
+	private void checkBuffer()
 	{
 		// 1300 is the size of about 20 mp3 frames at 192bpm, 44100Hz
 		if(buffer.size() > 1300) {
@@ -155,26 +147,9 @@ public class IcecastStreamer extends Bufferable implements Streamable
 		}
 	}
 
+	@Override
 	public void stopStreaming()
 	{
 		done = true;
 	}
-
-	public void addOnInfoListener(OnInfoListener listener)
-	{
-		listenerList.add(listener);
-	}
-
-	public void removeOnInfoListener(OnInfoListener listener)
-	{
-		listenerList.remove(listener);
-	}
-
-	private void fireOnInfoEvent(String infos[])
-	{
-		for(OnInfoListener listener : listenerList) {
-			listener.onInfo(infos);
-		}
-	}
-
 }

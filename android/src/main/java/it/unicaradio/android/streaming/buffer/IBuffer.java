@@ -16,6 +16,7 @@
  */
 package it.unicaradio.android.streaming.buffer;
 
+import java.io.InputStream;
 
 /**
  * @author Paolo Cortis
@@ -73,6 +74,13 @@ public interface IBuffer
 	 *         bytes, otherwise the entire buffer
 	 */
 	public byte[] get(int size);
+
+	/**
+	 * Gets a {@link InputStream} containing the buffer
+	 * 
+	 * @return the {@link InputStream}
+	 */
+	public InputStream getInputStream();
 
 	/**
 	 * Gets the size of the buffer
