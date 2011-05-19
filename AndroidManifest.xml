@@ -16,7 +16,7 @@
 		android:icon="@drawable/icon"
 		android:label="@string/app_name">
 		<activity
-			android:name=".Streaming"
+			android:name=".StreamingActivity"
 			android:label="@string/app_name">
 			<intent-filter>
 				<action
