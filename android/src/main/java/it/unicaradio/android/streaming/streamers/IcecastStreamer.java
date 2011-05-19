@@ -46,11 +46,11 @@ public class IcecastStreamer extends Streamable
 	{
 		super();
 
+		this.url = url;
+		
 		this.buffer = new ByteArrayBuffer();
 		done = false;
 		ready = false;
-
-		startStreaming();
 	}
 
 	@Override
@@ -88,8 +88,8 @@ public class IcecastStreamer extends Streamable
 
 	private void checkBuffer()
 	{
-		// 1300 is the size of about 20 mp3 frames at 192bpm, 44100Hz
-		if(buffer.size() > 1300) {
+		// 13000 is the size of about 200 mp3 frames at 192bpm, 44100Hz
+		if(buffer.size() > 13000) {
 			if(!ready) {
 				fireOnBufferReadyEvent();
 				ready = true;

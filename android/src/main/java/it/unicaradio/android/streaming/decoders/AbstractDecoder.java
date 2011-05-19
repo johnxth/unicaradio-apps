@@ -14,18 +14,40 @@
  *
  * Copyright UnicaRadio
  */
-package it.unicaradio.android.streaming.buffer;
+package it.unicaradio.android.streaming.decoders;
+
+import it.unicaradio.android.streaming.buffer.Bufferable;
+import it.unicaradio.android.streaming.buffer.ByteArrayBuffer;
 
 /**
  * @author paolo.cortis
- *
+ * 
  */
-public abstract class AudioBufferable extends Bufferable
+public abstract class AbstractDecoder extends Bufferable implements IDecoder
 {
+	protected Bufferable streamer;
+
+	public AbstractDecoder()
+	{
+		buffer = new ByteArrayBuffer();
+	}
+
+	public abstract void decodeFrame();
+
 	/**
-	 * Gets the frame from the audio stream
-	 * 
-	 * @return a byte array containing a frame
+	 * @return the streamer
 	 */
-	public abstract byte[] getFrame();
+	public Bufferable getStreamer()
+	{
+		return streamer;
+	}
+
+	/**
+	 * @param streamer
+	 *            the streamer to set
+	 */
+	public void setStreamer(Bufferable streamer)
+	{
+		this.streamer = streamer;
+	}
 }

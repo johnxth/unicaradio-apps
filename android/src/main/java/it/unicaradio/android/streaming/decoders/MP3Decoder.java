@@ -16,9 +16,6 @@
  */
 package it.unicaradio.android.streaming.decoders;
 
-import it.unicaradio.android.streaming.buffer.AudioBufferable;
-import it.unicaradio.android.streaming.buffer.Bufferable;
-import it.unicaradio.android.streaming.buffer.ByteArrayBuffer;
 import javazoom.jl.decoder.Bitstream;
 import javazoom.jl.decoder.BitstreamException;
 import javazoom.jl.decoder.Decoder;
@@ -30,17 +27,14 @@ import javazoom.jl.decoder.SampleBuffer;
  * @author paolo.cortis
  * 
  */
-public class MP3Decoder extends AudioBufferable implements IDecoder
+public class MP3Decoder extends AbstractDecoder
 {
-	private final Bufferable streamer;
+	private boolean ready;
 
-	private final int frameSize;
-
-	public MP3Decoder(Bufferable streamer)
+	public MP3Decoder()
 	{
-		buffer = new ByteArrayBuffer();
-		frameSize = 144 * 192000 / 44100;
-		this.streamer = streamer;
+		super();
+		ready = false;
 	}
 
 	/**
@@ -59,6 +53,7 @@ public class MP3Decoder extends AudioBufferable implements IDecoder
 			for(short s : pcm) {
 				buffer.add(s & 0xff);
 				buffer.add((s >> 8) & 0xff);
+				checkBuffer();
 			}
 			stream.closeFrame();
 		} catch(BitstreamException e) {
@@ -69,12 +64,17 @@ public class MP3Decoder extends AudioBufferable implements IDecoder
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public byte[] getFrame()
+	private void checkBuffer()
 	{
-		return streamer.get(frameSize);
+		// 1300 is the size of about 200 mp3 frames at 192bpm, 44100Hz
+		if(buffer.size() > 13000) {
+			if(!ready) {
+				fireOnBufferReadyEvent();
+				ready = true;
+			}
+		} else {
+			ready = false;
+		}
+		fireOnNewDataEvent();
 	}
 }
