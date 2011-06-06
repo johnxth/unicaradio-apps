@@ -4,11 +4,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>it.unicaradio.android.streaming</groupId>
-	<artifactId>Streaming</artifactId>
+	<groupId>it.unicaradio.android</groupId>
+	<artifactId>UnicaRadio</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>apk</packaging>
-	<name>Streaming</name>
+	<name>UnicaRadio</name>
 
 	<dependencies>
 		<dependency>
@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.3</version>
+			<version>2.6</version>
 		</dependency>
 	</dependencies>
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<include
+		layout="@layout/titlebar" />
+
+	<ListView
+		android:id="@+id/scheduleList"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_above="@+id/tabBar"
+		android:layout_below="@+id/titlebar" />
+
+	<include
+		layout="@layout/tabs" />
+</RelativeLayout>

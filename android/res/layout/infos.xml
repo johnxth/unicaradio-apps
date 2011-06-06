@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<include
+		layout="@layout/titlebar" />
+
+	<ScrollView
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_above="@+id/tabBar"
+		android:layout_below="@+id/titlebar">
+
+		<RelativeLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+
+			<TextView
+				android:id="@+id/infosText"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:layout_alignParentTop="true"
+				android:padding="30dip" />
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				android:layout_below="@+id/infosText"
+				android:layout_above="@+id/tabBar"
+				android:padding="40dip"
+				android:src="@drawable/logo" />
+
+		</RelativeLayout>
+	</ScrollView>
+
+	<include
+		layout="@layout/tabs" />
+</RelativeLayout>

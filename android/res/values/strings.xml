@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">UnicaRadio</string>
+	<string name="app_name">UnicaRadio</string>
+	<string name="infos">
+		<![CDATA[
+			<font color=\'#FF0000\'><b>UnicaRadio</b></font>,
+			la webradio degli studenti universitari di Cagliari.
+			<br />
+			<br />
+			Software sviluppato da
+			<a href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'>
+			Paolo Cortis</a> per conto di <font color=\'#FF0000\'><b>
+			UnicaRadio</b></font>, sotto i termini e le condizioni della
+			licenza GPLv2.
+			<br />
+			<br />
+			Codice sorgente liberamente scaricabile da
+			<a href=\'http://code.google.com/p/unicaradio-apps/\'>Google Code</a>.
+		]]>
+	</string>
 </resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<it.unicaradio.android.gui.TabBar
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_alignParentBottom="true"
+	android:id="@+id/tabBar">
+	<it.unicaradio.android.gui.Tabs
+		android:id="@+id/tabs"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<it.unicaradio.android.gui.Tab
+			android:id="@+id/streamingTab"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="15dip"
+			android:paddingBottom="15dip"
+			android:background="@drawable/tab_bg_selector">
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/onair" />
+		</it.unicaradio.android.gui.Tab>
+		<it.unicaradio.android.gui.Tab
+			android:id="@+id/scheduleTab"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="15dip"
+			android:paddingBottom="15dip"
+			android:background="@drawable/tab_bg_selector">
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/schedule" />
+		</it.unicaradio.android.gui.Tab>
+		<it.unicaradio.android.gui.Tab
+			android:id="@+id/songTab"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="15dip"
+			android:paddingBottom="15dip"
+			android:background="@drawable/tab_bg_selector">
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/song" />
+		</it.unicaradio.android.gui.Tab>
+		<it.unicaradio.android.gui.Tab
+			android:id="@+id/favoritesTab"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="15dip"
+			android:paddingBottom="15dip"
+			android:background="@drawable/tab_bg_selector">
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/favorites" />
+		</it.unicaradio.android.gui.Tab>
+		<it.unicaradio.android.gui.Tab
+			android:id="@+id/infosTab"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="15dip"
+			android:paddingBottom="15dip"
+			android:background="@drawable/tab_bg_selector">
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/info" />
+		</it.unicaradio.android.gui.Tab>
+	</it.unicaradio.android.gui.Tabs>
+</it.unicaradio.android.gui.TabBar>
