@@ -22,7 +22,6 @@ import android.widget.TableLayout;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class TabBar extends TableLayout
 {

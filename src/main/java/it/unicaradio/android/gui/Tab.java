@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class Tab extends LinearLayout
 {

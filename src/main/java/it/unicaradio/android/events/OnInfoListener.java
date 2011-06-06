@@ -16,11 +16,10 @@
  */
 package it.unicaradio.android.events;
 
-import it.unicaradio.android.TrackInfos;
+import it.unicaradio.android.gui.TrackInfos;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public interface OnInfoListener
 {
