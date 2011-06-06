@@ -33,7 +33,6 @@ import android.view.Display;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class ImageUtils
 {

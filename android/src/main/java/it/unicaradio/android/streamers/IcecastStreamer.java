@@ -16,7 +16,7 @@
  */
 package it.unicaradio.android.streamers;
 
-import it.unicaradio.android.TrackInfos;
+import it.unicaradio.android.gui.TrackInfos;
 
 import java.io.IOException;
 import java.net.URLConnection;
@@ -28,7 +28,6 @@ import android.util.Log;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class IcecastStreamer extends Streamable
 {
@@ -127,10 +126,13 @@ public class IcecastStreamer extends Streamable
 			String artistAndTitle = StringUtils.substringBetween(
 					metadataString, "=", ";");
 			artistAndTitle = StringUtils.substring(artistAndTitle, 1, -1);
-			//String[] infos = StringUtils.splitByWholeSeparator(artistAndTitle, SEPARATOR);
+			// String[] infos =
+			// StringUtils.splitByWholeSeparator(artistAndTitle, SEPARATOR);
 			TrackInfos infos = new TrackInfos();
-			infos.setAuthor(StringUtils.substringBefore(artistAndTitle, SEPARATOR));
-			infos.setTitle(StringUtils.substringAfter(artistAndTitle, SEPARATOR));
+			infos.setAuthor(StringUtils.substringBefore(artistAndTitle,
+					SEPARATOR));
+			infos.setTitle(StringUtils
+					.substringAfter(artistAndTitle, SEPARATOR));
 			// infos contiene:
 			// [0] == artista
 			// [1] == titolo canzone

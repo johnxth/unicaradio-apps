@@ -1,8 +1,25 @@
+/**
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; version 2 of the License.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ * Copyright UnicaRadio
+ */
 package it.unicaradio.android;
 
 import it.unicaradio.android.events.OnInfoListener;
 import it.unicaradio.android.gui.ImageUtils;
 import it.unicaradio.android.gui.Tabs;
+import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.streamers.IcecastStreamer;
 import it.unicaradio.android.streamers.Streamable;
 
@@ -41,6 +58,9 @@ import com.spoledge.aacplayer.ArrayAACPlayer;
 import com.spoledge.aacplayer.ArrayDecoder;
 import com.spoledge.aacplayer.Decoder;
 
+/**
+ * @author Paolo Cortis
+ */
 public class StreamingActivity extends Activity
 {
 	private static final String STREAM_URL = "http://streaming.unicaradio.it:80/unica64.aac";

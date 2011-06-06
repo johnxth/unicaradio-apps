@@ -22,7 +22,6 @@ import android.widget.TableRow;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class Tabs extends TableRow
 {

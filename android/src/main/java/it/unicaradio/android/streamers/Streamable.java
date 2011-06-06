@@ -16,8 +16,8 @@
  */
 package it.unicaradio.android.streamers;
 
-import it.unicaradio.android.TrackInfos;
 import it.unicaradio.android.events.OnInfoListener;
+import it.unicaradio.android.gui.TrackInfos;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -26,7 +26,6 @@ import java.util.List;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public abstract class Streamable extends BufferedInputStream
 {

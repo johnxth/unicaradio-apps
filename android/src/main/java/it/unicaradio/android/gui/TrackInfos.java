@@ -14,7 +14,9 @@
  * 
  * Copyright UnicaRadio
  */
-package it.unicaradio.android;
+package it.unicaradio.android.gui;
+
+import it.unicaradio.android.R;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -24,7 +26,6 @@ import android.graphics.BitmapFactory;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class TrackInfos
 {
