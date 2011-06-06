@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<include
+		layout="@layout/titlebar" />
+
+	<ScrollView
+		android:layout_above="@+id/tabBar"
+		android:layout_below="@+id/titlebar"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:padding="15dp">
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:textSize="20dp"
+				android:text="Richiedi una canzone!" />
+
+			<EditText
+				android:id="@+id/author"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:padding="15dp"
+				android:layout_marginTop="20dp"
+				android:hint="Autore" />
+
+			<EditText
+				android:id="@+id/title"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:padding="15dp"
+				android:layout_marginTop="10dp"
+				android:hint="Titolo canzone" />
+
+			<Button
+				android:id="@+id/songButton"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="45dp"
+				android:gravity="center"
+				android:text="Invia" />
+		</LinearLayout>
+	</ScrollView>
+
+	<include
+		layout="@layout/tabs" />
+</RelativeLayout>
