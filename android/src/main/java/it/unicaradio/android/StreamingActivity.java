@@ -470,11 +470,14 @@ public class StreamingActivity extends Activity
 							.get("programma").toString();
 					String inizio = itemArray.getJSONObject(i).get("inizio")
 							.toString();
-					String fine = itemArray.getJSONObject(i).get("fine")
-							.toString();
 
-					schedule.add(MessageFormat.format("{0}-{1}: {2}", inizio,
-							fine, programma));
+					schedule.add(MessageFormat.format("{0}  -  {1}", inizio,
+							programma));
+
+					// String fine = itemArray.getJSONObject(i).get("fine")
+					// .toString();
+					// schedule.add(MessageFormat.format("{0}-{1}: {2}", inizio,
+					// fine, programma));
 				}
 
 				SCHEDULE[j] = schedule.toArray(new String[schedule.size()]);
