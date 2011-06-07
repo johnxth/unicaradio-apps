@@ -20,6 +20,7 @@ import it.unicaradio.android.events.OnInfoListener;
 import it.unicaradio.android.gui.ImageUtils;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.gui.TrackInfos;
+import it.unicaradio.android.gui.Utils;
 import it.unicaradio.android.streamers.IcecastStreamer;
 import it.unicaradio.android.streamers.Streamable;
 
@@ -27,8 +28,14 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -42,6 +49,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,7 +75,7 @@ public class StreamingActivity extends Activity
 
 	private static final String ONAIR_COVER_URL = "http://www.unicaradio.it/regia/OnAir.jpg";
 
-	private static final String SCHEDULE_URL = "http://www.unicaradio.it/regia/schedule.php";
+	private static final String SCHEDULE_URL = "http://www.unicaradio.it/regia/test/palinsesto.php";
 
 	private Streamable streamer;
 
@@ -106,17 +114,10 @@ public class StreamingActivity extends Activity
 
 	private final View[] tabs = new View[5];
 
-	static final String[] DAYS = new String[] {"Lunedì", "Martedì",
-			"Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
+	static final String[] DAYS = new String[] { "Lunedì", "Martedì",
+			"Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica" };
 
-	static final String[][] SCHEDULE = new String[][] {
-			{"08:00 Prova", "09:00 Prova2", "10:00 Prova3"},
-			{"08:00 Test", "09:00 Test2", "10:00 Test3"},
-			{"08:00 Prova", "09:00 Prova2", "10:00 Prova3"},
-			{"08:00 Test", "09:00 Test2", "10:00 Test3"},
-			{"08:00 Prova", "09:00 Prova2", "10:00 Prova3"},
-			{"08:00 Test", "09:00 Test2", "10:00 Test3"},
-			{"08:00 Test", "09:00 Test2", "10:00 Test3"}};
+	static final String[][] SCHEDULE = new String[7][];
 
 	private int state = 0;
 
@@ -125,6 +126,8 @@ public class StreamingActivity extends Activity
 	private ArrayAACPlayer player;
 
 	private URLConnection conn;
+
+	private static String LOG = StreamingActivity.class.getName();
 
 	private final static ArrayList<HashMap<String, String>> SITES = new ArrayList<HashMap<String, String>>();
 
@@ -222,9 +225,15 @@ public class StreamingActivity extends Activity
 								} catch(InterruptedException e) {
 									e.printStackTrace();
 								}
-								infos.setCover(imageUtils
-										.downloadFromUrl(ONAIR_COVER_URL));
-								mHandler.post(mUpdateResults);
+								try {
+									infos.setCover(imageUtils
+											.downloadFromUrl(ONAIR_COVER_URL));
+									mHandler.post(mUpdateResults);
+								} catch(IOException e) {
+									Log.d(LOG, MessageFormat.format(
+											"Cannot find file {0}",
+											ONAIR_COVER_URL));
+								}
 							}
 						}
 					});
@@ -340,9 +349,9 @@ public class StreamingActivity extends Activity
 	{
 		ListView lv = (ListView) findViewById(R.id.linksList);
 		lv.setAdapter(new SimpleAdapter(this, SITES,
-				R.layout.list_two_lines_and_image, new String[] {"line1",
-						"line2", "icon"}, new int[] {R.id.text1, R.id.text2,
-						R.id.icon}));
+				R.layout.list_two_lines_and_image, new String[] { "line1",
+						"line2", "icon" }, new int[] { R.id.text1, R.id.text2,
+						R.id.icon }));
 	}
 
 	protected void setupFavoritesListeners()
@@ -379,10 +388,17 @@ public class StreamingActivity extends Activity
 			{
 				if(state == 0) {
 					state = 1;
-					lv.setAdapter(new ArrayAdapter<String>(
-							StreamingActivity.this,
-							android.R.layout.simple_list_item_1,
-							SCHEDULE[(int) id]));
+					if(SCHEDULE[(int) id] != null) {
+						lv.setAdapter(new ArrayAdapter<String>(
+								StreamingActivity.this,
+								android.R.layout.simple_list_item_1,
+								SCHEDULE[(int) id]));
+					} else {
+						lv.setAdapter(new ArrayAdapter<String>(
+								StreamingActivity.this,
+								android.R.layout.simple_list_item_1,
+								new String[] { "" }));
+					}
 				}
 			}
 		});
@@ -421,8 +437,51 @@ public class StreamingActivity extends Activity
 	{
 		state = 0;
 		ListView lv = (ListView) findViewById(R.id.scheduleList);
+		updateScheduleFromJSON();
 		lv.setAdapter(new ArrayAdapter<String>(StreamingActivity.this,
 				android.R.layout.simple_list_item_1, DAYS));
+	}
+
+	private void updateScheduleFromJSON()
+	{
+		String json = null;
+		try {
+			json = new String(Utils.downloadFromUrl(SCHEDULE_URL));
+		} catch(IOException e) {
+			Log.d(LOG,
+					MessageFormat.format("Cannot find file {0}", SCHEDULE_URL));
+			return;
+		}
+
+		JSONObject jObject = null;
+		try {
+			jObject = new JSONObject(json);
+
+			String[] days = new String[] { "lunedi", "martedi", "mercoledi",
+					"giovedi", "venerdi", "sabato", "domenica" };
+
+			for(int j = 0; j < days.length; j++) {
+				String day = days[j];
+
+				List<String> schedule = new ArrayList<String>();
+				JSONArray itemArray = jObject.getJSONArray(day);
+				for(int i = 0; i < itemArray.length(); i++) {
+					String programma = itemArray.getJSONObject(i)
+							.get("programma").toString();
+					String inizio = itemArray.getJSONObject(i).get("inizio")
+							.toString();
+					String fine = itemArray.getJSONObject(i).get("fine")
+							.toString();
+
+					schedule.add(MessageFormat.format("{0}-{1}: {2}", inizio,
+							fine, programma));
+				}
+
+				SCHEDULE[j] = schedule.toArray(new String[schedule.size()]);
+			}
+		} catch(JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void openLink(String url)
