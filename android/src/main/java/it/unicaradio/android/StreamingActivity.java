@@ -25,6 +25,7 @@ import it.unicaradio.android.streamers.IcecastStreamer;
 import it.unicaradio.android.streamers.Streamable;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
@@ -178,16 +179,16 @@ public class StreamingActivity extends Activity
 
 		updateResultsInUi();
 
-		// try {
-		// URL url = new URL(STREAM_URL);
-		// play(url);
-		// } catch (MalformedURLException e) {
-		// // TODO: handle exception
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// // TODO: handle exception
-		// e.printStackTrace();
-		// }
+		try {
+			URL url = new URL(STREAM_URL);
+			play(url);
+		} catch(MalformedURLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} catch(IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
 		registerReceiver(broadcastReceiver, new IntentFilter(
 				ConnectivityManager.CONNECTIVITY_ACTION));
