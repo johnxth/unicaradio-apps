@@ -33,25 +33,27 @@ public final class R {
     public static final class id {
         public static final int author=0x7f050009;
         public static final int cover=0x7f050008;
-        public static final int favoritesTab=0x7f050013;
+        public static final int favoritesTab=0x7f050014;
         public static final int icon=0x7f050006;
-        public static final int infosTab=0x7f050014;
+        public static final int infosTab=0x7f050015;
         public static final int infosText=0x7f050002;
         public static final int linksList=0x7f050003;
         public static final int playPauseButton=0x7f05000b;
         public static final int playPauseDivider=0x7f050007;
         public static final int scheduleList=0x7f05000c;
-        public static final int scheduleTab=0x7f050011;
-        public static final int songButton=0x7f05000e;
-        public static final int songTab=0x7f050012;
+        public static final int scheduleTab=0x7f050012;
+        public static final int songButton=0x7f05000f;
+        public static final int songTab=0x7f050013;
         public static final int songTitle=0x7f05000a;
-        public static final int streamingTab=0x7f050010;
+        public static final int songsAuthor=0x7f05000d;
+        public static final int songsTitle=0x7f05000e;
+        public static final int streamingTab=0x7f050011;
         public static final int tabBar=0x7f050000;
-        public static final int tabs=0x7f05000f;
+        public static final int tabs=0x7f050010;
         public static final int text1=0x7f050004;
         public static final int text2=0x7f050005;
-        public static final int title=0x7f05000d;
-        public static final int titleDivider=0x7f050015;
+        public static final int title=0x7f050016;
+        public static final int titleDivider=0x7f050017;
         public static final int titlebar=0x7f050001;
     }
     public static final class layout {

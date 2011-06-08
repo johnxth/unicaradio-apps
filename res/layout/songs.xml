@@ -27,7 +27,7 @@
 				android:text="Richiedi una canzone!" />
 
 			<EditText
-				android:id="@+id/author"
+				android:id="@+id/songsAuthor"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:padding="15dp"
@@ -35,7 +35,7 @@
 				android:hint="Autore" />
 
 			<EditText
-				android:id="@+id/title"
+				android:id="@+id/songsTitle"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:padding="15dp"
