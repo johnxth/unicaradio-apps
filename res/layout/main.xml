@@ -25,8 +25,9 @@
 			<TextView
 				android:id="@+id/author"
 				android:layout_below="@+id/cover"
-				android:layout_width="wrap_content"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
 				android:paddingTop="25dp"
 				android:textSize="20dp"
 				android:layout_centerHorizontal="true"
@@ -34,8 +35,9 @@
 			<TextView
 				android:id="@+id/songTitle"
 				android:layout_below="@+id/author"
-				android:layout_width="wrap_content"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
 				android:textSize="30dp"
 				android:paddingBottom="25dp"
 				android:layout_centerHorizontal="true"
