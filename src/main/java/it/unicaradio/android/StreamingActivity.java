@@ -50,6 +50,9 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -261,12 +264,12 @@ public class StreamingActivity extends Activity
 
 	private void stop()
 	{
-		conn = null;
-		streamer = null;
 		if(player != null) {
 			player.stop();
 			player = null;
 		}
+		streamer = null;
+		conn = null;
 	}
 
 	private void setupListeners()
@@ -520,12 +523,37 @@ public class StreamingActivity extends Activity
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle item selection
+		switch(item.getItemId()) {
+			case R.id.exit:
+				unregisterReceiver(broadcastReceiver);
+				stop();
+				finish();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 		if((keyCode == KeyEvent.KEYCODE_BACK)) {
 			if(curTab == Tabs.SCHEDULE && state == 1) {
 				setupScheduleTab();
 				return true;
+			} else {
+				moveTaskToBack(true);
 			}
 		}
 
