@@ -375,7 +375,29 @@ public class StreamingActivity extends Activity
 	{
 		setupListeners();
 
-		// TODO: Completare
+		View songButton = findViewById(R.id.songButton);
+		songButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v)
+			{
+				TextView author = (TextView) findViewById(R.id.songsAuthor);
+				TextView title = (TextView) findViewById(R.id.songsTitle);
+				final Intent emailIntent = new Intent(
+						android.content.Intent.ACTION_SEND);
+
+				emailIntent.setType("plain/text");
+				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+						new String[] {"diretta@unicaradio.it"});
+				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+						author.getText().toString() + "*"
+								+ title.getText().toString());
+				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+						"Sent from Android APP");
+
+				StreamingActivity.this.startActivity(Intent.createChooser(
+						emailIntent, "Send mail..."));
+			}
+		});
 	}
 
 	private void setupScheduleListeners()
