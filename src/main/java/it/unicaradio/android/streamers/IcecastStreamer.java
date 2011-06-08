@@ -20,6 +20,7 @@ import it.unicaradio.android.gui.TrackInfos;
 
 import java.io.IOException;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.text.MessageFormat;
 
 import org.apache.commons.lang.StringUtils;
@@ -122,7 +123,7 @@ public class IcecastStreamer extends Streamable
 			for(int i = 0; i < length; i++) {
 				metadata[i] = (byte) super.read();
 			}
-			String metadataString = new String(metadata);
+			String metadataString = new String(metadata, "ISO-8859-1");
 			String artistAndTitle = StringUtils.substringBetween(
 					metadataString, "=", ";");
 			artistAndTitle = StringUtils.substring(artistAndTitle, 1, -1);
