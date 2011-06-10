@@ -58,6 +58,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -80,8 +81,6 @@ public class StreamingActivity extends Activity
 	private static final String SCHEDULE_URL = "http://www.unicaradio.it/regia/test/palinsesto.php";
 
 	private Streamable streamer;
-
-	private ImageView playPauseButton;
 
 	private TrackInfos infos;
 
@@ -107,9 +106,7 @@ public class StreamingActivity extends Activity
 
 			if(noConnectivity) {
 				stop();
-				Toast.makeText(StreamingActivity.this,
-						"Attenzione. Non sei connesso ad Internet.",
-						Toast.LENGTH_LONG);
+				showMessage("Attenzione. Non sei connesso ad Internet.");
 			}
 		}
 	};
@@ -118,8 +115,6 @@ public class StreamingActivity extends Activity
 
 	static final String[] DAYS = new String[] {"Lunedì", "Martedì",
 			"Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
-
-	// static final String[][] SCHEDULE = new String[7][];
 
 	private int state = 0;
 
@@ -167,6 +162,11 @@ public class StreamingActivity extends Activity
 		return item;
 	}
 
+	private void showMessage(String message)
+	{
+		Toast.makeText(StreamingActivity.this, message, Toast.LENGTH_LONG);
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -176,22 +176,11 @@ public class StreamingActivity extends Activity
 		infos = new TrackInfos(getApplicationContext());
 		imageUtils = new ImageUtils(getWindowManager().getDefaultDisplay());
 
-		setupListeners();
+		setupStreamingListeners();
 		curTab = 0;
 		tabs[0].setSelected(true);
 
 		updateResultsInUi();
-
-		try {
-			URL url = new URL(STREAM_URL);
-			play(url);
-		} catch(MalformedURLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} catch(IOException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
 
 		registerReceiver(broadcastReceiver, new IntentFilter(
 				ConnectivityManager.CONNECTIVITY_ACTION));
@@ -254,7 +243,9 @@ public class StreamingActivity extends Activity
 					try {
 						player.play(streamer);
 					} catch(Exception e) {
-						e.printStackTrace();
+						stop();
+						showMessage("E' avvenuto un problema. Riprova.");
+						Log.d(LOG, e.getMessage());
 					}
 				}
 			});
@@ -264,6 +255,8 @@ public class StreamingActivity extends Activity
 
 	private void stop()
 	{
+		infos.clean();
+		mHandler.post(mUpdateResults);
 		if(player != null) {
 			player.stop();
 			player = null;
@@ -284,7 +277,7 @@ public class StreamingActivity extends Activity
 					setContentView(R.layout.main);
 					updatedReferences();
 					updateResultsInUi();
-					setupListeners();
+					setupStreamingListeners();
 					tabs[0].setSelected(true);
 				}
 			}
@@ -337,6 +330,36 @@ public class StreamingActivity extends Activity
 					setupInfosTab();
 					setupListeners();
 					tabs[4].setSelected(true);
+				}
+			}
+		});
+	}
+
+	protected void setupStreamingListeners()
+	{
+		setupListeners();
+
+		final ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
+		playPauseButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0)
+			{
+				playPauseButton
+						.setImageResource(android.R.drawable.ic_media_pause);
+				if(conn == null) {
+					try {
+						URL url = new URL(STREAM_URL);
+						play(url);
+					} catch(MalformedURLException e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					} catch(IOException e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+				} else {
+					playPauseButton
+							.setImageResource(android.R.drawable.ic_media_play);
+					stop();
 				}
 			}
 		});

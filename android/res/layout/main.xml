@@ -51,7 +51,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="1dp"
 		android:layout_above="@+id/playPauseButton" />
-	<ImageView
+	<ImageButton
 		android:id="@+id/playPauseButton"
 		android:layout_above="@+id/tabBar"
 		android:layout_width="fill_parent"
