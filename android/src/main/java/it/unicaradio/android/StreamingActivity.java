@@ -380,7 +380,6 @@ public class StreamingActivity extends Activity
 
 		View songButton = findViewById(R.id.songButton);
 		songButton.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View v)
 			{
 				TextView author = (TextView) findViewById(R.id.songsAuthor);
@@ -554,6 +553,7 @@ public class StreamingActivity extends Activity
 				return true;
 			} else {
 				moveTaskToBack(true);
+				return true;
 			}
 		}
 
