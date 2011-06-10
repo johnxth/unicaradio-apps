@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.unicaradio.android</groupId>
 	<artifactId>UnicaRadio</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>apk</packaging>
 	<name>UnicaRadio</name>
 
