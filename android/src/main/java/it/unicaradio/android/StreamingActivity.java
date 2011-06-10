@@ -216,7 +216,7 @@ public class StreamingActivity extends Activity
 								try {
 									wait(5000);
 								} catch(InterruptedException e) {
-									e.printStackTrace();
+									Log.d(LOG, "Thread interrotto", e);
 								}
 								try {
 									infos.setCover(imageUtils
@@ -243,14 +243,24 @@ public class StreamingActivity extends Activity
 					try {
 						player.play(streamer);
 					} catch(Exception e) {
-						stop();
-						showMessage("E' avvenuto un problema. Riprova.");
-						Log.d(LOG, e.getMessage());
+						stopWithException(e);
 					}
 				}
 			});
 			playThread.start();
 		}
+	}
+
+	private void stopWithException(Exception e)
+	{
+		stopWithException("E' avvenuto un problema. Riprova.", e);
+	}
+
+	private void stopWithException(String message, Exception e)
+	{
+		stop();
+		showMessage(message);
+		Log.d(LOG, message, e);
 	}
 
 	private void stop()
@@ -350,11 +360,11 @@ public class StreamingActivity extends Activity
 						URL url = new URL(STREAM_URL);
 						play(url);
 					} catch(MalformedURLException e) {
-						// TODO: handle exception
-						e.printStackTrace();
+						stopWithException(
+								"Errore: l'indirizzo di streaming non è corretto.",
+								e);
 					} catch(IOException e) {
-						// TODO: handle exception
-						e.printStackTrace();
+						stopWithException(e);
 					}
 				} else {
 					playPauseButton
@@ -533,7 +543,7 @@ public class StreamingActivity extends Activity
 				}
 			}
 		} catch(JSONException e) {
-			e.printStackTrace();
+			Log.d(LOG, "Errore durante il parsing del file JSON", e);
 		}
 	}
 
