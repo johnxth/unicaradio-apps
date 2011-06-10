@@ -588,6 +588,9 @@ public class StreamingActivity extends Activity
 				moveTaskToBack(true);
 				return true;
 			}
+		} else if(keyCode == KeyEvent.KEYCODE_HOME) {
+			moveTaskToBack(true);
+			return true;
 		}
 
 		return super.onKeyDown(keyCode, event);
