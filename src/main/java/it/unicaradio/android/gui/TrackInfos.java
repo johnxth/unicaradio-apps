@@ -39,14 +39,20 @@ public class TrackInfos
 
 	public TrackInfos()
 	{
-		setAuthor(null);
-		setTitle(null);
+		clean();
 	}
 
 	public TrackInfos(Context context)
 	{
 		this();
 		this.context = context;
+		clean();
+	}
+
+	public void clean()
+	{
+		setAuthor(null);
+		setTitle(null);
 		setCover(null);
 	}
 
@@ -55,11 +61,7 @@ public class TrackInfos
 		synchronized(this) {
 			setAuthor(infos.getAuthor());
 			setTitle(infos.getTitle());
-			if(cover != null || (cover == null && context != null)) {
-				setCover(infos.getCover());
-			} else {
-				cover = null;
-			}
+			setCover(infos.getCover());
 		}
 	}
 
