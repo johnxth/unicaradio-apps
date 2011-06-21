@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -428,6 +429,13 @@ public class StreamingActivity extends Activity
 								+ title.getText().toString());
 				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
 						"Sent from Android APP");
+
+				AlertDialog.Builder adb = new AlertDialog.Builder(
+						StreamingActivity.this);
+				adb.setTitle("Invio richiesta canzone...");
+				adb.setMessage("Attenzione!! Non modificare l'e-mail!");
+				adb.setPositiveButton("Ok", null);
+				adb.show();
 
 				StreamingActivity.this.startActivity(Intent.createChooser(
 						emailIntent, "Send mail..."));
