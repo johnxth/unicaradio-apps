@@ -47,6 +47,8 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -98,7 +100,7 @@ public class StreamingActivity extends Activity
 		}
 	};
 
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+	private final BroadcastReceiver connectivityBroadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
@@ -109,6 +111,34 @@ public class StreamingActivity extends Activity
 				stop();
 				showMessage("Attenzione. Non sei connesso ad Internet.");
 			}
+		}
+	};
+
+	private class MyPhoneStateListener extends PhoneStateListener
+	{
+		@Override
+		public void onCallStateChanged(int state, String incomingNumber)
+		{
+			switch(state) {
+				case TelephonyManager.CALL_STATE_OFFHOOK:
+					stop();
+					break;
+				case TelephonyManager.CALL_STATE_RINGING:
+					stop();
+					break;
+			}
+		}
+	}
+
+	private final BroadcastReceiver telephonyBroadcastReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent)
+		{
+			MyPhoneStateListener phoneListener = new MyPhoneStateListener();
+			TelephonyManager telephony = (TelephonyManager) context
+					.getSystemService(Context.TELEPHONY_SERVICE);
+			telephony.listen(phoneListener,
+					PhoneStateListener.LISTEN_CALL_STATE);
 		}
 	};
 
@@ -183,8 +213,10 @@ public class StreamingActivity extends Activity
 
 		updateResultsInUi();
 
-		registerReceiver(broadcastReceiver, new IntentFilter(
+		registerReceiver(connectivityBroadcastReceiver, new IntentFilter(
 				ConnectivityManager.CONNECTIVITY_ACTION));
+		registerReceiver(telephonyBroadcastReceiver, new IntentFilter(
+				TelephonyManager.ACTION_PHONE_STATE_CHANGED));
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		boolean isConnected = cm.getActiveNetworkInfo() != null
 				&& cm.getActiveNetworkInfo().isConnected();
@@ -576,7 +608,7 @@ public class StreamingActivity extends Activity
 		// Handle item selection
 		switch(item.getItemId()) {
 			case R.id.exit:
-				unregisterReceiver(broadcastReceiver);
+				unregisterReceiver(connectivityBroadcastReceiver);
 				stop();
 				finish();
 				return true;
