@@ -42,6 +42,9 @@
 					<sdk>
 						<platform>7</platform>
 					</sdk>
+					<sign>
+						<debug>both</debug>
+					</sign>
 					<deleteConflictingFiles>true</deleteConflictingFiles>
 					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 				</configuration>
