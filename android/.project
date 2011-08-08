@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>Streaming</name>
-	<comment>NO_M2ECLIPSE_SUPPORT: Project files created with the
-		maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -31,15 +30,16 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-		<buildCommand>
-			<name>org.maven.ide.eclipse.maven2Builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.maven.ide.eclipse.maven2Nature</nature>
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>AACPlayerActivity_src</name>
+			<type>2</type>
+			<locationURI>_android_AACPlayerActivity_cd2ed013/src</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
