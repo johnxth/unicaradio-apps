@@ -92,7 +92,9 @@ public class StreamingActivity extends Activity
 
 	private Thread imageThread;
 
-	final Handler mHandler = new Handler();
+	private final Handler mHandler = new Handler();
+
+	private ImageButton playPauseButton;
 
 	final Runnable mUpdateResults = new Runnable() {
 		public void run()
@@ -302,6 +304,10 @@ public class StreamingActivity extends Activity
 		infos.clean();
 		mHandler.post(mUpdateResults);
 		if(player != null) {
+			if(playPauseButton != null && curTab == Tabs.STREAMING) {
+				playPauseButton
+						.setImageResource(android.R.drawable.ic_media_play);
+			}
 			player.stop();
 			player = null;
 		}
@@ -406,8 +412,6 @@ public class StreamingActivity extends Activity
 						stopWithException(e);
 					}
 				} else {
-					playPauseButton
-							.setImageResource(android.R.drawable.ic_media_play);
 					stop();
 				}
 			}
