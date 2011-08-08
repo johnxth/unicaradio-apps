@@ -44,6 +44,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -386,6 +387,11 @@ public class StreamingActivity extends Activity
 		playPauseButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0)
 			{
+				if(!isConnected()) {
+					showAlertDialog("Unicaradio",
+							"Attenzione! Non sei connesso ad internet!");
+					return;
+				}
 				playPauseButton
 						.setImageResource(android.R.drawable.ic_media_pause);
 				if(conn == null) {
@@ -592,6 +598,27 @@ public class StreamingActivity extends Activity
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setData(Uri.parse(url));
 		startActivity(i);
+	}
+
+	private boolean isConnected()
+	{
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		for(NetworkInfo info : connectivityManager.getAllNetworkInfo()) {
+			if(info.isConnected()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void showAlertDialog(String title, String message)
+	{
+		AlertDialog.Builder adb = new AlertDialog.Builder(
+				StreamingActivity.this);
+		adb.setTitle(title);
+		adb.setMessage(message);
+		adb.setPositiveButton("Ok", null);
+		adb.show();
 	}
 
 	@Override
