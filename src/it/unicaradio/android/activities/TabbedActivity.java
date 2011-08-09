@@ -14,40 +14,15 @@
  * 
  * Copyright UnicaRadio
  */
-package it.unicaradio.android.gui;
+package it.unicaradio.android.activities;
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.widget.TableRow;
+import android.app.Activity;
 
 /**
  * @author Paolo Cortis
+ * 
  */
-public class Tabs extends TableRow
+public abstract class TabbedActivity extends Activity
 {
-	public static final int STREAMING = 0;
-
-	public static final int SCHEDULE = 1;
-
-	public static final int SONG = 2;
-
-	public static final int FAVORITES = 3;
-
-	public static final int INFO = 4;
-
-	public Tabs(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
-		init();
-	}
-
-	public Tabs(Context context)
-	{
-		super(context);
-	}
-
-	private void init()
-	{
-		setOrientation(HORIZONTAL);
-	}
+	public abstract int getTab();
 }
