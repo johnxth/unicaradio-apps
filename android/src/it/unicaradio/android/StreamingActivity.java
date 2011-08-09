@@ -213,6 +213,8 @@ public class StreamingActivity extends Activity
 		setupStreamingListeners();
 		curTab = 0;
 		tabs[0].setSelected(true);
+		
+		playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
 
 		updateResultsInUi();
 
@@ -329,6 +331,7 @@ public class StreamingActivity extends Activity
 					updateResultsInUi();
 					setupStreamingListeners();
 					tabs[0].setSelected(true);
+					playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
 				}
 			}
 		});
@@ -533,6 +536,12 @@ public class StreamingActivity extends Activity
 			TextView trackAuthor = (TextView) findViewById(R.id.author);
 			TextView trackTitle = (TextView) findViewById(R.id.songTitle);
 			ImageView cover = (ImageView) findViewById(R.id.cover);
+
+			if(player == null) {
+				infos.clean();
+				playPauseButton
+						.setImageResource(android.R.drawable.ic_media_play);
+			}
 
 			if(trackAuthor != null) {
 				trackAuthor.setText(infos.getAuthor());
