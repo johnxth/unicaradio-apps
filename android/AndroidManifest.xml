@@ -31,5 +31,7 @@
 					android:name="android.intent.action.PHONE_STATE" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".activities.ScheduleActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait">
+		</activity>
 	</application>
 </manifest>
