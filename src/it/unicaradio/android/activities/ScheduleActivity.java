@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.collections.map.LinkedMap;
 import org.json.JSONArray;
@@ -61,8 +60,14 @@ public class ScheduleActivity extends TabbedActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.schedule);
+		super.onCreate(savedInstanceState, R.layout.schedule);
+	}
+
+	@Override
+	protected void setupTab()
+	{
+		state = 0;
+		ListView lv = (ListView) findViewById(R.id.scheduleList);
 
 		if(SCHEDULE == null) {
 			updateScheduleFromJSON();
@@ -75,13 +80,54 @@ public class ScheduleActivity extends TabbedActivity
 		DAYS.put("sabato", "Sabato");
 		DAYS.put("domenica", "Domenica");
 
-		setupScheduleTab();
+		Object[] days = DAYS.values().toArray();
 
-		Map<Integer, View> tabs = ActivityUtils.updateReferences(this);
+		lv.setAdapter(new ArrayAdapter<Object>(ScheduleActivity.this,
+				android.R.layout.simple_list_item_1, days));
+	}
 
-		tabs.get(Tabs.SCHEDULE).setSelected(true);
+	@Override
+	protected void setupListeners()
+	{
+		final ListView lv = (ListView) findViewById(R.id.scheduleList);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> a, View v, int position,
+					long id)
+			{
+				if(state == 0) {
+					state = 1;
+					if(SCHEDULE != null && SCHEDULE.get((int) id) != null) {
+						lv.setAdapter(new SimpleAdapter(ScheduleActivity.this,
+								SCHEDULE.get((int) id),
+								R.layout.list_two_columns, new String[] {
+										"line1", "line2"}, new int[] {
+										R.id.text1, R.id.text2}));
+					} else {
+						lv.setAdapter(new ArrayAdapter<String>(
+								ScheduleActivity.this,
+								android.R.layout.simple_list_item_1,
+								new String[] {""}));
+					}
+				}
+			}
+		});
+	}
 
-		setupListeners(tabs);
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if((keyCode == KeyEvent.KEYCODE_BACK) && state == 1) {
+			setupTab();
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public int getTab()
+	{
+		return Tabs.SCHEDULE;
 	}
 
 	private void updateScheduleFromJSON()
@@ -122,69 +168,5 @@ public class ScheduleActivity extends TabbedActivity
 		} catch(JSONException e) {
 			Log.d(LOG, "Errore durante il parsing del file JSON", e);
 		}
-	}
-
-	private void setupListeners(Map<Integer, View> tabs)
-	{
-		ActivityUtils.setupListeners(this, tabs);
-
-		setupTabsListeners();
-	}
-
-	private void setupTabsListeners()
-	{
-		final ListView lv = (ListView) findViewById(R.id.scheduleList);
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> a, View v, int position,
-					long id)
-			{
-				if(state == 0) {
-					state = 1;
-					if(SCHEDULE != null && SCHEDULE.get((int) id) != null) {
-						lv.setAdapter(new SimpleAdapter(ScheduleActivity.this,
-								SCHEDULE.get((int) id),
-								R.layout.list_two_columns, new String[] {
-										"line1", "line2"}, new int[] {
-										R.id.text1, R.id.text2}));
-					} else {
-						lv.setAdapter(new ArrayAdapter<String>(
-								ScheduleActivity.this,
-								android.R.layout.simple_list_item_1,
-								new String[] {""}));
-					}
-				}
-			}
-		});
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		if((keyCode == KeyEvent.KEYCODE_BACK) && state == 1) {
-			setupScheduleTab();
-			return true;
-		}
-
-		return ActivityUtils.onKeyDown(this, keyCode, event)
-				|| super.onKeyDown(keyCode, event);
-	}
-
-	private void setupScheduleTab()
-	{
-		state = 0;
-		ListView lv = (ListView) findViewById(R.id.scheduleList);
-
-		Object[] days = DAYS.values().toArray();
-
-		lv.setAdapter(new ArrayAdapter<Object>(ScheduleActivity.this,
-				android.R.layout.simple_list_item_1, days));
-
-		setupTabsListeners();
-	}
-
-	@Override
-	public int getTab()
-	{
-		return Tabs.SCHEDULE;
 	}
 }
