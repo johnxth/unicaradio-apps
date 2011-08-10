@@ -33,5 +33,7 @@
 		</activity>
 		<activity android:name=".activities.ScheduleActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait">
 		</activity>
+		<activity android:name=".activities.SongRequestActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait">
+		</activity>
 	</application>
 </manifest>

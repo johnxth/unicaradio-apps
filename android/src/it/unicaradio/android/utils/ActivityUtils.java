@@ -16,20 +16,7 @@
  */
 package it.unicaradio.android.utils;
 
-import it.unicaradio.android.R;
-import it.unicaradio.android.StreamingActivity;
-import it.unicaradio.android.activities.ScheduleActivity;
-import it.unicaradio.android.activities.TabbedActivity;
-import it.unicaradio.android.gui.Tabs;
-
 import java.util.HashMap;
-import java.util.Map;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
 
 /**
  * @author Paolo Cortis
@@ -54,73 +41,5 @@ public class ActivityUtils
 		item.put("icon", String.valueOf(resourceImage));
 
 		return item;
-	}
-
-	public static void setupListeners(final TabbedActivity activity)
-	{
-		Map<Integer, View> tabs = updateReferences(activity);
-
-		setupListeners(activity, tabs);
-	}
-
-	public static void setupListeners(final TabbedActivity activity,
-			Map<Integer, View> tabs)
-	{
-		for(final Map.Entry<Integer, View> tab : tabs.entrySet()) {
-			View view = tab.getValue();
-			view.setOnClickListener(new OnClickListener() {
-				public void onClick(View view)
-				{
-					if(activity.getTab() != tab.getKey()) {
-						switch(tab.getKey()) {
-							case Tabs.STREAMING:
-								activity.startActivity(new Intent(view
-										.getContext(), StreamingActivity.class));
-								break;
-							case Tabs.SCHEDULE:
-								activity.startActivity(new Intent(view
-										.getContext(), ScheduleActivity.class));
-								break;
-						/*
-						 * case Tabs.SONG: activity.startActivity(new
-						 * Intent(view .getContext(), StreamingActivity.class));
-						 * break; case Tabs.FAVORITES:
-						 * activity.startActivity(new Intent(view .getContext(),
-						 * StreamingActivity.class)); break; case Tabs.INFO:
-						 * activity.startActivity(new Intent(view .getContext(),
-						 * StreamingActivity.class)); break;
-						 */
-						}
-					}
-				}
-			});
-		}
-	}
-
-	public static Map<Integer, View> updateReferences(Activity activity)
-	{
-		Map<Integer, View> tabs = new HashMap<Integer, View>();
-
-		tabs.put(Tabs.STREAMING, activity.findViewById(R.id.streamingTab));
-		tabs.put(Tabs.SCHEDULE, activity.findViewById(R.id.scheduleTab));
-		tabs.put(Tabs.SONG, activity.findViewById(R.id.songTab));
-		tabs.put(Tabs.FAVORITES, activity.findViewById(R.id.favoritesTab));
-		tabs.put(Tabs.INFO, activity.findViewById(R.id.infosTab));
-
-		return tabs;
-	}
-
-	public static boolean onKeyDown(Activity activity, int keyCode,
-			KeyEvent event)
-	{
-		if((keyCode == KeyEvent.KEYCODE_BACK)) {
-			activity.moveTaskToBack(true);
-			return true;
-		} else if(keyCode == KeyEvent.KEYCODE_HOME) {
-			activity.moveTaskToBack(true);
-			return true;
-		}
-
-		return false;
 	}
 }
