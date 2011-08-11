@@ -133,10 +133,10 @@ public abstract class TabbedActivity extends Activity
 								startActivity(new Intent(view.getContext(),
 										FavoritesActivity.class));
 								break;
-						// case Tabs.INFO:
-						// startActivity(new Intent(view
-						// .getContext(), StreamingActivity.class));
-						// break;
+							case Tabs.INFO:
+								startActivity(new Intent(view.getContext(),
+										InfoActivity.class));
+								break;
 						}
 					}
 				}
