@@ -26,6 +26,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -71,6 +72,13 @@ public abstract class TabbedActivity extends Activity
 		return super.onKeyDown(keyCode, event);
 	}
 
+	public void openLink(String url)
+	{
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setData(Uri.parse(url));
+		startActivity(i);
+	}
+
 	protected void showAlertDialog(String title, String message)
 	{
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -93,7 +101,7 @@ public abstract class TabbedActivity extends Activity
 		return tabs;
 	}
 
-	public void _setupListeners()
+	private void _setupListeners()
 	{
 		Map<Integer, View> tabs = updateReferences();
 
@@ -121,10 +129,10 @@ public abstract class TabbedActivity extends Activity
 								startActivity(new Intent(view.getContext(),
 										SongRequestActivity.class));
 								break;
-						// case Tabs.FAVORITES:
-						// startActivity(new Intent(view
-						// .getContext(), StreamingActivity.class));
-						// break;
+							case Tabs.FAVORITES:
+								startActivity(new Intent(view.getContext(),
+										FavoritesActivity.class));
+								break;
 						// case Tabs.INFO:
 						// startActivity(new Intent(view
 						// .getContext(), StreamingActivity.class));
