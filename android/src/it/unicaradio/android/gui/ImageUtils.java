@@ -30,23 +30,16 @@ import android.view.Display;
  */
 public class ImageUtils
 {
-	private final Display display;
-
-	public ImageUtils(Display display)
-	{
-		this.display = display;
-	}
-
 	/**
 	 * Resize a bitmap
 	 * 
-	 * @param origBitmap
-	 *            Image to resize
-	 * @param resizeFactor
-	 *            Factor to be used to resize the image (based on screen size)
+	 * @param origBitmap Image to resize
+	 * @param resizeFactor Factor to be used to resize the image (based on
+	 * screen size)
 	 * @return the resized bitmap
 	 */
-	public Bitmap resize(Bitmap origBitmap, int resizeFactor)
+	public static Bitmap resize(Display display, Bitmap origBitmap,
+			int resizeFactor)
 	{
 		int width = origBitmap.getWidth();
 		int height = origBitmap.getHeight();
@@ -78,7 +71,7 @@ public class ImageUtils
 		return outBitmap;
 	}
 
-	public Bitmap downloadFromUrl(String fileUrl) throws IOException
+	public static Bitmap downloadFromUrl(String fileUrl) throws IOException
 	{
 		byte[] buf = Utils.downloadFromUrl(fileUrl);
 

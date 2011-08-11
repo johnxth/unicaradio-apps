@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -57,6 +58,7 @@ public class FavoritesActivity extends TabbedActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		Log.d(FavoritesActivity.class.getName(), "Called FavoritesActivity");
 		super.onCreate(savedInstanceState, R.layout.links);
 	}
 
