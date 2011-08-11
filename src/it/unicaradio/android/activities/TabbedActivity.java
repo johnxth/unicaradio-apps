@@ -17,7 +17,6 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.StreamingActivity;
 import it.unicaradio.android.gui.Tabs;
 
 import java.util.HashMap;
@@ -25,9 +24,14 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -79,6 +83,22 @@ public abstract class TabbedActivity extends Activity
 		startActivity(i);
 	}
 
+	public Display getDisplay()
+	{
+		return getWindowManager().getDefaultDisplay();
+	}
+
+	public boolean isConnected()
+	{
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		for(NetworkInfo info : connectivityManager.getAllNetworkInfo()) {
+			if(info.isConnected()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected void showAlertDialog(String title, String message)
 	{
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -101,13 +121,6 @@ public abstract class TabbedActivity extends Activity
 		return tabs;
 	}
 
-	private void _setupListeners()
-	{
-		Map<Integer, View> tabs = updateReferences();
-
-		_setupListeners(tabs);
-	}
-
 	private void _setupListeners(Map<Integer, View> tabs)
 	{
 		for(final Map.Entry<Integer, View> tab : tabs.entrySet()) {
@@ -116,24 +129,36 @@ public abstract class TabbedActivity extends Activity
 				public void onClick(View view)
 				{
 					if(getTab() != tab.getKey()) {
+						Log.d(TabbedActivity.class.getName(), tab.getKey()
+								.toString());
 						switch(tab.getKey()) {
 							case Tabs.STREAMING:
+								Log.d(TabbedActivity.class.getName(),
+										"Calling StreamingActivity");
 								startActivity(new Intent(view.getContext(),
 										StreamingActivity.class));
 								break;
 							case Tabs.SCHEDULE:
+								Log.d(TabbedActivity.class.getName(),
+										"Calling ScheduleActivity");
 								startActivity(new Intent(view.getContext(),
 										ScheduleActivity.class));
 								break;
 							case Tabs.SONG:
+								Log.d(TabbedActivity.class.getName(),
+										"Calling SongRequestActivity");
 								startActivity(new Intent(view.getContext(),
 										SongRequestActivity.class));
 								break;
 							case Tabs.FAVORITES:
+								Log.d(TabbedActivity.class.getName(),
+										"Calling FavoritesActivity");
 								startActivity(new Intent(view.getContext(),
 										FavoritesActivity.class));
 								break;
 							case Tabs.INFO:
+								Log.d(TabbedActivity.class.getName(),
+										"Calling InfoActivity");
 								startActivity(new Intent(view.getContext(),
 										InfoActivity.class));
 								break;

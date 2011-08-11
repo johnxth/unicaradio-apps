@@ -60,6 +60,7 @@ public class ScheduleActivity extends TabbedActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		Log.d(ScheduleActivity.class.getName(), "Called ScheduleActivity");
 		super.onCreate(savedInstanceState, R.layout.schedule);
 	}
 

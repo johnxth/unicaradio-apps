@@ -21,6 +21,7 @@ import it.unicaradio.android.gui.Tabs;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -33,6 +34,7 @@ public class InfoActivity extends TabbedActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		Log.d(InfoActivity.class.getName(), "Called Infoactivity");
 		super.onCreate(savedInstanceState, R.layout.infos);
 	}
 

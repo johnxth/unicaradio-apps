@@ -30,7 +30,7 @@ import android.util.Log;
 /**
  * @author Paolo Cortis
  */
-public class IcecastStreamer extends Streamable
+public class IcecastStreamer extends Streamer
 {
 	private static final String CLASSNAME = IcecastStreamer.class.getName();
 

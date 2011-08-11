@@ -27,11 +27,11 @@ import java.util.List;
 /**
  * @author Paolo Cortis
  */
-public abstract class Streamable extends BufferedInputStream
+public abstract class Streamer extends BufferedInputStream
 {
 	private final List<OnInfoListener> onInfolistenerList;
 
-	public Streamable(InputStream in)
+	public Streamer(InputStream in)
 	{
 		super(in);
 
