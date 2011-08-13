@@ -70,9 +70,6 @@ public class ScheduleActivity extends TabbedActivity
 		state = 0;
 		ListView lv = (ListView) findViewById(R.id.scheduleList);
 
-		if(SCHEDULE == null) {
-			updateScheduleFromJSON();
-		}
 		DAYS.put("lunedi", "Lunedì");
 		DAYS.put("martedi", "Martedì");
 		DAYS.put("mercoledi", "Mercoledì");
@@ -85,6 +82,10 @@ public class ScheduleActivity extends TabbedActivity
 
 		lv.setAdapter(new ArrayAdapter<Object>(ScheduleActivity.this,
 				android.R.layout.simple_list_item_1, days));
+
+		if(SCHEDULE == null) {
+			updateScheduleFromJSON();
+		}
 	}
 
 	@Override
@@ -133,41 +134,49 @@ public class ScheduleActivity extends TabbedActivity
 
 	private void updateScheduleFromJSON()
 	{
-		SCHEDULE = new ArrayList<ArrayList<HashMap<String, String>>>();
+		Thread t = new Thread(new Runnable() {
 
-		String json = null;
-		try {
-			json = new String(Utils.downloadFromUrl(SCHEDULE_URL));
-		} catch(IOException e) {
-			Log.d(LOG,
-					MessageFormat.format("Cannot find file {0}", SCHEDULE_URL));
-			return;
-		}
+			public void run()
+			{
+				SCHEDULE = new ArrayList<ArrayList<HashMap<String, String>>>();
 
-		JSONObject jObject = null;
-		try {
-			jObject = new JSONObject(json);
+				String json = null;
+				try {
+					json = new String(Utils.downloadFromUrl(SCHEDULE_URL));
+				} catch(IOException e) {
+					Log.d(LOG, MessageFormat.format("Cannot find file {0}",
+							SCHEDULE_URL));
+					return;
+				}
 
-			String[] days = new String[] {"lunedi", "martedi", "mercoledi",
-					"giovedi", "venerdi", "sabato", "domenica"};
+				JSONObject jObject = null;
+				try {
+					jObject = new JSONObject(json);
 
-			for(int j = 0; j < days.length; j++) {
-				SCHEDULE.add(new ArrayList<HashMap<String, String>>());
-				String day = days[j];
+					String[] days = new String[] {"lunedi", "martedi",
+							"mercoledi", "giovedi", "venerdi", "sabato",
+							"domenica"};
 
-				JSONArray itemArray = jObject.getJSONArray(day);
-				for(int i = 0; i < itemArray.length(); i++) {
-					String programma = itemArray.getJSONObject(i)
-							.get("programma").toString();
-					String inizio = itemArray.getJSONObject(i).get("inizio")
-							.toString();
+					for(int j = 0; j < days.length; j++) {
+						SCHEDULE.add(new ArrayList<HashMap<String, String>>());
+						String day = days[j];
 
-					SCHEDULE.get(j).add(
-							ActivityUtils.addItem(inizio, programma));
+						JSONArray itemArray = jObject.getJSONArray(day);
+						for(int i = 0; i < itemArray.length(); i++) {
+							String programma = itemArray.getJSONObject(i)
+									.get("programma").toString();
+							String inizio = itemArray.getJSONObject(i)
+									.get("inizio").toString();
+
+							SCHEDULE.get(j).add(
+									ActivityUtils.addItem(inizio, programma));
+						}
+					}
+				} catch(JSONException e) {
+					Log.d(LOG, "Errore durante il parsing del file JSON", e);
 				}
 			}
-		} catch(JSONException e) {
-			Log.d(LOG, "Errore durante il parsing del file JSON", e);
-		}
+		});
+		t.start();
 	}
 }
