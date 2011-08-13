@@ -20,7 +20,6 @@ import it.unicaradio.android.gui.TrackInfos;
 
 import java.io.IOException;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
 import java.text.MessageFormat;
 
 import org.apache.commons.lang.StringUtils;

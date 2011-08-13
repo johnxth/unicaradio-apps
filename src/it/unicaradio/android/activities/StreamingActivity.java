@@ -17,29 +17,25 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.events.OnInfoListener;
 import it.unicaradio.android.gui.ImageUtils;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.gui.TrackInfos;
-import it.unicaradio.android.streamers.IcecastStreamer;
-import it.unicaradio.android.streamers.Streamer;
+import it.unicaradio.android.services.StreamingService;
+import it.unicaradio.android.services.StreamingService.LocalBinder;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.MessageFormat;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,11 +46,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.spoledge.aacplayer.AACPlayer;
-import com.spoledge.aacplayer.ArrayAACPlayer;
-import com.spoledge.aacplayer.ArrayDecoder;
-import com.spoledge.aacplayer.Decoder;
-
 /**
  * @author Paolo Cortis
  * 
@@ -63,74 +54,118 @@ public class StreamingActivity extends TabbedActivity
 {
 	private static String LOG = StreamingActivity.class.getName();
 
-	private static final String STREAM_URL = "http://streaming.unicaradio.it:80/unica64.aac";
-
 	private static final String ONAIR_COVER_URL = "http://www.unicaradio.it/regia/OnAir.jpg";
-
-	private URLConnection conn;
-
-	private Streamer streamer;
-
-	private AACPlayer player;
 
 	private TrackInfos infos;
 
 	private Thread imageThread;
 
+	private StreamingService streamingService;
+
 	private final Handler mHandler = new Handler();
 
-	final Runnable mUpdateResults = new Runnable() {
+	private final Runnable mUpdateResults = new Runnable() {
 		public void run()
 		{
 			updateResultsInUi();
 		}
 	};
 
-	private final BroadcastReceiver connectivityBroadcastReceiver = new BroadcastReceiver() {
+	protected BroadcastReceiver trackinforeceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
-			boolean noConnectivity = intent.getBooleanExtra(
-					ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-
-			if(noConnectivity) {
+			boolean isPlaying = intent.getBooleanExtra("isplaying", false);
+			if(isPlaying == false) {
 				stop();
-				showAlertDialog("Unicaradio",
-						"Attenzione. Non sei connesso ad Internet.");
 			}
+			String error = intent.getStringExtra("error");
+			if(error.length() != 0) {
+				stop();
+				Log.d(LOG, error);
+				showAlertDialog("Unicaradio", "E' avvenuto un errore");
+			}
+
+			String author = intent.getStringExtra("author");
+			String title = intent.getStringExtra("title");
+			infos.setAuthor(author);
+			infos.setTitle(title);
+			mHandler.post(mUpdateResults);
+			imageThread = new Thread(new Runnable() {
+				public void run()
+				{
+					synchronized(this) {
+						infos.setCover(null);
+						mHandler.post(mUpdateResults);
+						try {
+							wait(5000);
+						} catch(InterruptedException e) {
+							Log.d(LOG, "Thread interrotto", e);
+						}
+						try {
+							infos.setCover(ImageUtils
+									.downloadFromUrl(ONAIR_COVER_URL));
+							mHandler.post(mUpdateResults);
+						} catch(IOException e) {
+							Log.d(LOG, MessageFormat.format(
+									"Cannot find file {0}", ONAIR_COVER_URL));
+						}
+					}
+				}
+			});
+			imageThread.start();
 		}
 	};
 
-	private final BroadcastReceiver telephonyBroadcastReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent)
+	private final ServiceConnection serviceConnection = new ServiceConnection() {
+		public void onServiceDisconnected(ComponentName arg0)
 		{
-			PhoneStateListener phoneListener = new PhoneStateListener() {
-				@Override
-				public void onCallStateChanged(int state, String incomingNumber)
-				{
-					switch(state) {
-						case TelephonyManager.CALL_STATE_OFFHOOK:
-							stop();
-							break;
-						case TelephonyManager.CALL_STATE_RINGING:
-							stop();
-							break;
-					}
-				}
-			};
-			TelephonyManager telephony = (TelephonyManager) context
-					.getSystemService(Context.TELEPHONY_SERVICE);
-			telephony.listen(phoneListener,
-					PhoneStateListener.LISTEN_CALL_STATE);
+			streamingService = null;
+			unregisterReceiver(trackinforeceiver);
+		}
+
+		public void onServiceConnected(ComponentName name, IBinder service)
+		{
+			streamingService = ((LocalBinder) service).getService();
+			registerReceiver(trackinforeceiver, new IntentFilter(
+					StreamingService.ACTION_TRACK_INFO));
+			if(streamingService.isPlaying()) {
+				streamingService.notifyChange();
+			}
 		}
 	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		Log.d(StreamingActivity.class.getName(), "Called StreamingActivity");
 		super.onCreate(savedInstanceState, R.layout.main);
+	}
+
+	@Override
+	protected void onResume()
+	{
+		infos.clean();
+		mHandler.post(mUpdateResults);
+		Intent intent = new Intent(this, StreamingService.class);
+		if(streamingService == null) {
+			startService(intent);
+		}
+		bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause()
+	{
+		if(streamingService != null) {
+			unbindService(serviceConnection);
+			streamingService = null;
+		}
+		try {
+			unregisterReceiver(trackinforeceiver);
+		} catch(IllegalArgumentException e) {
+		}
+		super.onPause();
 	}
 
 	@Override
@@ -139,11 +174,6 @@ public class StreamingActivity extends TabbedActivity
 		infos = new TrackInfos(getApplicationContext());
 
 		updateResultsInUi();
-
-		registerReceiver(connectivityBroadcastReceiver, new IntentFilter(
-				ConnectivityManager.CONNECTIVITY_ACTION));
-		registerReceiver(telephonyBroadcastReceiver, new IntentFilter(
-				TelephonyManager.ACTION_PHONE_STATE_CHANGED));
 	}
 
 	@Override
@@ -158,19 +188,8 @@ public class StreamingActivity extends TabbedActivity
 							"Attenzione! Non sei connesso ad internet!");
 					return;
 				}
-				playPauseButton
-						.setImageResource(android.R.drawable.ic_media_pause);
-				if(conn == null) {
-					try {
-						URL url = new URL(STREAM_URL);
-						play(url);
-					} catch(MalformedURLException e) {
-						stopWithException(
-								"Errore: l'indirizzo di streaming non è corretto.",
-								e);
-					} catch(IOException e) {
-						stopWithException(e);
-					}
+				if(streamingService != null && !streamingService.isPlaying()) {
+					play();
 				} else {
 					stop();
 				}
@@ -212,11 +231,9 @@ public class StreamingActivity extends TabbedActivity
 		TextView trackAuthor = (TextView) findViewById(R.id.author);
 		TextView trackTitle = (TextView) findViewById(R.id.songTitle);
 		ImageView cover = (ImageView) findViewById(R.id.cover);
-		ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
 
-		if(player == null) {
+		if(streamingService == null || !streamingService.isPlaying()) {
 			infos.clean();
-			playPauseButton.setImageResource(android.R.drawable.ic_media_play);
 		}
 
 		if(trackAuthor != null) {
@@ -232,95 +249,23 @@ public class StreamingActivity extends TabbedActivity
 		}
 	}
 
-	private void play(URL url) throws IOException
+	private void play()
 	{
-		if(conn == null) {
-			conn = url.openConnection();
-			conn.addRequestProperty("Icy-MetaData", "1");
-			conn.connect();
-			streamer = new IcecastStreamer(conn);
-
-			streamer.addOnInfoListener(new OnInfoListener() {
-				public void onInfo(TrackInfos trackInfos)
-				{
-					infos.setTrackInfos(trackInfos);
-					mHandler.post(mUpdateResults);
-					imageThread = new Thread(new Runnable() {
-						public void run()
-						{
-							synchronized(this) {
-								infos.setCover(null);
-								mHandler.post(mUpdateResults);
-								try {
-									wait(5000);
-								} catch(InterruptedException e) {
-									Log.d(LOG, "Thread interrotto", e);
-								}
-								try {
-									infos.setCover(ImageUtils
-											.downloadFromUrl(ONAIR_COVER_URL));
-									mHandler.post(mUpdateResults);
-								} catch(IOException e) {
-									Log.d(LOG, MessageFormat.format(
-											"Cannot find file {0}",
-											ONAIR_COVER_URL));
-								}
-							}
-						}
-					});
-					imageThread.start();
-				}
-			});
-
-			player = new ArrayAACPlayer(
-					ArrayDecoder.create(Decoder.DECODER_OPENCORE));
-
-			Thread playThread = new Thread(new Runnable() {
-				public void run()
-				{
-					try {
-						player.play(streamer);
-					} catch(Exception e) {
-						stopWithException(e);
-					}
-				}
-			});
-			playThread.start();
+		if(streamingService != null && !streamingService.isPlaying()) {
+			streamingService.play();
+			ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
+			playPauseButton.setImageResource(android.R.drawable.ic_media_pause);
 		}
 	}
 
 	private void stop()
 	{
-		infos.clean();
-		mHandler.post(mUpdateResults);
-		if(player != null) {
+		if(streamingService != null && streamingService.isPlaying()) {
+			streamingService.stop();
+			infos.clean();
+			mHandler.post(mUpdateResults);
 			ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
 			playPauseButton.setImageResource(android.R.drawable.ic_media_play);
-			player.stop();
-			player = null;
 		}
-		streamer = null;
-		conn = null;
 	}
-
-	private void stopWithException(String message, Exception e)
-	{
-		stop();
-		showAlertDialog("Unicaradio", message);
-		Log.d(LOG, message, e);
-	}
-
-	private void stopWithException(Exception e)
-	{
-		stopWithException("E' avvenuto un problema. Riprova.", e);
-	}
-
-	@Override
-	protected void onDestroy()
-	{
-		unregisterReceiver(connectivityBroadcastReceiver);
-		unregisterReceiver(telephonyBroadcastReceiver);
-		super.onDestroy();
-	}
-
 }
