@@ -5,8 +5,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<include
-		layout="@layout/titlebar" />
+	<include layout="@layout/titlebar" />
 
 	<ScrollView
 		android:layout_width="fill_parent"
@@ -50,16 +49,22 @@
 		android:background="#FFFFFF"
 		android:layout_width="fill_parent"
 		android:layout_height="1dp"
-		android:layout_above="@+id/playPauseButton" />
-	<ImageButton
-		android:id="@+id/playPauseButton"
+		android:layout_above="@+id/playPauseButtonContainer" />
+	<RelativeLayout
+		android:id="@+id/playPauseButtonContainer"
 		android:layout_above="@+id/tabBar"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:background="@drawable/play_pause_bg"
-		android:padding="8dp"
-		android:src="@android:drawable/ic_media_play" />
+		android:padding="8dp">
+		<ImageButton
+			android:id="@+id/playPauseButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@android:color/transparent"
+			android:layout_centerInParent="true"
+			android:src="@drawable/play" />
+	</RelativeLayout>
 
-	<include
-		layout="@layout/tabs" />
+	<include layout="@layout/tabs" />
 </RelativeLayout>

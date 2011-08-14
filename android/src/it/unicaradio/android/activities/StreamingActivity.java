@@ -254,7 +254,7 @@ public class StreamingActivity extends TabbedActivity
 		if(streamingService != null && !streamingService.isPlaying()) {
 			streamingService.play();
 			ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
-			playPauseButton.setImageResource(android.R.drawable.ic_media_pause);
+			playPauseButton.setImageResource(R.drawable.pause);
 		}
 	}
 
@@ -265,7 +265,7 @@ public class StreamingActivity extends TabbedActivity
 			infos.clean();
 			mHandler.post(mUpdateResults);
 			ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
-			playPauseButton.setImageResource(android.R.drawable.ic_media_play);
+			playPauseButton.setImageResource(R.drawable.play);
 		}
 	}
 }
