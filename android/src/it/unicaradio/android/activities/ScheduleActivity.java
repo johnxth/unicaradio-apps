@@ -23,7 +23,11 @@ import it.unicaradio.android.utils.ActivityUtils;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.commons.collections.map.LinkedMap;
@@ -165,8 +169,8 @@ public class ScheduleActivity extends TabbedActivity
 						for(int i = 0; i < itemArray.length(); i++) {
 							String programma = itemArray.getJSONObject(i)
 									.get("programma").toString();
-							String inizio = itemArray.getJSONObject(i)
-									.get("inizio").toString();
+							String inizio = adjustTime(itemArray
+									.getJSONObject(i).get("inizio").toString());
 
 							SCHEDULE.get(j).add(
 									ActivityUtils.addItem(inizio, programma));
@@ -178,5 +182,21 @@ public class ScheduleActivity extends TabbedActivity
 			}
 		});
 		t.start();
+	}
+
+	private String adjustTime(String time)
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+		String adjustedTime = time;
+		try {
+			Date date = formatter.parse(time);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			cal.add(Calendar.HOUR_OF_DAY, 1);
+			adjustedTime = formatter.format(cal.getTime());
+		} catch(ParseException e) {
+		}
+
+		return adjustedTime;
 	}
 }
