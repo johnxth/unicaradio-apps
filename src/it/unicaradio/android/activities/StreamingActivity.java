@@ -206,8 +206,9 @@ public class StreamingActivity extends TabbedActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
+		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
+		inflater.inflate(R.menu.streaming_menu, menu);
 
 		return true;
 	}
