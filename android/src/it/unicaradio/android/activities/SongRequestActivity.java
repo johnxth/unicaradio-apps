@@ -192,10 +192,28 @@ public class SongRequestActivity extends TabbedActivity
 				editor.commit();
 
 				try {
-					Utils.downloadFromUrl(MessageFormat.format(
+					String url = MessageFormat.format(
 							"{0}?r={1}&op={2}&art={3}&tit={4}&mail={5}",
 							WEB_SERVICE, result, captcha.toString(), author,
-							title, email));
+							title, email);
+					String sendResult = new String(Utils.downloadFromUrl(url));
+					if(sendResult.equals("OK")) {
+						new AlertDialog.Builder(SongRequestActivity.this)
+								.setTitle("E-mail inviata!")
+								.setCancelable(false)
+								.setPositiveButton("OK", null).show();
+						setCaptchaField();
+						resultView.setText("");
+						authorView.setText("");
+						titleView.setText("");
+					} else {
+						new AlertDialog.Builder(SongRequestActivity.this)
+								.setTitle("Errore!")
+								.setMessage(
+										"È avvenuto un errore durante l'invio del messaggio")
+								.setCancelable(false)
+								.setPositiveButton("OK", null).show();
+					}
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
