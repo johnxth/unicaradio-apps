@@ -17,11 +17,11 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.gui.ImageUtils;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.services.StreamingService;
 import it.unicaradio.android.services.StreamingService.LocalBinder;
+import it.unicaradio.android.utils.ImageUtils;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -65,6 +65,7 @@ public class StreamingActivity extends TabbedActivity
 	private final Handler mHandler = new Handler();
 
 	private final Runnable mUpdateResults = new Runnable() {
+		@Override
 		public void run()
 		{
 			updateResultsInUi();
@@ -92,6 +93,7 @@ public class StreamingActivity extends TabbedActivity
 			infos.setTitle(title);
 			mHandler.post(mUpdateResults);
 			imageThread = new Thread(new Runnable() {
+				@Override
 				public void run()
 				{
 					synchronized(this) {
@@ -118,12 +120,14 @@ public class StreamingActivity extends TabbedActivity
 	};
 
 	private final ServiceConnection serviceConnection = new ServiceConnection() {
+		@Override
 		public void onServiceDisconnected(ComponentName arg0)
 		{
 			streamingService = null;
 			unregisterReceiver(trackinforeceiver);
 		}
 
+		@Override
 		public void onServiceConnected(ComponentName name, IBinder service)
 		{
 			streamingService = ((LocalBinder) service).getService();
@@ -181,6 +185,7 @@ public class StreamingActivity extends TabbedActivity
 	{
 		final ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
 		playPauseButton.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View arg0)
 			{
 				if(!isConnected()) {

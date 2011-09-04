@@ -18,12 +18,24 @@ package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
 import it.unicaradio.android.gui.Tabs;
+import it.unicaradio.android.utils.CaptchaParser;
+import it.unicaradio.android.utils.Utils;
+
+import java.io.IOException;
+import java.text.MessageFormat;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.AlertDialog;
-import android.content.Intent;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -32,11 +44,118 @@ import android.widget.TextView;
  */
 public class SongRequestActivity extends TabbedActivity
 {
+	private static final String NO_MAIL = "no_mail";
+
+	private static final String USER_EMAIL = "user_email";
+
+	private static final String WEB_SERVICE = "http://paolo86.slack-counter.org/mail.php";
+
+	private final Handler mHandler = new Handler();
+
+	private final StringBuilder captcha = new StringBuilder();
+
+	private final Runnable mUpdateCaptcha = new Runnable() {
+		@Override
+		public void run()
+		{
+			final EditText captchaView = (EditText) findViewById(R.id.songsCaptcha);
+			captchaView.setHint(CaptchaParser.parse(captcha.toString()));
+		}
+	};
+
+	private final StringBuilder email = new StringBuilder();
+
+	private final Runnable mUpdateEmail = new Runnable() {
+		@Override
+		public void run()
+		{
+			final EditText emailView = (EditText) findViewById(R.id.songsEmail);
+			emailView.setText(email.toString());
+		}
+	};
+
+	private SharedPreferences preferences;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.d(SongRequestActivity.class.getName(), "Called SongRequestActivity");
 		super.onCreate(savedInstanceState, R.layout.songs);
+
+		preferences = getPreferences(Context.MODE_PRIVATE);
+
+		setCaptchaField();
+
+		setEmailField();
+	}
+
+	private void setCaptchaField()
+	{
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run()
+			{
+				try {
+					captcha.delete(0, captcha.length());
+					captcha.append(new String(Utils
+							.downloadFromUrl(WEB_SERVICE)));
+					mHandler.post(mUpdateCaptcha);
+				} catch(IOException e) {
+					e.printStackTrace();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
+	}
+
+	private void setEmailField()
+	{
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run()
+			{
+				String mailFromPreferences = preferences.getString(USER_EMAIL,
+						NO_MAIL);
+				if(mailFromPreferences.equals(NO_MAIL)) {
+					// l'utente non ha indicato alcuna e-mail in precedenza
+					Account[] accounts = AccountManager.get(
+							SongRequestActivity.this).getAccountsByType(
+							"com.google");
+
+					email.delete(0, email.length());
+					if(accounts.length == 1) {
+						// c'è un account google
+						email.append(accounts[0].name);
+					} else if(accounts.length > 1) {
+						// ce n'è più di uno
+						final CharSequence[] emails = new CharSequence[accounts.length];
+						for(int i = 0; i < accounts.length; i++) {
+							emails[i] = accounts[i].name;
+						}
+						new AlertDialog.Builder(SongRequestActivity.this)
+								.setTitle(
+										"Quale indirizzo vuoi usare per inviare l'email?")
+								.setCancelable(false)
+								.setItems(emails,
+										new DialogInterface.OnClickListener() {
+											@Override
+											public void onClick(
+													DialogInterface dialog,
+													int item)
+											{
+												email.append(emails[item]);
+											}
+										}).show();
+					}
+				} else {
+					email.append(mailFromPreferences);
+				}
+				mHandler.post(mUpdateEmail);
+			}
+		});
+		t.start();
 	}
 
 	@Override
@@ -49,30 +168,37 @@ public class SongRequestActivity extends TabbedActivity
 	{
 		View songButton = findViewById(R.id.songButton);
 		songButton.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v)
 			{
-				TextView author = (TextView) findViewById(R.id.songsAuthor);
-				TextView title = (TextView) findViewById(R.id.songsTitle);
-				final Intent emailIntent = new Intent(
-						android.content.Intent.ACTION_SEND);
+				TextView emailView = (TextView) findViewById(R.id.songsEmail);
+				TextView authorView = (TextView) findViewById(R.id.songsAuthor);
+				TextView titleView = (TextView) findViewById(R.id.songsTitle);
+				TextView resultView = (TextView) findViewById(R.id.songsCaptcha);
 
-				emailIntent.setType("plain/text");
-				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-						new String[] {"diretta@unicaradio.it"});
-				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-						author.getText().toString() + "*"
-								+ title.getText().toString());
-				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-						"Sent from Android APP");
+				String email = emailView.getText().toString().trim();
+				String author = authorView.getText().toString().trim();
+				String title = titleView.getText().toString().trim();
+				String result = resultView.getText().toString().trim();
 
-				AlertDialog.Builder adb = new AlertDialog.Builder(
-						SongRequestActivity.this);
-				adb.setTitle("Invio richiesta canzone...");
-				adb.setMessage("Attenzione!! Non modificare l'e-mail!");
-				adb.setPositiveButton("Ok", null);
-				adb.show();
+				if(email.equals("") || author.equals("") || title.equals("")
+						|| result.equals("")) {
+					// TODO: Error!
+					throw new RuntimeException("You forgot some fields");
+				}
 
-				startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+				SharedPreferences.Editor editor = preferences.edit();
+				editor.putString(USER_EMAIL, email);
+				editor.commit();
+
+				try {
+					Utils.downloadFromUrl(MessageFormat.format(
+							"{0}?r={1}&op={2}&art={3}&tit={4}&mail={5}",
+							WEB_SERVICE, result, captcha.toString(), author,
+							title, email));
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 	}

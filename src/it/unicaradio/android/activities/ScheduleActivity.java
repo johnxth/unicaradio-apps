@@ -18,8 +18,8 @@ package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
 import it.unicaradio.android.gui.Tabs;
-import it.unicaradio.android.gui.Utils;
 import it.unicaradio.android.utils.ActivityUtils;
+import it.unicaradio.android.utils.Utils;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -97,6 +97,7 @@ public class ScheduleActivity extends TabbedActivity
 	{
 		final ListView lv = (ListView) findViewById(R.id.scheduleList);
 		lv.setOnItemClickListener(new OnItemClickListener() {
+			@Override
 			public void onItemClick(AdapterView<?> a, View v, int position,
 					long id)
 			{
@@ -140,6 +141,7 @@ public class ScheduleActivity extends TabbedActivity
 	{
 		Thread t = new Thread(new Runnable() {
 
+			@Override
 			public void run()
 			{
 				SCHEDULE = new ArrayList<ArrayList<HashMap<String, String>>>();

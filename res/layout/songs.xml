@@ -22,16 +22,24 @@
 			<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="20dp"
+				android:layout_marginTop="10dp"
 				android:textSize="20dp"
 				android:text="Richiedi una canzone!" />
+
+			<EditText
+				android:id="@+id/songsEmail"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:padding="15dp"
+				android:layout_marginTop="20dp"
+				android:hint="eMail" />
 
 			<EditText
 				android:id="@+id/songsAuthor"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:padding="15dp"
-				android:layout_marginTop="20dp"
+				android:layout_marginTop="10dp"
 				android:hint="Autore" />
 
 			<EditText
@@ -42,11 +50,20 @@
 				android:layout_marginTop="10dp"
 				android:hint="Titolo canzone" />
 
+			<EditText
+				android:id="@+id/songsCaptcha"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:padding="15dp"
+				android:layout_marginTop="10dp"
+				android:hint="Captcha: Connettiti ad Internet"
+				android:inputType="number" />
+
 			<Button
 				android:id="@+id/songButton"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="45dp"
+				android:layout_marginTop="25dp"
 				android:gravity="center"
 				android:text="Invia" />
 		</LinearLayout>

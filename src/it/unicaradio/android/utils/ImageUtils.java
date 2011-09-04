@@ -14,7 +14,7 @@
  * 
  * Copyright UnicaRadio
  */
-package it.unicaradio.android.gui;
+package it.unicaradio.android.utils;
 
 import java.io.IOException;
 import java.text.MessageFormat;
