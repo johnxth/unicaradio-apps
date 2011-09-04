@@ -59,6 +59,10 @@ public class SongRequestActivity extends TabbedActivity
 		public void run()
 		{
 			final EditText captchaView = (EditText) findViewById(R.id.songsCaptcha);
+			if(captcha.length() == 0) {
+				captchaView.setHint("Generazione captcha in corso...");
+				return;
+			}
 			captchaView.setHint(CaptchaParser.parse(captcha.toString()));
 		}
 	};
@@ -70,6 +74,12 @@ public class SongRequestActivity extends TabbedActivity
 		public void run()
 		{
 			final EditText emailView = (EditText) findViewById(R.id.songsEmail);
+			if(email.toString().equals("---")) {
+				emailView.setHint("Attendere...");
+				return;
+			} else {
+				emailView.setHint("eMail");
+			}
 			emailView.setText(email.toString());
 		}
 	};
@@ -95,16 +105,16 @@ public class SongRequestActivity extends TabbedActivity
 			@Override
 			public void run()
 			{
+				captcha.delete(0, captcha.length());
+				mHandler.post(mUpdateCaptcha);
 				try {
-					captcha.delete(0, captcha.length());
 					captcha.append(new String(Utils
 							.downloadFromUrl(WEB_SERVICE)));
-					mHandler.post(mUpdateCaptcha);
-				} catch(IOException e) {
-					e.printStackTrace();
 				} catch(Exception e) {
-					e.printStackTrace();
+					captcha.delete(0, captcha.length());
+					captcha.append("È avvenuto un errore.");
 				}
+				mHandler.post(mUpdateCaptcha);
 			}
 		});
 		t.start();
@@ -125,8 +135,11 @@ public class SongRequestActivity extends TabbedActivity
 							"com.google");
 
 					email.delete(0, email.length());
+					email.append("---");
+					mHandler.post(mUpdateEmail);
 					if(accounts.length == 1) {
 						// c'è un account google
+						email.delete(0, email.length());
 						email.append(accounts[0].name);
 					} else if(accounts.length > 1) {
 						// ce n'è più di uno
@@ -145,11 +158,13 @@ public class SongRequestActivity extends TabbedActivity
 													DialogInterface dialog,
 													int item)
 											{
+												email.delete(0, email.length());
 												email.append(emails[item]);
 											}
 										}).show();
 					}
 				} else {
+					email.delete(0, email.length());
 					email.append(mailFromPreferences);
 				}
 				mHandler.post(mUpdateEmail);
@@ -215,7 +230,12 @@ public class SongRequestActivity extends TabbedActivity
 								.setPositiveButton("OK", null).show();
 					}
 				} catch(IOException e) {
-					e.printStackTrace();
+					new AlertDialog.Builder(SongRequestActivity.this)
+							.setTitle("Errore!")
+							.setMessage(
+									"È avvenuto un errore durante l'invio del messaggio")
+							.setCancelable(false).setPositiveButton("OK", null)
+							.show();
 				}
 			}
 		});
