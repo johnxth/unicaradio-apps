@@ -38,6 +38,9 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -71,9 +74,6 @@ public class ScheduleActivity extends TabbedActivity
 	@Override
 	protected void setupTab()
 	{
-		state = 0;
-		ListView lv = (ListView) findViewById(R.id.scheduleList);
-
 		DAYS.put("lunedi", "Lunedì");
 		DAYS.put("martedi", "Martedì");
 		DAYS.put("mercoledi", "Mercoledì");
@@ -82,14 +82,21 @@ public class ScheduleActivity extends TabbedActivity
 		DAYS.put("sabato", "Sabato");
 		DAYS.put("domenica", "Domenica");
 
-		Object[] days = DAYS.values().toArray();
-
-		lv.setAdapter(new ArrayAdapter<Object>(ScheduleActivity.this,
-				android.R.layout.simple_list_item_1, days));
+		resetListView();
 
 		if(SCHEDULE == null) {
 			updateScheduleFromJSON();
 		}
+	}
+
+	private void resetListView()
+	{
+		state = 0;
+		ListView lv = (ListView) findViewById(R.id.scheduleList);
+		Object[] days = DAYS.values().toArray();
+
+		lv.setAdapter(new ArrayAdapter<Object>(ScheduleActivity.this,
+				android.R.layout.simple_list_item_1, days));
 	}
 
 	@Override
@@ -118,6 +125,30 @@ public class ScheduleActivity extends TabbedActivity
 				}
 			}
 		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.schedule_menu, menu);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle item selection
+		switch(item.getItemId()) {
+			case R.id.scheduleUpdate:
+				updateScheduleFromJSON();
+				resetListView();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override

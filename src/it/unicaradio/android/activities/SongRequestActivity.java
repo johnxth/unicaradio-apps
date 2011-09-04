@@ -27,12 +27,17 @@ import java.text.MessageFormat;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -59,10 +64,6 @@ public class SongRequestActivity extends TabbedActivity
 		public void run()
 		{
 			final EditText captchaView = (EditText) findViewById(R.id.songsCaptcha);
-			if(captcha.length() == 0) {
-				captchaView.setHint("Generazione captcha in corso...");
-				return;
-			}
 			captchaView.setHint(CaptchaParser.parse(captcha.toString()));
 		}
 	};
@@ -74,12 +75,6 @@ public class SongRequestActivity extends TabbedActivity
 		public void run()
 		{
 			final EditText emailView = (EditText) findViewById(R.id.songsEmail);
-			if(email.toString().equals("---")) {
-				emailView.setHint("Attendere...");
-				return;
-			} else {
-				emailView.setHint("eMail");
-			}
 			emailView.setText(email.toString());
 		}
 	};
@@ -99,14 +94,40 @@ public class SongRequestActivity extends TabbedActivity
 		setEmailField();
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.songs_menu, menu);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle item selection
+		switch(item.getItemId()) {
+			case R.id.songsClearForm:
+				clearForm();
+				return true;
+			case R.id.songsChangeCaptcha:
+				setCaptchaField();
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
 	private void setCaptchaField()
 	{
-		Thread t = new Thread(new Runnable() {
+		AsyncTask<String, Void, Void> task = new AsyncTask<String, Void, Void>() {
+			private ProgressDialog dialog;
+
 			@Override
-			public void run()
+			protected Void doInBackground(String... arg0)
 			{
 				captcha.delete(0, captcha.length());
-				mHandler.post(mUpdateCaptcha);
 				try {
 					captcha.append(new String(Utils
 							.downloadFromUrl(WEB_SERVICE)));
@@ -115,16 +136,35 @@ public class SongRequestActivity extends TabbedActivity
 					captcha.append("È avvenuto un errore.");
 				}
 				mHandler.post(mUpdateCaptcha);
+
+				return null;
 			}
-		});
-		t.start();
+
+			@Override
+			protected void onPreExecute()
+			{
+				super.onPreExecute();
+				dialog = ProgressDialog.show(SongRequestActivity.this,
+						"CAPTCHA...", "Generazione CAPTCHA in corso...", true);
+			}
+
+			@Override
+			protected void onPostExecute(Void result)
+			{
+				super.onPostExecute(result);
+				dialog.dismiss();
+			}
+		};
+		task.execute("");
 	}
 
 	private void setEmailField()
 	{
-		Thread t = new Thread(new Runnable() {
+		AsyncTask<String, Void, Void> task = new AsyncTask<String, Void, Void>() {
+			private ProgressDialog dialog;
+
 			@Override
-			public void run()
+			protected Void doInBackground(String... arg0)
 			{
 				String mailFromPreferences = preferences.getString(USER_EMAIL,
 						NO_MAIL);
@@ -135,11 +175,8 @@ public class SongRequestActivity extends TabbedActivity
 							"com.google");
 
 					email.delete(0, email.length());
-					email.append("---");
-					mHandler.post(mUpdateEmail);
 					if(accounts.length == 1) {
 						// c'è un account google
-						email.delete(0, email.length());
 						email.append(accounts[0].name);
 					} else if(accounts.length > 1) {
 						// ce n'è più di uno
@@ -158,19 +195,49 @@ public class SongRequestActivity extends TabbedActivity
 													DialogInterface dialog,
 													int item)
 											{
-												email.delete(0, email.length());
 												email.append(emails[item]);
 											}
 										}).show();
 					}
 				} else {
-					email.delete(0, email.length());
 					email.append(mailFromPreferences);
 				}
 				mHandler.post(mUpdateEmail);
+
+				return null;
 			}
-		});
-		t.start();
+
+			@Override
+			protected void onPreExecute()
+			{
+				super.onPreExecute();
+				dialog = ProgressDialog.show(SongRequestActivity.this,
+						"Email...", "Recupero indirizzo e-mail in corso...",
+						true);
+			}
+
+			@Override
+			protected void onPostExecute(Void result)
+			{
+				super.onPostExecute(result);
+				dialog.dismiss();
+			}
+		};
+		task.execute("");
+	}
+
+	private void clearForm()
+	{
+		TextView emailView = (TextView) findViewById(R.id.songsEmail);
+		TextView authorView = (TextView) findViewById(R.id.songsAuthor);
+		TextView titleView = (TextView) findViewById(R.id.songsTitle);
+		TextView resultView = (TextView) findViewById(R.id.songsCaptcha);
+
+		emailView.setHint("eMail");
+		setCaptchaField();
+		resultView.setText("");
+		authorView.setText("");
+		titleView.setText("");
 	}
 
 	@Override
@@ -198,8 +265,12 @@ public class SongRequestActivity extends TabbedActivity
 
 				if(email.equals("") || author.equals("") || title.equals("")
 						|| result.equals("")) {
-					// TODO: Error!
-					throw new RuntimeException("You forgot some fields");
+					new AlertDialog.Builder(SongRequestActivity.this)
+							.setTitle("Errore!")
+							.setMessage(
+									"Attenzione! hai dimenticato qualcosa :)")
+							.setCancelable(false).setPositiveButton("OK", null)
+							.show();
 				}
 
 				SharedPreferences.Editor editor = preferences.edit();
@@ -217,10 +288,7 @@ public class SongRequestActivity extends TabbedActivity
 								.setTitle("E-mail inviata!")
 								.setCancelable(false)
 								.setPositiveButton("OK", null).show();
-						setCaptchaField();
-						resultView.setText("");
-						authorView.setText("");
-						titleView.setText("");
+						clearForm();
 					} else {
 						new AlertDialog.Builder(SongRequestActivity.this)
 								.setTitle("Errore!")
