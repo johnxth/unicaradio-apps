@@ -37,7 +37,7 @@ public class CaptchaParser
 		String captcha_ = captcha.trim();
 
 		if(captcha_.length() != 8) {
-			throw new RuntimeException("Wrong length");
+			throw new RuntimeException("Wrong length: " + captcha_.length());
 		}
 
 		String op1 = StringUtils.left(captcha_, 2);
