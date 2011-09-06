@@ -17,6 +17,8 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.adapters.ArrayAlternatedColoursAdapter;
+import it.unicaradio.android.adapters.SimpleAlternatedColoursAdapter;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.utils.ActivityUtils;
 import it.unicaradio.android.utils.Utils;
@@ -47,9 +49,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 /**
  * @author Paolo Cortis
@@ -98,8 +98,9 @@ public class ScheduleActivity extends TabbedActivity
 		ListView lv = (ListView) findViewById(R.id.scheduleList);
 		Object[] days = DAYS.values().toArray();
 
-		lv.setAdapter(new ArrayAdapter<Object>(ScheduleActivity.this,
-				android.R.layout.simple_list_item_1, days));
+		lv.setAdapter(new ArrayAlternatedColoursAdapter<Object>(
+				ScheduleActivity.this, android.R.layout.simple_list_item_1,
+				days));
 	}
 
 	@Override
@@ -122,10 +123,11 @@ public class ScheduleActivity extends TabbedActivity
 						return;
 					}
 					state = 1;
-					lv.setAdapter(new SimpleAdapter(ScheduleActivity.this,
-							SCHEDULE.get((int) id), R.layout.list_two_columns,
-							new String[] {"line1", "line2"}, new int[] {
-									R.id.text1, R.id.text2}));
+					lv.setAdapter(new SimpleAlternatedColoursAdapter(
+							ScheduleActivity.this, SCHEDULE.get((int) id),
+							R.layout.list_two_columns, new String[] {"line1",
+									"line2"},
+							new int[] {R.id.text1, R.id.text2}));
 				}
 			}
 		});
