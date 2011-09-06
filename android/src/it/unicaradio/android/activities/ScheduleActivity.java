@@ -35,6 +35,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -109,19 +112,20 @@ public class ScheduleActivity extends TabbedActivity
 					long id)
 			{
 				if(state == 0) {
-					state = 1;
-					if(SCHEDULE != null && SCHEDULE.get((int) id) != null) {
-						lv.setAdapter(new SimpleAdapter(ScheduleActivity.this,
-								SCHEDULE.get((int) id),
-								R.layout.list_two_columns, new String[] {
-										"line1", "line2"}, new int[] {
-										R.id.text1, R.id.text2}));
-					} else {
-						lv.setAdapter(new ArrayAdapter<String>(
-								ScheduleActivity.this,
-								android.R.layout.simple_list_item_1,
-								new String[] {""}));
+					if(SCHEDULE == null || SCHEDULE.size() == 0) {
+						new AlertDialog.Builder(ScheduleActivity.this)
+								.setTitle("Errore!")
+								.setMessage(
+										"Attenzione! Assicurati di essere connesso ad Internet e ricarica il palinsesto.")
+								.setCancelable(false)
+								.setPositiveButton("OK", null).show();
+						return;
 					}
+					state = 1;
+					lv.setAdapter(new SimpleAdapter(ScheduleActivity.this,
+							SCHEDULE.get((int) id), R.layout.list_two_columns,
+							new String[] {"line1", "line2"}, new int[] {
+									R.id.text1, R.id.text2}));
 				}
 			}
 		});
@@ -170,10 +174,11 @@ public class ScheduleActivity extends TabbedActivity
 
 	private void updateScheduleFromJSON()
 	{
-		Thread t = new Thread(new Runnable() {
+		AsyncTask<String, Void, Integer> task = new AsyncTask<String, Void, Integer>() {
+			private ProgressDialog dialog;
 
 			@Override
-			public void run()
+			protected Integer doInBackground(String... arg0)
 			{
 				SCHEDULE = new ArrayList<ArrayList<HashMap<String, String>>>();
 
@@ -183,7 +188,7 @@ public class ScheduleActivity extends TabbedActivity
 				} catch(IOException e) {
 					Log.d(LOG, MessageFormat.format("Cannot find file {0}",
 							SCHEDULE_URL));
-					return;
+					return 1;
 				}
 
 				JSONObject jObject = null;
@@ -211,10 +216,36 @@ public class ScheduleActivity extends TabbedActivity
 					}
 				} catch(JSONException e) {
 					Log.d(LOG, "Errore durante il parsing del file JSON", e);
+					return 1;
+				}
+
+				return 0;
+			}
+
+			@Override
+			protected void onPreExecute()
+			{
+				super.onPreExecute();
+				dialog = ProgressDialog.show(ScheduleActivity.this,
+						"Palinsesto...", "Caricamento in corso...", true);
+			}
+
+			@Override
+			protected void onPostExecute(Integer result)
+			{
+				super.onPostExecute(result);
+				dialog.dismiss();
+				if(result == 1) {
+					new AlertDialog.Builder(ScheduleActivity.this)
+							.setTitle("Errore!")
+							.setMessage(
+									"È avvenuto un errore. Verifica di essere connesso ad Internet.")
+							.setCancelable(false).setPositiveButton("OK", null)
+							.show();
 				}
 			}
-		});
-		t.start();
+		};
+		task.execute("");
 	}
 
 	private String adjustTime(String time)

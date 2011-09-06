@@ -121,23 +121,22 @@ public class SongRequestActivity extends TabbedActivity
 
 	private void setCaptchaField()
 	{
-		AsyncTask<String, Void, Void> task = new AsyncTask<String, Void, Void>() {
+		AsyncTask<String, Void, Integer> task = new AsyncTask<String, Void, Integer>() {
 			private ProgressDialog dialog;
 
 			@Override
-			protected Void doInBackground(String... arg0)
+			protected Integer doInBackground(String... arg0)
 			{
 				captcha.delete(0, captcha.length());
 				try {
 					captcha.append(new String(Utils
 							.downloadFromUrl(WEB_SERVICE)));
 				} catch(Exception e) {
-					captcha.delete(0, captcha.length());
-					captcha.append("È avvenuto un errore.");
+					return 1;
 				}
 				mHandler.post(mUpdateCaptcha);
 
-				return null;
+				return 0;
 			}
 
 			@Override
@@ -149,10 +148,18 @@ public class SongRequestActivity extends TabbedActivity
 			}
 
 			@Override
-			protected void onPostExecute(Void result)
+			protected void onPostExecute(Integer result)
 			{
 				super.onPostExecute(result);
 				dialog.dismiss();
+				if(result == 1) {
+					new AlertDialog.Builder(SongRequestActivity.this)
+							.setTitle("Errore")
+							.setMessage(
+									"È avvenuto un errore nella generazione del CAPTCHA. Verifica di essere connesso ad Internet.")
+							.setCancelable(false).setPositiveButton("OK", null)
+							.show();
+				}
 			}
 		};
 		task.execute("");
@@ -258,10 +265,10 @@ public class SongRequestActivity extends TabbedActivity
 				TextView titleView = (TextView) findViewById(R.id.songsTitle);
 				TextView resultView = (TextView) findViewById(R.id.songsCaptcha);
 
-				String email = emailView.getText().toString().trim();
-				String author = authorView.getText().toString().trim();
-				String title = titleView.getText().toString().trim();
-				String result = resultView.getText().toString().trim();
+				final String email = emailView.getText().toString().trim();
+				final String author = authorView.getText().toString().trim();
+				final String title = titleView.getText().toString().trim();
+				final String result = resultView.getText().toString().trim();
 
 				if(email.equals("") || author.equals("") || title.equals("")
 						|| result.equals("")) {
@@ -271,40 +278,67 @@ public class SongRequestActivity extends TabbedActivity
 									"Attenzione! hai dimenticato qualcosa :)")
 							.setCancelable(false).setPositiveButton("OK", null)
 							.show();
+					return;
 				}
 
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putString(USER_EMAIL, email);
 				editor.commit();
 
-				try {
-					String url = MessageFormat.format(
-							"{0}?r={1}&op={2}&art={3}&tit={4}&mail={5}",
-							WEB_SERVICE, result, captcha.toString(), author,
-							title, email);
-					String sendResult = new String(Utils.downloadFromUrl(url));
-					if(sendResult.equals("OK")) {
-						new AlertDialog.Builder(SongRequestActivity.this)
-								.setTitle("E-mail inviata!")
-								.setCancelable(false)
-								.setPositiveButton("OK", null).show();
-						clearForm();
-					} else {
-						new AlertDialog.Builder(SongRequestActivity.this)
-								.setTitle("Errore!")
-								.setMessage(
-										"È avvenuto un errore durante l'invio del messaggio")
-								.setCancelable(false)
-								.setPositiveButton("OK", null).show();
+				AsyncTask<String, Void, Integer> task = new AsyncTask<String, Void, Integer>() {
+					private ProgressDialog dialog;
+
+					@Override
+					protected Integer doInBackground(String... arg0)
+					{
+						try {
+							String url = MessageFormat
+									.format("{0}?r={1}&op={2}&art={3}&tit={4}&mail={5}",
+											WEB_SERVICE, result,
+											captcha.toString(), author, title,
+											email);
+							String sendResult = new String(Utils
+									.downloadFromUrl(url));
+							if(sendResult.equals("OK")) {
+								return 0;
+							} else {
+								return 1;
+							}
+						} catch(IOException e) {
+							return 1;
+						}
 					}
-				} catch(IOException e) {
-					new AlertDialog.Builder(SongRequestActivity.this)
-							.setTitle("Errore!")
-							.setMessage(
-									"È avvenuto un errore durante l'invio del messaggio")
-							.setCancelable(false).setPositiveButton("OK", null)
-							.show();
-				}
+
+					@Override
+					protected void onPreExecute()
+					{
+						super.onPreExecute();
+						dialog = ProgressDialog.show(SongRequestActivity.this,
+								"Email...", "Invio e-mail in corso...", true);
+					}
+
+					@Override
+					protected void onPostExecute(Integer result)
+					{
+						super.onPostExecute(result);
+						dialog.dismiss();
+						if(result == 1) {
+							new AlertDialog.Builder(SongRequestActivity.this)
+									.setTitle("Errore!")
+									.setMessage(
+											"È avvenuto un errore durante l'invio del messaggio")
+									.setCancelable(false)
+									.setPositiveButton("OK", null).show();
+						} else if(result == 0) {
+							new AlertDialog.Builder(SongRequestActivity.this)
+									.setTitle("E-mail inviata!")
+									.setCancelable(false)
+									.setPositiveButton("OK", null).show();
+							clearForm();
+						}
+					}
+				};
+				task.execute("");
 			}
 		});
 	}
