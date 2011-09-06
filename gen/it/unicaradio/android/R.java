@@ -14,55 +14,67 @@ public final class R {
         public static final int button_main_color=0x7f040000;
     }
     public static final class drawable {
-        public static final int button_pause=0x7f020000;
-        public static final int button_play=0x7f020001;
-        public static final int cover=0x7f020002;
-        public static final int facebook=0x7f020003;
-        public static final int favorites=0x7f020004;
-        public static final int icon=0x7f020005;
-        public static final int info=0x7f020006;
-        public static final int logo=0x7f020007;
-        public static final int main_background=0x7f020014;
-        public static final int onair=0x7f020008;
-        public static final int pause=0x7f020009;
-        public static final int play=0x7f02000a;
-        public static final int play_pause_bg=0x7f02000b;
-        public static final int schedule=0x7f02000c;
-        public static final int song=0x7f02000d;
-        public static final int tab_bg_selected=0x7f02000e;
-        public static final int tab_bg_selector=0x7f02000f;
-        public static final int tab_bg_unselected=0x7f020010;
-        public static final int title_bg=0x7f020011;
-        public static final int twitter=0x7f020012;
-        public static final int youtube=0x7f020013;
+        public static final int banner=0x7f020000;
+        public static final int button_pause=0x7f020001;
+        public static final int button_play=0x7f020002;
+        public static final int cover=0x7f020003;
+        public static final int facebook=0x7f020004;
+        public static final int favorites=0x7f020005;
+        public static final int ic_menu_refresh=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int info=0x7f020008;
+        public static final int logo=0x7f020009;
+        public static final int main_background=0x7f02001a;
+        public static final int onair=0x7f02000a;
+        public static final int pause=0x7f02000b;
+        public static final int pause_normal=0x7f02000c;
+        public static final int pause_pressed=0x7f02000d;
+        public static final int play=0x7f02000e;
+        public static final int play_normal=0x7f02000f;
+        public static final int play_pause_bg=0x7f020010;
+        public static final int play_pressed=0x7f020011;
+        public static final int schedule=0x7f020012;
+        public static final int song=0x7f020013;
+        public static final int tab_bg_selected=0x7f020014;
+        public static final int tab_bg_selector=0x7f020015;
+        public static final int tab_bg_unselected=0x7f020016;
+        public static final int title_bg=0x7f020017;
+        public static final int twitter=0x7f020018;
+        public static final int youtube=0x7f020019;
     }
     public static final class id {
-        public static final int author=0x7f080009;
-        public static final int cover=0x7f080008;
-        public static final int exit=0x7f080019;
-        public static final int favoritesTab=0x7f080015;
-        public static final int icon=0x7f080006;
-        public static final int infosTab=0x7f080016;
-        public static final int infosText=0x7f080002;
-        public static final int linksList=0x7f080003;
-        public static final int playPauseButton=0x7f08000c;
-        public static final int playPauseButtonContainer=0x7f08000b;
-        public static final int playPauseDivider=0x7f080007;
-        public static final int scheduleList=0x7f08000d;
-        public static final int scheduleTab=0x7f080013;
-        public static final int songButton=0x7f080010;
-        public static final int songTab=0x7f080014;
-        public static final int songTitle=0x7f08000a;
-        public static final int songsAuthor=0x7f08000e;
-        public static final int songsTitle=0x7f08000f;
-        public static final int streamingTab=0x7f080012;
+        public static final int author=0x7f08000a;
+        public static final int cover=0x7f080009;
+        public static final int exit=0x7f08001f;
+        public static final int favoritesTab=0x7f080018;
+        public static final int icon=0x7f080007;
+        public static final int infosTab=0x7f080019;
+        public static final int infosText=0x7f080003;
+        public static final int linksList=0x7f080004;
+        public static final int playPauseButton=0x7f08000d;
+        public static final int playPauseButtonContainer=0x7f08000c;
+        public static final int playPauseDivider=0x7f080008;
+        public static final int scheduleList=0x7f08000e;
+        public static final int scheduleTab=0x7f080016;
+        public static final int scheduleUpdate=0x7f08001c;
+        public static final int songButton=0x7f080013;
+        public static final int songTab=0x7f080017;
+        public static final int songTitle=0x7f08000b;
+        public static final int songsAuthor=0x7f080010;
+        public static final int songsCaptcha=0x7f080012;
+        public static final int songsChangeCaptcha=0x7f08001e;
+        public static final int songsClearForm=0x7f08001d;
+        public static final int songsEmail=0x7f08000f;
+        public static final int songsTitle=0x7f080011;
+        public static final int streamingTab=0x7f080015;
         public static final int tabBar=0x7f080000;
-        public static final int tabs=0x7f080011;
-        public static final int text1=0x7f080004;
-        public static final int text2=0x7f080005;
-        public static final int title=0x7f080017;
-        public static final int titleDivider=0x7f080018;
+        public static final int tabs=0x7f080014;
+        public static final int text1=0x7f080005;
+        public static final int text2=0x7f080006;
+        public static final int title=0x7f08001a;
+        public static final int titleDivider=0x7f08001b;
         public static final int titlebar=0x7f080001;
+        public static final int unicaradio_logo=0x7f080002;
     }
     public static final class layout {
         public static final int infos=0x7f030000;
@@ -77,6 +89,9 @@ public final class R {
     }
     public static final class menu {
         public static final int menu=0x7f070000;
+        public static final int schedule_menu=0x7f070001;
+        public static final int songs_menu=0x7f070002;
+        public static final int streaming_menu=0x7f070003;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
