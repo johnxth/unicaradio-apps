@@ -243,7 +243,11 @@ public class StreamingService extends Service
 
 		sendBroadcast(i);
 		if(!infos.isClean()) {
-			sendNotification(infos.getTitle(), infos.getCleanedAuthor());
+			if(infos.getTitle().equals("")) {
+				sendNotification(infos.getCleanedAuthor(), "");
+			} else {
+				sendNotification(infos.getTitle(), infos.getCleanedAuthor());
+			}
 		}
 		error = "";
 	}
