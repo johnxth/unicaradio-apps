@@ -37,6 +37,8 @@ public class TrackInfos
 
 	private Context context;
 
+	private boolean cleaned;
+
 	public TrackInfos()
 	{
 		clean();
@@ -54,6 +56,7 @@ public class TrackInfos
 		setAuthor(null);
 		setTitle(null);
 		setCover(null);
+		cleaned = true;
 	}
 
 	public void setTrackInfos(TrackInfos infos)
@@ -62,6 +65,7 @@ public class TrackInfos
 			setAuthor(infos.getAuthor());
 			setTitle(infos.getTitle());
 			setCover(infos.getCover());
+			cleaned = false;
 		}
 	}
 
@@ -69,6 +73,13 @@ public class TrackInfos
 	{
 		synchronized(this) {
 			return "- " + author + " -";
+		}
+	}
+
+	public String getCleanedAuthor()
+	{
+		synchronized(this) {
+			return author;
 		}
 	}
 
@@ -82,6 +93,7 @@ public class TrackInfos
 					this.author = StringUtils.substringBetween(author, "- ",
 							" -");
 				}
+				cleaned = false;
 			} else {
 				this.author = "UnicaRadio";
 			}
@@ -100,6 +112,7 @@ public class TrackInfos
 		synchronized(this) {
 			if(title != null) {
 				this.title = title;
+				cleaned = false;
 			} else {
 				this.title = "";
 			}
@@ -118,10 +131,16 @@ public class TrackInfos
 		synchronized(this) {
 			if(cover != null) {
 				this.cover = cover;
+				cleaned = false;
 			} else if(context != null) {
 				this.cover = BitmapFactory.decodeResource(
 						context.getResources(), R.drawable.cover);
 			}
 		}
+	}
+
+	public boolean isClean()
+	{
+		return cleaned;
 	}
 }

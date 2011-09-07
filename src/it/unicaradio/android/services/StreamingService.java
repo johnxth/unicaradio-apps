@@ -16,6 +16,8 @@
  */
 package it.unicaradio.android.services;
 
+import it.unicaradio.android.R;
+import it.unicaradio.android.activities.StreamingActivity;
 import it.unicaradio.android.events.OnInfoListener;
 import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.streamers.IcecastStreamer;
@@ -27,6 +29,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -55,7 +60,11 @@ public class StreamingService extends Service
 
 	private static final String STREAM_URL = "http://streaming.unicaradio.it:80/unica64.aac";
 
+	private static final int NOTIFICATION_ID = 1;
+
 	private final IBinder mBinder = new LocalBinder();
+
+	private NotificationManager notificationManager;
 
 	private URLConnection conn;
 
@@ -116,6 +125,7 @@ public class StreamingService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
+		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		return START_NOT_STICKY;
 	}
 
@@ -172,6 +182,7 @@ public class StreamingService extends Service
 			infos.clean();
 			notifyChange();
 		}
+		clearNotification();
 	}
 
 	private void _play(URL url) throws IOException
@@ -183,6 +194,7 @@ public class StreamingService extends Service
 			streamer = new IcecastStreamer(conn);
 
 			streamer.addOnInfoListener(new OnInfoListener() {
+				@Override
 				public void onInfo(TrackInfos trackInfos)
 				{
 					infos.setTrackInfos(trackInfos);
@@ -194,6 +206,7 @@ public class StreamingService extends Service
 					ArrayDecoder.create(Decoder.DECODER_OPENCORE));
 
 			Thread playThread = new Thread(new Runnable() {
+				@Override
 				public void run()
 				{
 					try {
@@ -229,7 +242,30 @@ public class StreamingService extends Service
 		i.putExtra("error", error);
 
 		sendBroadcast(i);
+		if(!infos.isClean()) {
+			sendNotification(infos.getTitle(), infos.getCleanedAuthor());
+		}
 		error = "";
+	}
+
+	private void clearNotification()
+	{
+		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.cancel(NOTIFICATION_ID);
+	}
+
+	private void sendNotification(String title, String message)
+	{
+		Intent intent = new Intent(this, StreamingActivity.class);
+		PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
+				PendingIntent.FLAG_CANCEL_CURRENT);
+
+		Notification notification = new Notification(R.drawable.logo, title,
+				System.currentTimeMillis());
+		notification.flags |= Notification.FLAG_NO_CLEAR;
+		notification.setLatestEventInfo(this, title, message, pIntent);
+
+		notificationManager.notify(NOTIFICATION_ID, notification);
 	}
 
 	public class LocalBinder extends Binder
