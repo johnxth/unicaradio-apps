@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="fill_parent">
+
+	<ScrollView
+		android:id="@+id/updatesScrollView"
+		android:layout_width="wrap_content"
+		android:layout_marginBottom="15dp"
+		android:layout_height="250px">
+		<TextView
+			android:id="@+id/updatesText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</ScrollView>
+
+	<Button
+		android:id="@+id/updatesButton"
+		android:layout_below="@id/updatesScrollView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:text="Ok" />
+</RelativeLayout>

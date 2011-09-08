@@ -26,12 +26,18 @@ import it.unicaradio.android.utils.ImageUtils;
 import java.io.IOException;
 import java.text.MessageFormat;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +48,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,6 +68,8 @@ public class StreamingActivity extends TabbedActivity
 	private Thread imageThread;
 
 	private StreamingService streamingService;
+
+	private SharedPreferences preferences;
 
 	private final Handler mHandler = new Handler();
 
@@ -143,6 +152,32 @@ public class StreamingActivity extends TabbedActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState, R.layout.main);
+
+		preferences = getPreferences(Context.MODE_PRIVATE);
+		if(hasBeenUpdated()) {
+			showUpdatesDialog();
+		}
+	}
+
+	private void showUpdatesDialog()
+	{
+		final Dialog dialog = new Dialog(StreamingActivity.this);
+		dialog.setContentView(R.layout.popup);
+		dialog.setTitle("L'applicazione è stata aggiornata!");
+		dialog.setCancelable(true);
+
+		TextView textView = (TextView) dialog.findViewById(R.id.updatesText);
+		textView.setText(R.string.updates);
+
+		Button button = (Button) dialog.findViewById(R.id.updatesButton);
+		button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v)
+			{
+				dialog.hide();
+			}
+		});
+		dialog.show();
 	}
 
 	@Override
@@ -273,5 +308,26 @@ public class StreamingActivity extends TabbedActivity
 			ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
 			playPauseButton.setImageResource(R.drawable.play);
 		}
+	}
+
+	private boolean hasBeenUpdated()
+	{
+		try {
+			PackageInfo pInfo = getPackageManager().getPackageInfo(
+					getPackageName(), PackageManager.GET_META_DATA);
+			long lastRunVersionCode = preferences.getLong("lastRunVersionCode",
+					0);
+			if(lastRunVersionCode < pInfo.versionCode) {
+				Editor editor = preferences.edit();
+				editor.putLong("lastRunVersionCode", pInfo.versionCode);
+				editor.commit();
+
+				return(lastRunVersionCode > 0);
+			}
+		} catch(NameNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 }
