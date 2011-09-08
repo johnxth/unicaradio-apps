@@ -1,22 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-	<string name="app_name">UnicaRadio</string>
-	<string name="infos">
-		<![CDATA[
-			<font color=\'#FF0000\'><b>UnicaRadio</b></font>,
+    <string name="app_name">UnicaRadio</string>
+    <string name="infos">
+		
+			&amp;lt;font color=\'#FF0000\'&amp;gt;&amp;lt;b&amp;gt;UnicaRadio&amp;lt;/b&amp;gt;&amp;lt;/font&amp;gt;,
 			la webradio degli studenti universitari di Cagliari.
-			<br />
-			<br />
+			&amp;lt;br /&amp;gt;
+			&amp;lt;br /&amp;gt;
 			Software sviluppato da
-			<a href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'>
-			Paolo Cortis</a> per conto di <font color=\'#FF0000\'><b>
-			UnicaRadio</b></font>, sotto i termini e le condizioni della
+			&amp;lt;a href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'&amp;gt;
+			Paolo Cortis&amp;lt;/a&amp;gt; per conto di &amp;lt;font color=\'#FF0000\'&amp;gt;&amp;lt;b&amp;gt;
+			UnicaRadio&amp;lt;/b&amp;gt;&amp;lt;/font&amp;gt;, sotto i termini e le condizioni della
 			licenza GPLv2.
-			<br />
-			<br />
+			&amp;lt;br /&amp;gt;
+			&amp;lt;br /&amp;gt;
 			Codice sorgente liberamente scaricabile da
-			<a href=\'http://code.google.com/p/unicaradio-apps/\'>Google Code</a>.
-		]]>
+			&amp;lt;a href=\'http://code.google.com/p/unicaradio-apps/\'&amp;gt;Google Code&amp;lt;/a&amp;gt;.
+		
 	</string>
-	<string name="closeApp">Esci</string>
+    <string name="closeApp">Esci</string>
+    <string name="updates">Versione 1.1\n
+\tCorrezioni:\n
+\t- [bug] L\'applicazione non va in pausa all\'arrivo di una chiamata;\n
+\t- [bug] Audio scattoso su alcuni dispositivi;\n
+\t- [bug] L\'applicazione si chiude quando va in background;\n
+\t- [bug] Palinsesto con orario sbagliato;\n
+\t- [bug] Dopo lo stop viene ancora caricata una cover;\n
+\t- [bug] Verifica della connessione ad Internet;\n
+\t- [bug] Crash per assenza della connessione quando si è in play;\n
+\t- [mod] Invio mail senza ulteriore conferma;\n
+\t- [mod] Nuovi pulsanti di play e pausa;\n
+\t- [mod] Grafica palinsesto a colori sfalsati;\n
+\t- [nuovo] Notifiche.\n
+\n
+Versione 1.0:\n
+\t- Prima versione.\n</string>
 </resources>
