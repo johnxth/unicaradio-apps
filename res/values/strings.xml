@@ -2,21 +2,19 @@
 <resources>
     <string name="app_name">UnicaRadio</string>
     <string name="infos">
-		
-			&amp;lt;font color=\'#FF0000\'&amp;gt;&amp;lt;b&amp;gt;UnicaRadio&amp;lt;/b&amp;gt;&amp;lt;/font&amp;gt;,
+			&lt;font color=\'#FF0000\'&gt;&lt;b&gt;UnicaRadio&lt;/b&gt;&lt;/font&gt;,
 			la webradio degli studenti universitari di Cagliari.
-			&amp;lt;br /&amp;gt;
-			&amp;lt;br /&amp;gt;
+			&lt;br /&gt;
+			&lt;br /&gt;
 			Software sviluppato da
-			&amp;lt;a href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'&amp;gt;
-			Paolo Cortis&amp;lt;/a&amp;gt; per conto di &amp;lt;font color=\'#FF0000\'&amp;gt;&amp;lt;b&amp;gt;
-			UnicaRadio&amp;lt;/b&amp;gt;&amp;lt;/font&amp;gt;, sotto i termini e le condizioni della
+			&lt;a href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'&gt;
+			Paolo Cortis&lt;/a&gt; per conto di &lt;font color=\'#FF0000\'&gt;&lt;b&gt;
+			UnicaRadio&lt;/b&gt;&lt;/font&gt;, sotto i termini e le condizioni della
 			licenza GPLv2.
-			&amp;lt;br /&amp;gt;
-			&amp;lt;br /&amp;gt;
+			&lt;br /&gt;
+			&lt;br /&gt;
 			Codice sorgente liberamente scaricabile da
-			&amp;lt;a href=\'http://code.google.com/p/unicaradio-apps/\'&amp;gt;Google Code&amp;lt;/a&amp;gt;.
-		
+			&lt;a href=\'http://code.google.com/p/unicaradio-apps/\'&gt;Google Code&lt;/a&gt;.
 	</string>
     <string name="closeApp">Esci</string>
     <string name="updates">Versione 1.1\n
