@@ -117,7 +117,7 @@ public class ScheduleActivity extends TabbedActivity
 						new AlertDialog.Builder(ScheduleActivity.this)
 								.setTitle("Errore!")
 								.setMessage(
-										"Attenzione! Assicurati di essere connesso ad Internet e ricarica il palinsesto.")
+										"Attenzione! Assicurati di essere connesso ad Internet.")
 								.setCancelable(false)
 								.setPositiveButton("OK", null).show();
 						return;
