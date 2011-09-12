@@ -34,7 +34,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -84,7 +83,6 @@ public class SongRequestActivity extends TabbedActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		Log.d(SongRequestActivity.class.getName(), "Called SongRequestActivity");
 		super.onCreate(savedInstanceState, R.layout.songs);
 
 		preferences = getPreferences(Context.MODE_PRIVATE);
@@ -156,7 +154,7 @@ public class SongRequestActivity extends TabbedActivity
 					new AlertDialog.Builder(SongRequestActivity.this)
 							.setTitle("Errore")
 							.setMessage(
-									"È avvenuto un errore nella generazione del CAPTCHA. Verifica di essere connesso ad Internet.")
+									"Verifica di essere connesso ad Internet.")
 							.setCancelable(false).setPositiveButton("OK", null)
 							.show();
 				}
