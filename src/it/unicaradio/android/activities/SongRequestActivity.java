@@ -52,7 +52,7 @@ public class SongRequestActivity extends TabbedActivity
 
 	private static final String USER_EMAIL = "user_email";
 
-	private static final String WEB_SERVICE = "http://paolo86.slack-counter.org/mail.php";
+	private static final String WEB_SERVICE = "http://www.unicaradio.it/regia/test/mail.php";
 
 	private final Handler mHandler = new Handler();
 
