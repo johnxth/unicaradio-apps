@@ -19,6 +19,7 @@ package it.unicaradio.android.activities;
 import it.unicaradio.android.R;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.utils.CaptchaParser;
+import it.unicaradio.android.utils.EncodingUtils;
 import it.unicaradio.android.utils.Utils;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -64,6 +66,7 @@ public class SongRequestActivity extends TabbedActivity
 		{
 			final EditText captchaView = (EditText) findViewById(R.id.songsCaptcha);
 			captchaView.setHint(CaptchaParser.parse(captcha.toString()));
+			captchaView.setText("");
 		}
 	};
 
@@ -290,13 +293,20 @@ public class SongRequestActivity extends TabbedActivity
 					protected Integer doInBackground(String... arg0)
 					{
 						try {
-							String url = MessageFormat
-									.format("{0}?r={1}&op={2}&art={3}&tit={4}&mail={5}",
-											WEB_SERVICE, result,
-											captcha.toString(), author, title,
-											email);
+							String url = MessageFormat.format(
+									"?r={0}&op={1}&art={2}&tit={3}&mail={4}",
+									EncodingUtils.encodeURIComponent(result),
+									EncodingUtils.encodeURIComponent(captcha
+											.toString()), EncodingUtils
+											.encodeURIComponent(author),
+									EncodingUtils.encodeURIComponent(title),
+									EncodingUtils.encodeURIComponent(email));
 							String sendResult = new String(Utils
-									.downloadFromUrl(url));
+									.downloadFromUrl(WEB_SERVICE + url));
+							Log.d(SongRequestActivity.class.getCanonicalName(),
+									sendResult);
+							Log.d(SongRequestActivity.class.getCanonicalName(),
+									EncodingUtils.encodeURIComponent(url));
 							if(sendResult.equals("OK")) {
 								return 0;
 							} else {
