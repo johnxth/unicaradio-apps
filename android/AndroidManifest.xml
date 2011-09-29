@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="it.unicaradio.android"
-	android:versionName="1.1.1-SNAPSHOT"
-	android:versionCode="2">
+	android:versionName="1.1.1"
+	android:versionCode="3">
 	<uses-sdk android:minSdkVersion="7" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
