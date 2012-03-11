@@ -83,6 +83,8 @@ public class SongRequestActivity extends TabbedActivity
 
 	private SharedPreferences preferences;
 
+	private CharSequence[] emails;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -168,11 +170,11 @@ public class SongRequestActivity extends TabbedActivity
 
 	private void setEmailField()
 	{
-		AsyncTask<String, Void, Void> task = new AsyncTask<String, Void, Void>() {
+		AsyncTask<String, Void, Account[]> task = new AsyncTask<String, Void, Account[]>() {
 			private ProgressDialog dialog;
 
 			@Override
-			protected Void doInBackground(String... arg0)
+			protected Account[] doInBackground(String... arg0)
 			{
 				String mailFromPreferences = preferences.getString(USER_EMAIL,
 						NO_MAIL);
@@ -188,29 +190,11 @@ public class SongRequestActivity extends TabbedActivity
 						email.append(accounts[0].name);
 					} else if(accounts.length > 1) {
 						// ce n'è più di uno
-						final CharSequence[] emails = new CharSequence[accounts.length];
-						for(int i = 0; i < accounts.length; i++) {
-							emails[i] = accounts[i].name;
-						}
-						new AlertDialog.Builder(SongRequestActivity.this)
-								.setTitle(
-										"Quale indirizzo vuoi usare per inviare l'email?")
-								.setCancelable(false)
-								.setItems(emails,
-										new DialogInterface.OnClickListener() {
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int item)
-											{
-												email.append(emails[item]);
-											}
-										}).show();
+						return accounts;
 					}
 				} else {
 					email.append(mailFromPreferences);
 				}
-				mHandler.post(mUpdateEmail);
 
 				return null;
 			}
@@ -218,16 +202,38 @@ public class SongRequestActivity extends TabbedActivity
 			@Override
 			protected void onPreExecute()
 			{
-				super.onPreExecute();
 				dialog = ProgressDialog.show(SongRequestActivity.this,
 						"Email...", "Recupero indirizzo e-mail in corso...",
 						true);
 			}
 
 			@Override
-			protected void onPostExecute(Void result)
+			protected void onPostExecute(Account[] accounts)
 			{
-				super.onPostExecute(result);
+				if(accounts != null) {
+					// There are more than one google account
+					emails = new CharSequence[accounts.length];
+					for(int i = 0; i < accounts.length; i++) {
+						emails[i] = accounts[i].name;
+					}
+					new AlertDialog.Builder(SongRequestActivity.this)
+							.setTitle(
+									"Quale indirizzo vuoi usare per inviare l'email?")
+							.setCancelable(false)
+							.setItems(emails,
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(
+												DialogInterface dialog, int item)
+										{
+											email.append(emails[item]);
+											mHandler.post(mUpdateEmail);
+										}
+									}).show();
+				} else {
+					mHandler.post(mUpdateEmail);
+				}
+
 				dialog.dismiss();
 			}
 		};
