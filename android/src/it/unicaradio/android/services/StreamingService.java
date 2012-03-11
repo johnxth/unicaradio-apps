@@ -44,10 +44,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.spoledge.aacplayer.AACPlayer;
-import com.spoledge.aacplayer.ArrayAACPlayer;
-import com.spoledge.aacplayer.ArrayDecoder;
-import com.spoledge.aacplayer.Decoder;
+import com.spoledge.aacdecoder.AACPlayer;
 
 /**
  * @author Paolo Cortis
@@ -202,9 +199,7 @@ public class StreamingService extends Service
 				}
 			});
 
-			player = new ArrayAACPlayer(
-					ArrayDecoder.create(Decoder.DECODER_OPENCORE));
-
+			player = new AACPlayer();
 			Thread playThread = new Thread(new Runnable() {
 				@Override
 				public void run()
@@ -221,11 +216,11 @@ public class StreamingService extends Service
 		}
 	}
 
-	private void stopWithException(String message, Exception e)
+	private void stopWithException(String message, Throwable t)
 	{
-		error = MessageFormat.format("{0}: {1}", message, e.getMessage());
+		error = MessageFormat.format("{0}: {1}", message, t.getMessage());
 		stop();
-		Log.d(LOG, message, e);
+		Log.d(LOG, message, t);
 	}
 
 	private void stopWithException(Exception e)

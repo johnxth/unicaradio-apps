@@ -30,11 +30,4 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>AACPlayerActivity_src</name>
-			<type>2</type>
-			<locationURI>_android_AACPlayerActivity_cd2ed013/src</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
