@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg3190"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="Nuovo documento 2">
+  <defs
+     id="defs3192">
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3860"
+       x="-0.13200001"
+       width="1.2640001"
+       y="-0.13199998"
+       height="1.2640001">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.6399999"
+         id="feGaussianBlur3862" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3852"
+       x="-0.12000001"
+       width="1.24"
+       y="-0.12"
+       height="1.24">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.3999999"
+         id="feGaussianBlur3854" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3871"
+       x="-0.12"
+       width="1.24"
+       y="-0.12"
+       height="1.24">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.4000001"
+         id="feGaussianBlur3873" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3867"
+       x="-0.12"
+       width="1.24"
+       y="-0.12"
+       height="1.24">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.4000001"
+         id="feGaussianBlur3869" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3854"
+       x="-0.1254902"
+       width="1.2509804"
+       y="-0.1254902"
+       height="1.2509804">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.5098039"
+         id="feGaussianBlur3856" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3838">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.44"
+         id="feGaussianBlur3840" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.2119906"
+     inkscape:cx="377.14284"
+     inkscape:cy="888.57143"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3195">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       style="display:inline"
+       id="g3883"
+       transform="matrix(1.0080645,0,0,1.0080645,21.581303,-326.51956)">
+      <rect
+         ry="1"
+         rx="1"
+         y="460.09534"
+         x="80.20462"
+         height="48"
+         width="48"
+         id="rect3003"
+         style="fill:#666666;fill-opacity:1;stroke:none;display:inline" />
+      <path
+         inkscape:connector-curvature="0"
+         id="rect3815"
+         d="m 81.209737,460.10092 c -0.554,0 -1,0.446 -1,1 l 0,46 c 0,0.554 0.446,1 1,1 l 3,0 0,-43 c 0,-0.554 0.446,-1 1,-1 l 43.000003,0 0,-3 c 0,-0.554 -0.446,-1 -1,-1 l -46.000003,0 z"
+         style="opacity:0.6;fill:#e6e6e6;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3871)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="rect3818"
+         d="m 124.20974,460.10092 0,43 c 0,0.554 -0.446,1 -1,1 l -43.000003,0 0,3 c 0,0.554 0.446,1 1,1 l 46.000003,0 c 0.554,0 1,-0.446 1,-1 l 0,-46 c 0,-0.554 -0.446,-1 -1,-1 l -3,0 z"
+         style="opacity:0.6;fill:#1a1a1a;fill-opacity:1;stroke:none;filter:url(#filter3867)" />
+      <g
+         inkscape:export-ydpi="71.940002"
+         inkscape:export-xdpi="71.940002"
+         inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/play.png"
+         transform="matrix(0.53254423,0,0,0.53254423,-126.9338,406.01782)"
+         id="g3006">
+        <path
+           sodipodi:type="star"
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="path2997"
+           sodipodi:sides="3"
+           sodipodi:cx="-155.78015"
+           sodipodi:cy="86.525269"
+           sodipodi:r1="44.397789"
+           sodipodi:r2="22.198895"
+           sodipodi:arg1="0"
+           sodipodi:arg2="1.0471976"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m -111.38236,86.525269 -33.29835,19.224811 -33.29834,19.2248 0,-38.449613 0,-38.449612 33.29835,19.224808 z"
+           inkscape:transform-center-x="-4.8786097"
+           transform="matrix(0.43953628,0,0,0.43953628,493.3426,108.58126)" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="rect2999"
+           width="6.5951223"
+           height="33.799999"
+           x="446.34396"
+           y="129.71227"
+           rx="1"
+           ry="1" />
+      </g>
+    </g>
+    <g
+       style="display:inline"
+       id="g4044"
+       transform="translate(182.92875,-370.46421)">
+      <g
+         inkscape:export-ydpi="71.943504"
+         inkscape:export-xdpi="71.943504"
+         inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause.png"
+         transform="translate(84,0)"
+         style="display:inline"
+         id="g3873">
+        <rect
+           ry="1"
+           rx="1"
+           y="448.80692"
+           x="86.526131"
+           height="48"
+           width="48"
+           id="rect3875"
+           style="fill:#666666;fill-opacity:1;stroke:none;display:inline" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3877"
+           d="m 87.53125,448.8125 c -0.554,0 -1,0.446 -1,1 l 0,46 c 0,0.554 0.446,1 1,1 l 3,0 0,-43 c 0,-0.554 0.446,-1 1,-1 l 43,0 0,-3 c 0,-0.554 -0.446,-1 -1,-1 l -46,0 z"
+           style="opacity:0.67549672;fill:#e6e6e6;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3854)" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3879"
+           d="m 130.53125,448.8125 0,43 c 0,0.554 -0.446,1 -1,1 l -43,0 0,3 c 0,0.554 0.446,1 1,1 l 46,0 c 0.554,0 1,-0.446 1,-1 l 0,-46 c 0,-0.554 -0.446,-1 -1,-1 l -3,0 z"
+           style="opacity:0.55629141;fill:#1a1a1a;fill-opacity:1;stroke:none;filter:url(#filter3838)" />
+      </g>
+      <g
+         transform="matrix(0.53254439,0,0,0.53254439,-72.696341,394.37426)"
+         inkscape:export-ydpi="71.943504"
+         inkscape:export-xdpi="71.943504"
+         inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause.png"
+         id="g3010">
+        <rect
+           ry="1"
+           rx="1"
+           y="130.38957"
+           x="488.56265"
+           height="33.799999"
+           width="6.5951223"
+           id="rect3002"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="rect3004"
+           width="6.5951223"
+           height="33.799999"
+           x="508.43027"
+           y="130.38957"
+           rx="1"
+           ry="1" />
+      </g>
+    </g>
+    <rect
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       id="rect3027"
+       width="136.58984"
+       height="108.14304"
+       x="385.66873"
+       y="126.9594" />
+    <g
+       inkscape:export-ydpi="90.560539"
+       inkscape:export-xdpi="90.560539"
+       inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/play.png"
+       transform="matrix(0.99968969,0,0,0.99999972,18.005353,7.9762374)"
+       id="g3881"
+       style="fill:#000000;display:inline">
+      <path
+         sodipodi:type="star"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         id="path3883"
+         sodipodi:sides="3"
+         sodipodi:cx="-155.78015"
+         sodipodi:cy="86.525269"
+         sodipodi:r1="44.397789"
+         sodipodi:r2="22.198895"
+         sodipodi:arg1="0"
+         sodipodi:arg2="1.0471976"
+         inkscape:flatsided="false"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m -111.38236,86.525269 -33.29835,19.224811 -33.29834,19.2248 0,-38.449613 0,-38.449612 33.29835,19.224808 z"
+         inkscape:transform-center-x="-4.8786097"
+         transform="matrix(0.43953628,0,0,0.43953628,493.3426,108.58126)" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         id="rect3885"
+         width="6.5951223"
+         height="33.799999"
+         x="446.34396"
+         y="129.71227"
+         rx="1"
+         ry="1" />
+    </g>
+    <g
+       transform="matrix(0.99968999,0,0,1,57.505993,7.9479274)"
+       inkscape:export-ydpi="90.559998"
+       inkscape:export-xdpi="90.559998"
+       inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause.png"
+       id="g3887"
+       style="fill:#000000;display:inline">
+      <rect
+         ry="1"
+         rx="1"
+         y="130.38957"
+         x="488.56265"
+         height="33.799999"
+         width="6.5951223"
+         id="rect3889"
+         style="fill:#000000;fill-opacity:1;stroke:none" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         id="rect3891"
+         width="6.5951223"
+         height="33.799999"
+         x="508.43027"
+         y="130.38957"
+         rx="1"
+         ry="1" />
+    </g>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;display:inline"
+       id="rect3026"
+       width="33.799999"
+       height="33.799999"
+       x="623.85425"
+       y="137.86153"
+       rx="2"
+       ry="2"
+       inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause24.png"
+       inkscape:export-xdpi="63.91"
+       inkscape:export-ydpi="63.91" />
+    <g
+       transform="translate(93.072953,-319.8921)"
+       style="display:inline"
+       id="g3810"
+       inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         transform="matrix(0.43944284,0,0,0.43303462,418.12771,491.26395)"
+         inkscape:transform-center-x="-4.8790864"
+         d="m -111.38236,86.525269 -33.29835,19.224811 -33.29834,19.2248 0,-38.449613 0,-38.449612 33.29835,19.224808 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="1.0471976"
+         sodipodi:arg1="0"
+         sodipodi:r2="22.198895"
+         sodipodi:r1="44.397789"
+         sodipodi:cy="86.525269"
+         sodipodi:cx="-155.78015"
+         sodipodi:sides="3"
+         id="path3799"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.14613044;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="star" />
+      <rect
+         ry="0.9852078"
+         rx="0.99979049"
+         y="512.0824"
+         x="371.13904"
+         height="33.300026"
+         width="6.5937405"
+         id="rect3801"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.49997377;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <g
+       style="display:inline"
+       id="g4036"
+       transform="matrix(1.0080645,0,0,1.0080645,93.495793,-316.43024)">
+      <rect
+         style="fill:#ff8300;fill-opacity:1;stroke:none;display:inline"
+         id="rect3893"
+         width="48"
+         height="48"
+         x="9.3133602"
+         y="512.92511"
+         rx="1"
+         ry="1" />
+      <path
+         style="opacity:0.6;fill:#1a1a1a;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3871)"
+         d="m 10.318479,512.93071 c -0.554,0 -1,0.446 -1,1 l 0,46 c 0,0.554 0.446,1 1,1 l 3,0 0,-43 c 0,-0.554 0.446,-1 1,-1 l 43.000003,0 0,-3 c 0,-0.554 -0.446,-1 -1,-1 l -46.000003,0 z"
+         id="path3895"
+         inkscape:connector-curvature="0" />
+      <path
+         style="opacity:0.6;fill:#e6e6e6;fill-opacity:1;stroke:none;filter:url(#filter3867)"
+         d="m 53.318482,512.93071 0,43 c 0,0.554 -0.446,1 -1,1 l -43.000003,0 0,3 c 0,0.554 0.446,1 1,1 l 46.000003,0 c 0.554,0 1,-0.446 1,-1 l 0,-46 c 0,-0.554 -0.446,-1 -1,-1 l -3,0 z"
+         id="path3897"
+         inkscape:connector-curvature="0" />
+      <g
+         id="g3899"
+         transform="matrix(0.53254423,0,0,0.53254423,-197.82506,458.84761)"
+         inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/play.png"
+         inkscape:export-xdpi="71.940002"
+         inkscape:export-ydpi="71.940002">
+        <path
+           transform="matrix(0.43953628,0,0,0.43953628,493.3426,108.58126)"
+           inkscape:transform-center-x="-4.8786097"
+           d="m -111.38236,86.525269 -33.29835,19.224811 -33.29834,19.2248 0,-38.449613 0,-38.449612 33.29835,19.224808 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="1.0471976"
+           sodipodi:arg1="0"
+           sodipodi:r2="22.198895"
+           sodipodi:r1="44.397789"
+           sodipodi:cy="86.525269"
+           sodipodi:cx="-155.78015"
+           sodipodi:sides="3"
+           id="path3901"
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           sodipodi:type="star" />
+        <rect
+           ry="1"
+           rx="1"
+           y="129.71227"
+           x="446.34396"
+           height="33.799999"
+           width="6.5951223"
+           id="rect3903"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      </g>
+    </g>
+    <g
+       style="display:inline"
+       id="g3959"
+       transform="matrix(0.98892418,0,0,0.98892418,98.639963,-315.40286)">
+      <g
+         id="g3925">
+        <rect
+           style="fill:#666666;fill-opacity:1;stroke:none;display:inline"
+           id="rect3033"
+           width="48"
+           height="48"
+           x="69.156143"
+           y="458.51498"
+           rx="1"
+           ry="1" />
+        <path
+           style="opacity:0.6;fill:#1a1a1a;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3860)"
+           d="m 70.161267,458.52054 c -0.554,0 -1,0.446 -1,1 l 0,46 c 0,0.554 0.446,1 1,1 l 3,0 0,-43 c 0,-0.554 0.446,-1 1,-1 l 42.999993,0 0,-3 c 0,-0.554 -0.446,-1 -1,-1 l -45.999993,0 z"
+           id="path3035"
+           inkscape:connector-curvature="0" />
+        <path
+           style="opacity:0.6;fill:#e6e6e6;fill-opacity:1;stroke:none;filter:url(#filter3852)"
+           d="m 113.16126,458.52054 0,43 c 0,0.554 -0.446,1 -1,1 l -42.999993,0 0,3 c 0,0.554 0.446,1 1,1 l 45.999993,0 c 0.554,0 1,-0.446 1,-1 l 0,-46 c 0,-0.554 -0.446,-1 -1,-1 l -3,0 z"
+           id="path3037"
+           inkscape:connector-curvature="0" />
+        <g
+           transform="matrix(0.53254439,0,0,0.53254439,-174.06633,404.0823)"
+           inkscape:export-ydpi="71.943504"
+           inkscape:export-xdpi="71.943504"
+           inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause.png"
+           id="g3039">
+          <rect
+             ry="1"
+             rx="1"
+             y="130.38957"
+             x="488.56265"
+             height="33.799999"
+             width="6.5951223"
+             id="rect3041"
+             style="fill:#ffffff;fill-opacity:1;stroke:none" />
+          <rect
+             style="fill:#ffffff;fill-opacity:1;stroke:none"
+             id="rect3043"
+             width="6.5951223"
+             height="33.799999"
+             x="508.43027"
+             y="130.38957"
+             rx="1"
+             ry="1" />
+        </g>
+      </g>
+      <rect
+         style="fill:#666666;fill-opacity:1;stroke:none;display:inline"
+         id="rect3935"
+         width="48"
+         height="48"
+         x="69.156143"
+         y="458.51498"
+         rx="1"
+         ry="1" />
+      <path
+         style="opacity:0.6;fill:#e6e6e6;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3860)"
+         d="m 70.161267,458.52054 c -0.554,0 -1,0.446 -1,1 l 0,46 c 0,0.554 0.446,1 1,1 l 3,0 0,-43 c 0,-0.554 0.446,-1 1,-1 l 42.999993,0 0,-3 c 0,-0.554 -0.446,-1 -1,-1 l -45.999993,0 z"
+         id="path3937"
+         inkscape:connector-curvature="0" />
+      <path
+         style="opacity:0.6;fill:#1a1a1a;fill-opacity:1;stroke:none;filter:url(#filter3852)"
+         d="m 113.16126,458.52054 0,43 c 0,0.554 -0.446,1 -1,1 l -42.999993,0 0,3 c 0,0.554 0.446,1 1,1 l 45.999993,0 c 0.554,0 1,-0.446 1,-1 l 0,-46 c 0,-0.554 -0.446,-1 -1,-1 l -3,0 z"
+         id="path3939"
+         inkscape:connector-curvature="0" />
+      <g
+         transform="matrix(0.53254439,0,0,0.53254439,-174.06633,404.0823)"
+         inkscape:export-ydpi="71.943504"
+         inkscape:export-xdpi="71.943504"
+         inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause.png"
+         id="g3941">
+        <rect
+           ry="1"
+           rx="1"
+           y="130.38957"
+           x="488.56265"
+           height="33.799999"
+           width="6.5951223"
+           id="rect3943"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="rect3945"
+           width="6.5951223"
+           height="33.799999"
+           x="508.43027"
+           y="130.38957"
+           rx="1"
+           ry="1" />
+      </g>
+    </g>
+    <g
+       style="display:inline"
+       id="g4021"
+       transform="matrix(0.98892409,0,0,0.98892409,100.19783,-308.85272)">
+      <g
+         transform="translate(-2.031915,57.570926)"
+         id="g3976">
+        <rect
+           ry="1"
+           rx="1"
+           y="458.51498"
+           x="69.156143"
+           height="48"
+           width="48"
+           id="rect3978"
+           style="fill:#666666;fill-opacity:1;stroke:none;display:inline" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3980"
+           d="m 70.161267,458.52054 c -0.554,0 -1,0.446 -1,1 l 0,46 c 0,0.554 0.446,1 1,1 l 3,0 0,-43 c 0,-0.554 0.446,-1 1,-1 l 42.999993,0 0,-3 c 0,-0.554 -0.446,-1 -1,-1 l -45.999993,0 z"
+           style="opacity:0.6;fill:#1a1a1a;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3860)" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3982"
+           d="m 113.16126,458.52054 0,43 c 0,0.554 -0.446,1 -1,1 l -42.999993,0 0,3 c 0,0.554 0.446,1 1,1 l 45.999993,0 c 0.554,0 1,-0.446 1,-1 l 0,-46 c 0,-0.554 -0.446,-1 -1,-1 l -3,0 z"
+           style="opacity:0.6;fill:#e6e6e6;fill-opacity:1;stroke:none;filter:url(#filter3852)" />
+        <g
+           id="g3984"
+           inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause.png"
+           inkscape:export-xdpi="71.943504"
+           inkscape:export-ydpi="71.943504"
+           transform="matrix(0.53254439,0,0,0.53254439,-174.06633,404.0823)">
+          <rect
+             style="fill:#ffffff;fill-opacity:1;stroke:none"
+             id="rect3986"
+             width="6.5951223"
+             height="33.799999"
+             x="488.56265"
+             y="130.38957"
+             rx="1"
+             ry="1" />
+          <rect
+             ry="1"
+             rx="1"
+             y="130.38957"
+             x="508.43027"
+             height="33.799999"
+             width="6.5951223"
+             id="rect3988"
+             style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        </g>
+      </g>
+      <rect
+         ry="1"
+         rx="1"
+         y="516.08594"
+         x="67.124229"
+         height="48"
+         width="48"
+         id="rect3990"
+         style="fill:#ff8300;fill-opacity:1;stroke:none;display:inline" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3992"
+         d="m 68.129352,516.09147 c -0.554,0 -1,0.446 -1,1 l 0,46 c 0,0.554 0.446,1 1,1 l 3,0 0,-43 c 0,-0.554 0.446,-1 1,-1 l 42.999998,0 0,-3 c 0,-0.554 -0.446,-1 -1,-1 l -45.999998,0 z"
+         style="opacity:0.6;fill:#1a1a1a;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3860)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3994"
+         d="m 111.12935,516.09147 0,43 c 0,0.554 -0.446,1 -1,1 l -42.999998,0 0,3 c 0,0.554 0.446,1 1,1 l 45.999998,0 c 0.554,0 1,-0.446 1,-1 l 0,-46 c 0,-0.554 -0.446,-1 -1,-1 l -3,0 z"
+         style="opacity:0.6;fill:#e6e6e6;fill-opacity:1;stroke:none;filter:url(#filter3852)" />
+      <g
+         id="g3996"
+         inkscape:export-filename="/home/paolo/programmazione/unicaradio/imgs/tmp/pause.png"
+         inkscape:export-xdpi="71.943504"
+         inkscape:export-ydpi="71.943504"
+         transform="matrix(0.53254439,0,0,0.53254439,-176.09824,461.65323)">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="rect3998"
+           width="6.5951223"
+           height="33.799999"
+           x="488.56265"
+           y="130.38957"
+           rx="1"
+           ry="1" />
+        <rect
+           ry="1"
+           rx="1"
+           y="130.38957"
+           x="508.43027"
+           height="33.799999"
+           width="6.5951223"
+           id="rect4000"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      </g>
+    </g>
+  </g>
+</svg>
