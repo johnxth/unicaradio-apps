@@ -4,21 +4,26 @@
 	package="it.unicaradio.android"
 	android:versionName="1.2-SNAPSHOT"
 	android:versionCode="4">
-	<uses-sdk android:minSdkVersion="7" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.ACCOUNT_MANAGER"></uses-permission>
-	<uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
+
+	<uses-sdk
+		android:minSdkVersion="7"
+		android:targetSdkVersion="13" />
+
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
 	<application
 		android:label="@string/app_name"
-		android:icon="@drawable/logo">
+		android:icon="@drawable/ic_launcher_unicaradio"
+		android:theme="@style/unicaradio_theme">
+
 		<activity
 			android:name=".activities.StreamingActivity"
 			android:label="@string/app_name"
-			android:screenOrientation="portrait"
-			android:theme="@android:style/Theme.NoTitleBar"
 			android:launchMode="singleTask">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -33,28 +38,19 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity
-			android:name=".activities.ScheduleActivity"
-			android:theme="@android:style/Theme.NoTitleBar"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:name=".activities.SongRequestActivity"
-			android:theme="@android:style/Theme.NoTitleBar"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:name=".activities.FavoritesActivity"
-			android:theme="@android:style/Theme.NoTitleBar"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:name=".activities.InfoActivity"
-			android:theme="@android:style/Theme.NoTitleBar"
-			android:screenOrientation="portrait">
-		</activity>
+
+		<activity android:name=".activities.ScheduleActivity" />
+
+		<activity android:name=".activities.SongRequestActivity" />
+
+		<activity android:name=".activities.FavoritesActivity" />
+
+		<activity android:name=".activities.InfoActivity" />
+
 		<service
 			android:name=".services.StreamingService"
-			android:enabled="true"></service>
+			android:enabled="true"
+			android:exported="false" />
+
 	</application>
 </manifest>

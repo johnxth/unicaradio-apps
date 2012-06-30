@@ -1,0 +1,7 @@
+<resources>
+	<style
+		name="unicaradio_theme"
+		parent="@android:style/Theme.NoTitleBar">
+		<!-- Any customizations for your app running on pre-3.0 devices here -->
+	</style>
+</resources>

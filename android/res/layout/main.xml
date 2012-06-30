@@ -3,25 +3,26 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	android:layout_height="fill_parent"
+	android:background="@drawable/window_bg">
 
-	<include layout="@layout/titlebar" />
+	<include layout="@layout/tabs" />
 
 	<ScrollView
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_above="@+id/playPauseDivider"
-		android:layout_below="@+id/titlebar">
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/playPauseButtonContainer"
+		android:layout_below="@+id/tabBarContainer">
 		<RelativeLayout
 			android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
+			android:layout_height="wrap_content">
 			<ImageView
 				android:id="@+id/cover"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:paddingTop="15dp"
 				android:layout_centerHorizontal="true" />
-			<TextView
+			<it.unicaradio.android.gui.ScrollTextView
 				android:id="@+id/author"
 				android:layout_below="@+id/cover"
 				android:layout_width="fill_parent"
@@ -30,8 +31,9 @@
 				android:paddingTop="10dp"
 				android:textSize="18dp"
 				android:layout_centerHorizontal="true"
-				android:maxLines="2" />
-			<TextView
+				android:singleLine="true"
+				android:ellipsize="marquee" />
+			<it.unicaradio.android.gui.ScrollTextView
 				android:id="@+id/songTitle"
 				android:layout_below="@+id/author"
 				android:layout_width="fill_parent"
@@ -40,24 +42,18 @@
 				android:textSize="30dp"
 				android:paddingBottom="20dp"
 				android:layout_centerHorizontal="true"
-				android:maxLines="2" />
+				android:singleLine="true"
+				android:ellipsize="marquee" />
 		</RelativeLayout>
 	</ScrollView>
 
-	<View
-		android:id="@+id/playPauseDivider"
-		android:background="#FFFFFF"
-		android:layout_width="fill_parent"
-		android:layout_height="1dp"
-		android:layout_above="@+id/playPauseButtonContainer" />
 	<RelativeLayout
 		android:id="@+id/playPauseButtonContainer"
-		android:layout_above="@+id/tabBar"
+		android:layout_alignParentBottom="true"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@drawable/play_pause_bg"
-		android:paddingTop="8dip"
-		android:paddingBottom="8dip">
+		android:paddingTop="4dip"
+		android:paddingBottom="4dip">
 		<ImageButton
 			android:id="@+id/playPauseButton"
 			android:layout_width="wrap_content"
@@ -66,6 +62,4 @@
 			android:layout_centerInParent="true"
 			android:src="@drawable/play" />
 	</RelativeLayout>
-
-	<include layout="@layout/tabs" />
 </RelativeLayout>

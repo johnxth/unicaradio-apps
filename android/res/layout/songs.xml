@@ -5,12 +5,10 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<include
-		layout="@layout/titlebar" />
+	<include layout="@layout/tabs" />
 
 	<ScrollView
-		android:layout_above="@+id/tabBar"
-		android:layout_below="@+id/titlebar"
+		android:layout_below="@+id/tabBarContainer"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent">
 
@@ -69,6 +67,4 @@
 		</LinearLayout>
 	</ScrollView>
 
-	<include
-		layout="@layout/tabs" />
 </RelativeLayout>

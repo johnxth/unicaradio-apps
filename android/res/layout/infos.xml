@@ -4,13 +4,13 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<include layout="@layout/titlebar" />
+	<include layout="@layout/tabs" />
 
 	<ScrollView
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:layout_above="@+id/tabBar"
-		android:layout_below="@+id/titlebar">
+		android:layout_below="@+id/tabBarContainer"
+		android:layout_alignParentBottom="true">
 
 		<RelativeLayout
 			android:layout_width="fill_parent"
@@ -24,16 +24,15 @@
 				android:paddingRight="20dip"
 				android:paddingLeft="20dip"
 				android:src="@drawable/banner" />
-	
-				<TextView
-					android:id="@+id/infosText"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:paddingRight="30dip"
-					android:paddingLeft="30dip"
-					android:layout_below="@+id/unicaradio_logo" />
+
+			<TextView
+				android:id="@+id/infosText"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:paddingRight="30dip"
+				android:paddingLeft="30dip"
+				android:layout_below="@+id/unicaradio_logo" />
 		</RelativeLayout>
 	</ScrollView>
 
-	<include layout="@layout/tabs" />
 </RelativeLayout>

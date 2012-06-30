@@ -44,7 +44,8 @@ public class ImageUtils
 		int width = origBitmap.getWidth();
 		int height = origBitmap.getHeight();
 
-		int newWidth = display.getWidth() * resizeFactor / 100;
+		int newWidth = Math.min(display.getWidth(), display.getHeight())
+				* resizeFactor / 100;
 		int newHeight = newWidth;
 
 		float scaleWidth = ((float) newWidth) / width;

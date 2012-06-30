@@ -11,68 +11,73 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int banner=0x7f020000;
-        public static final int button_pause=0x7f020001;
-        public static final int button_play=0x7f020002;
-        public static final int cover=0x7f020003;
-        public static final int facebook=0x7f020004;
-        public static final int favorites=0x7f020005;
-        public static final int ic_menu_refresh=0x7f020006;
-        public static final int info=0x7f020007;
-        public static final int logo=0x7f020008;
-        public static final int onair=0x7f020009;
-        public static final int pause=0x7f02000a;
-        public static final int pause_normal=0x7f02000b;
-        public static final int pause_pressed=0x7f02000c;
-        public static final int play=0x7f02000d;
-        public static final int play_normal=0x7f02000e;
-        public static final int play_pause_bg=0x7f02000f;
-        public static final int play_pressed=0x7f020010;
-        public static final int schedule=0x7f020011;
-        public static final int song=0x7f020012;
-        public static final int tab_bg_selected=0x7f020013;
-        public static final int tab_bg_selector=0x7f020014;
-        public static final int tab_bg_unselected=0x7f020015;
-        public static final int title_bg=0x7f020016;
-        public static final int twitter=0x7f020017;
-        public static final int youtube=0x7f020018;
+        public static final int ad_tab_selected_holo=0x7f020000;
+        public static final int ad_tab_selected_pressed_holo=0x7f020001;
+        public static final int ad_tab_unselected_holo=0x7f020002;
+        public static final int banner=0x7f020003;
+        public static final int black_stripe=0x7f020004;
+        public static final int black_stripe_0=0x7f020005;
+        public static final int black_stripe_1=0x7f020006;
+        public static final int cover=0x7f020007;
+        public static final int facebook=0x7f020008;
+        public static final int favorites=0x7f020009;
+        public static final int ic_launcher_unicaradio=0x7f02000a;
+        public static final int ic_menu_refresh=0x7f02000b;
+        public static final int info=0x7f02000c;
+        public static final int logo=0x7f02000d;
+        public static final int onair=0x7f02000e;
+        public static final int pause=0x7f02000f;
+        public static final int pause_0=0x7f020010;
+        public static final int pause_1=0x7f020011;
+        public static final int pause_2=0x7f020012;
+        public static final int pause_3=0x7f020013;
+        public static final int pause_4=0x7f020014;
+        public static final int pause_5=0x7f020015;
+        public static final int pause_anim=0x7f020016;
+        public static final int pause_pressed=0x7f020017;
+        public static final int play=0x7f020018;
+        public static final int play_normal=0x7f020019;
+        public static final int play_pressed=0x7f02001a;
+        public static final int schedule=0x7f02001b;
+        public static final int song=0x7f02001c;
+        public static final int tab_background=0x7f02001d;
+        public static final int title_bg=0x7f02001e;
+        public static final int twitter=0x7f02001f;
+        public static final int window_bg=0x7f020020;
+        public static final int youtube=0x7f020021;
     }
     public static final class id {
-        public static final int author=0x7f06000a;
-        public static final int cover=0x7f060009;
-        public static final int exit=0x7f060022;
-        public static final int favoritesTab=0x7f06001b;
-        public static final int icon=0x7f060007;
-        public static final int infosTab=0x7f06001c;
-        public static final int infosText=0x7f060003;
-        public static final int linksList=0x7f060004;
-        public static final int playPauseButton=0x7f06000d;
-        public static final int playPauseButtonContainer=0x7f06000c;
-        public static final int playPauseDivider=0x7f060008;
-        public static final int scheduleList=0x7f060011;
-        public static final int scheduleTab=0x7f060019;
-        public static final int scheduleUpdate=0x7f06001f;
-        public static final int songButton=0x7f060016;
-        public static final int songTab=0x7f06001a;
-        public static final int songTitle=0x7f06000b;
-        public static final int songsAuthor=0x7f060013;
-        public static final int songsCaptcha=0x7f060015;
-        public static final int songsChangeCaptcha=0x7f060021;
-        public static final int songsClearForm=0x7f060020;
-        public static final int songsEmail=0x7f060012;
-        public static final int songsTitle=0x7f060014;
-        public static final int streamingTab=0x7f060018;
-        public static final int tabBar=0x7f060000;
-        public static final int tabs=0x7f060017;
-        public static final int text1=0x7f060005;
-        public static final int text2=0x7f060006;
-        public static final int title=0x7f06001d;
-        public static final int titleDivider=0x7f06001e;
-        public static final int titlebar=0x7f060001;
-        public static final int unicaradio_logo=0x7f060002;
-        public static final int updatesButton=0x7f060010;
-        public static final int updatesScrollView=0x7f06000e;
-        public static final int updatesText=0x7f06000f;
+        public static final int author=0x7f070009;
+        public static final int cover=0x7f070008;
+        public static final int favoritesTab=0x7f07001a;
+        public static final int icon=0x7f070006;
+        public static final int infosTab=0x7f07001b;
+        public static final int infosText=0x7f070002;
+        public static final int linksList=0x7f070003;
+        public static final int playPauseButton=0x7f07000b;
+        public static final int playPauseButtonContainer=0x7f070007;
+        public static final int scheduleList=0x7f07000f;
+        public static final int scheduleTab=0x7f070018;
+        public static final int scheduleUpdate=0x7f07001c;
+        public static final int songButton=0x7f070014;
+        public static final int songTab=0x7f070019;
+        public static final int songTitle=0x7f07000a;
+        public static final int songsAuthor=0x7f070011;
+        public static final int songsCaptcha=0x7f070013;
+        public static final int songsChangeCaptcha=0x7f07001e;
+        public static final int songsClearForm=0x7f07001d;
+        public static final int songsEmail=0x7f070010;
+        public static final int songsTitle=0x7f070012;
+        public static final int streamingTab=0x7f070017;
+        public static final int tabBar=0x7f070015;
+        public static final int tabBarContainer=0x7f070000;
+        public static final int tabs=0x7f070016;
+        public static final int text1=0x7f070004;
+        public static final int text2=0x7f070005;
+        public static final int unicaradio_logo=0x7f070001;
+        public static final int updatesButton=0x7f07000e;
+        public static final int updatesScrollView=0x7f07000c;
+        public static final int updatesText=0x7f07000d;
     }
     public static final class layout {
         public static final int infos=0x7f030000;
@@ -84,18 +89,22 @@ public final class R {
         public static final int schedule=0x7f030006;
         public static final int songs=0x7f030007;
         public static final int tabs=0x7f030008;
-        public static final int titlebar=0x7f030009;
     }
     public static final class menu {
-        public static final int menu=0x7f050000;
-        public static final int schedule_menu=0x7f050001;
-        public static final int songs_menu=0x7f050002;
-        public static final int streaming_menu=0x7f050003;
+        public static final int menu=0x7f060000;
+        public static final int schedule_menu=0x7f060001;
+        public static final int songs_menu=0x7f060002;
+        public static final int streaming_menu=0x7f060003;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
         public static final int closeApp=0x7f040002;
         public static final int infos=0x7f040001;
         public static final int updates=0x7f040003;
+    }
+    public static final class style {
+        /**  Any customizations for your app running on pre-3.0 devices here 
+         */
+        public static final int unicaradio_theme=0x7f050000;
     }
 }

@@ -39,6 +39,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -59,19 +62,19 @@ import android.widget.TextView;
  */
 public class StreamingActivity extends TabbedActivity
 {
+	private static final String ONAIR_COVER_URL = "http://www.unicaradio.it/regia/OnAir.jpg";
+
 	private static String LOG = StreamingActivity.class.getName();
 
-	private static final String ONAIR_COVER_URL = "http://www.unicaradio.it/regia/OnAir.jpg";
+	private static StreamingService streamingService;
+
+	private final Handler mHandler = new Handler();
 
 	private TrackInfos infos;
 
 	private Thread imageThread;
 
-	private StreamingService streamingService;
-
 	private SharedPreferences preferences;
-
-	private final Handler mHandler = new Handler();
 
 	private final Runnable mUpdateResults = new Runnable() {
 		@Override
@@ -144,6 +147,9 @@ public class StreamingActivity extends TabbedActivity
 					StreamingService.ACTION_TRACK_INFO));
 			if(streamingService.isPlaying()) {
 				streamingService.notifyChange();
+				setPauseButton();
+			} else {
+				setPlayButton();
 			}
 		}
 	};
@@ -183,14 +189,15 @@ public class StreamingActivity extends TabbedActivity
 	@Override
 	protected void onResume()
 	{
+		super.onResume();
 		infos.clean();
 		mHandler.post(mUpdateResults);
-		Intent intent = new Intent(this, StreamingService.class);
+
 		if(streamingService == null) {
+			Intent intent = new Intent(this, StreamingService.class);
 			startService(intent);
+			bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 		}
-		bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-		super.onResume();
 	}
 
 	@Override
@@ -228,7 +235,7 @@ public class StreamingActivity extends TabbedActivity
 							"Attenzione! Non sei connesso ad internet!");
 					return;
 				}
-				if(streamingService != null && !streamingService.isPlaying()) {
+				if((streamingService != null) && !streamingService.isPlaying()) {
 					play();
 				} else {
 					stop();
@@ -256,14 +263,20 @@ public class StreamingActivity extends TabbedActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		// Handle item selection
-		switch(item.getItemId()) {
-			case R.id.exit:
-				stop();
-				finish();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus)
+	{
+		super.onWindowFocusChanged(hasFocus);
+		if(hasFocus) {
+			if((streamingService != null) && streamingService.isPlaying()) {
+				streamingService.notifyChange();
+				setPauseButton();
+			} else if(streamingService != null) {
+				setPlayButton();
+			}
 		}
 	}
 
@@ -273,7 +286,7 @@ public class StreamingActivity extends TabbedActivity
 		TextView trackTitle = (TextView) findViewById(R.id.songTitle);
 		ImageView cover = (ImageView) findViewById(R.id.cover);
 
-		if(streamingService == null || !streamingService.isPlaying()) {
+		if((streamingService == null) || !streamingService.isPlaying()) {
 			infos.clean();
 		}
 
@@ -285,29 +298,52 @@ public class StreamingActivity extends TabbedActivity
 		}
 		if(cover != null) {
 			Bitmap bitmap = ImageUtils.resize(getDisplay(), infos.getCover(),
-					65);
+					60);
 			cover.setImageBitmap(bitmap);
 		}
 	}
 
 	private void play()
 	{
-		if(streamingService != null && !streamingService.isPlaying()) {
+		if((streamingService != null) && !streamingService.isPlaying()) {
 			streamingService.play();
-			ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
-			playPauseButton.setImageResource(R.drawable.pause);
+			setPauseButton();
 		}
 	}
 
 	private void stop()
 	{
-		if(streamingService != null && streamingService.isPlaying()) {
+		if((streamingService != null) && streamingService.isPlaying()) {
 			streamingService.stop();
 			infos.clean();
 			mHandler.post(mUpdateResults);
-			ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
-			playPauseButton.setImageResource(R.drawable.play);
+			setPlayButton();
 		}
+	}
+
+	private void setPlayButton()
+	{
+		ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
+		playPauseButton.setImageResource(R.drawable.play);
+	}
+
+	private void setPauseButton()
+	{
+		final ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
+		playPauseButton.setImageResource(R.drawable.pause);
+		playPauseButton.post(new Runnable() {
+			@Override
+			public void run()
+			{
+				StateListDrawable background = (StateListDrawable) playPauseButton
+						.getDrawable();
+				Drawable current = background.getCurrent();
+				if(current instanceof AnimationDrawable) {
+					AnimationDrawable btnAnimation = (AnimationDrawable) current;
+					btnAnimation.start();
+				}
+			}
+		});
 	}
 
 	private boolean hasBeenUpdated()

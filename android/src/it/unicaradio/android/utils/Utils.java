@@ -29,8 +29,6 @@ import org.apache.http.util.ByteArrayBuffer;
  */
 public class Utils
 {
-	private static String LOG = Utils.class.getName();
-
 	public static byte[] downloadFromUrl(String fileUrl) throws IOException
 	{
 		URL url = new URL(fileUrl); // you can write here any link

@@ -91,15 +91,7 @@ public abstract class TabbedActivity extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		// Handle item selection
-		switch(item.getItemId()) {
-			case R.id.exit:
-				System.runFinalizersOnExit(true);
-				System.exit(0);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void openLink(String url)
@@ -152,6 +144,7 @@ public abstract class TabbedActivity extends Activity
 		for(final Map.Entry<Integer, View> tab : tabs.entrySet()) {
 			View view = tab.getValue();
 			view.setOnClickListener(new OnClickListener() {
+				@Override
 				public void onClick(View view)
 				{
 					if(getTab() != tab.getKey()) {
