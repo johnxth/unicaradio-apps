@@ -17,42 +17,23 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.adapters.FavouriteSitesAdapter;
 import it.unicaradio.android.gui.Tabs;
-import it.unicaradio.android.utils.ActivityUtils;
+import it.unicaradio.android.listeners.FavouriteSitesOnItemClickListener;
+import it.unicaradio.android.models.Website;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class FavoritesActivity extends TabbedActivity
 {
-	private final ArrayList<HashMap<String, String>> SITES = new ArrayList<HashMap<String, String>>();
-
-	private ListView lv;
-
-	{
-		SITES.add(ActivityUtils.addItem("Sito web",
-				"http://www.unicaradio.it/", R.drawable.logo));
-
-		SITES.add(ActivityUtils.addItem("Facebook",
-				"http://www.facebook.com/unicaradio/", R.drawable.facebook));
-
-		SITES.add(ActivityUtils.addItem("Youtube",
-				"http://www.youtube.com/user/unicaradiotv", R.drawable.youtube));
-
-		SITES.add(ActivityUtils.addItem("Twitter",
-				"http://twitter.com/#!/UnicaRadio", R.drawable.twitter));
-	}
+	private ListView sitesListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -63,26 +44,44 @@ public class FavoritesActivity extends TabbedActivity
 	@Override
 	protected void setupTab()
 	{
-		lv = (ListView) findViewById(R.id.linksList);
-		lv.setAdapter(new SimpleAdapter(this, SITES,
-				R.layout.list_two_lines_and_image, new String[] {"line1",
-						"line2", "icon"}, new int[] {R.id.text1, R.id.text2,
-						R.id.icon}));
+		List<Website> websites = prepareSitesList();
+
+		sitesListView = (ListView) findViewById(R.id.linksList);
+
+		FavouriteSitesAdapter favouriteSitesAdapter = new FavouriteSitesAdapter(
+				this, websites, R.layout.list_two_lines_and_image);
+		sitesListView.setAdapter(favouriteSitesAdapter);
+	}
+
+	private List<Website> prepareSitesList()
+	{
+		List<Website> websites = new ArrayList<Website>();
+
+		Website mainSite = new Website("Sito web", "http://www.unicaradio.it/",
+				R.drawable.logo);
+		Website facebookPage = new Website("Facebook",
+				"http://www.facebook.com/pages/Unica-Radio/306075247045",
+				R.drawable.facebook);
+		Website youtubeChannel = new Website("Youtube",
+				"http://www.youtube.com/user/unicaradiotv", R.drawable.youtube);
+		Website twitterProfile = new Website("Twitter",
+				"http://twitter.com/#!/UnicaRadio", R.drawable.twitter);
+
+		websites.add(mainSite);
+		websites.add(facebookPage);
+		websites.add(youtubeChannel);
+		websites.add(twitterProfile);
+
+		return websites;
+
 	}
 
 	@Override
 	protected void setupListeners()
 	{
-		lv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> a, View v, int position,
-					long id)
-			{
-				HashMap<String, String> object = SITES.get((int) id);
-				openLink(object.get("line2"));
-			}
-		});
+		FavouriteSitesOnItemClickListener onItemClickListener;
+		onItemClickListener = new FavouriteSitesOnItemClickListener(this);
+		sitesListView.setOnItemClickListener(onItemClickListener);
 	}
 
 	@Override

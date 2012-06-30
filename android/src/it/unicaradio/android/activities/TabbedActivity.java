@@ -28,7 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -41,7 +40,6 @@ import android.view.View.OnClickListener;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public abstract class TabbedActivity extends Activity
 {
@@ -92,13 +90,6 @@ public abstract class TabbedActivity extends Activity
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		return super.onOptionsItemSelected(item);
-	}
-
-	public void openLink(String url)
-	{
-		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setData(Uri.parse(url));
-		startActivity(i);
 	}
 
 	public Display getDisplay()
