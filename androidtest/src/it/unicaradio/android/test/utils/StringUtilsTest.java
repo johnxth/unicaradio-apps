@@ -170,4 +170,66 @@ public class StringUtilsTest extends AndroidTestCase
 		String result = StringUtils.mid(string, 0, 2);
 		Assert.assertEquals("ab", result);
 	}
+
+	public void testSubstringBetweenWithNullOrigin()
+	{
+		String result = StringUtils.substringBetween(null, "a", "b");
+		Assert.assertNull(result);
+	}
+
+	public void testSubstringBetweenWithNullStart()
+	{
+		String result = StringUtils.substringBetween("abc", null, "b");
+		Assert.assertNull(result);
+	}
+
+	public void testSubstringBetweenWithNullEnd()
+	{
+		String result = StringUtils.substringBetween("abc", "a", null);
+		Assert.assertNull(result);
+	}
+
+	public void testSubstringBetweenWithEmptyOrigin()
+	{
+		String result = StringUtils.substringBetween("", "a", "b");
+		Assert.assertEquals("", result);
+	}
+
+	public void testSubstringBetweenWithEmptyStart()
+	{
+		String result = StringUtils.substringBetween("abc", "", "b");
+		Assert.assertEquals("", result);
+	}
+
+	public void testSubstringBetweenWithEmptyEnd()
+	{
+		String result = StringUtils.substringBetween("abc", "a", "");
+		Assert.assertEquals("", result);
+	}
+
+	public void testSubstringBetween()
+	{
+		String string = "abc";
+		String open = "x";
+		String close = "z";
+
+		String origin = open + string + close;
+		String result = StringUtils.substringBetween(origin, open, close);
+		Assert.assertEquals(string, result);
+	}
+
+	public void testSubstringBetweenWithMultipleMatches()
+	{
+		String string = "abc";
+		String open = "x";
+		String close = "z";
+
+		String origin = open + string + close;
+		origin += origin;
+
+		String result = StringUtils.substringBetween(origin, open, close);
+		Assert.assertEquals(string, result);
+	}
+	
+	
 }

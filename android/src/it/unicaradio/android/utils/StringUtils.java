@@ -96,6 +96,16 @@ public class StringUtils
 
 	/**
 	 * @param string
+	 * @param tag
+	 * @return
+	 */
+	public static String substringBetween(String string, String tag)
+	{
+		return substringBetween(string, tag, tag);
+	}
+
+	/**
+	 * @param string
 	 * @param open
 	 * @param close
 	 * @return
@@ -115,45 +125,111 @@ public class StringUtils
 		if(start == -1) {
 			return EMPTY;
 		}
-		int end = string.indexOf(close);
+
+		int end = string.indexOf(close, start + open.length());
 		if(end == -1) {
 			return EMPTY;
 		}
+
+		return string.substring(start + open.length(), end);
+	}
+
+	/**
+	 * @param string
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static String substring(String string, int start)
+	{
+		if(string == null) {
+			return null;
+		}
+
+		if(start < 0) {
+			start = string.length() + start;
+		}
+
+		return string.substring(start);
+	}
+
+	/**
+	 * @param string
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static String substring(String string, int start, int end)
+	{
+		if(string == null) {
+			return null;
+		}
+
+		if(start < 0) {
+			start = string.length() + start;
+		}
+		if(end < 0) {
+			end = string.length() + end;
+		}
+
+		if(start > end) {
+			return EMPTY;
+		}
+
+		start = Math.max(0, start);
+		end = Math.max(0, end);
 
 		return string.substring(start, end);
 	}
 
 	/**
-	 * @param artistAndTitle
-	 * @param i
-	 * @param j
-	 * @return
-	 */
-	public static String substring(String artistAndTitle, int i, int j)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @param artistAndTitle
+	 * @param string
 	 * @param separator
 	 * @return
 	 */
-	public static String substringBefore(String artistAndTitle, String separator)
+	public static String substringBefore(String string, String separator)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if(isEmpty(string) || separator == null) {
+			return string;
+		}
+
+		if(separator.length() == 0) {
+			return EMPTY;
+		}
+
+		int pos = string.indexOf(separator);
+		if(pos == -1) {
+			return string;
+		}
+
+		return string.substring(0, pos);
 	}
 
 	/**
-	 * @param artistAndTitle
+	 * @param string
 	 * @param separator
 	 * @return
 	 */
-	public static String substringAfter(String artistAndTitle, String separator)
+	public static String substringAfter(String string, String separator)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if(isEmpty(string)) {
+			return string;
+		}
+
+		if(separator == null) {
+			return EMPTY;
+		}
+
+		int pos = string.indexOf(separator);
+		if(pos == -1) {
+			return EMPTY;
+		}
+
+		return string.substring(pos + separator.length());
+	}
+
+	public static boolean isEmpty(String string)
+	{
+		return string == null || string.equals(EMPTY);
 	}
 }
