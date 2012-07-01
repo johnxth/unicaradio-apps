@@ -3,36 +3,45 @@
 	<string name="app_name">UnicaRadio</string>
 	<string name="infos">
 		&lt;font color=\'#FF0000\'&gt;&lt;b&gt;UnicaRadio&lt;/b&gt;&lt;/font&gt;,
-		la webradio degli studenti universitari di Cagliari.
+		la webradio degli studenti
+		universitari di Cagliari.
 		&lt;br /&gt;
 		&lt;br /&gt;
 		Software sviluppato da
-		&lt;a href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'&gt;
+		&lt;a
+		href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'&gt;
 		Paolo Cortis&lt;/a&gt; per
-		conto di &lt;font color=\'#FF0000\'&gt;&lt;b&gt;
+		conto di &lt;font
+		color=\'#FF0000\'&gt;&lt;b&gt;
 		UnicaRadio&lt;/b&gt;&lt;/font&gt;, sotto i termini e le condizioni della
 		licenza GPLv2.
 		&lt;br /&gt;
 		&lt;br /&gt;
 		Codice sorgente liberamente scaricabile da
-		&lt;a href=\'http://code.google.com/p/unicaradio-apps/\'&gt;Google Code&lt;/a&gt;.
+		&lt;a
+		href=\'http://code.google.com/p/unicaradio-apps/\'&gt;Google Code&lt;/a&gt;.
 	</string>
 	<string name="closeApp">Esci</string>
 	<string name="updates">Versione 1.1\n
 		\tCorrezioni:\n
-		\t- [bug] L\'applicazione non va in pausa all\'arrivo di una chiamata;\n
+		\t- [bug] L\'applicazione non va in pausa all\'arrivo di una
+		chiamata;\n
 		\t- [bug] Audio scattoso su
 		alcuni dispositivi;\n
-		\t- [bug] L\'applicazione si chiude quando va in background;\n
+		\t- [bug] L\'applicazione si chiude quando va in
+		background;\n
 		\t- [bug] Palinsesto con orario sbagliato;\n
 		\t- [bug] Dopo lo
 		stop viene ancora caricata una cover;\n
-		\t- [bug] Verifica della connessione ad Internet;\n
+		\t-
+		[bug] Verifica della connessione ad Internet;\n
 		\t- [bug] Crash per assenza della connessione quando si è
 		in play;\n
-		\t- [mod] Invio mail senza ulteriore conferma;\n
+		\t-
+		[mod] Invio mail senza ulteriore conferma;\n
 		\t- [mod] Nuovi pulsanti di play e pausa;\n
-		\t- [mod] Grafica palinsesto a colori
+		\t- [mod] Grafica palinsesto a
+		colori
 		sfalsati;\n
 		\t- [nuovo] Notifiche.\n
 		\n
@@ -48,4 +57,7 @@
 		<item>Sabato</item>
 		<item>Domenica</item>
 	</string-array>
+
+	<string name="wait_dialog_default_title">Caricamento&#8230;</string>
+	<string name="wait_dialog_default_message">Caricamento in corso.</string>
 </resources>

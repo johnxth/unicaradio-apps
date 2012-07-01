@@ -18,27 +18,17 @@ package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
 import it.unicaradio.android.adapters.ArrayAlternatedColoursAdapter;
-import it.unicaradio.android.adapters.SimpleAlternatedColoursAdapter;
+import it.unicaradio.android.adapters.TransmissionsAdapter;
+import it.unicaradio.android.enums.Day;
 import it.unicaradio.android.gui.Tabs;
-import it.unicaradio.android.utils.ActivityUtils;
-import it.unicaradio.android.utils.Utils;
+import it.unicaradio.android.models.Response;
+import it.unicaradio.android.models.Schedule;
+import it.unicaradio.android.models.Transmission;
+import it.unicaradio.android.tasks.BlockingAsyncTask;
+import it.unicaradio.android.tasks.DownloadScheduleAsyncTask;
 
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -56,25 +46,9 @@ import android.widget.ListView;
  */
 public class ScheduleActivity extends TabbedActivity
 {
-	private static final String MONDAY_KEY = "lunedi";
+	// private static final String TAG = ScheduleActivity.class.getName();
 
-	private static final String TUESDAY_KEY = "martedi";
-
-	private static final String WEDNESDAY_KEY = "mercoledi";
-
-	private static final String THURSDAY_KEY = "giovedi";
-
-	private static final String FRIDAY_KEY = "venerdi";
-
-	private static final String SATURDAY_KEY = "sabato";
-
-	private static final String SUNDAY_KEY = "domenica";
-
-	private static final String SCHEDULE_URL = "http://www.unicaradio.it/regia/test/palinsesto.php";
-
-	private static final String TAG = ScheduleActivity.class.getName();
-
-	private static ArrayList<ArrayList<HashMap<String, String>>> SCHEDULE;
+	private Schedule schedule;
 
 	private int state;
 
@@ -90,7 +64,7 @@ public class ScheduleActivity extends TabbedActivity
 	{
 		resetListView();
 
-		if(SCHEDULE == null) {
+		if(schedule == null) {
 			updateScheduleFromJSON();
 		}
 	}
@@ -109,28 +83,24 @@ public class ScheduleActivity extends TabbedActivity
 	@Override
 	protected void setupListeners()
 	{
-		final ListView lv = (ListView) findViewById(R.id.scheduleList);
-		lv.setOnItemClickListener(new OnItemClickListener() {
+		final ListView scheduleListView = (ListView) findViewById(R.id.scheduleList);
+		scheduleListView.setOnItemClickListener(new OnItemClickListener()
+		{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id)
 			{
 				if(state == 0) {
-					if((SCHEDULE == null) || (SCHEDULE.size() == 0)) {
-						new AlertDialog.Builder(ScheduleActivity.this)
-								.setTitle("Errore!")
-								.setMessage(
-										"Attenzione! Assicurati di essere connesso ad Internet.")
-								.setCancelable(false)
-								.setPositiveButton("OK", null).show();
-						return;
-					}
 					state = 1;
-					lv.setAdapter(new SimpleAlternatedColoursAdapter(
-							ScheduleActivity.this, SCHEDULE.get((int) id),
-							R.layout.list_two_columns, new String[] {"line1",
-									"line2"},
-							new int[] {R.id.text1, R.id.text2}));
+
+					Day day = Day.fromInteger(position);
+					List<Transmission> transmissions = schedule
+							.getTransmissionsByDay(day);
+
+					TransmissionsAdapter transmissionsAdapter = new TransmissionsAdapter(
+							ScheduleActivity.this, transmissions,
+							R.layout.list_two_columns);
+					scheduleListView.setAdapter(transmissionsAdapter);
 				}
 			}
 		});
@@ -179,93 +149,18 @@ public class ScheduleActivity extends TabbedActivity
 
 	private void updateScheduleFromJSON()
 	{
-		AsyncTask<String, Void, Integer> task = new AsyncTask<String, Void, Integer>() {
-			private ProgressDialog dialog;
-
-			@Override
-			protected Integer doInBackground(String... arg0)
-			{
-				SCHEDULE = new ArrayList<ArrayList<HashMap<String, String>>>();
-
-				String json = null;
-				try {
-					json = new String(Utils.downloadFromUrl(SCHEDULE_URL));
-				} catch(IOException e) {
-					Log.d(TAG, MessageFormat.format("Cannot find file {0}",
-							SCHEDULE_URL));
-					return 1;
-				}
-
-				JSONObject jObject = null;
-				try {
-					jObject = new JSONObject(json);
-
-					String[] days = new String[] {MONDAY_KEY, TUESDAY_KEY,
-							WEDNESDAY_KEY, THURSDAY_KEY, FRIDAY_KEY,
-							SATURDAY_KEY, SUNDAY_KEY};
-
-					for(int j = 0; j < days.length; j++) {
-						SCHEDULE.add(new ArrayList<HashMap<String, String>>());
-						String day = days[j];
-
-						JSONArray itemArray = jObject.getJSONArray(day);
-						for(int i = 0; i < itemArray.length(); i++) {
-							String programma = itemArray.getJSONObject(i)
-									.get("programma").toString();
-							String inizio = adjustTime(itemArray
-									.getJSONObject(i).get("inizio").toString());
-
-							SCHEDULE.get(j).add(
-									ActivityUtils.addItem(inizio, programma));
-						}
-					}
-				} catch(JSONException e) {
-					Log.d(TAG, "Errore durante il parsing del file JSON", e);
-					return 1;
-				}
-
-				return 0;
-			}
-
-			@Override
-			protected void onPreExecute()
-			{
-				super.onPreExecute();
-				dialog = ProgressDialog.show(ScheduleActivity.this,
-						"Palinsesto...", "Caricamento in corso...", true);
-			}
-
-			@Override
-			protected void onPostExecute(Integer result)
-			{
-				super.onPostExecute(result);
-				dialog.dismiss();
-				if(result == 1) {
-					new AlertDialog.Builder(ScheduleActivity.this)
-							.setTitle("Errore!")
-							.setMessage(
-									"È avvenuto un errore. Verifica di essere connesso ad Internet.")
-							.setCancelable(false).setPositiveButton("OK", null)
-							.show();
-				}
-			}
-		};
-		task.execute("");
+		DownloadScheduleAsyncTask task = new DownloadScheduleAsyncTask(this);
+		task.setOnTaskCompletedListener(new OnDownloadScheduleAsyncTaskCompletedListener());
+		task.execute();
 	}
 
-	private String adjustTime(String time)
+	private class OnDownloadScheduleAsyncTaskCompletedListener implements
+			BlockingAsyncTask.OnTaskCompletedListener<Response<String>>
 	{
-		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-		String adjustedTime = time;
-		try {
-			Date date = formatter.parse(time);
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(date);
-			cal.add(Calendar.HOUR_OF_DAY, 1);
-			adjustedTime = formatter.format(cal.getTime());
-		} catch(ParseException e) {
+		@Override
+		public void onTaskCompleted(Response<String> result)
+		{
+			schedule = Schedule.fromJSON(result.getResult());
 		}
-
-		return adjustedTime;
 	}
 }

@@ -29,7 +29,7 @@ import android.util.Log;
 /**
  * @author Paolo Cortis
  */
-public class Transmission
+public class Transmission implements Comparable<Transmission>
 {
 	private static final String PROGRAM_KEY = "programma";
 
@@ -106,7 +106,8 @@ public class Transmission
 	}
 
 	/**
-	 * @param formatName the formatName to set
+	 * @param formatName
+	 *            the formatName to set
 	 */
 	public void setFormatName(String formatName)
 	{
@@ -122,10 +123,17 @@ public class Transmission
 	}
 
 	/**
-	 * @param startTime the startTime to set
+	 * @param startTime
+	 *            the startTime to set
 	 */
 	public void setStartTime(String startTime)
 	{
 		this.startTime = startTime;
+	}
+
+	@Override
+	public int compareTo(Transmission another)
+	{
+		return this.getStartTime().compareTo(another.getStartTime());
 	}
 }

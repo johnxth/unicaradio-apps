@@ -14,7 +14,7 @@
  * 
  * Copyright UnicaRadio
  */
-package it.unicaradio.android.models;
+package it.unicaradio.android.enums;
 
 import android.text.TextUtils;
 
@@ -37,6 +37,28 @@ public enum Day {
 	private static final String SATURDAY_KEY = "sabato";
 
 	private static final String SUNDAY_KEY = "domenica";
+
+	public static Day fromInteger(int day)
+	{
+		switch(day) {
+			case 0:
+				return MONDAY;
+			case 1:
+				return TUESDAY;
+			case 2:
+				return WEDNESDAY;
+			case 3:
+				return THURSDAY;
+			case 4:
+				return FRIDAY;
+			case 5:
+				return SATURDAY;
+			case 6:
+				return SUNDAY;
+		}
+
+		return MONDAY;
+	}
 
 	public static Day fromString(String day)
 	{
@@ -65,9 +87,9 @@ public enum Day {
 		return MONDAY;
 	}
 
-	public String toString(Day day)
+	public String toString()
 	{
-		switch(day) {
+		switch(this) {
 			case MONDAY:
 				return MONDAY_KEY;
 			case TUESDAY:

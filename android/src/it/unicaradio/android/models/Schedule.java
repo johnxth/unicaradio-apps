@@ -16,7 +16,10 @@
  */
 package it.unicaradio.android.models;
 
+import it.unicaradio.android.enums.Day;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -84,6 +87,7 @@ public class Schedule
 				transmissionsByDay.clear();
 			}
 
+			Collections.sort(transmissionsByDay);
 			result.transmissions.put(day, transmissionsByDay);
 		}
 
