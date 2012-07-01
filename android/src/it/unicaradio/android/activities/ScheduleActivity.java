@@ -158,8 +158,8 @@ public class ScheduleActivity extends TabbedActivity
 		// Handle item selection
 		switch(item.getItemId()) {
 			case R.id.scheduleUpdate:
-				updateScheduleFromJSON();
 				resetListView();
+				updateScheduleFromJSON();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
