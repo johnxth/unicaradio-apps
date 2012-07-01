@@ -32,7 +32,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,42 +48,46 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class ScheduleActivity extends TabbedActivity
 {
-	private int state;
+	private static final String MONDAY_KEY = "lunedi";
 
-	private static String LOG = ScheduleActivity.class.getName();
+	private static final String TUESDAY_KEY = "martedi";
+
+	private static final String WEDNESDAY_KEY = "mercoledi";
+
+	private static final String THURSDAY_KEY = "giovedi";
+
+	private static final String FRIDAY_KEY = "venerdi";
+
+	private static final String SATURDAY_KEY = "sabato";
+
+	private static final String SUNDAY_KEY = "domenica";
 
 	private static final String SCHEDULE_URL = "http://www.unicaradio.it/regia/test/palinsesto.php";
 
+	private static final String TAG = ScheduleActivity.class.getName();
+
 	private static ArrayList<ArrayList<HashMap<String, String>>> SCHEDULE;
 
-	static final LinkedMap DAYS = new LinkedMap();
+	private int state;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		Log.d(ScheduleActivity.class.getName(), "Called ScheduleActivity");
 		super.onCreate(savedInstanceState, R.layout.schedule);
+		Log.d(ScheduleActivity.class.getName(), "Called ScheduleActivity");
 	}
 
 	@Override
 	protected void setupTab()
 	{
-		DAYS.put("lunedi", "Lunedì");
-		DAYS.put("martedi", "Martedì");
-		DAYS.put("mercoledi", "Mercoledì");
-		DAYS.put("giovedi", "Giovedì");
-		DAYS.put("venerdi", "Venerdì");
-		DAYS.put("sabato", "Sabato");
-		DAYS.put("domenica", "Domenica");
-
 		resetListView();
 
 		if(SCHEDULE == null) {
@@ -95,12 +98,12 @@ public class ScheduleActivity extends TabbedActivity
 	private void resetListView()
 	{
 		state = 0;
-		ListView lv = (ListView) findViewById(R.id.scheduleList);
-		Object[] days = DAYS.values().toArray();
+		ListView scheduleListView = (ListView) findViewById(R.id.scheduleList);
+		String[] days = getResources().getStringArray(R.array.days);
 
-		lv.setAdapter(new ArrayAlternatedColoursAdapter<Object>(
-				ScheduleActivity.this, android.R.layout.simple_list_item_1,
-				days));
+		BaseAdapter adapter = new ArrayAlternatedColoursAdapter<Object>(this,
+				android.R.layout.simple_list_item_1, days);
+		scheduleListView.setAdapter(adapter);
 	}
 
 	@Override
@@ -109,11 +112,11 @@ public class ScheduleActivity extends TabbedActivity
 		final ListView lv = (ListView) findViewById(R.id.scheduleList);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> a, View v, int position,
-					long id)
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id)
 			{
 				if(state == 0) {
-					if(SCHEDULE == null || SCHEDULE.size() == 0) {
+					if((SCHEDULE == null) || (SCHEDULE.size() == 0)) {
 						new AlertDialog.Builder(ScheduleActivity.this)
 								.setTitle("Errore!")
 								.setMessage(
@@ -160,7 +163,7 @@ public class ScheduleActivity extends TabbedActivity
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
-		if((keyCode == KeyEvent.KEYCODE_BACK) && state == 1) {
+		if((keyCode == KeyEvent.KEYCODE_BACK) && (state == 1)) {
 			setupTab();
 			return true;
 		}
@@ -188,7 +191,7 @@ public class ScheduleActivity extends TabbedActivity
 				try {
 					json = new String(Utils.downloadFromUrl(SCHEDULE_URL));
 				} catch(IOException e) {
-					Log.d(LOG, MessageFormat.format("Cannot find file {0}",
+					Log.d(TAG, MessageFormat.format("Cannot find file {0}",
 							SCHEDULE_URL));
 					return 1;
 				}
@@ -197,9 +200,9 @@ public class ScheduleActivity extends TabbedActivity
 				try {
 					jObject = new JSONObject(json);
 
-					String[] days = new String[] {"lunedi", "martedi",
-							"mercoledi", "giovedi", "venerdi", "sabato",
-							"domenica"};
+					String[] days = new String[] {MONDAY_KEY, TUESDAY_KEY,
+							WEDNESDAY_KEY, THURSDAY_KEY, FRIDAY_KEY,
+							SATURDAY_KEY, SUNDAY_KEY};
 
 					for(int j = 0; j < days.length; j++) {
 						SCHEDULE.add(new ArrayList<HashMap<String, String>>());
@@ -217,7 +220,7 @@ public class ScheduleActivity extends TabbedActivity
 						}
 					}
 				} catch(JSONException e) {
-					Log.d(LOG, "Errore durante il parsing del file JSON", e);
+					Log.d(TAG, "Errore durante il parsing del file JSON", e);
 					return 1;
 				}
 

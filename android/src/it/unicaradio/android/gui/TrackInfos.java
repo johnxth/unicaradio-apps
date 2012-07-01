@@ -17,9 +17,7 @@
 package it.unicaradio.android.gui;
 
 import it.unicaradio.android.R;
-
-import org.apache.commons.lang.StringUtils;
-
+import it.unicaradio.android.utils.StringUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

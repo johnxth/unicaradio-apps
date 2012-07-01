@@ -26,7 +26,6 @@ import android.widget.TextView;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class InfoActivity extends TabbedActivity
 {

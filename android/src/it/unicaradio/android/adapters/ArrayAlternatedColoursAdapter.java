@@ -30,7 +30,7 @@ import android.widget.ArrayAdapter;
  */
 public class ArrayAlternatedColoursAdapter<T> extends ArrayAdapter<T>
 {
-	private final int[] colours = new int[] {0xFF000000, 0xFF333333};
+	private int[] colours = new int[] {0xFF000000, 0xFF333333};
 
 	/**
 	 * @param context
@@ -106,5 +106,13 @@ public class ArrayAlternatedColoursAdapter<T> extends ArrayAdapter<T>
 		view.setBackgroundColor(colours[colourPos]);
 
 		return view;
+	}
+
+	/**
+	 * @param colours the colours to set
+	 */
+	public void setColours(int[] colours)
+	{
+		this.colours = colours;
 	}
 }

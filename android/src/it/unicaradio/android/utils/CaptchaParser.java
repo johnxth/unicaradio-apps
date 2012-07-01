@@ -18,8 +18,6 @@ package it.unicaradio.android.utils;
 
 import java.text.MessageFormat;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * @author Paolo Cortis
  * 

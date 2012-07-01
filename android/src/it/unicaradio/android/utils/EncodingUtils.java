@@ -20,8 +20,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * Utility class for JavaScript compatible UTF-8 encoding and decoding.
  * 

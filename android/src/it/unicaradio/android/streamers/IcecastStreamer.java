@@ -17,12 +17,11 @@
 package it.unicaradio.android.streamers;
 
 import it.unicaradio.android.gui.TrackInfos;
+import it.unicaradio.android.utils.StringUtils;
 
 import java.io.IOException;
 import java.net.URLConnection;
 import java.text.MessageFormat;
-
-import org.apache.commons.lang.StringUtils;
 
 import android.util.Log;
 
@@ -96,17 +95,17 @@ public class IcecastStreamer extends Streamer
 			String headerName = conn.getHeaderFieldKey(i);
 			String headerValue = conn.getHeaderField(i);
 
-			if(headerName == null && headerValue == null) {
+			if((headerName == null) && (headerValue == null)) {
 				break;
 			}
 
-			if(headerName != null && headerValue != null) {
+			if((headerName != null) && (headerValue != null)) {
 				String output = MessageFormat.format("{0}: {1}", headerName,
 						headerValue);
 				Log.i(CLASSNAME, output);
 			}
 
-			if(headerName != null && headerName.equals("icy-metaint")) {
+			if((headerName != null) && headerName.equals("icy-metaint")) {
 				metaint = Integer.parseInt(headerValue);
 			}
 		}
@@ -133,11 +132,13 @@ public class IcecastStreamer extends Streamer
 					SEPARATOR));
 			infos.setTitle(StringUtils
 					.substringAfter(artistAndTitle, SEPARATOR));
+
 			// infos contiene:
 			// [0] == artista
 			// [1] == titolo canzone
 			// oppure se infos è grande 1, in [0] contiene il titolo
 			// di un programma
+
 			Log.i(CLASSNAME, metadataString);
 			fireOnInfoEvent(infos);
 		}
