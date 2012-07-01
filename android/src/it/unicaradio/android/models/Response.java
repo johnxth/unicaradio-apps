@@ -10,7 +10,7 @@ public class Response<T>
 
 	public Response()
 	{
-		// TODO Auto-generated constructor stub
+		errorCode = Error.OK;
 	}
 
 	public Response(T result)
