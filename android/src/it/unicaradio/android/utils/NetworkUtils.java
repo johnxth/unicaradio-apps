@@ -24,6 +24,10 @@ import java.net.URLConnection;
 
 import org.apache.http.util.ByteArrayBuffer;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 /**
  * @author paolo.cortis
  */
@@ -31,12 +35,10 @@ public class NetworkUtils
 {
 	public static byte[] downloadFromUrl(String fileUrl) throws IOException
 	{
-		URL url = new URL(fileUrl); // you can write here any link
+		URL url = new URL(fileUrl);
 
-		// Open a connection to that URL.
 		URLConnection ucon = url.openConnection();
 
-		// Define InputStreams to read from the URLConnection.
 		InputStream is = ucon.getInputStream();
 		BufferedInputStream bis = new BufferedInputStream(is);
 
@@ -48,5 +50,17 @@ public class NetworkUtils
 		}
 
 		return baf.toByteArray();
+	}
+
+	public static boolean isConnected(Context context)
+	{
+		ConnectivityManager connectivityManager = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		for(NetworkInfo info : connectivityManager.getAllNetworkInfo()) {
+			if(info.isConnected()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

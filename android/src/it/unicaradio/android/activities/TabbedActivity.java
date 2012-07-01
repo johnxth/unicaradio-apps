@@ -24,10 +24,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -95,17 +92,6 @@ public abstract class TabbedActivity extends Activity
 	public Display getDisplay()
 	{
 		return getWindowManager().getDefaultDisplay();
-	}
-
-	public boolean isConnected()
-	{
-		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		for(NetworkInfo info : connectivityManager.getAllNetworkInfo()) {
-			if(info.isConnected()) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	protected void showAlertDialog(String title, String message)

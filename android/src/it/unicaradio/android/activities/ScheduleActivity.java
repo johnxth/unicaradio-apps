@@ -26,9 +26,11 @@ import it.unicaradio.android.models.Schedule;
 import it.unicaradio.android.models.Transmission;
 import it.unicaradio.android.tasks.BlockingAsyncTask;
 import it.unicaradio.android.tasks.DownloadScheduleAsyncTask;
+import it.unicaradio.android.utils.NetworkUtils;
 
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -46,11 +48,11 @@ import android.widget.ListView;
  */
 public class ScheduleActivity extends TabbedActivity
 {
-	// private static final String TAG = ScheduleActivity.class.getName();
-
-	private Schedule schedule;
+	private static Schedule schedule;
 
 	private int state;
+
+	private int clicked;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -64,14 +66,30 @@ public class ScheduleActivity extends TabbedActivity
 	{
 		resetListView();
 
+		if(!NetworkUtils.isConnected(this)) {
+			showNotConnectedDialog();
+
+			return;
+		}
+
 		if(schedule == null) {
 			updateScheduleFromJSON();
 		}
 	}
 
+	private void showNotConnectedDialog()
+	{
+		new AlertDialog.Builder(this)
+				.setTitle("Errore!")
+				.setMessage(
+						"È avvenuto un errore. Verifica di essere connesso ad Internet.")
+				.setCancelable(false).setPositiveButton("OK", null).show();
+	}
+
 	private void resetListView()
 	{
 		state = 0;
+		clicked = -1;
 		ListView scheduleListView = (ListView) findViewById(R.id.scheduleList);
 		String[] days = getResources().getStringArray(R.array.days);
 
@@ -84,26 +102,44 @@ public class ScheduleActivity extends TabbedActivity
 	protected void setupListeners()
 	{
 		final ListView scheduleListView = (ListView) findViewById(R.id.scheduleList);
-		scheduleListView.setOnItemClickListener(new OnItemClickListener()
-		{
+		scheduleListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id)
 			{
 				if(state == 0) {
-					state = 1;
+					if(schedule == null) {
+						if(NetworkUtils.isConnected(ScheduleActivity.this)) {
+							clicked = position;
+							updateScheduleFromJSON();
+						} else {
+							showNotConnectedDialog();
+						}
 
-					Day day = Day.fromInteger(position);
-					List<Transmission> transmissions = schedule
-							.getTransmissionsByDay(day);
+						return;
+					}
 
-					TransmissionsAdapter transmissionsAdapter = new TransmissionsAdapter(
-							ScheduleActivity.this, transmissions,
-							R.layout.list_two_columns);
-					scheduleListView.setAdapter(transmissionsAdapter);
+					drawSecondLevel(position);
 				}
 			}
 		});
+	}
+
+	/**
+	 * @param scheduleListView
+	 * @param position
+	 */
+	private void drawSecondLevel(int position)
+	{
+		state = 1;
+		ListView scheduleListView = (ListView) findViewById(R.id.scheduleList);
+
+		Day day = Day.fromInteger(position);
+		List<Transmission> transmissions = schedule.getTransmissionsByDay(day);
+
+		TransmissionsAdapter transmissionsAdapter = new TransmissionsAdapter(
+				ScheduleActivity.this, transmissions, R.layout.list_two_columns);
+		scheduleListView.setAdapter(transmissionsAdapter);
 	}
 
 	@Override
@@ -161,6 +197,11 @@ public class ScheduleActivity extends TabbedActivity
 		public void onTaskCompleted(Response<String> result)
 		{
 			schedule = Schedule.fromJSON(result.getResult());
+
+			if(clicked != -1) {
+				drawSecondLevel(clicked);
+				clicked = -1;
+			}
 		}
 	}
 }

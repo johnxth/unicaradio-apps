@@ -22,6 +22,7 @@ import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.services.StreamingService;
 import it.unicaradio.android.services.StreamingService.LocalBinder;
 import it.unicaradio.android.utils.ImageUtils;
+import it.unicaradio.android.utils.NetworkUtils;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -75,8 +76,7 @@ public class StreamingActivity extends TabbedActivity
 
 	private SharedPreferences preferences;
 
-	private final Runnable mUpdateResults = new Runnable()
-	{
+	private final Runnable mUpdateResults = new Runnable() {
 		@Override
 		public void run()
 		{
@@ -84,8 +84,7 @@ public class StreamingActivity extends TabbedActivity
 		}
 	};
 
-	protected BroadcastReceiver trackinforeceiver = new BroadcastReceiver()
-	{
+	protected BroadcastReceiver trackinforeceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
@@ -105,8 +104,7 @@ public class StreamingActivity extends TabbedActivity
 			infos.setAuthor(author);
 			infos.setTitle(title);
 			mHandler.post(mUpdateResults);
-			imageThread = new Thread(new Runnable()
-			{
+			imageThread = new Thread(new Runnable() {
 				@Override
 				public void run()
 				{
@@ -133,8 +131,7 @@ public class StreamingActivity extends TabbedActivity
 		}
 	};
 
-	private final ServiceConnection serviceConnection = new ServiceConnection()
-	{
+	private final ServiceConnection serviceConnection = new ServiceConnection() {
 		@Override
 		public void onServiceDisconnected(ComponentName arg0)
 		{
@@ -179,8 +176,7 @@ public class StreamingActivity extends TabbedActivity
 		textView.setText(R.string.updates);
 
 		Button button = (Button) dialog.findViewById(R.id.updatesButton);
-		button.setOnClickListener(new OnClickListener()
-		{
+		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v)
 			{
@@ -230,12 +226,11 @@ public class StreamingActivity extends TabbedActivity
 	protected void setupListeners()
 	{
 		final ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
-		playPauseButton.setOnClickListener(new OnClickListener()
-		{
+		playPauseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0)
 			{
-				if(!isConnected()) {
+				if(!NetworkUtils.isConnected(StreamingActivity.this)) {
 					showAlertDialog("Unicaradio",
 							"Attenzione! Non sei connesso ad internet!");
 					return;
@@ -336,8 +331,7 @@ public class StreamingActivity extends TabbedActivity
 	{
 		final ImageButton playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
 		playPauseButton.setImageResource(R.drawable.pause);
-		playPauseButton.post(new Runnable()
-		{
+		playPauseButton.post(new Runnable() {
 			@Override
 			public void run()
 			{
