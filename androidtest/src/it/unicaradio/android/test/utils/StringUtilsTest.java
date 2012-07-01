@@ -14,7 +14,7 @@
  * 
  * Copyright UnicaRadio
  */
-package it.unicaradio.android.test;
+package it.unicaradio.android.test.utils;
 
 import it.unicaradio.android.utils.StringUtils;
 import junit.framework.Assert;

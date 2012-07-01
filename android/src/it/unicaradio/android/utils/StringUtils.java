@@ -95,16 +95,32 @@ public class StringUtils
 	}
 
 	/**
-	 * @param metadataString
 	 * @param string
-	 * @param string2
+	 * @param open
+	 * @param close
 	 * @return
 	 */
-	public static String substringBetween(String metadataString, String string,
-			String string2)
+	public static String substringBetween(String string, String open,
+			String close)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if(string == null || open == null || close == null) {
+			return null;
+		}
+
+		if(string.equals(EMPTY) || open.equals(EMPTY) || close.equals(EMPTY)) {
+			return EMPTY;
+		}
+
+		int start = string.indexOf(open);
+		if(start == -1) {
+			return EMPTY;
+		}
+		int end = string.indexOf(close);
+		if(end == -1) {
+			return EMPTY;
+		}
+
+		return string.substring(start, end);
 	}
 
 	/**
