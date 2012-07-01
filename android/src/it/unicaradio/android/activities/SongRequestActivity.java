@@ -20,7 +20,7 @@ import it.unicaradio.android.R;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.utils.CaptchaParser;
 import it.unicaradio.android.utils.EncodingUtils;
-import it.unicaradio.android.utils.Utils;
+import it.unicaradio.android.utils.NetworkUtils;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -132,7 +132,7 @@ public class SongRequestActivity extends TabbedActivity
 			{
 				captcha.delete(0, captcha.length());
 				try {
-					captcha.append(new String(Utils
+					captcha.append(new String(NetworkUtils
 							.downloadFromUrl(WEB_SERVICE)));
 				} catch(Exception e) {
 					return 1;
@@ -307,7 +307,7 @@ public class SongRequestActivity extends TabbedActivity
 											.encodeURIComponent(author),
 									EncodingUtils.encodeURIComponent(title),
 									EncodingUtils.encodeURIComponent(email));
-							String sendResult = new String(Utils
+							String sendResult = new String(NetworkUtils
 									.downloadFromUrl(WEB_SERVICE + url));
 							Log.d(SongRequestActivity.class.getCanonicalName(),
 									sendResult);

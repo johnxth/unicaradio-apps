@@ -20,7 +20,6 @@ import java.text.MessageFormat;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class CaptchaParser
 {

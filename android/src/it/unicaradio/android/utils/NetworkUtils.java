@@ -27,7 +27,7 @@ import org.apache.http.util.ByteArrayBuffer;
 /**
  * @author paolo.cortis
  */
-public class Utils
+public class NetworkUtils
 {
 	public static byte[] downloadFromUrl(String fileUrl) throws IOException
 	{

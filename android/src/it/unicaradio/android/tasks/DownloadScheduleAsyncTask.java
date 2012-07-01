@@ -2,7 +2,7 @@ package it.unicaradio.android.tasks;
 
 import it.unicaradio.android.enums.Error;
 import it.unicaradio.android.models.Response;
-import it.unicaradio.android.utils.Utils;
+import it.unicaradio.android.utils.NetworkUtils;
 
 import java.io.IOException;
 
@@ -35,7 +35,7 @@ public class DownloadScheduleAsyncTask extends
 	{
 		try {
 			Response<String> response = new Response<String>();
-			response.setResult(new String(Utils.downloadFromUrl(SCHEDULE_URL)));
+			response.setResult(new String(NetworkUtils.downloadFromUrl(SCHEDULE_URL)));
 			response.setErrorCode(Error.OK);
 
 			return response;
