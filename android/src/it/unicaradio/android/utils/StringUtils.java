@@ -113,7 +113,7 @@ public class StringUtils
 	public static String substringBetween(String string, String open,
 			String close)
 	{
-		if(string == null || open == null || close == null) {
+		if((string == null) || (open == null) || (close == null)) {
 			return null;
 		}
 
@@ -146,8 +146,17 @@ public class StringUtils
 			return null;
 		}
 
+		if(string.equals(EMPTY)) {
+			return EMPTY;
+		}
+
 		if(start < 0) {
 			start = string.length() + start;
+		}
+
+		start = Math.max(0, start);
+		if(start > string.length()) {
+			return EMPTY;
 		}
 
 		return string.substring(start);
@@ -172,6 +181,7 @@ public class StringUtils
 			end = string.length() + end;
 		}
 
+		end = Math.min(string.length(), end);
 		if(start > end) {
 			return EMPTY;
 		}
@@ -189,7 +199,7 @@ public class StringUtils
 	 */
 	public static String substringBefore(String string, String separator)
 	{
-		if(isEmpty(string) || separator == null) {
+		if(isEmpty(string) || (separator == null)) {
 			return string;
 		}
 
@@ -230,6 +240,6 @@ public class StringUtils
 
 	public static boolean isEmpty(String string)
 	{
-		return string == null || string.equals(EMPTY);
+		return (string == null) || string.equals(EMPTY);
 	}
 }
