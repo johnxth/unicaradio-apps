@@ -16,6 +16,9 @@
  */
 package it.unicaradio.android.utils;
 
+import it.unicaradio.android.exceptions.WrongCaptchaLengthException;
+import it.unicaradio.android.exceptions.WrongCaptchaOperationException;
+
 import java.text.MessageFormat;
 
 /**
@@ -23,23 +26,29 @@ import java.text.MessageFormat;
  */
 public class CaptchaParser
 {
-	private static final String PLUS = "0001";
-
-	private static final String MINUS = "0010";
-
-	private static final String MULT = "0100";
-
-	public static String parse(String captcha)
+	private CaptchaParser()
 	{
-		String captcha_ = captcha.trim();
+	}
 
-		if(captcha_.length() != 8) {
-			throw new RuntimeException("Wrong length: " + captcha_.length());
+	public static final String PLUS = "0001";
+
+	public static final String MINUS = "0010";
+
+	public static final String MULT = "0100";
+
+	public static String generateHumanReadableCaptcha(String captcha)
+			throws WrongCaptchaLengthException, WrongCaptchaOperationException
+	{
+		String trimmedCaptcha = captcha.trim();
+
+		if(trimmedCaptcha.length() != 8) {
+			throw new WrongCaptchaLengthException("Wrong length: "
+					+ trimmedCaptcha.length());
 		}
 
-		String op1 = StringUtils.left(captcha_, 2);
-		String op2 = StringUtils.right(captcha_, 2);
-		String operation = StringUtils.mid(captcha_, 2, 4);
+		String op1 = StringUtils.left(trimmedCaptcha, 2);
+		String op2 = StringUtils.right(trimmedCaptcha, 2);
+		String operation = StringUtils.mid(trimmedCaptcha, 2, 4);
 		if(operation.equals(PLUS)) {
 			operation = "+";
 		} else if(operation.equals(MINUS)) {
@@ -47,7 +56,7 @@ public class CaptchaParser
 		} else if(operation.equals(MULT)) {
 			operation = "*";
 		} else {
-			throw new RuntimeException("Unrecognized operation");
+			throw new WrongCaptchaOperationException("Unrecognized operation");
 		}
 
 		return MessageFormat.format("{0} {1} {2} = ...", op1, operation, op2);

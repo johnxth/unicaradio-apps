@@ -63,10 +63,11 @@ public abstract class TabbedActivity extends Activity
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
-		if((keyCode == KeyEvent.KEYCODE_BACK)) {
-			moveTaskToBack(true);
-			return true;
-		} else if(keyCode == KeyEvent.KEYCODE_HOME) {
+		// if((keyCode == KeyEvent.KEYCODE_BACK)) {
+		// moveTaskToBack(true);
+		// return true;
+		// } else
+		if(keyCode == KeyEvent.KEYCODE_HOME) {
 			moveTaskToBack(true);
 			return true;
 		}

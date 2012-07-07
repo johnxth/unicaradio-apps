@@ -17,6 +17,8 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.exceptions.WrongCaptchaLengthException;
+import it.unicaradio.android.exceptions.WrongCaptchaOperationException;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.utils.CaptchaParser;
 import it.unicaradio.android.utils.EncodingUtils;
@@ -46,7 +48,6 @@ import android.widget.TextView;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class SongRequestActivity extends TabbedActivity
 {
@@ -65,7 +66,28 @@ public class SongRequestActivity extends TabbedActivity
 		public void run()
 		{
 			final EditText captchaView = (EditText) findViewById(R.id.songsCaptcha);
-			captchaView.setHint(CaptchaParser.parse(captcha.toString()));
+
+			String humanReadableCaptcha;
+			try {
+				humanReadableCaptcha = CaptchaParser
+						.generateHumanReadableCaptcha(captcha.toString());
+				captchaView.setHint(humanReadableCaptcha);
+			} catch(WrongCaptchaLengthException e) {
+				new AlertDialog.Builder(SongRequestActivity.this)
+						.setTitle("Errore")
+						.setMessage(
+								"Errore durante la generazione del CAPTCHA. Riprova più tardi.")
+						.setCancelable(false).setPositiveButton("OK", null)
+						.show();
+			} catch(WrongCaptchaOperationException e) {
+				new AlertDialog.Builder(SongRequestActivity.this)
+						.setTitle("Errore")
+						.setMessage(
+								"Errore durante la generazione del CAPTCHA. Riprova più tardi.")
+						.setCancelable(false).setPositiveButton("OK", null)
+						.show();
+			}
+
 			captchaView.setText("");
 		}
 	};
