@@ -20,23 +20,26 @@ import it.unicaradio.android.R;
 import it.unicaradio.android.exceptions.WrongCaptchaLengthException;
 import it.unicaradio.android.exceptions.WrongCaptchaOperationException;
 import it.unicaradio.android.gui.Tabs;
+import it.unicaradio.android.listeners.GenericAsyncTaskFailedListener;
+import it.unicaradio.android.models.Response;
+import it.unicaradio.android.tasks.BlockingAsyncTask;
+import it.unicaradio.android.tasks.BlockingAsyncTask.OnTaskCompletedListener;
+import it.unicaradio.android.tasks.DownloadCaptchaAsyncTask;
+import it.unicaradio.android.tasks.GetEmailAddressAsyncTask;
+import it.unicaradio.android.tasks.SendSongRequestAsyncTask;
 import it.unicaradio.android.utils.CaptchaParser;
+import it.unicaradio.android.utils.Constants;
 import it.unicaradio.android.utils.EncodingUtils;
-import it.unicaradio.android.utils.NetworkUtils;
+import it.unicaradio.android.utils.StringUtils;
 
-import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.List;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,61 +54,13 @@ import android.widget.TextView;
  */
 public class SongRequestActivity extends TabbedActivity
 {
-	private static final String NO_MAIL = "no_mail";
-
-	private static final String USER_EMAIL = "user_email";
-
 	private static final String WEB_SERVICE = "http://www.unicaradio.it/regia/test/mail.php";
-
-	private final Handler mHandler = new Handler();
-
-	private final StringBuilder captcha = new StringBuilder();
-
-	private final Runnable mUpdateCaptcha = new Runnable() {
-		@Override
-		public void run()
-		{
-			final EditText captchaView = (EditText) findViewById(R.id.songsCaptcha);
-
-			String humanReadableCaptcha;
-			try {
-				humanReadableCaptcha = CaptchaParser
-						.generateHumanReadableCaptcha(captcha.toString());
-				captchaView.setHint(humanReadableCaptcha);
-			} catch(WrongCaptchaLengthException e) {
-				new AlertDialog.Builder(SongRequestActivity.this)
-						.setTitle("Errore")
-						.setMessage(
-								"Errore durante la generazione del CAPTCHA. Riprova più tardi.")
-						.setCancelable(false).setPositiveButton("OK", null)
-						.show();
-			} catch(WrongCaptchaOperationException e) {
-				new AlertDialog.Builder(SongRequestActivity.this)
-						.setTitle("Errore")
-						.setMessage(
-								"Errore durante la generazione del CAPTCHA. Riprova più tardi.")
-						.setCancelable(false).setPositiveButton("OK", null)
-						.show();
-			}
-
-			captchaView.setText("");
-		}
-	};
-
-	private final StringBuilder email = new StringBuilder();
-
-	private final Runnable mUpdateEmail = new Runnable() {
-		@Override
-		public void run()
-		{
-			final EditText emailView = (EditText) findViewById(R.id.songsEmail);
-			emailView.setText(email.toString());
-		}
-	};
 
 	private SharedPreferences preferences;
 
-	private CharSequence[] emails;
+	private String captcha;
+
+	private String email;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -115,7 +70,6 @@ public class SongRequestActivity extends TabbedActivity
 		preferences = getPreferences(Context.MODE_PRIVATE);
 
 		setCaptchaField();
-
 		setEmailField();
 	}
 
@@ -146,120 +100,31 @@ public class SongRequestActivity extends TabbedActivity
 
 	private void setCaptchaField()
 	{
-		AsyncTask<String, Void, Integer> task = new AsyncTask<String, Void, Integer>() {
-			private ProgressDialog dialog;
+		captcha = StringUtils.EMPTY;
+		updateCaptchaOnView();
 
-			@Override
-			protected Integer doInBackground(String... arg0)
-			{
-				captcha.delete(0, captcha.length());
-				try {
-					captcha.append(new String(NetworkUtils
-							.downloadFromUrl(WEB_SERVICE)));
-				} catch(Exception e) {
-					return 1;
-				}
-				mHandler.post(mUpdateCaptcha);
+		DownloadCaptchaAsyncTask downloadCaptchaAsyncTask = new DownloadCaptchaAsyncTask(
+				this);
+		downloadCaptchaAsyncTask
+				.setOnTaskCompletedListener(new OnDownloadCaptchaAsyncTaskCompletedListener());
 
-				return 0;
-			}
+		GenericAsyncTaskFailedListener<String> taskFailedListener = new GenericAsyncTaskFailedListener<String>(
+				this);
+		downloadCaptchaAsyncTask.setOnTaskFailedListener(taskFailedListener);
 
-			@Override
-			protected void onPreExecute()
-			{
-				super.onPreExecute();
-				dialog = ProgressDialog.show(SongRequestActivity.this,
-						"CAPTCHA...", "Generazione CAPTCHA in corso...", true);
-			}
-
-			@Override
-			protected void onPostExecute(Integer result)
-			{
-				super.onPostExecute(result);
-				dialog.dismiss();
-				if(result == 1) {
-					new AlertDialog.Builder(SongRequestActivity.this)
-							.setTitle("Errore")
-							.setMessage(
-									"Verifica di essere connesso ad Internet.")
-							.setCancelable(false).setPositiveButton("OK", null)
-							.show();
-				}
-			}
-		};
-		task.execute("");
+		downloadCaptchaAsyncTask.execute();
 	}
 
 	private void setEmailField()
 	{
-		AsyncTask<String, Void, Account[]> task = new AsyncTask<String, Void, Account[]>() {
-			private ProgressDialog dialog;
+		email = StringUtils.EMPTY;
+		updateEmailOnView();
 
-			@Override
-			protected Account[] doInBackground(String... arg0)
-			{
-				String mailFromPreferences = preferences.getString(USER_EMAIL,
-						NO_MAIL);
-				if(mailFromPreferences.equals(NO_MAIL)) {
-					// l'utente non ha indicato alcuna e-mail in precedenza
-					Account[] accounts = AccountManager.get(
-							SongRequestActivity.this).getAccountsByType(
-							"com.google");
-
-					email.delete(0, email.length());
-					if(accounts.length == 1) {
-						// c'è un account google
-						email.append(accounts[0].name);
-					} else if(accounts.length > 1) {
-						// ce n'è più di uno
-						return accounts;
-					}
-				} else {
-					email.append(mailFromPreferences);
-				}
-
-				return null;
-			}
-
-			@Override
-			protected void onPreExecute()
-			{
-				dialog = ProgressDialog.show(SongRequestActivity.this,
-						"Email...", "Recupero indirizzo e-mail in corso...",
-						true);
-			}
-
-			@Override
-			protected void onPostExecute(Account[] accounts)
-			{
-				if(accounts != null) {
-					// There are more than one google account
-					emails = new CharSequence[accounts.length];
-					for(int i = 0; i < accounts.length; i++) {
-						emails[i] = accounts[i].name;
-					}
-					new AlertDialog.Builder(SongRequestActivity.this)
-							.setTitle(
-									"Quale indirizzo vuoi usare per inviare l'email?")
-							.setCancelable(false)
-							.setItems(emails,
-									new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(
-												DialogInterface dialog, int item)
-										{
-											email.append(emails[item]);
-											mHandler.post(mUpdateEmail);
-										}
-									}).show();
-				} else {
-					mHandler.post(mUpdateEmail);
-				}
-
-				dialog.dismiss();
-			}
-		};
-		task.execute("");
+		GetEmailAddressAsyncTask getEmailAddressAsyncTask = new GetEmailAddressAsyncTask(
+				this);
+		getEmailAddressAsyncTask
+				.setOnTaskCompletedListener(new OnGetEmailAddressAsyncTaskCompletedListener());
+		getEmailAddressAsyncTask.execute();
 	}
 
 	private void clearForm()
@@ -285,103 +150,189 @@ public class SongRequestActivity extends TabbedActivity
 	protected void setupListeners()
 	{
 		View songButton = findViewById(R.id.songButton);
-		songButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v)
-			{
-				TextView emailView = (TextView) findViewById(R.id.songsEmail);
-				TextView authorView = (TextView) findViewById(R.id.songsAuthor);
-				TextView titleView = (TextView) findViewById(R.id.songsTitle);
-				TextView resultView = (TextView) findViewById(R.id.songsCaptcha);
-
-				final String email = emailView.getText().toString().trim();
-				final String author = authorView.getText().toString().trim();
-				final String title = titleView.getText().toString().trim();
-				final String result = resultView.getText().toString().trim();
-
-				if(email.equals("") || author.equals("") || title.equals("")
-						|| result.equals("")) {
-					new AlertDialog.Builder(SongRequestActivity.this)
-							.setTitle("Errore!")
-							.setMessage(
-									"Attenzione! hai dimenticato qualcosa :)")
-							.setCancelable(false).setPositiveButton("OK", null)
-							.show();
-					return;
-				}
-
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putString(USER_EMAIL, email);
-				editor.commit();
-
-				AsyncTask<String, Void, Integer> task = new AsyncTask<String, Void, Integer>() {
-					private ProgressDialog dialog;
-
-					@Override
-					protected Integer doInBackground(String... arg0)
-					{
-						try {
-							String url = MessageFormat.format(
-									"?r={0}&op={1}&art={2}&tit={3}&mail={4}",
-									EncodingUtils.encodeURIComponent(result),
-									EncodingUtils.encodeURIComponent(captcha
-											.toString()), EncodingUtils
-											.encodeURIComponent(author),
-									EncodingUtils.encodeURIComponent(title),
-									EncodingUtils.encodeURIComponent(email));
-							String sendResult = new String(NetworkUtils
-									.downloadFromUrl(WEB_SERVICE + url));
-							Log.d(SongRequestActivity.class.getCanonicalName(),
-									sendResult);
-							Log.d(SongRequestActivity.class.getCanonicalName(),
-									EncodingUtils.encodeURIComponent(url));
-							if(sendResult.equals("OK")) {
-								return 0;
-							} else {
-								return 1;
-							}
-						} catch(IOException e) {
-							return 1;
-						}
-					}
-
-					@Override
-					protected void onPreExecute()
-					{
-						super.onPreExecute();
-						dialog = ProgressDialog.show(SongRequestActivity.this,
-								"Email...", "Invio e-mail in corso...", true);
-					}
-
-					@Override
-					protected void onPostExecute(Integer result)
-					{
-						super.onPostExecute(result);
-						dialog.dismiss();
-						if(result == 1) {
-							new AlertDialog.Builder(SongRequestActivity.this)
-									.setTitle("Errore!")
-									.setMessage(
-											"È avvenuto un errore durante l'invio del messaggio")
-									.setCancelable(false)
-									.setPositiveButton("OK", null).show();
-						} else if(result == 0) {
-							new AlertDialog.Builder(SongRequestActivity.this)
-									.setTitle("E-mail inviata!")
-									.setCancelable(false)
-									.setPositiveButton("OK", null).show();
-							clearForm();
-						}
-					}
-				};
-				task.execute("");
-			}
-		});
+		songButton.setOnClickListener(new SendSongRequestClickListener());
 	}
 
 	@Override
 	public int getTab()
 	{
 		return Tabs.SONG;
+	}
+
+	private void updateCaptchaOnView()
+	{
+		final EditText captchaView = (EditText) findViewById(R.id.songsCaptcha);
+
+		String humanReadableCaptcha;
+		try {
+			humanReadableCaptcha = CaptchaParser
+					.generateHumanReadableCaptcha(captcha.toString());
+			captchaView.setHint(humanReadableCaptcha);
+		} catch(WrongCaptchaLengthException e) {
+			new AlertDialog.Builder(SongRequestActivity.this)
+					.setTitle("Errore")
+					.setMessage(
+							"Errore durante la generazione del CAPTCHA. Riprova più tardi.")
+					.setCancelable(false).setPositiveButton("OK", null).show();
+		} catch(WrongCaptchaOperationException e) {
+			new AlertDialog.Builder(SongRequestActivity.this)
+					.setTitle("Errore")
+					.setMessage(
+							"Errore durante la generazione del CAPTCHA. Riprova più tardi.")
+					.setCancelable(false).setPositiveButton("OK", null).show();
+		}
+
+		captchaView.setText("");
+	}
+
+	private void updateEmailOnView()
+	{
+		final EditText emailView = (EditText) findViewById(R.id.songsEmail);
+		emailView.setText(email.toString());
+	}
+
+	private final class OnDownloadCaptchaAsyncTaskCompletedListener implements
+			BlockingAsyncTask.OnTaskCompletedListener<Response<String>>
+	{
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onTaskCompleted(Response<String> result)
+		{
+			String captchaString = result.getResult();
+
+			captcha = captchaString;
+			updateCaptchaOnView();
+		}
+	}
+
+	private final class SendSongRequestClickListener implements OnClickListener
+	{
+		private final String TAG = SendSongRequestClickListener.class.getName();
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onClick(View v)
+		{
+			String url = calculateUrl();
+			if(url == null) {
+				return;
+			}
+
+			SendSongRequestAsyncTask sendSongRequestAsyncTask = new SendSongRequestAsyncTask(
+					SongRequestActivity.this, url);
+			sendSongRequestAsyncTask
+					.setOnTaskCompletedListener(new OnSendSongRequestAsyncTaskCompletedListener());
+
+			GenericAsyncTaskFailedListener<String> taskFailedListener = new GenericAsyncTaskFailedListener<String>(
+					SongRequestActivity.this);
+			sendSongRequestAsyncTask
+					.setOnTaskFailedListener(taskFailedListener);
+			sendSongRequestAsyncTask.execute();
+		}
+
+		/**
+		 * @return
+		 */
+		private String calculateUrl()
+		{
+			TextView emailView = (TextView) findViewById(R.id.songsEmail);
+			TextView authorView = (TextView) findViewById(R.id.songsAuthor);
+			TextView titleView = (TextView) findViewById(R.id.songsTitle);
+			TextView resultView = (TextView) findViewById(R.id.songsCaptcha);
+
+			final String email = emailView.getText().toString().trim();
+			final String author = authorView.getText().toString().trim();
+			final String title = titleView.getText().toString().trim();
+			final String result = resultView.getText().toString().trim();
+
+			if(StringUtils.isEmpty(email) || StringUtils.isEmpty(author)
+					|| StringUtils.isEmpty(title)
+					|| StringUtils.isEmpty(result)) {
+				new AlertDialog.Builder(SongRequestActivity.this)
+						.setTitle("Errore!")
+						.setMessage("Attenzione! hai dimenticato qualcosa :)")
+						.setCancelable(false).setPositiveButton("OK", null)
+						.show();
+				return null;
+			}
+
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString(Constants.PREFERENCES_USER_EMAIL_KEY, email);
+			editor.commit();
+
+			String url = MessageFormat.format(
+					"{0}?r={1}&op={2}&art={3}&tit={4}&mail={5}", WEB_SERVICE,
+					EncodingUtils.encodeURIComponent(result),
+					EncodingUtils.encodeURIComponent(captcha.toString()),
+					EncodingUtils.encodeURIComponent(author),
+					EncodingUtils.encodeURIComponent(title),
+					EncodingUtils.encodeURIComponent(email));
+
+			Log.d(TAG, EncodingUtils.encodeURIComponent(url));
+			return url;
+		}
+	}
+
+	private final class OnSendSongRequestAsyncTaskCompletedListener implements
+			OnTaskCompletedListener<Response<String>>
+	{
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onTaskCompleted(Response<String> result)
+		{
+			new AlertDialog.Builder(SongRequestActivity.this)
+					.setTitle("E-mail inviata!").setCancelable(false)
+					.setPositiveButton("OK", null).show();
+			clearForm();
+		}
+	}
+
+	private final class OnGetEmailAddressAsyncTaskCompletedListener implements
+			OnTaskCompletedListener<Response<List<String>>>
+	{
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onTaskCompleted(Response<List<String>> response)
+		{
+			if(response == null) {
+				return;
+			}
+
+			List<String> result = response.getResult();
+			if((result == null) || (result.size() == 0)) {
+				return;
+			}
+
+			if(result.size() == 1) {
+				email = result.get(0);
+				updateEmailOnView();
+			} else {
+				final String[] tmpEmails = result.toArray(new String[result
+						.size()]);
+
+				new AlertDialog.Builder(SongRequestActivity.this)
+						.setTitle(
+								"Quale indirizzo vuoi usare per inviare l'email?")
+						.setCancelable(false)
+						.setItems(tmpEmails,
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int item)
+									{
+										email = tmpEmails[item];
+										updateEmailOnView();
+									}
+								}).show();
+			}
+		}
 	}
 }

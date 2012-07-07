@@ -94,6 +94,11 @@ public class StringUtils
 		return TextUtils.equals(str1, str2);
 	}
 
+	public static boolean notEquals(String str1, String str2)
+	{
+		return !equals(str1, str2);
+	}
+
 	/**
 	 * @param string
 	 * @param tag

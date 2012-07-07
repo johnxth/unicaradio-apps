@@ -1,10 +1,6 @@
 package it.unicaradio.android.tasks;
 
 import it.unicaradio.android.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -20,7 +16,9 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 
 	protected String dialogMessage;
 
-	protected List<OnTaskCompletedListener<Result>> listeners;
+	protected OnTaskCompletedListener<Result> taskCompletedListener;
+
+	protected OnTaskFailedListener<Result> taskFailedListener;
 
 	public BlockingAsyncTask(Context context)
 	{
@@ -29,7 +27,6 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 		this.dialogMessage = context
 				.getString(R.string.wait_dialog_default_message);
 		this.context = context;
-		this.listeners = new ArrayList<OnTaskCompletedListener<Result>>();
 	}
 
 	@Override
@@ -65,7 +62,7 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 
 	/**
 	 * @param dialogTitle
-	 *            the dialogTitle to set
+	 * the dialogTitle to set
 	 */
 	public void setDialogTitle(String dialogTitle)
 	{
@@ -74,7 +71,7 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 
 	/**
 	 * @param dialogMessage
-	 *            the dialogMessage to set
+	 * the dialogMessage to set
 	 */
 	public void setDialogMessage(String dialogMessage)
 	{
@@ -83,7 +80,7 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 
 	/**
 	 * @param dialogTitle
-	 *            the dialogTitle to set
+	 * the dialogTitle to set
 	 */
 	public void setDialogTitle(int dialogTitle)
 	{
@@ -92,7 +89,7 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 
 	/**
 	 * @param dialogMessage
-	 *            the dialogMessage to set
+	 * the dialogMessage to set
 	 */
 	public void setDialogMessage(int dialogMessage)
 	{
@@ -102,22 +99,40 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 	public void setOnTaskCompletedListener(
 			OnTaskCompletedListener<Result> taskCompletedListener)
 	{
-		if(listeners == null) {
-			listeners = new ArrayList<OnTaskCompletedListener<Result>>();
-		}
+		this.taskCompletedListener = taskCompletedListener;
+	}
 
-		this.listeners.add(taskCompletedListener);
+	public void setOnTaskFailedListener(
+			OnTaskFailedListener<Result> taskFailedListener)
+	{
+		this.taskFailedListener = taskFailedListener;
 	}
 
 	protected void emitTaskCompleted(Result result)
 	{
-		for(OnTaskCompletedListener<Result> listener : listeners) {
-			listener.onTaskCompleted(result);
+		if(taskCompletedListener == null) {
+			return;
 		}
+
+		taskCompletedListener.onTaskCompleted(result);
+	}
+
+	protected void emitTaskFailed(Result result)
+	{
+		if(taskFailedListener == null) {
+			return;
+		}
+
+		taskFailedListener.onTaskFailed(result);
 	}
 
 	public interface OnTaskCompletedListener<Result>
 	{
 		void onTaskCompleted(Result result);
+	}
+
+	public interface OnTaskFailedListener<Result>
+	{
+		void onTaskFailed(Result result);
 	}
 }

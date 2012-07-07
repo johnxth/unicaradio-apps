@@ -39,7 +39,13 @@ public class CaptchaParser
 	public static String generateHumanReadableCaptcha(String captcha)
 			throws WrongCaptchaLengthException, WrongCaptchaOperationException
 	{
+		if(captcha == null) {
+			return StringUtils.EMPTY;
+		}
 		String trimmedCaptcha = captcha.trim();
+		if(StringUtils.isEmpty(trimmedCaptcha)) {
+			return StringUtils.EMPTY;
+		}
 
 		if(trimmedCaptcha.length() != 8) {
 			throw new WrongCaptchaLengthException("Wrong length: "

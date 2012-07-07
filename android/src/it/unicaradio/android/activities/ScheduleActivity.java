@@ -20,11 +20,13 @@ import it.unicaradio.android.R;
 import it.unicaradio.android.adapters.ArrayAlternatedColoursAdapter;
 import it.unicaradio.android.adapters.TransmissionsAdapter;
 import it.unicaradio.android.enums.Day;
+import it.unicaradio.android.enums.Error;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.models.Response;
 import it.unicaradio.android.models.Schedule;
 import it.unicaradio.android.models.Transmission;
 import it.unicaradio.android.tasks.BlockingAsyncTask;
+import it.unicaradio.android.tasks.BlockingAsyncTask.OnTaskFailedListener;
 import it.unicaradio.android.tasks.DownloadScheduleAsyncTask;
 import it.unicaradio.android.utils.NetworkUtils;
 
@@ -102,27 +104,8 @@ public class ScheduleActivity extends TabbedActivity
 	protected void setupListeners()
 	{
 		final ListView scheduleListView = (ListView) findViewById(R.id.scheduleList);
-		scheduleListView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id)
-			{
-				if(state == 0) {
-					if(schedule == null) {
-						if(NetworkUtils.isConnected(ScheduleActivity.this)) {
-							clicked = position;
-							updateScheduleFromJSON();
-						} else {
-							showNotConnectedDialog();
-						}
-
-						return;
-					}
-
-					drawSecondLevel(position);
-				}
-			}
-		});
+		scheduleListView
+				.setOnItemClickListener(new OnScheduleListItemClickListener());
 	}
 
 	/**
@@ -187,10 +170,11 @@ public class ScheduleActivity extends TabbedActivity
 	{
 		DownloadScheduleAsyncTask task = new DownloadScheduleAsyncTask(this);
 		task.setOnTaskCompletedListener(new OnDownloadScheduleAsyncTaskCompletedListener());
+		task.setOnTaskFailedListener(new OnDownloadScheduleAsyncTaskFailedListener());
 		task.execute();
 	}
 
-	private class OnDownloadScheduleAsyncTaskCompletedListener implements
+	private final class OnDownloadScheduleAsyncTaskCompletedListener implements
 			BlockingAsyncTask.OnTaskCompletedListener<Response<String>>
 	{
 		@Override
@@ -202,6 +186,62 @@ public class ScheduleActivity extends TabbedActivity
 				drawSecondLevel(clicked);
 				clicked = -1;
 			}
+		}
+	}
+
+	private final class OnDownloadScheduleAsyncTaskFailedListener implements
+			OnTaskFailedListener<Response<String>>
+	{
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onTaskFailed(Response<String> result)
+		{
+			if(result.getErrorCode() == Error.DOWNLOAD_ERROR) {
+				new AlertDialog.Builder(ScheduleActivity.this)
+						.setTitle("Errore!")
+						.setMessage(
+								"È avvenuto un errore. Verifica di essere connesso ad Internet.")
+						.setCancelable(false).setPositiveButton("OK", null)
+						.show();
+			} else {
+				new AlertDialog.Builder(ScheduleActivity.this)
+						.setTitle("Errore!")
+						.setMessage(
+								"È avvenuto un errore imprevisto. Riprova più tardi.")
+						.setCancelable(false).setPositiveButton("OK", null)
+						.show();
+			}
+		}
+	}
+
+	private final class OnScheduleListItemClickListener implements
+			OnItemClickListener
+	{
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id)
+		{
+			if(state == 1) {
+				return;
+			}
+
+			if(schedule == null) {
+				if(NetworkUtils.isConnected(ScheduleActivity.this)) {
+					clicked = position;
+					updateScheduleFromJSON();
+				} else {
+					showNotConnectedDialog();
+				}
+
+				return;
+			}
+
+			drawSecondLevel(position);
 		}
 	}
 }
