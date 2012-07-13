@@ -20,6 +20,7 @@ import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.utils.StringUtils;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLConnection;
 import java.text.MessageFormat;
 
@@ -43,7 +44,6 @@ public class IcecastStreamer extends Streamer
 		super(conn.getInputStream());
 
 		readMetaInt(conn);
-
 		bytesUntilNextInfos = metaint;
 	}
 
@@ -117,30 +117,52 @@ public class IcecastStreamer extends Streamer
 		int length = super.read() * 16;
 		Log.d(CLASSNAME, "Length:" + String.valueOf(length));
 		if(length > 0) {
-			byte[] metadata = new byte[length];
-			for(int i = 0; i < length; i++) {
-				metadata[i] = (byte) super.read();
-			}
-			String metadataString = new String(metadata, "ISO-8859-1");
-			String artistAndTitle = StringUtils.substringBetween(
-					metadataString, "=", ";");
-			artistAndTitle = StringUtils.substring(artistAndTitle, 1, -1);
-			// String[] infos =
-			// StringUtils.splitByWholeSeparator(artistAndTitle, SEPARATOR);
-			TrackInfos infos = new TrackInfos();
-			infos.setAuthor(StringUtils.substringBefore(artistAndTitle,
-					SEPARATOR));
-			infos.setTitle(StringUtils
-					.substringAfter(artistAndTitle, SEPARATOR));
-
-			// infos contiene:
-			// [0] == artista
-			// [1] == titolo canzone
-			// oppure se infos è grande 1, in [0] contiene il titolo
-			// di un programma
-
+			String metadataString = readMetadata(length);
 			Log.i(CLASSNAME, metadataString);
+
+			TrackInfos infos = getTrackInfosFromMetadata(metadataString);
 			fireOnInfoEvent(infos);
 		}
+	}
+
+	/**
+	 * @param length
+	 * @return
+	 * @throws IOException
+	 * @throws UnsupportedEncodingException
+	 */
+	private String readMetadata(int length) throws IOException,
+			UnsupportedEncodingException
+	{
+		byte[] metadata = new byte[length];
+		for(int i = 0; i < length; i++) {
+			metadata[i] = (byte) super.read();
+		}
+
+		return new String(metadata, "ISO-8859-1");
+	}
+
+	/**
+	 * @param metadataString
+	 * @return
+	 */
+	private TrackInfos getTrackInfosFromMetadata(String metadataString)
+	{
+		String artistAndTitle = StringUtils.substringBetween(metadataString,
+				"=", ";");
+		artistAndTitle = StringUtils.substring(artistAndTitle, 1, -1);
+		// String[] infos =
+		// StringUtils.splitByWholeSeparator(artistAndTitle, SEPARATOR);
+
+		// infos contiene:
+		// [0] == artista
+		// [1] == titolo canzone
+		// oppure se infos è grande 1, in [0] contiene il titolo
+		// di un programma
+
+		TrackInfos infos = new TrackInfos();
+		infos.setAuthor(StringUtils.substringBefore(artistAndTitle, SEPARATOR));
+		infos.setTitle(StringUtils.substringAfter(artistAndTitle, SEPARATOR));
+		return infos;
 	}
 }

@@ -104,29 +104,8 @@ public class StreamingActivity extends TabbedActivity
 			infos.setAuthor(author);
 			infos.setTitle(title);
 			mHandler.post(mUpdateResults);
-			imageThread = new Thread(new Runnable() {
-				@Override
-				public void run()
-				{
-					synchronized(this) {
-						infos.setCover(null);
-						mHandler.post(mUpdateResults);
-						try {
-							wait(5000);
-						} catch(InterruptedException e) {
-							Log.d(LOG, "Thread interrotto", e);
-						}
-						try {
-							infos.setCover(ImageUtils
-									.downloadFromUrl(ONAIR_COVER_URL));
-							mHandler.post(mUpdateResults);
-						} catch(IOException e) {
-							Log.d(LOG, MessageFormat.format(
-									"Cannot find file {0}", ONAIR_COVER_URL));
-						}
-					}
-				}
-			});
+
+			imageThread = new Thread(new LoadCoverRunnable());
 			imageThread.start();
 		}
 	};
@@ -163,27 +142,6 @@ public class StreamingActivity extends TabbedActivity
 		if(hasBeenUpdated()) {
 			showUpdatesDialog();
 		}
-	}
-
-	private void showUpdatesDialog()
-	{
-		final Dialog dialog = new Dialog(StreamingActivity.this);
-		dialog.setContentView(R.layout.popup);
-		dialog.setTitle("L'applicazione è stata aggiornata!");
-		dialog.setCancelable(true);
-
-		TextView textView = (TextView) dialog.findViewById(R.id.updatesText);
-		textView.setText(R.string.updates);
-
-		Button button = (Button) dialog.findViewById(R.id.updatesButton);
-		button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v)
-			{
-				dialog.hide();
-			}
-		});
-		dialog.show();
 	}
 
 	@Override
@@ -235,6 +193,7 @@ public class StreamingActivity extends TabbedActivity
 							"Attenzione! Non sei connesso ad internet!");
 					return;
 				}
+
 				if((streamingService != null) && !streamingService.isPlaying()) {
 					play();
 				} else {
@@ -278,6 +237,27 @@ public class StreamingActivity extends TabbedActivity
 				setPlayButton();
 			}
 		}
+	}
+
+	private void showUpdatesDialog()
+	{
+		final Dialog dialog = new Dialog(StreamingActivity.this);
+		dialog.setContentView(R.layout.popup);
+		dialog.setTitle("L'applicazione è stata aggiornata!");
+		dialog.setCancelable(true);
+
+		TextView textView = (TextView) dialog.findViewById(R.id.updatesText);
+		textView.setText(R.string.updates);
+
+		Button button = (Button) dialog.findViewById(R.id.updatesButton);
+		button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v)
+			{
+				dialog.hide();
+			}
+		});
+		dialog.show();
 	}
 
 	private void updateResultsInUi()
@@ -365,5 +345,29 @@ public class StreamingActivity extends TabbedActivity
 		}
 
 		return false;
+	}
+
+	private final class LoadCoverRunnable implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			synchronized(this) {
+				infos.setCover(null);
+				mHandler.post(mUpdateResults);
+				try {
+					wait(5000);
+				} catch(InterruptedException e) {
+					Log.d(LOG, "Thread interrotto", e);
+				}
+				try {
+					infos.setCover(ImageUtils.downloadFromUrl(ONAIR_COVER_URL));
+					mHandler.post(mUpdateResults);
+				} catch(IOException e) {
+					Log.d(LOG, MessageFormat.format("Cannot find file {0}",
+							ONAIR_COVER_URL));
+				}
+			}
+		}
 	}
 }

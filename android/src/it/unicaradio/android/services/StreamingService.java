@@ -22,6 +22,7 @@ import it.unicaradio.android.events.OnInfoListener;
 import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.streamers.IcecastStreamer;
 import it.unicaradio.android.streamers.Streamer;
+import it.unicaradio.android.utils.StringUtils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -69,11 +70,11 @@ public class StreamingService extends Service
 
 	private AACPlayer player;
 
-	private final TrackInfos infos = new TrackInfos();
+	private final TrackInfos infos;
 
 	private boolean isPlaying;
 
-	private String error = "";
+	private String error;
 
 	private final BroadcastReceiver connectivityBroadcastReceiver = new BroadcastReceiver() {
 		@Override
@@ -113,6 +114,12 @@ public class StreamingService extends Service
 		}
 	};
 
+	public StreamingService()
+	{
+		infos = new TrackInfos();
+		error = StringUtils.EMPTY;
+	}
+
 	@Override
 	public IBinder onBind(Intent intent)
 	{
@@ -141,13 +148,9 @@ public class StreamingService extends Service
 	public void play()
 	{
 		if(conn == null) {
-			registerReceiver(connectivityBroadcastReceiver, new IntentFilter(
-					ConnectivityManager.CONNECTIVITY_ACTION));
-			registerReceiver(telephonyBroadcastReceiver, new IntentFilter(
-					TelephonyManager.ACTION_PHONE_STATE_CHANGED));
+			initReceivers();
 			try {
-				URL url = new URL(STREAM_URL);
-				_play(url);
+				internalPlay();
 			} catch(MalformedURLException e) {
 				stopWithException(
 						"Errore: l'indirizzo di streaming non è corretto.", e);
@@ -161,14 +164,8 @@ public class StreamingService extends Service
 
 	public void stop()
 	{
-		try {
-			unregisterReceiver(connectivityBroadcastReceiver);
-		} catch(IllegalArgumentException e) {
-		}
-		try {
-			unregisterReceiver(telephonyBroadcastReceiver);
-		} catch(IllegalArgumentException e) {
-		}
+		disableReceivers();
+		clearNotification();
 
 		if(player != null) {
 			player.stop();
@@ -179,11 +176,35 @@ public class StreamingService extends Service
 			infos.clean();
 			notifyChange();
 		}
-		clearNotification();
 	}
 
-	private void _play(URL url) throws IOException
+	private void initReceivers()
 	{
+		registerReceiver(connectivityBroadcastReceiver, new IntentFilter(
+				ConnectivityManager.CONNECTIVITY_ACTION));
+		registerReceiver(telephonyBroadcastReceiver, new IntentFilter(
+				TelephonyManager.ACTION_PHONE_STATE_CHANGED));
+	}
+
+	private void disableReceivers()
+	{
+		try {
+			unregisterReceiver(connectivityBroadcastReceiver);
+		} catch(Exception e) {
+			// do nothing
+		}
+
+		try {
+			unregisterReceiver(telephonyBroadcastReceiver);
+		} catch(Exception e) {
+			// do nothing
+		}
+	}
+
+	private void internalPlay() throws IOException, MalformedURLException
+	{
+		URL url = new URL(STREAM_URL);
+
 		if(conn == null) {
 			conn = url.openConnection();
 			conn.addRequestProperty("Icy-MetaData", "1");
@@ -244,7 +265,7 @@ public class StreamingService extends Service
 				sendNotification(infos.getTitle(), infos.getCleanedAuthor());
 			}
 		}
-		error = "";
+		error = StringUtils.EMPTY;
 	}
 
 	private void clearNotification()
