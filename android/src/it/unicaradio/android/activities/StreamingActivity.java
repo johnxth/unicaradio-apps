@@ -43,6 +43,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -137,6 +138,8 @@ public class StreamingActivity extends TabbedActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState, R.layout.main);
+
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
 		preferences = getPreferences(Context.MODE_PRIVATE);
 		if(hasBeenUpdated()) {
