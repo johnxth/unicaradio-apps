@@ -38,6 +38,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.IBinder;
@@ -53,6 +54,8 @@ import com.spoledge.aacdecoder.AACPlayer;
 public class StreamingService extends Service
 {
 	public static final String ACTION_TRACK_INFO = "it.unicaradio.android.intent.action.TRACK_INFO";
+
+	public static final String ACTION_STOP = "it.unicaradio.android.intent.action.STOP";
 
 	private static final String LOG = StreamingService.class.getName();
 
@@ -111,6 +114,17 @@ public class StreamingService extends Service
 					.getSystemService(Context.TELEPHONY_SERVICE);
 			telephony.listen(phoneListener,
 					PhoneStateListener.LISTEN_CALL_STATE);
+		}
+	};
+
+	private final BroadcastReceiver noisyAudioStreamReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent)
+		{
+			if(AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent
+					.getAction())) {
+				stop();
+			}
 		}
 	};
 
@@ -174,6 +188,7 @@ public class StreamingService extends Service
 			conn = null;
 			isPlaying = false;
 			infos.clean();
+			notifyStop();
 			notifyChange();
 		}
 	}
@@ -184,6 +199,8 @@ public class StreamingService extends Service
 				ConnectivityManager.CONNECTIVITY_ACTION));
 		registerReceiver(telephonyBroadcastReceiver, new IntentFilter(
 				TelephonyManager.ACTION_PHONE_STATE_CHANGED));
+		registerReceiver(noisyAudioStreamReceiver, new IntentFilter(
+				AudioManager.ACTION_AUDIO_BECOMING_NOISY));
 	}
 
 	private void disableReceivers()
@@ -196,6 +213,12 @@ public class StreamingService extends Service
 
 		try {
 			unregisterReceiver(telephonyBroadcastReceiver);
+		} catch(Exception e) {
+			// do nothing
+		}
+
+		try {
+			unregisterReceiver(noisyAudioStreamReceiver);
 		} catch(Exception e) {
 			// do nothing
 		}
@@ -266,6 +289,12 @@ public class StreamingService extends Service
 			}
 		}
 		error = StringUtils.EMPTY;
+	}
+
+	public void notifyStop()
+	{
+		Intent i = new Intent(ACTION_STOP);
+		sendBroadcast(i);
 	}
 
 	private void clearNotification()

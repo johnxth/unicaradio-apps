@@ -111,12 +111,29 @@ public class StreamingActivity extends TabbedActivity
 		}
 	};
 
+	private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent)
+		{
+			stop();
+		}
+	};
+
 	private final ServiceConnection serviceConnection = new ServiceConnection() {
 		@Override
 		public void onServiceDisconnected(ComponentName arg0)
 		{
 			streamingService = null;
-			unregisterReceiver(trackinforeceiver);
+
+			try {
+				unregisterReceiver(trackinforeceiver);
+			} catch(Exception e) {
+			}
+
+			try {
+				unregisterReceiver(stopReceiver);
+			} catch(Exception e) {
+			}
 		}
 
 		@Override
@@ -125,6 +142,8 @@ public class StreamingActivity extends TabbedActivity
 			streamingService = ((LocalBinder) service).getService();
 			registerReceiver(trackinforeceiver, new IntentFilter(
 					StreamingService.ACTION_TRACK_INFO));
+			registerReceiver(stopReceiver, new IntentFilter(
+					StreamingService.ACTION_STOP));
 			if(streamingService.isPlaying()) {
 				streamingService.notifyChange();
 				setPauseButton();
@@ -290,18 +309,20 @@ public class StreamingActivity extends TabbedActivity
 	{
 		if((streamingService != null) && !streamingService.isPlaying()) {
 			streamingService.play();
-			setPauseButton();
 		}
+
+		setPauseButton();
 	}
 
 	private void stop()
 	{
 		if((streamingService != null) && streamingService.isPlaying()) {
 			streamingService.stop();
-			infos.clean();
-			mHandler.post(mUpdateResults);
-			setPlayButton();
 		}
+
+		infos.clean();
+		mHandler.post(mUpdateResults);
+		setPlayButton();
 	}
 
 	private void setPlayButton()
