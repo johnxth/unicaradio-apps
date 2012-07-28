@@ -18,6 +18,7 @@
 		5279553215C3326B00827501 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5279553115C3326B00827501 /* InfoViewController.m */; };
 		5279553415C3329900827501 /* InfoViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5279553315C3329900827501 /* InfoViewController_iPhone.xib */; };
 		5279553615C332B300827501 /* InfoViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5279553515C332B300827501 /* InfoViewController_iPad.xib */; };
+		52AE95CC15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */; };
 		52B1BA6115C1D366001625FC /* play_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6015C1D366001625FC /* play_normal.png */; };
 		52B1BA6415C1D383001625FC /* pause_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6315C1D383001625FC /* pause_0.png */; };
 		52D51E7115BBEE3F00BC8C94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7015BBEE3F00BC8C94 /* UIKit.framework */; };
@@ -75,6 +76,7 @@
 		5279553115C3326B00827501 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		5279553315C3329900827501 /* InfoViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController_iPhone.xib; sourceTree = "<group>"; };
 		5279553515C332B300827501 /* InfoViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController_iPad.xib; sourceTree = "<group>"; };
+		52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
 		52B1BA6015C1D366001625FC /* play_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_normal.png; sourceTree = "<group>"; };
 		52B1BA6315C1D383001625FC /* pause_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_0.png; sourceTree = "<group>"; };
 		52D51E6C15BBEE3F00BC8C94 /* Streaming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streaming.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +286,7 @@
 				52D51EDE15BBF76900BC8C94 /* ScheduleViewController_iPhone.xib */,
 				52D51EDF15BBF76900BC8C94 /* StreamingViewController_iPad.xib */,
 				52D51EE015BBF76900BC8C94 /* StreamingViewController_iPhone.xib */,
+				52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */,
 				52D51EF415BC0BAE00BC8C94 /* FavouritesViewController_iPhone.xib */,
 				52D51EF615BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib */,
 				5279553315C3329900827501 /* InfoViewController_iPhone.xib */,
@@ -390,6 +393,7 @@
 				5279552F15C3323800827501 /* cover.png in Resources */,
 				5279553415C3329900827501 /* InfoViewController_iPhone.xib in Resources */,
 				5279553615C332B300827501 /* InfoViewController_iPad.xib in Resources */,
+				52AE95CC15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -40,6 +40,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+
+	if(streamer != nil && ([streamer isPlaying] || [streamer isWaiting])) {
+		[self updateUi];
+	}
 }
 
 - (void)viewDidUnload
@@ -50,11 +54,29 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return YES;
+}
+
+- (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    NSString *deviceLabel;
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        deviceLabel = @"iPhone";
     } else {
-        return YES;
+        deviceLabel = @"iPad";
     }
+
+    NSString *orientationLabel;
+    if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+		orientationLabel = @"-landscape";
+    } else {
+        orientationLabel = @"";
+    }
+	
+	[[NSBundle mainBundle] loadNibNamed: [NSString stringWithFormat:@"%@_%@%@", NSStringFromClass([self class]), deviceLabel, orientationLabel]
+								  owner: self
+								options: nil];
+	[self viewDidLoad];
 }
 
 - (void)dealloc
