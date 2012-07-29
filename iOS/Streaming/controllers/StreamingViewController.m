@@ -30,7 +30,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"On Air", @"On Air");
-        self.tabBarItem.image = [UIImage imageNamed:@"first"];
+        self.tabBarItem.image = [UIImage imageNamed:@"onair"];
     }
     NSLog(@"init streaming view controller");
     return self;
@@ -41,9 +41,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
-	if(streamer != nil && ([streamer isPlaying] || [streamer isWaiting])) {
-		[self updateUi];
+	if(streamer == nil || ![streamer isPlaying] || ![streamer isWaiting]) {
+		[self clearCurrentData];
+		[self clearUi];
 	}
+
+	[self updateUi];
 }
 
 - (void)viewDidUnload
@@ -76,7 +79,11 @@
 	[[NSBundle mainBundle] loadNibNamed: [NSString stringWithFormat:@"%@_%@%@", NSStringFromClass([self class]), deviceLabel, orientationLabel]
 								  owner: self
 								options: nil];
-	[self viewDidLoad];
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[self updateUi];
 }
 
 - (void)dealloc
@@ -95,13 +102,9 @@
     if([streamer isPlaying]) {
         [streamer stop];
         [self destroyStreamer];
-        [playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_NORMAL] forState:UIControlStateNormal];
-        [playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_PRESSED] forState:UIControlStateHighlighted];
     } else {
         [self createStreamer];
         [streamer start];
-        [playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_NORMAL] forState:UIControlStateNormal];
-        [playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_PRESSED] forState:UIControlStateHighlighted];
     }
     [self updateUi];
 }
@@ -266,6 +269,12 @@
             NSURL *url = [NSURL URLWithString:COVER_URL];
             UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
             coverImageView.image = image;
+			
+			[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_NORMAL] forState:UIControlStateNormal];
+			[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_PRESSED] forState:UIControlStateHighlighted];
+		} else {
+			[playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_NORMAL] forState:UIControlStateNormal];
+			[playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_PRESSED] forState:UIControlStateHighlighted];
         }
 	}
 }

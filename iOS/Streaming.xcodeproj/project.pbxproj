@@ -18,6 +18,17 @@
 		5279553215C3326B00827501 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5279553115C3326B00827501 /* InfoViewController.m */; };
 		5279553415C3329900827501 /* InfoViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5279553315C3329900827501 /* InfoViewController_iPhone.xib */; };
 		5279553615C332B300827501 /* InfoViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5279553515C332B300827501 /* InfoViewController_iPad.xib */; };
+		52A159B015C52AD100E09F51 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A615C52AD100E09F51 /* schedule@2x.png */; };
+		52A159B115C52AD100E09F51 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A715C52AD100E09F51 /* schedule.png */; };
+		52A159B215C52AD100E09F51 /* song@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A815C52AD100E09F51 /* song@2x.png */; };
+		52A159B315C52AD100E09F51 /* favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A915C52AD100E09F51 /* favorites@2x.png */; };
+		52A159B415C52AD100E09F51 /* onair.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AA15C52AD100E09F51 /* onair.png */; };
+		52A159B515C52AD100E09F51 /* song.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AB15C52AD100E09F51 /* song.png */; };
+		52A159B615C52AD100E09F51 /* favorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AC15C52AD100E09F51 /* favorites.png */; };
+		52A159B715C52AD100E09F51 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AD15C52AD100E09F51 /* info@2x.png */; };
+		52A159B815C52AD100E09F51 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AE15C52AD100E09F51 /* info.png */; };
+		52A159B915C52AD100E09F51 /* onair@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AF15C52AD100E09F51 /* onair@2x.png */; };
+		52A159BB15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */; };
 		52AE95CC15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */; };
 		52B1BA6115C1D366001625FC /* play_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6015C1D366001625FC /* play_normal.png */; };
 		52B1BA6415C1D383001625FC /* pause_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6315C1D383001625FC /* pause_0.png */; };
@@ -76,6 +87,17 @@
 		5279553115C3326B00827501 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		5279553315C3329900827501 /* InfoViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController_iPhone.xib; sourceTree = "<group>"; };
 		5279553515C332B300827501 /* InfoViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController_iPad.xib; sourceTree = "<group>"; };
+		52A159A615C52AD100E09F51 /* schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@2x.png"; sourceTree = "<group>"; };
+		52A159A715C52AD100E09F51 /* schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schedule.png; sourceTree = "<group>"; };
+		52A159A815C52AD100E09F51 /* song@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "song@2x.png"; sourceTree = "<group>"; };
+		52A159A915C52AD100E09F51 /* favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favorites@2x.png"; sourceTree = "<group>"; };
+		52A159AA15C52AD100E09F51 /* onair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onair.png; sourceTree = "<group>"; };
+		52A159AB15C52AD100E09F51 /* song.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = song.png; sourceTree = "<group>"; };
+		52A159AC15C52AD100E09F51 /* favorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorites.png; sourceTree = "<group>"; };
+		52A159AD15C52AD100E09F51 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
+		52A159AE15C52AD100E09F51 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		52A159AF15C52AD100E09F51 /* onair@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onair@2x.png"; sourceTree = "<group>"; };
+		52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPad-landscape.xib"; sourceTree = "<group>"; };
 		52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
 		52B1BA6015C1D366001625FC /* play_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_normal.png; sourceTree = "<group>"; };
 		52B1BA6315C1D383001625FC /* pause_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_0.png; sourceTree = "<group>"; };
@@ -268,6 +290,16 @@
 		52D51EDB15BBF76900BC8C94 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				52A159A615C52AD100E09F51 /* schedule@2x.png */,
+				52A159A715C52AD100E09F51 /* schedule.png */,
+				52A159A815C52AD100E09F51 /* song@2x.png */,
+				52A159A915C52AD100E09F51 /* favorites@2x.png */,
+				52A159AA15C52AD100E09F51 /* onair.png */,
+				52A159AB15C52AD100E09F51 /* song.png */,
+				52A159AC15C52AD100E09F51 /* favorites.png */,
+				52A159AD15C52AD100E09F51 /* info@2x.png */,
+				52A159AE15C52AD100E09F51 /* info.png */,
+				52A159AF15C52AD100E09F51 /* onair@2x.png */,
 				5279552E15C3323800827501 /* cover.png */,
 				5279552715C2E4C600827501 /* play_pressed.png */,
 				5279552515C2E4BA00827501 /* pause_pressed.png */,
@@ -291,6 +323,7 @@
 				52D51EF615BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib */,
 				5279553315C3329900827501 /* InfoViewController_iPhone.xib */,
 				5279553515C332B300827501 /* InfoViewController_iPad.xib */,
+				52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -394,6 +427,17 @@
 				5279553415C3329900827501 /* InfoViewController_iPhone.xib in Resources */,
 				5279553615C332B300827501 /* InfoViewController_iPad.xib in Resources */,
 				52AE95CC15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib in Resources */,
+				52A159B015C52AD100E09F51 /* schedule@2x.png in Resources */,
+				52A159B115C52AD100E09F51 /* schedule.png in Resources */,
+				52A159B215C52AD100E09F51 /* song@2x.png in Resources */,
+				52A159B315C52AD100E09F51 /* favorites@2x.png in Resources */,
+				52A159B415C52AD100E09F51 /* onair.png in Resources */,
+				52A159B515C52AD100E09F51 /* song.png in Resources */,
+				52A159B615C52AD100E09F51 /* favorites.png in Resources */,
+				52A159B715C52AD100E09F51 /* info@2x.png in Resources */,
+				52A159B815C52AD100E09F51 /* info.png in Resources */,
+				52A159B915C52AD100E09F51 /* onair@2x.png in Resources */,
+				52A159BB15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
