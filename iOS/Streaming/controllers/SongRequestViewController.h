@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SongRequestViewController : UIViewController
+@interface SongRequestViewController : UIViewController<UITextFieldDelegate>
+{
+	IBOutlet UIScrollView *scrollView;
+    IBOutlet UIView *contentView;
+}
+
+@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet UIView *contentView;
 
 @end

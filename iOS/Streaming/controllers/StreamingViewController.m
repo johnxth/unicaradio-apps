@@ -27,7 +27,10 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	NSLog(@"StreamingViewController - initWithNibName");
+	NSString *nibName = [self getNibNameByOrientation:[[UIDevice currentDevice] orientation]];
+    self = [super initWithNibName:nibName bundle:nibBundleOrNil];
+	
     if (self) {
         self.title = NSLocalizedString(@"On Air", @"On Air");
         self.tabBarItem.image = [UIImage imageNamed:@"onair"];
@@ -39,6 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	NSLog(@"StreamingViewController - viewDidLoad");
 	// Do any additional setup after loading the view, typically from a nib.
 
 	if(streamer == nil || ![streamer isPlaying] || ![streamer isWaiting]) {
@@ -55,6 +59,18 @@
     // Release any retained subviews of the main view.
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+	NSLog(@"StreamingViewController - viewWillAppear");
+	UIInterfaceOrientation newOrientation = [[UIDevice currentDevice] orientation];
+	if(oldOrientation != newOrientation) {
+		NSLog(@"StreamingViewController - viewWillAppear: updating nib");
+		[self willRotateToInterfaceOrientation:newOrientation duration:0.];
+	} else {
+		NSLog(@"StreamingViewController - viewWillAppear: orientation OK!");
+	}
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
@@ -62,21 +78,7 @@
 
 - (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    NSString *deviceLabel;
-    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        deviceLabel = @"iPhone";
-    } else {
-        deviceLabel = @"iPad";
-    }
-
-    NSString *orientationLabel;
-    if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-		orientationLabel = @"-landscape";
-    } else {
-        orientationLabel = @"";
-    }
-	
-	[[NSBundle mainBundle] loadNibNamed: [NSString stringWithFormat:@"%@_%@%@", NSStringFromClass([self class]), deviceLabel, orientationLabel]
+	[[NSBundle mainBundle] loadNibNamed: [self getNibNameByOrientation:toInterfaceOrientation]
 								  owner: self
 								options: nil];
 }
@@ -277,6 +279,27 @@
 			[playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_PRESSED] forState:UIControlStateHighlighted];
         }
 	}
+}
+
+- (NSString *) getNibNameByOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	oldOrientation = interfaceOrientation;
+
+	NSString *deviceLabel;
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        deviceLabel = @"iPhone";
+    } else {
+        deviceLabel = @"iPad";
+    }
+	
+    NSString *orientationLabel;
+    if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
+		orientationLabel = @"-landscape";
+    } else {
+        orientationLabel = @"";
+    }
+	
+	return [NSString stringWithFormat:@"%@_%@%@", NSStringFromClass([self class]), deviceLabel, orientationLabel];
 }
 
 @end

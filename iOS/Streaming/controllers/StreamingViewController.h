@@ -30,6 +30,8 @@
     
     NSString *currentArtist;
 	NSString *currentTitle;
+	
+	UIInterfaceOrientation oldOrientation;
 }
 
 #pragma mark - Actions

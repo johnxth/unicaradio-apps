@@ -8,11 +8,15 @@
 
 #import "AppDelegate.h"
 
+#import "widgets/UnicaradioUITabBarController.h"
+
 #import "controllers/StreamingViewController.h"
 #import "controllers/ScheduleViewController.h"
 #import "controllers/SongRequestViewController.h"
 #import "controllers/FavouritesViewController.h"
 #import "controllers/InfoViewController.h"
+
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AppDelegate
 
@@ -32,21 +36,23 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     UIViewController *streamingController, *scheduleController, *songRequestController, *favouritesController, *infoController;
+
+	streamingController = [[[StreamingViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        streamingController = [[[StreamingViewController alloc] initWithNibName:@"StreamingViewController_iPhone" bundle:nil] autorelease];
         scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPhone" bundle:nil] autorelease];
         songRequestController = [[[SongRequestViewController alloc] initWithNibName:@"SongRequestViewController_iPhone" bundle: nil] autorelease];
         favouritesController = [[[FavouritesViewController alloc] initWithNibName:@"FavouritesViewController_iPhone" bundle: nil] autorelease];
         infoController = [[[InfoViewController alloc] initWithNibName:@"InfoViewController_iPhone" bundle: nil] autorelease];
     } else {
-        streamingController = [[[StreamingViewController alloc] initWithNibName:@"StreamingViewController_iPad" bundle:nil] autorelease];
         scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil] autorelease];
         songRequestController = [[[SongRequestViewController alloc] initWithNibName:@"SongRequestViewController_iPad" bundle: nil] autorelease];
         favouritesController = [[[FavouritesViewController alloc] initWithNibName:@"FavouritesViewController_iPad" bundle: nil] autorelease];
         infoController = [[[InfoViewController alloc] initWithNibName:@"InfoViewController_iPad" bundle: nil] autorelease];
     }
+    //self.tabBarController = [[[UnicaradioUITabBarController alloc] init] autorelease];
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:streamingController, scheduleController, songRequestController, favouritesController, infoController, nil];
+
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     self.uiIsVisible = YES;
