@@ -8,17 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+#import "../models/Schedule.h"
+#import "../enums/Schedule_state.h"
+
 #define SCHEDULE_URL @"http://www.unicaradio.it/regia/test/palinsesto.php"
 
 @interface ScheduleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 {
 	NSMutableArray *days;
 	IBOutlet UITableView *scheduleTable;
-	NSData *scheduleJSON;
+	ScheduleState state;
+	Schedule *schedule;
+	NSInteger currentID;
 }
 
 @property (nonatomic, retain) NSMutableArray *days;
 @property (nonatomic, retain) IBOutlet UITableView *scheduleTable;
-@property (nonatomic, retain) NSData *scheduleJSON;
+@property (nonatomic) ScheduleState state;
+@property (nonatomic, retain) Schedule *schedule;
+@property (nonatomic) NSInteger currentID;
 
 @end
