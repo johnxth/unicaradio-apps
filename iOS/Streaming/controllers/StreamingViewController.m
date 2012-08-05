@@ -28,8 +28,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	NSLog(@"StreamingViewController - initWithNibName");
-	NSString *nibName = [self getNibNameByOrientation:[[UIDevice currentDevice] orientation]];
-    self = [super initWithNibName:nibName bundle:nibBundleOrNil];
+	//NSString *nibName = [self getNibNameByOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	
     if (self) {
         self.title = NSLocalizedString(@"On Air", @"On Air");
@@ -62,13 +62,13 @@
 - (void) viewWillAppear:(BOOL)animated
 {
 	NSLog(@"StreamingViewController - viewWillAppear");
-	UIInterfaceOrientation newOrientation = [[UIDevice currentDevice] orientation];
-	if(oldOrientation != newOrientation) {
-		NSLog(@"StreamingViewController - viewWillAppear: updating nib");
+	UIInterfaceOrientation newOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+	//if(oldOrientation != newOrientation) {
+		//NSLog(@"StreamingViewController - viewWillAppear: updating nib");
 		[self willRotateToInterfaceOrientation:newOrientation duration:0.];
-	} else {
-		NSLog(@"StreamingViewController - viewWillAppear: orientation OK!");
-	}
+	//} else {
+		//NSLog(@"StreamingViewController - viewWillAppear: orientation OK!");
+	//}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -293,13 +293,21 @@
     }
 	
     NSString *orientationLabel;
-    if(UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
+    if([self isLandscape:interfaceOrientation]) {
 		orientationLabel = @"-landscape";
     } else {
         orientationLabel = @"";
     }
 	
-	return [NSString stringWithFormat:@"%@_%@%@", NSStringFromClass([self class]), deviceLabel, orientationLabel];
+	NSString *nibName = [NSString stringWithFormat:@"%@_%@%@", NSStringFromClass([self class]), deviceLabel, orientationLabel];
+	//NSLog([NSString stringWithFormat:@"orientation: %d", interfaceOrientation]);
+	//NSLog([NSString stringWithFormat:@"%@ %@", @"StreamingViewController - getNibNameByOrientation: nibName is ", nibName]);
+	return nibName;
+}
+
+- (BOOL) isLandscape:(UIInterfaceOrientation)interfaceOrientation
+{
+	return UIInterfaceOrientationIsLandscape(interfaceOrientation) || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight;
 }
 
 @end

@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ScheduleViewController : UIViewController
+#define SCHEDULE_URL @"http://www.unicaradio.it/regia/test/palinsesto.php"
+
+@interface ScheduleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+{
+	NSMutableArray *days;
+	IBOutlet UITableView *scheduleTable;
+	NSData *scheduleJSON;
+}
+
+@property (nonatomic, retain) NSMutableArray *days;
+@property (nonatomic, retain) IBOutlet UITableView *scheduleTable;
+@property (nonatomic, retain) NSData *scheduleJSON;
 
 @end

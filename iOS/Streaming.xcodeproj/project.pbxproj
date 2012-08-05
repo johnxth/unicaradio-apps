@@ -12,6 +12,8 @@
 		52208E6515C09322006B27BD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6415C09322006B27BD /* AudioToolbox.framework */; };
 		52208E6715C0933D006B27BD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6615C0933D006B27BD /* CFNetwork.framework */; };
 		52208E6915C0935B006B27BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6815C0935B006B27BD /* QuartzCore.framework */; };
+		52328ABF15CD6FB700B67825 /* DTCustomColoredAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 52328ABE15CD6FB700B67825 /* DTCustomColoredAccessory.m */; };
+		52328ACA15CD850600B67825 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 52328AC915CD850600B67825 /* JSONKit.m */; };
 		5279552615C2E4BA00827501 /* pause_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5279552515C2E4BA00827501 /* pause_pressed.png */; };
 		5279552815C2E4C600827501 /* play_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5279552715C2E4C600827501 /* play_pressed.png */; };
 		5279552F15C3323800827501 /* cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 5279552E15C3323800827501 /* cover.png */; };
@@ -83,6 +85,10 @@
 		52208E6415C09322006B27BD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		52208E6615C0933D006B27BD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		52208E6815C0935B006B27BD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		52328ABD15CD6FB700B67825 /* DTCustomColoredAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCustomColoredAccessory.h; sourceTree = "<group>"; };
+		52328ABE15CD6FB700B67825 /* DTCustomColoredAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCustomColoredAccessory.m; sourceTree = "<group>"; };
+		52328AC815CD850600B67825 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		52328AC915CD850600B67825 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		5279552515C2E4BA00827501 /* pause_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_pressed.png; sourceTree = "<group>"; };
 		5279552715C2E4C600827501 /* play_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_pressed.png; sourceTree = "<group>"; };
 		5279552E15C3323800827501 /* cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover.png; sourceTree = "<group>"; };
@@ -187,6 +193,31 @@
 			path = audiostreamer;
 			sourceTree = "<group>";
 		};
+		52328AC715CD850600B67825 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				52328AC815CD850600B67825 /* JSONKit.h */,
+				52328AC915CD850600B67825 /* JSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = "<group>";
+		};
+		52328ACB15CD8B9100B67825 /* enums */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = enums;
+			sourceTree = "<group>";
+		};
+		52328ACC15CE760D00B67825 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				52208E4C15C090CD006B27BD /* audiostreamer */,
+				52328AC715CD850600B67825 /* JSONKit */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
 		52C31B9915CB0B32005681EA /* widgets */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +225,8 @@
 				52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */,
 				52ADD0AA15CC099300C2B153 /* UnicaradioUITabBarController.h */,
 				52ADD0AB15CC099300C2B153 /* UnicaradioUITabBarController.m */,
+				52328ABD15CD6FB700B67825 /* DTCustomColoredAccessory.h */,
+				52328ABE15CD6FB700B67825 /* DTCustomColoredAccessory.m */,
 			);
 			path = widgets;
 			sourceTree = "<group>";
@@ -235,7 +268,8 @@
 		52D51E7615BBEE3F00BC8C94 /* Streaming */ = {
 			isa = PBXGroup;
 			children = (
-				52208E4C15C090CD006B27BD /* audiostreamer */,
+				52328ACC15CE760D00B67825 /* libs */,
+				52328ACB15CD8B9100B67825 /* enums */,
 				52D51E7715BBEE3F00BC8C94 /* Supporting Files */,
 				52D51EDA15BBF76900BC8C94 /* resources */,
 				52D51EB915BBF1B500BC8C94 /* controllers */,
@@ -505,6 +539,8 @@
 				5279553215C3326B00827501 /* InfoViewController.m in Sources */,
 				52C31B9D15CB0BFE005681EA /* UnicaradioUINavigationBar.m in Sources */,
 				52ADD0AC15CC099300C2B153 /* UnicaradioUITabBarController.m in Sources */,
+				52328ABF15CD6FB700B67825 /* DTCustomColoredAccessory.m in Sources */,
+				52328ACA15CD850600B67825 /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
