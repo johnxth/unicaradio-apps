@@ -15,17 +15,23 @@
 
 @interface ScheduleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 {
-	NSMutableArray *days;
 	IBOutlet UITableView *scheduleTable;
+	IBOutlet UINavigationBar *navigationBar;
+
+	NSMutableArray *days;
 	ScheduleState state;
 	Schedule *schedule;
 	NSInteger currentID;
 }
 
-@property (nonatomic, retain) NSMutableArray *days;
 @property (nonatomic, retain) IBOutlet UITableView *scheduleTable;
+@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
+
+@property (nonatomic, retain) NSMutableArray *days;
 @property (nonatomic) ScheduleState state;
 @property (nonatomic, retain) Schedule *schedule;
 @property (nonatomic) NSInteger currentID;
+
+-  (void) backPressed;
 
 @end

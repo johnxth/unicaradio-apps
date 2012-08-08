@@ -49,8 +49,8 @@
         favouritesController = [[[FavouritesViewController alloc] initWithNibName:@"FavouritesViewController_iPad" bundle: nil] autorelease];
         infoController = [[[InfoViewController alloc] initWithNibName:@"InfoViewController_iPad" bundle: nil] autorelease];
     }
-    //self.tabBarController = [[[UnicaradioUITabBarController alloc] init] autorelease];
-    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    self.tabBarController = [[[UnicaradioUITabBarController alloc] init] autorelease];
+    //self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:streamingController, scheduleController, songRequestController, favouritesController, infoController, nil];
 
     self.window.rootViewController = self.tabBarController;

@@ -32,14 +32,13 @@
 	UIColor *startRed = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
     UIColor *middleRed = [UIColor colorWithRed:0x7F/255.0 green:0 blue:0 alpha:1];
     UIColor *endRed = [UIColor colorWithRed:0x69/255.0 green:0 blue:0 alpha:1];
-	UIColor *white = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
 	
 	CAGradientLayer *gradientNavBar = [CAGradientLayer layer];
 	gradientNavBar.colors = [NSArray arrayWithObjects:(id)[startRed CGColor], (id)[middleRed CGColor], (id)[endRed CGColor], nil];
 	gradientNavBar.frame = self.tabBar.bounds;
 	gradientNavBar.name = @"unicaradioUITabBar";
-	[self.tabBar.layer insertSublayer:gradientNavBar atIndex:1];  
-	self.tabBar.tintColor = white;
+	[self.tabBar.layer insertSublayer:gradientNavBar atIndex:1];
+	self.tabBar.tintColor = [UIColor whiteColor];
 }
 
 - (void)viewDidUnload
@@ -56,6 +55,12 @@
 - (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	[self viewDidLoad];
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 	[self viewDidLoad];
 }
 

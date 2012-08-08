@@ -56,7 +56,6 @@
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<array key="IBUIItems">
@@ -81,7 +80,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="202885910">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">314</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="1044695734">
@@ -89,7 +88,6 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{40, 20}, {240, 120}}</string>
 						<reference key="NSSuperview" ref="202885910"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="792828944"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -104,7 +102,6 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{20, 148}, {280, 206}}</string>
 						<reference key="NSSuperview" ref="202885910"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -113,8 +110,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 374}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="421430969"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -175,8 +170,8 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="71868938"/>
 							<reference ref="147434542"/>
+							<reference ref="71868938"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>

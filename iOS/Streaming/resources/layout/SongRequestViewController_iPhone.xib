@@ -61,11 +61,6 @@
 						<reference key="NSNextKeyView" ref="996252334"/>
 						<string key="NSReuseIdentifierKey">_NS:260</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIBarStyle">1</int>
-						<object class="NSColor" key="IBUITintColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC42OTM3MTU3ODQ3IDAgMAA</bytes>
-						</object>
 						<array key="IBUIItems">
 							<object class="IBUINavigationItem" id="483277564">
 								<reference key="IBUINavigationBar" ref="27071166"/>
@@ -88,10 +83,9 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIScrollView" id="722001705">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
 				<string key="NSFrameSize">{311, 480}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -103,7 +97,7 @@
 				<bool key="IBUIAlwaysBounceVertical">YES</bool>
 			</object>
 			<object class="IBUIView" id="800158555">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">314</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUILabel" id="301565767">
@@ -111,7 +105,6 @@
 						<int key="NSvFlags">258</int>
 						<string key="NSFrame">{{20, 20}, {280, 21}}</string>
 						<reference key="NSSuperview" ref="800158555"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="544129271"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -146,7 +139,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 64}, {280, 31}}</string>
 						<reference key="NSSuperview" ref="800158555"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="852113417"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -183,7 +175,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 124}, {280, 31}}</string>
 						<reference key="NSSuperview" ref="800158555"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="243897966"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -211,7 +202,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 184}, {280, 31}}</string>
 						<reference key="NSSuperview" ref="800158555"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="232040938"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -239,7 +229,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 244}, {280, 31}}</string>
 						<reference key="NSSuperview" ref="800158555"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="388399818"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -267,8 +256,6 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{124, 308}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="800158555"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -300,8 +287,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 365}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="301565767"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="354679353"/>
@@ -470,6 +455,7 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="12.CustomClassName">UnicaradioUINavigationBar</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -510,6 +496,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/SongRequestViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UnicaradioUINavigationBar</string>
+					<string key="superclassName">UINavigationBar</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/UnicaradioUINavigationBar.h</string>
 					</object>
 				</object>
 			</array>

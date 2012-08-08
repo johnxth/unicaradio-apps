@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <objc/runtime.h>
+
 #import "ScheduleViewController.h"
 #import "../widgets/DTCustomColoredAccessory.h"
 #import "../JSONKit/JSONKit.h"
@@ -17,8 +19,10 @@
 
 @implementation ScheduleViewController
 
-@synthesize days;
 @synthesize scheduleTable;
+@synthesize navigationBar;
+
+@synthesize days;
 @synthesize state;
 @synthesize schedule;
 @synthesize currentID;
@@ -83,7 +87,7 @@
 	if(self.state == DAYS) {
 		return [days count];
 	} else {
-		NSArray *transmissionsForCurrentId = [schedule valueForKey:currentID];
+		NSArray *transmissionsForCurrentId = [schedule getTransmissionsByDay:currentID];
 		return [transmissionsForCurrentId count];
 	}
 }
@@ -91,27 +95,27 @@
 // Setta il contenuto delle varie celle
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"]; 
+	UITableViewCell *cell;
+	cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil] autorelease];
 
-	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellSelectionStyleNone reuseIdentifier:@"cellID"] autorelease];
-	}
-
+	UIColor *textColor = [UIColor whiteColor];
+	
 	NSInteger index = indexPath.row;
 	if(self.state == DAYS) {
 		cell.textLabel.text = [days objectAtIndex:index];
+
+		DTCustomColoredAccessory *accessory = [DTCustomColoredAccessory accessoryWithColor:textColor andHighlightedColor:textColor];
+		cell.accessoryView = accessory;
 	} else {
 		NSArray *transmissionsForCurrentId = [schedule getTransmissionsByDay:currentID];
 		Transmission *transmission = [transmissionsForCurrentId objectAtIndex:index];
 		cell.textLabel.text = transmission.formatName;
+		cell.detailTextLabel.text = transmission.startTime;
 	}
-
-	UIColor *textColor = [UIColor whiteColor];
-	DTCustomColoredAccessory *accessory = [DTCustomColoredAccessory accessoryWithColor:textColor andHighlightedColor:textColor];
-	cell.accessoryView = accessory;
 
 	cell.backgroundColor = [UIColor clearColor];
 	[cell.textLabel setTextColor:textColor];
+	[cell.detailTextLabel setTextColor:textColor];
 
 	UIView *redColorView = [[[UIView alloc] init] autorelease];
 	redColorView.backgroundColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:0.70];
@@ -126,8 +130,37 @@
 	if(self.state == DAYS) {
 		self.state = TRANSMISSIONS;
 		self.currentID = indexPath.row;
+
+		NSString *dayString = [[[self.scheduleTable cellForRowAtIndexPath:indexPath] textLabel] text];
+		[self showBackButtonWithNavigationTitle:dayString andButtonTitle:@"\u25C1 Schedule"];
+
 		[self.scheduleTable reloadData];
 	}
+}
+
+- (void) showBackButtonWithNavigationTitle: (NSString *)title andButtonTitle: (NSString *)buttonTitle
+{
+	UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:buttonTitle
+											style:UIBarButtonItemStyleBordered target:self action:@selector(backPressed)];
+	UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:title];
+	//item.backBarButtonItem = backButton;
+	[item setLeftBarButtonItem:backButton];
+
+	[self.navigationBar pushNavigationItem:item animated:YES];
+	[item release];
+	[backButton release];
+	
+	//self.navigationBar.topItem.titleView = label;
+}
+
+-  (void) backPressed
+{
+	NSLog(@"backPressed");
+
+	[self.navigationBar popNavigationItemAnimated:YES];
+	self.state = DAYS;
+	self.currentID = -1;
+	[self.scheduleTable reloadData];
 }
 
 @end
