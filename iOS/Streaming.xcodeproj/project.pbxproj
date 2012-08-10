@@ -32,6 +32,11 @@
 		52A159B815C52AD100E09F51 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AE15C52AD100E09F51 /* info.png */; };
 		52A159B915C52AD100E09F51 /* onair@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AF15C52AD100E09F51 /* onair@2x.png */; };
 		52A159BB15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */; };
+		52AA0B6A15D4307F00CA2EC3 /* websites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6915D4307F00CA2EC3 /* websites.plist */; };
+		52AA0B7015D45B6A00CA2EC3 /* facebook_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */; };
+		52AA0B7115D45B6A00CA2EC3 /* website_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6D15D45B6A00CA2EC3 /* website_icon.png */; };
+		52AA0B7215D45B6A00CA2EC3 /* twitter_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6E15D45B6A00CA2EC3 /* twitter_icon.png */; };
+		52AA0B7315D45B6A00CA2EC3 /* youtube_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6F15D45B6A00CA2EC3 /* youtube_icon.png */; };
 		52ADD0AC15CC099300C2B153 /* UnicaradioUITabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52ADD0AB15CC099300C2B153 /* UnicaradioUITabBarController.m */; };
 		52ADD0AF15CC0D4300C2B153 /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 52ADD0AE15CC0D4300C2B153 /* banner.png */; };
 		52AE95CC15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */; };
@@ -112,6 +117,11 @@
 		52A159AE15C52AD100E09F51 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		52A159AF15C52AD100E09F51 /* onair@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onair@2x.png"; sourceTree = "<group>"; };
 		52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPad-landscape.xib"; sourceTree = "<group>"; };
+		52AA0B6915D4307F00CA2EC3 /* websites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = websites.plist; sourceTree = "<group>"; };
+		52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_icon.png; sourceTree = "<group>"; };
+		52AA0B6D15D45B6A00CA2EC3 /* website_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = website_icon.png; sourceTree = "<group>"; };
+		52AA0B6E15D45B6A00CA2EC3 /* twitter_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_icon.png; sourceTree = "<group>"; };
+		52AA0B6F15D45B6A00CA2EC3 /* youtube_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youtube_icon.png; sourceTree = "<group>"; };
 		52ADD0AA15CC099300C2B153 /* UnicaradioUITabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUITabBarController.h; sourceTree = "<group>"; };
 		52ADD0AB15CC099300C2B153 /* UnicaradioUITabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUITabBarController.m; sourceTree = "<group>"; };
 		52ADD0AE15CC0D4300C2B153 /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
@@ -318,6 +328,7 @@
 				52D51E7915BBEE3F00BC8C94 /* InfoPlist.strings */,
 				52D51E7C15BBEE3F00BC8C94 /* main.m */,
 				52D51E7E15BBEE3F00BC8C94 /* Streaming-Prefix.pch */,
+				52AA0B6915D4307F00CA2EC3 /* websites.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -371,6 +382,10 @@
 		52D51EDB15BBF76900BC8C94 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */,
+				52AA0B6D15D45B6A00CA2EC3 /* website_icon.png */,
+				52AA0B6E15D45B6A00CA2EC3 /* twitter_icon.png */,
+				52AA0B6F15D45B6A00CA2EC3 /* youtube_icon.png */,
 				52ADD0AE15CC0D4300C2B153 /* banner.png */,
 				52A159A615C52AD100E09F51 /* schedule@2x.png */,
 				52A159A715C52AD100E09F51 /* schedule.png */,
@@ -521,6 +536,11 @@
 				52A159B915C52AD100E09F51 /* onair@2x.png in Resources */,
 				52A159BB15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib in Resources */,
 				52ADD0AF15CC0D4300C2B153 /* banner.png in Resources */,
+				52AA0B6A15D4307F00CA2EC3 /* websites.plist in Resources */,
+				52AA0B7015D45B6A00CA2EC3 /* facebook_icon.png in Resources */,
+				52AA0B7115D45B6A00CA2EC3 /* website_icon.png in Resources */,
+				52AA0B7215D45B6A00CA2EC3 /* twitter_icon.png in Resources */,
+				52AA0B7315D45B6A00CA2EC3 /* youtube_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

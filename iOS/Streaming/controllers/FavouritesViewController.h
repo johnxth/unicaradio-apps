@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavouritesViewController : UIViewController
+@interface FavouritesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+{
+	IBOutlet UITableView *favouritesTable;
+	
+	NSArray *websites;
+}
+
+@property (nonatomic, retain) NSArray *websites;
 
 @end

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>description</key>
+		<string>Sito Web</string>
+		<key>address</key>
+		<string>http://www.unicaradio.it/</string>
+		<key>icon_name</key>
+		<string>website_icon</string>
+	</dict>
+	<dict>
+		<key>description</key>
+		<string>Facebook</string>
+		<key>address</key>
+		<string>http://www.facebook.com/UnicaRadio.it</string>
+		<key>icon_name</key>
+		<string>facebook_icon</string>
+	</dict>
+	<dict>
+		<key>description</key>
+		<string>Youtube</string>
+		<key>address</key>
+		<string>http://www.youtube.com/user/unicaradiotv</string>
+		<key>icon_name</key>
+		<string>youtube_icon</string>
+	</dict>
+	<dict>
+		<key>description</key>
+		<string>Twitter</string>
+		<key>address</key>
+		<string>http://www.twitter.com/#!/UnicaRadio</string>
+		<key>icon_name</key>
+		<string>twitter_icon</string>
+	</dict>
+</array>
+</plist>
