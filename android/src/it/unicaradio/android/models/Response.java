@@ -10,13 +10,13 @@ public class Response<T>
 
 	public Response()
 	{
-		errorCode = Error.OK;
+		errorCode = Error.NO_ERROR;
 	}
 
 	public Response(T result)
 	{
 		this.result = result;
-		this.errorCode = Error.OK;
+		this.errorCode = Error.NO_ERROR;
 	}
 
 	public Response(Error error)
@@ -27,7 +27,7 @@ public class Response<T>
 
 	public boolean containsError()
 	{
-		return errorCode != Error.OK;
+		return errorCode != Error.NO_ERROR;
 	}
 
 	public T getResult()

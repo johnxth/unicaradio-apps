@@ -50,6 +50,8 @@ import android.widget.ListView;
  */
 public class ScheduleActivity extends TabbedActivity
 {
+	public static final String TAG = ScheduleActivity.class.getName();
+
 	private static Schedule schedule;
 
 	private int state;
@@ -198,7 +200,9 @@ public class ScheduleActivity extends TabbedActivity
 		@Override
 		public void onTaskFailed(Response<String> result)
 		{
-			if(result.getErrorCode() == Error.DOWNLOAD_ERROR) {
+			Log.e(TAG, "Got error: " + result.getErrorCode());
+
+			if(result.getErrorCode() == Error.INTERNAL_DOWNLOAD_ERROR) {
 				new AlertDialog.Builder(ScheduleActivity.this)
 						.setTitle("Errore!")
 						.setMessage(

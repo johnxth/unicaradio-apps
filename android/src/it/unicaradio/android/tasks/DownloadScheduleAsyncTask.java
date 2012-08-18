@@ -25,12 +25,11 @@ public class DownloadScheduleAsyncTask extends
 	{
 		try {
 			Response<String> response = new Response<String>();
-			response.setResult(new String(NetworkUtils
-					.downloadFromUrl(SCHEDULE_URL)));
+			response.setResult(new String(NetworkUtils.httpGet(SCHEDULE_URL)));
 
 			return response;
 		} catch(IOException e) {
-			return new Response<String>(Error.DOWNLOAD_ERROR);
+			return new Response<String>(Error.INTERNAL_DOWNLOAD_ERROR);
 		}
 	}
 }

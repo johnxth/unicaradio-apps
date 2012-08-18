@@ -21,6 +21,7 @@ import it.unicaradio.android.models.Response;
 import it.unicaradio.android.tasks.BlockingAsyncTask.OnTaskFailedListener;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 
 /**
  * @author Paolo Cortis
@@ -29,6 +30,9 @@ import android.content.Context;
 public class GenericAsyncTaskFailedListener<Result> implements
 		OnTaskFailedListener<Response<Result>>
 {
+	private static final String TAG = GenericAsyncTaskFailedListener.class
+			.getName();
+
 	private final Context context;
 
 	public GenericAsyncTaskFailedListener(Context context)
@@ -42,7 +46,9 @@ public class GenericAsyncTaskFailedListener<Result> implements
 	@Override
 	public void onTaskFailed(Response<Result> result)
 	{
-		if(result.getErrorCode() == Error.DOWNLOAD_ERROR) {
+		Log.e(TAG, "Got error: " + result.getErrorCode());
+
+		if(result.getErrorCode() == Error.INTERNAL_DOWNLOAD_ERROR) {
 			new AlertDialog.Builder(context).setTitle("Errore")
 					.setMessage("Verifica di essere connesso ad Internet.")
 					.setCancelable(false).setPositiveButton("OK", null).show();

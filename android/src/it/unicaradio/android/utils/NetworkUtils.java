@@ -22,7 +22,18 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpException;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.ByteArrayBuffer;
+import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -33,9 +44,21 @@ import android.net.NetworkInfo;
  */
 public class NetworkUtils
 {
-	public static byte[] downloadFromUrl(String fileUrl) throws IOException
+	public static boolean isConnected(Context context)
 	{
-		URL url = new URL(fileUrl);
+		ConnectivityManager connectivityManager = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		for(NetworkInfo info : connectivityManager.getAllNetworkInfo()) {
+			if(info.isConnected()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static byte[] httpGet(String urlString) throws IOException
+	{
+		URL url = new URL(urlString);
 
 		URLConnection ucon = url.openConnection();
 
@@ -52,15 +75,24 @@ public class NetworkUtils
 		return baf.toByteArray();
 	}
 
-	public static boolean isConnected(Context context)
+	public static byte[] httpPost(String url, byte[] postData,
+			String contentType) throws ClientProtocolException, IOException,
+			HttpException
 	{
-		ConnectivityManager connectivityManager = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		for(NetworkInfo info : connectivityManager.getAllNetworkInfo()) {
-			if(info.isConnected()) {
-				return true;
-			}
+		HttpParams httpParams = new BasicHttpParams();
+
+		HttpPost post = new HttpPost(url);
+		post.setEntity(new ByteArrayEntity(postData));
+		post.addHeader("Content-Type", contentType);
+
+		HttpClient client = new DefaultHttpClient(httpParams);
+		HttpResponse response = client.execute(post);
+
+		HttpEntity httpEntity = response.getEntity();
+		if(httpEntity == null) {
+			throw new HttpException("No answer from server.");
 		}
-		return false;
+
+		return EntityUtils.toByteArray(httpEntity);
 	}
 }

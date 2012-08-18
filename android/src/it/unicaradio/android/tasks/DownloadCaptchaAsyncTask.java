@@ -22,16 +22,23 @@ import it.unicaradio.android.utils.NetworkUtils;
 
 import java.io.IOException;
 
+import org.apache.http.HttpException;
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
+import android.util.Log;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class DownloadCaptchaAsyncTask extends
 		BlockingAsyncTaskWithResponse<String>
 {
-	private static final String WEB_SERVICE = "http://www.unicaradio.it/regia/test/mail.php";
+	private static final String WEB_SERVICE = "http://www.unicaradio.it/regia/test/unicaradio-mail/endpoint.php";
+
+	private static final String TAG = DownloadCaptchaAsyncTask.class.getName();
 
 	/**
 	 * @param context
@@ -51,13 +58,30 @@ public class DownloadCaptchaAsyncTask extends
 	protected Response<String> doInBackground(Void... params)
 	{
 		try {
+			JSONObject request = new JSONObject();
+			request.put("method", "getCaptcha");
+			byte[] postData = request.toString().getBytes();
+
 			Response<String> response = new Response<String>();
-			byte[] captchaBytes = NetworkUtils.downloadFromUrl(WEB_SERVICE);
-			response.setResult(new String(captchaBytes));
+			byte[] resultBytes = NetworkUtils.httpPost(WEB_SERVICE, postData,
+					"application/json");
+
+			JSONObject resultJSON = new JSONObject(new String(resultBytes));
+			response.setResult(resultJSON.getString("result"));
 
 			return response;
+		} catch(ClientProtocolException e) {
+			Log.e(TAG, e.getMessage(), e);
+			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
 		} catch(IOException e) {
-			return new Response<String>(Error.DOWNLOAD_ERROR);
+			Log.e(TAG, e.getMessage(), e);
+			return new Response<String>(Error.INTERNAL_DOWNLOAD_ERROR);
+		} catch(HttpException e) {
+			Log.e(TAG, e.getMessage(), e);
+			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
+		} catch(JSONException e) {
+			Log.e(TAG, e.getMessage(), e);
+			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
 		}
 	}
 }

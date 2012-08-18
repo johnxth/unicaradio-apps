@@ -18,12 +18,17 @@ package it.unicaradio.android.tasks;
 
 import it.unicaradio.android.enums.Error;
 import it.unicaradio.android.models.Response;
+import it.unicaradio.android.models.SongRequest;
 import it.unicaradio.android.utils.NetworkUtils;
 
 import java.io.IOException;
 
+import org.apache.http.HttpException;
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
-import android.util.Log;
 
 /**
  * @author Paolo Cortis
@@ -33,16 +38,18 @@ public class SendSongRequestAsyncTask extends
 {
 	private static final String TAG = SendSongRequestAsyncTask.class.getName();
 
-	private final String url;
+	private static final String WEB_SERVICE = "http://www.unicaradio.it/regia/test/unicaradio-mail/endpoint.php";
+
+	private SongRequest songRequest;
 
 	/**
 	 * @param context
 	 */
-	public SendSongRequestAsyncTask(Context context, String url)
+	public SendSongRequestAsyncTask(Context context, SongRequest songRequest)
 	{
 		super(context);
 
-		this.url = url;
+		this.songRequest = songRequest;
 
 		setDialogTitle("Richiesta canzone");
 		setDialogMessage("Invio richiesta canzone in corso...");
@@ -54,19 +61,43 @@ public class SendSongRequestAsyncTask extends
 	@Override
 	protected Response<String> doInBackground(Void... params)
 	{
+		JSONObject request = new JSONObject();
 		try {
-			String result = new String(NetworkUtils.downloadFromUrl(url));
-			Log.d(TAG, result);
+			request.put("method", "sendEmail");
+			request.put("params", songRequest.toJSON(context));
+		} catch(JSONException e) {
+			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
+		}
 
-			// TODO: Handle errors received from server.
-			if(result.equals("OK")) {
-				return new Response<String>(result);
+		byte[] postData = request.toString().getBytes();
+		byte[] httpResult;
+		try {
+			httpResult = NetworkUtils.httpPost(WEB_SERVICE, postData,
+					"application/json");
+		} catch(ClientProtocolException e1) {
+			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
+		} catch(IOException e1) {
+			return new Response<String>(Error.INTERNAL_DOWNLOAD_ERROR);
+		} catch(HttpException e1) {
+			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
+		}
+
+		if(httpResult == null) {
+			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
+		}
+
+		String httpResultString = new String(httpResult);
+		try {
+			JSONObject response = new JSONObject(httpResultString);
+			int errorCodeInt = response.getInt("errorCode");
+			Error errorCode = Error.fromInteger(errorCodeInt);
+			if(errorCode == Error.NO_ERROR) {
+				return new Response<String>(httpResultString);
 			} else {
-				return new Response<String>(Error.GENERIC_ERROR);
+				return new Response<String>(errorCode);
 			}
-		} catch(IOException e) {
-			return new Response<String>(Error.DOWNLOAD_ERROR);
+		} catch(JSONException e) {
+			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
 		}
 	}
-
 }

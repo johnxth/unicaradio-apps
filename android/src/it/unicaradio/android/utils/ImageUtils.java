@@ -74,7 +74,7 @@ public class ImageUtils
 
 	public static Bitmap downloadFromUrl(String fileUrl) throws IOException
 	{
-		byte[] buf = NetworkUtils.downloadFromUrl(fileUrl);
+		byte[] buf = NetworkUtils.httpGet(fileUrl);
 
 		return BitmapFactory.decodeByteArray(buf, 0, buf.length);
 	}

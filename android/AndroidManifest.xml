@@ -45,7 +45,9 @@
 
 		<activity android:name=".activities.ScheduleActivity" />
 
-		<activity android:name=".activities.SongRequestActivity" />
+		<activity
+			android:name=".activities.SongRequestActivity"
+			android:configChanges="orientation" />
 
 		<activity android:name=".activities.FavoritesActivity" />
 
