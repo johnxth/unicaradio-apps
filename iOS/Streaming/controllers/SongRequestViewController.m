@@ -8,6 +8,9 @@
 
 #import "SongRequestViewController.h"
 
+#import "../operations/DownloadCaptchaOperation.h"
+#import "../utils/CaptchaParser.h"
+
 @interface SongRequestViewController ()
 
 @end
@@ -16,6 +19,7 @@
 
 @synthesize contentView;
 @synthesize scrollView;
+@synthesize captchaTextView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	NSLog(@"SongRequestViewController - viewDidLoad");
 	// Do any additional setup after loading the view, typically from a nib.
 	
 	[self.scrollView addSubview: self.contentView];
@@ -44,6 +49,18 @@
     [super viewDidUnload];
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+	NSLog(@"SongRequestViewController - viewDidAppear");
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveGetCaptchaNotification:) name:@"GetCaptcha" object:nil];
+
+	NSOperationQueue *queue = [NSOperationQueue new];
+	DownloadCaptchaOperation *operation = [[DownloadCaptchaOperation alloc] init];
+	[queue addOperation:operation];
+	[operation release];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
@@ -52,6 +69,22 @@
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void) receiveGetCaptchaNotification:(NSNotification *) notification
+{
+	NSLog(@"called receiveGetCaptchaNotification");
+	NSString *captcha = [notification object];
+	NSLog(@"got captcha");
+
+	NSString *parsedCaptcha = [CaptchaParser parse:captcha];
+	[captchaTextView setPlaceholder:parsedCaptcha];
+}
+
+- (void) dealloc
+{
+	[super dealloc];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
