@@ -32,7 +32,7 @@
 	NSString *captcha = [resultsDictionary objectForKey:@"result"];
 	NSLog(@"Captcha: %@", captcha);
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"GetCaptcha" object:captcha];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"GetCaptcha" object:[NSString stringWithString:captcha]];
 }
 
 @end
