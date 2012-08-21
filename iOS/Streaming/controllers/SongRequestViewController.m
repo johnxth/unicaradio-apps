@@ -140,14 +140,33 @@
 	[operation release];
 }
 
-- (void) displayCaptcha:(NSString *)captchaFromServer
+- (void) displayCaptcha:(NSDictionary *)captchaResponse
 {
+	captchaTextView.text = @"";
+	if(captchaResponse == nil) {
+		[timer invalidate];
+		captchaTextView.placeholder = @"Non sei connesso ad Internet";
+		return;
+	}
+
+	NSNumber *errorCode = [captchaResponse objectForKey:@"errorCode"];
+	NSLog(@"errorCode: %d", [errorCode integerValue]);
+	BOOL containsError = ([errorCode intValue] != NO_ERROR);
+	NSLog(@"captchaResponse contains error: %@", containsError ? @"YES" : @"NO");
+	if(containsError) {
+		[timer invalidate];
+		captchaTextView.placeholder = @"Impossibile ottenere un captcha";
+		return;
+	}
+
+	NSString *captchaFromServer = [captchaResponse objectForKey:@"result"];
+	NSLog(@"Captcha: %@", captchaFromServer);
+
 	self.captcha = [NSString stringWithString:captchaFromServer];
 	NSLog(@"got captcha: %@", self.captcha);
 	parsedCaptcha = [CaptchaParser parse:self.captcha];
 	NSLog(@"captcha parsed");
 
-	captchaTextView.text = @"";
 	captchaTextView.placeholder = parsedCaptcha;
 	NSLog(@"captcha displayed");
 	[dialog dismiss];
@@ -202,7 +221,6 @@
 		NSString *message = @"Non è stato possibile inviare la richiesta.";
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
 		[alert show];
-		[self loadCaptcha];
 		return;
 	}
 
@@ -217,7 +235,6 @@
 		[alert show];
 		[self clearForm];
 	} else {
-		// TODO: gestire errori
 		NSString *title = @"Invio fallito";
 		NSString *message = @"Non è stato possibile inviare la richiesta.";
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];

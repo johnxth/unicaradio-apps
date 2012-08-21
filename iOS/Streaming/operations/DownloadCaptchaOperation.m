@@ -9,6 +9,7 @@
 #import "DownloadCaptchaOperation.h"
 #import "../JSONKit/JSONKit.h"
 #import "../utils/NetworkUtils.h"
+#import "../enums/Error.h"
 
 @implementation DownloadCaptchaOperation
 
@@ -27,12 +28,16 @@
     NSString *jsonRequest = [requestDictionary JSONString];
 	NSURL *url = [NSURL URLWithString:WEB_SERVICE];
 	NSData *result = [NetworkUtils httpPost:url postData:jsonRequest contentType:@"application/json"];
+	if(result == nil) {
+		NSMutableDictionary *errorDict = [NSMutableDictionary dictionary];
+		[errorDict setObject:[NSNumber numberWithInt:INTERNAL_DOWNLOAD_ERROR] forKey:@"errorCode"];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"GetCaptcha" object:errorDict];
+		return;
+	}
 
-	NSMutableDictionary *resultsDictionary = [result objectFromJSONData];
-	NSString *captcha = [resultsDictionary objectForKey:@"result"];
-	NSLog(@"Captcha: %@", captcha);
+	NSDictionary *resultsDictionary = [result objectFromJSONData];
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"GetCaptcha" object:[NSString stringWithString:captcha]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"GetCaptcha" object:resultsDictionary];
 }
 
 @end
