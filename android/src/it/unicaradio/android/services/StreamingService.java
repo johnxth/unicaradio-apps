@@ -20,6 +20,9 @@ import it.unicaradio.android.R;
 import it.unicaradio.android.activities.StreamingActivity;
 import it.unicaradio.android.events.OnInfoListener;
 import it.unicaradio.android.gui.TrackInfos;
+import it.unicaradio.android.receivers.ConnectivityBroadcastReceiver;
+import it.unicaradio.android.receivers.NoisyAudioStreamBroadcastReceiver;
+import it.unicaradio.android.receivers.TelephonyBroadcastReceiver;
 import it.unicaradio.android.streamers.IcecastStreamer;
 import it.unicaradio.android.streamers.Streamer;
 import it.unicaradio.android.utils.StringUtils;
@@ -42,7 +45,6 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.IBinder;
-import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -53,17 +55,23 @@ import com.spoledge.aacdecoder.AACPlayer;
  */
 public class StreamingService extends Service
 {
+	private static final String LOG = StreamingService.class.getName();
+
 	public static final String ACTION_TRACK_INFO = "it.unicaradio.android.intent.action.TRACK_INFO";
 
 	public static final String ACTION_STOP = "it.unicaradio.android.intent.action.STOP";
-
-	private static final String LOG = StreamingService.class.getName();
 
 	private static final String STREAM_URL = "http://streaming.unicaradio.it:80/unica64.aac";
 
 	private static final int NOTIFICATION_ID = 1;
 
 	private final IBinder mBinder = new LocalBinder();
+
+	private final BroadcastReceiver connectivityReceiver;
+
+	private final BroadcastReceiver telephonyReceiver;
+
+	private final BroadcastReceiver noisyAudioStreamReceiver;
 
 	private NotificationManager notificationManager;
 
@@ -73,65 +81,21 @@ public class StreamingService extends Service
 
 	private AACPlayer player;
 
-	private final TrackInfos infos;
-
-	private boolean isPlaying;
+	private TrackInfos infos;
 
 	private String error;
 
-	private final BroadcastReceiver connectivityBroadcastReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent)
-		{
-			boolean noConnectivity = intent.getBooleanExtra(
-					ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-
-			if(noConnectivity) {
-				stop();
-			}
-		}
-	};
-
-	private final BroadcastReceiver telephonyBroadcastReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent)
-		{
-			PhoneStateListener phoneListener = new PhoneStateListener() {
-				@Override
-				public void onCallStateChanged(int state, String incomingNumber)
-				{
-					switch(state) {
-						case TelephonyManager.CALL_STATE_OFFHOOK:
-							stop();
-							break;
-						case TelephonyManager.CALL_STATE_RINGING:
-							stop();
-							break;
-					}
-				}
-			};
-			TelephonyManager telephony = (TelephonyManager) context
-					.getSystemService(Context.TELEPHONY_SERVICE);
-			telephony.listen(phoneListener,
-					PhoneStateListener.LISTEN_CALL_STATE);
-		}
-	};
-
-	private final BroadcastReceiver noisyAudioStreamReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent)
-		{
-			if(AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent
-					.getAction())) {
-				stop();
-			}
-		}
-	};
+	private boolean isPlaying;
 
 	public StreamingService()
 	{
 		infos = new TrackInfos();
 		error = StringUtils.EMPTY;
+		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+		connectivityReceiver = new ConnectivityBroadcastReceiver(this);
+		telephonyReceiver = new TelephonyBroadcastReceiver(this);
+		noisyAudioStreamReceiver = new NoisyAudioStreamBroadcastReceiver(this);
 	}
 
 	@Override
@@ -143,7 +107,6 @@ public class StreamingService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		return START_NOT_STICKY;
 	}
 
@@ -163,14 +126,7 @@ public class StreamingService extends Service
 	{
 		if(conn == null) {
 			initReceivers();
-			try {
-				internalPlay();
-			} catch(MalformedURLException e) {
-				stopWithException(
-						"Errore: l'indirizzo di streaming non è corretto.", e);
-			} catch(IOException e) {
-				stopWithException(e);
-			}
+			internalPlay();
 		} else {
 			stop();
 		}
@@ -195,9 +151,9 @@ public class StreamingService extends Service
 
 	private void initReceivers()
 	{
-		registerReceiver(connectivityBroadcastReceiver, new IntentFilter(
+		registerReceiver(connectivityReceiver, new IntentFilter(
 				ConnectivityManager.CONNECTIVITY_ACTION));
-		registerReceiver(telephonyBroadcastReceiver, new IntentFilter(
+		registerReceiver(telephonyReceiver, new IntentFilter(
 				TelephonyManager.ACTION_PHONE_STATE_CHANGED));
 		registerReceiver(noisyAudioStreamReceiver, new IntentFilter(
 				AudioManager.ACTION_AUDIO_BECOMING_NOISY));
@@ -206,13 +162,13 @@ public class StreamingService extends Service
 	private void disableReceivers()
 	{
 		try {
-			unregisterReceiver(connectivityBroadcastReceiver);
+			unregisterReceiver(connectivityReceiver);
 		} catch(Exception e) {
 			// do nothing
 		}
 
 		try {
-			unregisterReceiver(telephonyBroadcastReceiver);
+			unregisterReceiver(telephonyReceiver);
 		} catch(Exception e) {
 			// do nothing
 		}
@@ -224,38 +180,10 @@ public class StreamingService extends Service
 		}
 	}
 
-	private void internalPlay() throws IOException, MalformedURLException
+	private void internalPlay()
 	{
-		URL url = new URL(STREAM_URL);
-
 		if(conn == null) {
-			conn = url.openConnection();
-			conn.addRequestProperty("Icy-MetaData", "1");
-			conn.connect();
-			streamer = new IcecastStreamer(conn);
-
-			streamer.addOnInfoListener(new OnInfoListener() {
-				@Override
-				public void onInfo(TrackInfos trackInfos)
-				{
-					infos.setTrackInfos(trackInfos);
-					notifyChange();
-				}
-			});
-
-			player = new AACPlayer();
-			Thread playThread = new Thread(new Runnable() {
-				@Override
-				public void run()
-				{
-					try {
-						isPlaying = true;
-						player.play(streamer);
-					} catch(Exception e) {
-						stopWithException(e);
-					}
-				}
-			});
+			Thread playThread = new Thread(new PlayThread());
 			playThread.start();
 		}
 	}
@@ -315,6 +243,55 @@ public class StreamingService extends Service
 		notification.setLatestEventInfo(this, title, message, pIntent);
 
 		notificationManager.notify(NOTIFICATION_ID, notification);
+	}
+
+	private final class PlayThread implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			if(!connectToStreamingServer()) {
+				return;
+			}
+
+			streamer.addOnInfoListener(new OnInfoListener() {
+				@Override
+				public void onInfo(TrackInfos trackInfos)
+				{
+					infos.setTrackInfos(trackInfos);
+					notifyChange();
+				}
+			});
+
+			player = new AACPlayer();
+
+			try {
+				isPlaying = true;
+				player.play(streamer);
+			} catch(Exception e) {
+				stopWithException(e);
+			}
+		}
+
+		private boolean connectToStreamingServer()
+		{
+			try {
+				URL url = new URL(STREAM_URL);
+				conn = url.openConnection();
+				conn.addRequestProperty("Icy-MetaData", "1");
+				conn.connect();
+				streamer = new IcecastStreamer(conn);
+			} catch(MalformedURLException e) {
+				stopWithException(
+						"Errore: l'indirizzo di streaming non è corretto.", e);
+				return false;
+			} catch(IOException e) {
+				stopWithException(e);
+				return false;
+			}
+
+			return true;
+		}
 	}
 
 	public class LocalBinder extends Binder
