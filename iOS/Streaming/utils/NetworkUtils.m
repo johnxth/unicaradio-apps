@@ -35,6 +35,9 @@
     NSURLResponse *response = nil;
 	NSError *error = nil;
 	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	if(error) {
+		return nil;
+	}
 
 	return data;
 }
