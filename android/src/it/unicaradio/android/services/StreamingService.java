@@ -91,11 +91,20 @@ public class StreamingService extends Service
 	{
 		infos = new TrackInfos();
 		error = StringUtils.EMPTY;
-		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 		connectivityReceiver = new ConnectivityBroadcastReceiver(this);
 		telephonyReceiver = new TelephonyBroadcastReceiver(this);
 		noisyAudioStreamReceiver = new NoisyAudioStreamBroadcastReceiver(this);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onCreate()
+	{
+		super.onCreate();
+		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	}
 
 	@Override
