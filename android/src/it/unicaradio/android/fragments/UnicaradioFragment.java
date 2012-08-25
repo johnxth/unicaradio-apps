@@ -63,6 +63,11 @@ public class UnicaradioFragment extends SherlockFragment implements
 		return false;
 	}
 
+	public boolean onBackPressed()
+	{
+		return false;
+	}
+
 	protected void showAlertDialog(String title, String message)
 	{
 		AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());

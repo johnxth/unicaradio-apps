@@ -152,6 +152,23 @@ public class MainActivity extends SherlockFragmentActivity
 		return result || super.onKeyLongPress(keyCode, event);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onBackPressed()
+	{
+		UnicaradioFragment currentFragment = tabSelectedListener
+				.getCurrentFragment();
+		boolean backAlreadyHandled = currentFragment.onBackPressed();
+
+		if(backAlreadyHandled) {
+			return;
+		}
+
+		super.onBackPressed();
+	}
+
 	private Map<Integer, Tab> updateReferences()
 	{
 		Map<Integer, Tab> tabs = new HashMap<Integer, Tab>();

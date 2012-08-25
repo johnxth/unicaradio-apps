@@ -150,16 +150,6 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	};
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
-
-		if(infos == null) {
-			infos = new TrackInfos(getActivity().getApplicationContext());
-		}
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -177,6 +167,10 @@ public class StreamingFragment extends UnicaradioFragment
 	public void onResume()
 	{
 		super.onResume();
+
+		if(infos == null) {
+			infos = new TrackInfos(getActivity().getApplicationContext());
+		}
 
 		updateResultsInUi();
 

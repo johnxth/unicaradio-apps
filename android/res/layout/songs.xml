@@ -1,67 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<ScrollView
+	<LinearLayout
+		android:orientation="vertical"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
+		android:layout_height="wrap_content"
+		android:padding="15dp">
 
-		<LinearLayout
-			android:orientation="vertical"
+		<TextView
 			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:padding="15dp">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="10dp"
-				android:textSize="20dp"
-				android:text="Richiedi una canzone!" />
+			android:layout_height="wrap_content"
+			android:textSize="20dp"
+			android:layout_marginBottom="10dp"
+			android:text="Richiedi una canzone!" />
 
-			<EditText
-				android:id="@+id/songsEmail"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp"
-				android:layout_marginTop="20dp"
-				android:hint="eMail" />
+		<EditText
+			android:id="@+id/songsEmail"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="eMail" />
 
-			<EditText
-				android:id="@+id/songsAuthor"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp"
-				android:layout_marginTop="10dp"
-				android:hint="Autore" />
+		<EditText
+			android:id="@+id/songsAuthor"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="Autore" />
 
-			<EditText
-				android:id="@+id/songsTitle"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp"
-				android:layout_marginTop="10dp"
-				android:hint="Titolo canzone" />
+		<EditText
+			android:id="@+id/songsTitle"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="Titolo canzone" />
 
-			<EditText
-				android:id="@+id/songsCaptcha"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp"
-				android:layout_marginTop="10dp"
-				android:hint="Captcha: Connettiti ad Internet"
-				android:inputType="numberSigned" />
+		<EditText
+			android:id="@+id/songsCaptcha"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="Captcha: Connettiti ad Internet"
+			android:layout_marginTop="8dp"
+			android:inputType="numberSigned" />
 
-			<Button
-				android:id="@+id/songButton"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="25dp"
-				android:gravity="center"
-				android:text="Invia" />
-		</LinearLayout>
-	</ScrollView>
-
-</RelativeLayout>
+		<Button
+			android:id="@+id/songButton"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="25dp"
+			android:gravity="center"
+			android:text="Invia" />
+	</LinearLayout>
+</ScrollView>

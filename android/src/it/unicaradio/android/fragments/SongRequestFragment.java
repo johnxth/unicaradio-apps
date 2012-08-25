@@ -108,7 +108,6 @@ public class SongRequestFragment extends UnicaradioFragment
 
 		songButton.setOnClickListener(new SendSongRequestClickListener());
 
-		setCaptchaField();
 		if(savedInstanceState != null) {
 			email = savedInstanceState.getString("mail");
 			updateEmailOnView();
@@ -141,6 +140,7 @@ public class SongRequestFragment extends UnicaradioFragment
 		super.onResume();
 
 		initTimer();
+		setCaptchaField();
 	}
 
 	/**

@@ -56,7 +56,7 @@ public class ScheduleFragment extends UnicaradioFragment
 
 	private static Schedule schedule;
 
-	private int state;
+	private ListState state;
 
 	private int clicked;
 
@@ -84,11 +84,11 @@ public class ScheduleFragment extends UnicaradioFragment
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState)
+	public void onResume()
 	{
-		super.onViewCreated(view, savedInstanceState);
+		super.onResume();
 
-		resetListView();
+		initListView();
 
 		if(!NetworkUtils.isConnected(getActivity())) {
 			alertNoConnectionAvailable();
@@ -119,20 +119,45 @@ public class ScheduleFragment extends UnicaradioFragment
 	{
 		switch(item.getItemId()) {
 			case R.id.scheduleUpdate:
-				resetListView();
+				drawFirstLevel();
 				updateScheduleFromJSON();
+				return true;
+			case android.R.id.home:
+				drawFirstLevel();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
 
-	private void resetListView()
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean onBackPressed()
+	{
+		if(state == ListState.FIRST_LEVEL) {
+			return false;
+		}
+
+		drawFirstLevel();
+		return true;
+	}
+
+	private void initListView()
+	{
+		ListView scheduleListView = drawFirstLevel();
+
+		scheduleListView
+				.setOnItemClickListener(new OnScheduleListItemClickListener());
+	}
+
+	private ListView drawFirstLevel()
 	{
 		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
 				false);
 
-		state = 0;
+		state = ListState.FIRST_LEVEL;
 		clicked = -1;
 		ListView scheduleListView = (ListView) getActivity().findViewById(
 				R.id.scheduleList);
@@ -141,8 +166,24 @@ public class ScheduleFragment extends UnicaradioFragment
 		BaseAdapter adapter = new ArrayAlternatedColoursAdapter<Object>(
 				getActivity(), android.R.layout.simple_list_item_1, days);
 		scheduleListView.setAdapter(adapter);
-		scheduleListView
-				.setOnItemClickListener(new OnScheduleListItemClickListener());
+		return scheduleListView;
+	}
+
+	private void drawSecondLevel(int position)
+	{
+		state = ListState.SECOND_LEVEL;
+		ListView scheduleListView = (ListView) getActivity().findViewById(
+				R.id.scheduleList);
+
+		Day day = Day.fromInteger(position);
+		List<Transmission> transmissions = schedule.getTransmissionsByDay(day);
+
+		TransmissionsAdapter transmissionsAdapter = new TransmissionsAdapter(
+				getActivity(), transmissions, R.layout.list_two_columns);
+		scheduleListView.setAdapter(transmissionsAdapter);
+
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
+				true);
 	}
 
 	private void alertNoConnectionAvailable()
@@ -159,23 +200,6 @@ public class ScheduleFragment extends UnicaradioFragment
 		task.setOnTaskCompletedListener(new OnDownloadScheduleAsyncTaskCompletedListener());
 		task.setOnTaskFailedListener(new OnDownloadScheduleAsyncTaskFailedListener());
 		task.execute();
-	}
-
-	private void drawSecondLevel(int position)
-	{
-		state = 1;
-		ListView scheduleListView = (ListView) getActivity().findViewById(
-				R.id.scheduleList);
-
-		Day day = Day.fromInteger(position);
-		List<Transmission> transmissions = schedule.getTransmissionsByDay(day);
-
-		TransmissionsAdapter transmissionsAdapter = new TransmissionsAdapter(
-				getActivity(), transmissions, R.layout.list_two_columns);
-		scheduleListView.setAdapter(transmissionsAdapter);
-
-		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
-				true);
 	}
 
 	private final class OnDownloadScheduleAsyncTaskCompletedListener implements
@@ -232,7 +256,7 @@ public class ScheduleFragment extends UnicaradioFragment
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id)
 		{
-			if(state == 1) {
+			if(state == ListState.SECOND_LEVEL) {
 				return;
 			}
 
@@ -249,5 +273,9 @@ public class ScheduleFragment extends UnicaradioFragment
 
 			drawSecondLevel(position);
 		}
+	}
+
+	private enum ListState {
+		FIRST_LEVEL, SECOND_LEVEL
 	}
 }
