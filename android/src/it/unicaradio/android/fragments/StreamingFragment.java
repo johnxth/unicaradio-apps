@@ -17,7 +17,6 @@
 package it.unicaradio.android.fragments;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.activities.StreamingActivity;
 import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.services.StreamingService;
 import it.unicaradio.android.services.StreamingService.LocalBinder;
@@ -61,7 +60,7 @@ public class StreamingFragment extends UnicaradioFragment
 
 	private final Handler mHandler = new Handler();
 
-	private static String LOG = StreamingActivity.class.getName();
+	private static String LOG = StreamingFragment.class.getName();
 
 	private StreamingService streamingService;
 

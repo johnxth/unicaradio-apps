@@ -17,8 +17,10 @@
 package it.unicaradio.android.services;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.activities.MainActivity;
 import it.unicaradio.android.activities.StreamingActivity;
 import it.unicaradio.android.events.OnInfoListener;
+import it.unicaradio.android.fragments.StreamingFragment;
 import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.receivers.ConnectivityBroadcastReceiver;
 import it.unicaradio.android.receivers.NoisyAudioStreamBroadcastReceiver;
@@ -242,7 +244,7 @@ public class StreamingService extends Service
 
 	private void sendNotification(String title, String message)
 	{
-		Intent intent = new Intent(this, StreamingActivity.class);
+		Intent intent = new Intent(this, MainActivity.class);
 		PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
 				PendingIntent.FLAG_CANCEL_CURRENT);
 
