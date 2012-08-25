@@ -16,10 +16,10 @@
  */
 package it.unicaradio.android.fragments;
 
-import com.actionbarsherlock.app.SherlockFragment;
-
 import android.app.AlertDialog;
 import android.view.KeyEvent;
+
+import com.actionbarsherlock.app.SherlockFragment;
 
 /**
  * @author Paolo Cortis

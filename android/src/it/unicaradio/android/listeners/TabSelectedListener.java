@@ -38,8 +38,6 @@ public class TabSelectedListener implements OnTabSelectedListener
 
 	private static int currentTab = Tabs.STREAMING;
 
-	private static FragmentManager fragmentManager;
-
 	private static StreamingFragment streamingFragment;
 
 	private static ScheduleFragment scheduleFragment;
@@ -52,9 +50,11 @@ public class TabSelectedListener implements OnTabSelectedListener
 
 	private UnicaradioFragment currentFragment;
 
+	private FragmentManager fragmentManager;
+
 	public TabSelectedListener(FragmentManager fragmentManager)
 	{
-		TabSelectedListener.fragmentManager = fragmentManager;
+		this.fragmentManager = fragmentManager;
 
 		showFragment(new StreamingFragment());
 	}
@@ -156,10 +156,27 @@ public class TabSelectedListener implements OnTabSelectedListener
 		return currentFragment;
 	}
 
+	/**
+	 * @return the currentTab
+	 */
+	public static int getCurrentTab()
+	{
+		return currentTab;
+	}
+
+	/**
+	 * @param fragmentManager the fragmentManager to set
+	 */
+	public void setFragmentManager(FragmentManager fragmentManager)
+	{
+		this.fragmentManager = fragmentManager;
+	}
+
 	private void showFragment(UnicaradioFragment fragment)
 	{
 		currentFragment = fragment;
 		fragmentManager.beginTransaction()
-				.replace(R.id.fragment_content, fragment).commit();
+				.replace(R.id.fragment_content, fragment)
+				.commitAllowingStateLoss();
 	}
 }

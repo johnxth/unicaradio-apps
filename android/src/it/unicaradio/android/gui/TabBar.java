@@ -51,5 +51,7 @@ public class TabBar extends TableLayout
 		} else {
 			setStretchAllColumns(false);
 		}
+
+		invalidate();
 	}
 }

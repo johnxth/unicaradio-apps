@@ -62,10 +62,13 @@ public class MainActivity extends SherlockFragmentActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_layout);
 
 		if(tabSelectedListener == null) {
 			tabSelectedListener = new TabSelectedListener(
 					getSupportFragmentManager());
+		} else {
+			tabSelectedListener.setFragmentManager(getSupportFragmentManager());
 		}
 
 		getSupportActionBar().setDisplayOptions(
@@ -75,8 +78,6 @@ public class MainActivity extends SherlockFragmentActivity
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 		getSupportActionBar().setDisplayUseLogoEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(true);
-
-		setContentView(R.layout.main_layout);
 
 		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			BitmapDrawable bg = (BitmapDrawable) getResources().getDrawable(
@@ -91,7 +92,7 @@ public class MainActivity extends SherlockFragmentActivity
 		}
 
 		Map<Integer, Tab> tabs = updateReferences();
-		tabs.get(Tabs.STREAMING).setSelected(true);
+		tabs.get(TabSelectedListener.getCurrentTab()).setSelected(true);
 		setupListeners(tabs);
 
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);

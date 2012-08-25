@@ -66,7 +66,9 @@ public class DownloadCaptchaAsyncTask extends
 			byte[] resultBytes = NetworkUtils.httpPost(WEB_SERVICE, postData,
 					"application/json");
 
-			JSONObject resultJSON = new JSONObject(new String(resultBytes));
+			String resultString = new String(resultBytes);
+			Log.d(TAG, "Got CAPTCHA answer: " + resultString);
+			JSONObject resultJSON = new JSONObject(resultString);
 			response.setResult(resultJSON.getString("result"));
 
 			return response;

@@ -214,6 +214,7 @@ public class StreamingFragment extends UnicaradioFragment
 	@Override
 	public void onPause()
 	{
+		Log.d(TAG, "StreamingFragment - onPause");
 		synchronized(this) {
 			oldInfos = new TrackInfos(getActivity().getApplicationContext());
 			oldInfos.setTrackInfos(infos);
