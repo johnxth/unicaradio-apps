@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="Tab">
+		<attr
+			name="type"
+			format="enum">
+			<enum
+				name="STREAMING"
+				value="0" />
+			<enum
+				name="SCHEDULE"
+				value="1" />
+			<enum
+				name="SONG"
+				value="2" />
+			<enum
+				name="FAVOURITES"
+				value="3" />
+			<enum
+				name="INFO"
+				value="4" />
+		</attr>
+	</declare-styleable>
+</resources>
+

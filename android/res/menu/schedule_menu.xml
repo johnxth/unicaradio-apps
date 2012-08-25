@@ -3,5 +3,6 @@
 	<item
 		android:id="@+id/scheduleUpdate"
 		android:icon="@drawable/ic_menu_refresh"
-		android:title="Aggiorna palinsesto" />
+		android:title="Aggiorna palinsesto"
+		android:showAsAction="ifRoom" />
 </menu>

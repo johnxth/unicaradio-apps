@@ -5,13 +5,10 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<include
-		layout="@layout/tabs" />
-
 	<ListView
 		android:id="@+id/linksList"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:layout_below="@+id/tabBarContainer"
 		android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

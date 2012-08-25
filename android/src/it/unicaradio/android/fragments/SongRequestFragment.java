@@ -14,42 +14,35 @@
  * 
  * Copyright UnicaRadio
  */
-package it.unicaradio.android.gui;
+package it.unicaradio.android.fragments;
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.util.AttributeSet;
-import android.widget.TableLayout;
+import it.unicaradio.android.R;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * @author Paolo Cortis
  */
-public class TabBar extends TableLayout
+public class SongRequestFragment extends UnicaradioFragment
 {
-	private Context context;
-
-	public TabBar(Context context)
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState)
 	{
-		super(context);
-		this.context = context;
-
-		init();
+		return inflater.inflate(R.layout.songs, null);
 	}
 
-	public TabBar(Context context, AttributeSet attrs)
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState)
 	{
-		super(context, attrs);
-		this.context = context;
-
-		init();
-	}
-
-	private void init()
-	{
-		if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			setStretchAllColumns(true);
-		} else {
-			setStretchAllColumns(false);
-		}
+		super.onViewCreated(view, savedInstanceState);
 	}
 }

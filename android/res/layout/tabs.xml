@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:unicaradio="http://schemas.android.com/apk/res/it.unicaradio.android"
 	android:orientation="horizontal"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_alignParentTop="true"
-	android:id="@+id/tabBarContainer"
-	android:background="@drawable/title_bg">
-
-	<ImageView
-		android:src="@drawable/ic_launcher_unicaradio"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="left"
-		android:padding="7dip" />
+	android:id="@+id/tabBarContainer">
 
 	<it.unicaradio.android.gui.TabBar
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/tabBar">
+		android:id="@+id/tabBar"
+		android:background="@drawable/tab_background">
 		<it.unicaradio.android.gui.Tabs
 			android:id="@+id/tabs"
 			android:layout_width="fill_parent"
@@ -29,7 +23,8 @@
 				android:layout_height="wrap_content"
 				android:paddingTop="15dip"
 				android:paddingBottom="15dip"
-				android:background="@drawable/tab_background">
+				android:background="@drawable/tab_background"
+				unicaradio:type="STREAMING">
 				<ImageView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -41,7 +36,8 @@
 				android:layout_height="wrap_content"
 				android:paddingTop="15dip"
 				android:paddingBottom="15dip"
-				android:background="@drawable/tab_background">
+				android:background="@drawable/tab_background"
+				unicaradio:type="SCHEDULE">
 				<ImageView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -53,7 +49,8 @@
 				android:layout_height="wrap_content"
 				android:paddingTop="15dip"
 				android:paddingBottom="15dip"
-				android:background="@drawable/tab_background">
+				android:background="@drawable/tab_background"
+				unicaradio:type="SONG">
 				<ImageView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -65,7 +62,8 @@
 				android:layout_height="wrap_content"
 				android:paddingTop="15dip"
 				android:paddingBottom="15dip"
-				android:background="@drawable/tab_background">
+				android:background="@drawable/tab_background"
+				unicaradio:type="FAVOURITES">
 				<ImageView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -77,7 +75,8 @@
 				android:layout_height="wrap_content"
 				android:paddingTop="15dip"
 				android:paddingBottom="15dip"
-				android:background="@drawable/tab_background">
+				android:background="@drawable/tab_background"
+				unicaradio:type="INFO">
 				<ImageView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"

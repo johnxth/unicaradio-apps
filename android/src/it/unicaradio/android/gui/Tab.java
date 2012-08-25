@@ -16,7 +16,9 @@
  */
 package it.unicaradio.android.gui;
 
+import it.unicaradio.android.R;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -28,20 +30,70 @@ import android.widget.LinearLayout;
  */
 public class Tab extends LinearLayout
 {
+	private Context context;
+
+	private OnTabSelectedListener listener;
+
+	private int type;
+
 	public Tab(Context context)
 	{
 		super(context);
+		this.context = context;
+
+		type = 0;
+
 		init();
 	}
 
 	public Tab(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
+		this.context = context;
+
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Tab);
+		type = a.getInteger(R.styleable.Tab_type, 0);
+		a.recycle();
+
 		init();
+	}
+
+	/**
+	 * @param context
+	 * @param attrs
+	 * @param defStyle
+	 */
+	public Tab(Context context, AttributeSet attrs, int defStyle)
+	{
+		super(context, attrs, defStyle);
+		this.context = context;
+
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Tab,
+				defStyle, 0);
+		type = a.getInteger(R.styleable.Tab_type, 0);
+		a.recycle();
+
+		init();
+	}
+
+	public void setOnTabSelectedListener(OnTabSelectedListener listener)
+	{
+		this.listener = listener;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public int getType()
+	{
+		return type;
 	}
 
 	private void init()
 	{
+		int padding = convertDpToPixel(10);
+		setPadding(padding, padding, padding, padding);
+
 		setGravity(Gravity.CENTER);
 		setClickable(true);
 		setOnClickListener(new OnClickListener() {
@@ -52,7 +104,23 @@ public class Tab extends LinearLayout
 					parent.getChildAt(i).setSelected(false);
 				}
 				setSelected(true);
+
+				if(listener != null) {
+					listener.onTabSelected(Tab.this);
+				}
 			}
 		});
+	}
+
+	private int convertDpToPixel(int dp)
+	{
+		float scale = context.getResources().getDisplayMetrics().density;
+
+		return (int) (dp * scale + 0.5f);
+	}
+
+	public interface OnTabSelectedListener
+	{
+		public void onTabSelected(Tab tab);
 	}
 }
