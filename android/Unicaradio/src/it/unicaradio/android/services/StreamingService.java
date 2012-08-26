@@ -43,8 +43,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Binder;
@@ -270,7 +268,8 @@ public class StreamingService extends Service
 				return;
 			}
 
-			streamer.addOnInfoListener(new OnInfoListener() {
+			streamer.addOnInfoListener(new OnInfoListener()
+			{
 				@Override
 				public void onInfo(TrackInfos trackInfos)
 				{

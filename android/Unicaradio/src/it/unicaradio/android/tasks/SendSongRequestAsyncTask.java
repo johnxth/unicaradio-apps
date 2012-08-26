@@ -36,8 +36,6 @@ import android.content.Context;
 public class SendSongRequestAsyncTask extends
 		BlockingAsyncTaskWithResponse<String>
 {
-	private static final String TAG = SendSongRequestAsyncTask.class.getName();
-
 	private static final String WEB_SERVICE = "http://www.unicaradio.it/regia/test/unicaradio-mail/endpoint.php";
 
 	private SongRequest songRequest;

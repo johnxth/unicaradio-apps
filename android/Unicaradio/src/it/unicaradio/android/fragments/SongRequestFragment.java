@@ -171,11 +171,7 @@ public class SongRequestFragment extends UnicaradioFragment
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		// TODO Auto-generated method stub
 		switch(item.getItemId()) {
-			case R.id.songsClearForm:
-				clearForm();
-				return true;
 			case R.id.songsChangeCaptcha:
 				disableUpdateCaptchaTimer();
 				setCaptchaField();
@@ -453,7 +449,8 @@ public class SongRequestFragment extends UnicaradioFragment
 								"Quale indirizzo vuoi usare per inviare l'email?")
 						.setCancelable(false)
 						.setItems(tmpEmails,
-								new DialogInterface.OnClickListener() {
+								new DialogInterface.OnClickListener()
+								{
 									@Override
 									public void onClick(DialogInterface dialog,
 											int item)
