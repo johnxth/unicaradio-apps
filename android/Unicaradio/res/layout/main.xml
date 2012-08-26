@@ -19,28 +19,30 @@
 				android:layout_height="wrap_content"
 				android:paddingTop="15dp"
 				android:layout_centerHorizontal="true" />
-			<it.unicaradio.android.gui.ScrollTextView
-				android:id="@+id/author"
-				android:layout_below="@+id/cover"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center_horizontal"
-				android:paddingTop="10dp"
-				android:textSize="18dp"
-				android:layout_centerHorizontal="true"
-				android:singleLine="true"
-				android:ellipsize="marquee" />
-			<it.unicaradio.android.gui.ScrollTextView
-				android:id="@+id/songTitle"
-				android:layout_below="@+id/author"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center_horizontal"
-				android:textSize="30dp"
-				android:paddingBottom="20dp"
-				android:layout_centerHorizontal="true"
-				android:singleLine="true"
-				android:ellipsize="marquee" />
+	<it.unicaradio.android.gui.ScrollTextView
+		android:id="@+id/author"
+		android:layout_below="@+id/cover"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:paddingTop="10dp"
+		android:textSize="18dp"
+		android:layout_centerHorizontal="true"
+		android:singleLine="true"
+		android:ellipsize="marquee"
+		android:marqueeRepeatLimit="marquee_forever" />
+	<it.unicaradio.android.gui.ScrollTextView
+		android:id="@+id/songTitle"
+		android:layout_below="@+id/author"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:textSize="30dp"
+		android:paddingBottom="20dp"
+		android:layout_centerHorizontal="true"
+		android:singleLine="true"
+		android:ellipsize="marquee"
+		android:marqueeRepeatLimit="marquee_forever" />
 		</RelativeLayout>
 	</ScrollView>
 

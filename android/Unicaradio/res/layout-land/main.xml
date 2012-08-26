@@ -6,13 +6,10 @@
 	android:layout_height="fill_parent"
 	android:background="@drawable/window_bg">
 
-	<include layout="@layout/tabs" />
-
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:layout_below="@+id/tabBarContainer"
 		android:layout_alignParentLeft="true"
 		android:paddingLeft="15dp"
 		android:paddingRight="15dp">
@@ -36,6 +33,7 @@
 				android:layout_gravity="center_horizontal"
 				android:singleLine="true"
 				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
 				android:paddingTop="10dp"
 				android:textSize="18dp" />
 			<it.unicaradio.android.gui.ScrollTextView
@@ -45,6 +43,7 @@
 				android:layout_gravity="center_horizontal"
 				android:singleLine="true"
 				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
 				android:textSize="30dp"
 				android:paddingTop="10dp" />
 		</LinearLayout>

@@ -6,13 +6,10 @@
 	android:layout_height="fill_parent"
 	android:background="@drawable/window_bg">
 
-	<include layout="@layout/tabs" />
-
 	<ScrollView
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:layout_above="@+id/playPauseButtonContainer"
-		android:layout_below="@+id/tabBarContainer">
+		android:layout_above="@+id/playPauseButtonContainer">
 		<RelativeLayout
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content">
