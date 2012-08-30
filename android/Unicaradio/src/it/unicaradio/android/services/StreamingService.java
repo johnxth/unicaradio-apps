@@ -255,6 +255,7 @@ public class StreamingService extends Service
 		b.setTicker(MessageFormat.format("{0}\n{1}", message, title));
 		b.setContentIntent(pIntent);
 		b.setWhen(System.currentTimeMillis());
+		b.setOngoing(true);
 
 		notificationManager.notify(NOTIFICATION_ID, b.getNotification());
 	}
@@ -268,8 +269,7 @@ public class StreamingService extends Service
 				return;
 			}
 
-			streamer.addOnInfoListener(new OnInfoListener()
-			{
+			streamer.addOnInfoListener(new OnInfoListener() {
 				@Override
 				public void onInfo(TrackInfos trackInfos)
 				{
