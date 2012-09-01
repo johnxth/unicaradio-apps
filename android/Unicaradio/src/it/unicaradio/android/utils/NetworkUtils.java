@@ -53,7 +53,28 @@ public class NetworkUtils
 				return true;
 			}
 		}
+
 		return false;
+	}
+
+	public static boolean isConnectedToWifi(Context context)
+	{
+		ConnectivityManager connManager = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = connManager
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		return info.isConnected();
+	}
+
+	public static boolean isConnectedToMobileData(Context context)
+	{
+		ConnectivityManager connManager = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = connManager
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+		return info.isConnected();
 	}
 
 	public static byte[] httpGet(String urlString) throws IOException

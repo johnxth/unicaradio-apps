@@ -24,7 +24,7 @@
 		android:summaryOff="@string/prefs_permit_roaming_summaryOff"
 		android:defaultValue="false" />
 
-	<PreferenceCategory android:title="App infos">
+	<PreferenceCategory android:title="@string/prefs_app_infos_category">
 		<Preference
 			android:key="app_version"
 			android:title="@string/prefs_app_version_title" />

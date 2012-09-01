@@ -67,21 +67,21 @@
 	<!-- Preferences -->
 
 	<!-- network_type -->
-	<string name="prefs_network_type_title">Quando ascoltare la radio</string>
-	<string name="prefs_network_type_dialogtitle">Quando ascoltare la radio</string>
+	<string name="prefs_network_type_title">Ascolta la radio</string>
+	<string name="prefs_network_type_dialogtitle">Ascolta la radio</string>
 	<string-array name="prefs_network_type_entries">
 		<item>Su rete Wi-Fi o mobile</item>
-		<item>Solo Wi-Fi</item>
+		<item>Solo su rete Wi-Fi</item>
 	</string-array>
 	<string name="prefs_network_type_mobiledata_label">Se è disponibile una connessione dati Wi-Fi o mobile</string>
 	<string name="prefs_network_type_wifi_label">Solo se è disponibile una connessione Wi-Fi</string>
 
 	<!-- download_cover -->
-	<string name="prefs_download_cover_title">Quando scaricare le copertine</string>
-	<string name="prefs_download_cover_dialogtitle">Quando scaricare le copertine</string>
+	<string name="prefs_download_cover_title">Scaricare le copertine</string>
+	<string name="prefs_download_cover_dialogtitle">Scaricare le copertine</string>
 	<string-array name="prefs_download_cover_entries">
 		<item>Su rete Wi-Fi o mobile</item>
-		<item>Solo Wi-Fi</item>
+		<item>Solo su rete Wi-Fi</item>
 		<item>Mai</item>
 	</string-array>
 	<string name="prefs_download_cover_mobiledata_label">Se è disponibile una connessione dati Wi-Fi o mobile</string>
@@ -94,7 +94,7 @@
 	<string name="prefs_permit_roaming_summaryOff">Non ascoltare Unicaradio se il roaming su rete dati è attivo</string>
 
 	<!-- Category: app_infos -->
-	<string name="pres_app_infos_category">Informazioni</string>
+	<string name="prefs_app_infos_category">Informazioni</string>
 
 	<!-- app_version -->
 	<string name="prefs_app_version_title">Versione app</string>

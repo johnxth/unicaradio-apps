@@ -17,7 +17,7 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.consts.UnicaradioPreferences;
+import it.unicaradio.android.utils.UnicaradioPreferences;
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;

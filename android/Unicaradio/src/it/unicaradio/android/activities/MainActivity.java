@@ -21,6 +21,7 @@ import it.unicaradio.android.fragments.UnicaradioFragment;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.listeners.TabSelectedListener;
+import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
 
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -82,6 +84,9 @@ public class MainActivity extends SherlockFragmentActivity
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
 		preferences = getPreferences(Context.MODE_PRIVATE);
+		if(isFirstRun()) {
+			PreferenceManager.setDefaultValues(this, R.xml.prefs, true);
+		}
 		if(hasBeenUpdated()) {
 			showUpdatesDialog();
 		}
@@ -219,8 +224,8 @@ public class MainActivity extends SherlockFragmentActivity
 		try {
 			PackageInfo pInfo = getPackageManager().getPackageInfo(
 					getPackageName(), PackageManager.GET_META_DATA);
-			long lastRunVersionCode = preferences.getLong("lastRunVersionCode",
-					0);
+			long lastRunVersionCode = preferences.getLong(
+					UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
 			if(lastRunVersionCode < pInfo.versionCode) {
 				Editor editor = preferences.edit();
 				editor.putLong("lastRunVersionCode", pInfo.versionCode);
@@ -233,6 +238,14 @@ public class MainActivity extends SherlockFragmentActivity
 		}
 
 		return false;
+	}
+
+	private boolean isFirstRun()
+	{
+		long lastRunVersionCode = preferences.getLong(
+				UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
+
+		return(lastRunVersionCode == 0);
 	}
 
 	private void showUpdatesDialog()

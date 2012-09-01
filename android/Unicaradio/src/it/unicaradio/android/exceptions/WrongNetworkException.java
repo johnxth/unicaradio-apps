@@ -14,32 +14,42 @@
  * 
  * Copyright UnicaRadio
  */
-package it.unicaradio.android.consts;
+package it.unicaradio.android.exceptions;
 
 /**
  * @author Paolo Cortis
  */
-public class UnicaradioPreferences
+public class WrongNetworkException extends UnicaradioException
 {
-	public static final String PREF_NETWORK_TYPE = "network_type";
+	private static final long serialVersionUID = 7386813683285943145L;
 
-	public static final String PREF_DOWNLOAD_COVER = "download_cover";
-
-	public static final String PREF_PERMIT_ROAMING = "permit_roaming";
-
-	public static final String PREF_APP_VERSION = "app_version";
-
-	public static final String NETWORK_TYPE_MOBILEDATA = "mobiledata";
-
-	public static final String NETWORK_TYPE_WIFIONLY = "wifi_only";
-
-	public static final String DOWNLOAD_COVER_MOBILEDATA = "mobiledata";
-
-	public static final String DOWNLOAD_COVER_WIFIONLY = "wifi_only";
-
-	public static final String DOWNLOAD_COVER_NEVER = "never";
-
-	private UnicaradioPreferences()
+	public WrongNetworkException()
 	{
+		super();
+	}
+
+	/**
+	 * @param detailMessage
+	 * @param throwable
+	 */
+	public WrongNetworkException(String detailMessage, Throwable throwable)
+	{
+		super(detailMessage, throwable);
+	}
+
+	/**
+	 * @param detailMessage
+	 */
+	public WrongNetworkException(String detailMessage)
+	{
+		super(detailMessage);
+	}
+
+	/**
+	 * @param throwable
+	 */
+	public WrongNetworkException(Throwable throwable)
+	{
+		super(throwable);
 	}
 }

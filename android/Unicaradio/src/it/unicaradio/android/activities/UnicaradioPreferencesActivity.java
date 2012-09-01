@@ -17,8 +17,9 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.consts.UnicaradioPreferences;
+import it.unicaradio.android.enums.NetworkType;
 import it.unicaradio.android.utils.StringUtils;
+import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -161,7 +162,7 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 		if(StringUtils.equals(preference.getKey(),
 				UnicaradioPreferences.PREF_NETWORK_TYPE)) {
 			if(StringUtils.equals(preference.getValue(),
-					UnicaradioPreferences.NETWORK_TYPE_MOBILEDATA)) {
+					NetworkType.NETWORK_TYPE_MOBILEDATA)) {
 				return getString(R.string.prefs_network_type_mobiledata_label);
 			} else {
 				return getString(R.string.prefs_network_type_wifi_label);

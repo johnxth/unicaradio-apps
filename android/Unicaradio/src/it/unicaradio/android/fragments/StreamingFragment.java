@@ -17,12 +17,17 @@
 package it.unicaradio.android.fragments;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.enums.NetworkType;
+import it.unicaradio.android.exceptions.NotConnectedException;
+import it.unicaradio.android.exceptions.RoamingForbiddenException;
+import it.unicaradio.android.exceptions.WrongNetworkException;
 import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.services.StreamingService;
 import it.unicaradio.android.services.StreamingService.LocalBinder;
 import it.unicaradio.android.utils.ImageUtils;
 import it.unicaradio.android.utils.NetworkUtils;
 import it.unicaradio.android.utils.StringUtils;
+import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
 
 import java.io.IOException;
@@ -41,6 +46,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -200,16 +206,82 @@ public class StreamingFragment extends UnicaradioFragment
 			@Override
 			public void onClick(View arg0)
 			{
-				if(!NetworkUtils.isConnected(getActivity())) {
-					showAlertDialog("Unicaradio",
-							"Attenzione! Non sei connesso ad internet!");
-					return;
-				}
+				boolean isNotPlaying = (streamingService != null)
+						&& !streamingService.isPlaying();
+				if(isNotPlaying) {
+					try {
+						warnUserIfNotConnected();
+					} catch(NotConnectedException e) {
+						Log.d(TAG, e.getMessage(), e);
+						showAlertDialog("Unicaradio",
+								"Attenzione! Non sei connesso ad Internet!");
+						return;
+					} catch(WrongNetworkException e) {
+						Log.d(TAG, e.getMessage(), e);
+						showAlertDialog("Unicaradio",
+								"Attenzione! Verifica a quale rete sei connesso");
+						return;
+					} catch(RoamingForbiddenException e) {
+						Log.d(TAG, e.getMessage(), e);
+						showAlertDialog("Unicaradio",
+								"Attenzione! Sei in roaming!");
+						return;
+					}
 
-				if((streamingService != null) && !streamingService.isPlaying()) {
 					play();
 				} else {
 					stop();
+				}
+			}
+
+			private void warnUserIfNotConnected() throws NotConnectedException,
+					WrongNetworkException, RoamingForbiddenException
+			{
+				NetworkType networkType = UnicaradioPreferences
+						.getNetworkType(getSherlockActivity());
+
+				if(networkType == null) {
+					throw new NotConnectedException("Unknown network");
+				}
+
+				boolean connectedToWifi = NetworkUtils
+						.isConnectedToWifi(getActivity());
+				boolean connectedToMobileData = NetworkUtils
+						.isConnectedToMobileData(getActivity());
+				switch(networkType) {
+					case WIFI_ONLY:
+						if(!connectedToWifi && !connectedToMobileData) {
+							throw new NotConnectedException("Not connected");
+						} else if(!connectedToWifi) {
+							throw new WrongNetworkException(
+									"Not connected to wifi");
+						}
+						break;
+
+					case MOBILE_DATA:
+						if(!connectedToMobileData && !connectedToWifi) {
+							throw new NotConnectedException(
+									"Not connected neither to wifi nor to mobile");
+						} else if(connectedToMobileData) {
+							warnUserIfInRoamingAndNotPermitted();
+						}
+						break;
+
+					default:
+						throw new WrongNetworkException("Unknown network");
+				}
+			}
+
+			private void warnUserIfInRoamingAndNotPermitted()
+					throws RoamingForbiddenException
+			{
+				TelephonyManager telephony = (TelephonyManager) getActivity()
+						.getSystemService(Context.TELEPHONY_SERVICE);
+
+				boolean isRoamingPermitted = UnicaradioPreferences
+						.isRoamingPermitted(getActivity());
+				if(!isRoamingPermitted && telephony.isNetworkRoaming()) {
+					throw new RoamingForbiddenException("Unknown network");
 				}
 			}
 		});
