@@ -16,8 +16,16 @@
  */
 package it.unicaradio.android.utils;
 
+import it.unicaradio.android.R;
+
+import com.actionbarsherlock.app.ActionBar;
+
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.graphics.Shader.TileMode;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -40,6 +48,27 @@ public class ViewUtils
 					"fonts/Roboto/Roboto-Regular.ttf");
 		}
 		setFont(view, robotoTypeFace);
+	}
+
+	public static void setupActionBar(ActionBar actionBar, Resources resources)
+	{
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
+				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_USE_LOGO);
+		actionBar.setDisplayShowHomeEnabled(true);
+		actionBar.setDisplayUseLogoEnabled(true);
+		actionBar.setDisplayShowTitleEnabled(true);
+
+		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			BitmapDrawable bg = (BitmapDrawable) resources
+					.getDrawable(R.drawable.title_bg);
+			bg.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
+			actionBar.setBackgroundDrawable(bg);
+
+			BitmapDrawable bgSplit = (BitmapDrawable) resources
+					.getDrawable(R.drawable.black_stripe);
+			bgSplit.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
+			actionBar.setSplitBackgroundDrawable(bgSplit);
+		}
 	}
 
 	private static void setFont(View view, Typeface robotoTypeFace)

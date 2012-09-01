@@ -43,6 +43,10 @@
 			</intent-filter>
 		</activity>
 
+		<activity
+			android:name=".activities.UnicaradioPreferencesActivity"
+			android:theme="@style/unicaradio_theme2" />
+
 		<service
 			android:name=".services.StreamingService"
 			android:enabled="true"

@@ -32,18 +32,21 @@
 		background;\n
 		\t- [bug] Palinsesto con orario sbagliato;\n
 		\t- [bug] Dopo lo
-		stop viene ancora caricata una cover;\n
+		stop
+		viene ancora caricata una cover;\n
 		\t-
 		[bug] Verifica della connessione ad Internet;\n
 		\t- [bug] Crash per assenza della connessione quando si è
-		in play;\n
+		in
+		play;\n
 		\t-
 		[mod] Invio mail senza ulteriore conferma;\n
 		\t- [mod] Nuovi pulsanti di play e pausa;\n
 		\t- [mod] Grafica palinsesto a
 		colori
 		sfalsati;\n
-		\t- [nuovo] Notifiche.\n
+		\t-
+		[nuovo] Notifiche.\n
 		\n
 		Versione 1.0:\n
 		\t- Prima versione.\n
@@ -60,4 +63,40 @@
 
 	<string name="wait_dialog_default_title">Caricamento&#8230;</string>
 	<string name="wait_dialog_default_message">Caricamento in corso.</string>
+
+	<!-- Preferences -->
+
+	<!-- network_type -->
+	<string name="prefs_network_type_title">Quando ascoltare la radio</string>
+	<string name="prefs_network_type_dialogtitle">Quando ascoltare la radio</string>
+	<string-array name="prefs_network_type_entries">
+		<item>Su rete Wi-Fi o mobile</item>
+		<item>Solo Wi-Fi</item>
+	</string-array>
+	<string name="prefs_network_type_mobiledata_label">Se è disponibile una connessione dati Wi-Fi o mobile</string>
+	<string name="prefs_network_type_wifi_label">Solo se è disponibile una connessione Wi-Fi</string>
+
+	<!-- download_cover -->
+	<string name="prefs_download_cover_title">Quando scaricare le copertine</string>
+	<string name="prefs_download_cover_dialogtitle">Quando scaricare le copertine</string>
+	<string-array name="prefs_download_cover_entries">
+		<item>Su rete Wi-Fi o mobile</item>
+		<item>Solo Wi-Fi</item>
+		<item>Mai</item>
+	</string-array>
+	<string name="prefs_download_cover_mobiledata_label">Se è disponibile una connessione dati Wi-Fi o mobile</string>
+	<string name="prefs_download_cover_wifi_label">Solo se è disponibile una connessione Wi-Fi</string>
+	<string name="prefs_download_cover_never_label">Non scaricare mai le copertine</string>
+
+	<!-- permit_roaming -->
+	<string name="prefs_permit_roaming_title">Ascolto radio in roaming</string>
+	<string name="prefs_permit_roaming_summaryOn">Puoi ascoltare Unicaradio in roaming su rete dati</string>
+	<string name="prefs_permit_roaming_summaryOff">Non ascoltare Unicaradio se il roaming su rete dati è attivo</string>
+
+	<!-- Category: app_infos -->
+	<string name="pres_app_infos_category">Informazioni</string>
+
+	<!-- app_version -->
+	<string name="prefs_app_version_title">Versione app</string>
+
 </resources>

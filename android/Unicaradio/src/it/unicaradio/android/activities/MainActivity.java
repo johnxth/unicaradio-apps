@@ -21,19 +21,19 @@ import it.unicaradio.android.fragments.UnicaradioFragment;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.listeners.TabSelectedListener;
+import it.unicaradio.android.utils.ViewUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Shader.TileMode;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,8 +43,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  * @author Paolo Cortis
@@ -71,25 +72,8 @@ public class MainActivity extends SherlockFragmentActivity
 			tabSelectedListener.setFragmentManager(getSupportFragmentManager());
 		}
 
-		getSupportActionBar().setDisplayOptions(
-				ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE
-						| ActionBar.DISPLAY_USE_LOGO);
-		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		ViewUtils.setupActionBar(getSupportActionBar(), getResources());
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-		getSupportActionBar().setDisplayUseLogoEnabled(true);
-		getSupportActionBar().setDisplayShowTitleEnabled(true);
-
-		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			BitmapDrawable bg = (BitmapDrawable) getResources().getDrawable(
-					R.drawable.title_bg);
-			bg.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
-			getSupportActionBar().setBackgroundDrawable(bg);
-
-			BitmapDrawable bgSplit = (BitmapDrawable) getResources()
-					.getDrawable(R.drawable.black_stripe);
-			bgSplit.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
-			getSupportActionBar().setSplitBackgroundDrawable(bgSplit);
-		}
 
 		Map<Integer, Tab> tabs = updateReferences();
 		tabs.get(TabSelectedListener.getCurrentTab()).setSelected(true);
@@ -167,6 +151,42 @@ public class MainActivity extends SherlockFragmentActivity
 		}
 
 		super.onBackPressed();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		super.onCreateOptionsMenu(menu);
+
+		getSupportMenuInflater().inflate(R.menu.shared_menu, menu);
+
+		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		if(item.getItemId() == R.id.unicaradio_settings) {
+			Intent intent = new Intent(this,
+					UnicaradioPreferencesActivity.class);
+			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+				intent.putExtra(UnicaradioPreferencesActivity.EXTRA_NO_HEADERS,
+						true);
+				intent.putExtra(
+						UnicaradioPreferencesActivity.EXTRA_SHOW_FRAGMENT,
+						UnicaradioPreferencesFragment.class.getName());
+			}
+
+			startActivity(intent);
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	private Map<Integer, Tab> updateReferences()

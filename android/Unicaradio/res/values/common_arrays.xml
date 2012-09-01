@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="prefs_network_type_entryValues">
+		<item>mobiledata</item>
+		<item>wifi_only</item>
+	</string-array>
+	<string-array name="prefs_download_cover_entryValues">
+		<item>mobiledata</item>
+		<item>wifi_only</item>
+		<item>never</item>
+	</string-array>
+</resources>

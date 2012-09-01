@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<ListPreference
+		android:key="network_type"
+		android:title="@string/prefs_network_type_title"
+		android:dialogTitle="@string/prefs_network_type_dialogtitle"
+		android:entries="@array/prefs_network_type_entries"
+		android:entryValues="@array/prefs_network_type_entryValues"
+		android:defaultValue="wifi_only" />
+
+	<ListPreference
+		android:key="download_cover"
+		android:title="@string/prefs_download_cover_title"
+		android:dialogTitle="@string/prefs_download_cover_dialogtitle"
+		android:entries="@array/prefs_download_cover_entries"
+		android:entryValues="@array/prefs_download_cover_entryValues"
+		android:defaultValue="wifi_only" />
+
+	<CheckBoxPreference
+		android:key="permit_roaming"
+		android:title="@string/prefs_permit_roaming_title"
+		android:summaryOn="@string/prefs_permit_roaming_summaryOn"
+		android:summaryOff="@string/prefs_permit_roaming_summaryOff"
+		android:defaultValue="false" />
+
+	<PreferenceCategory android:title="App infos">
+		<Preference
+			android:key="app_version"
+			android:title="@string/prefs_app_version_title" />
+	</PreferenceCategory>
+
+</PreferenceScreen>
