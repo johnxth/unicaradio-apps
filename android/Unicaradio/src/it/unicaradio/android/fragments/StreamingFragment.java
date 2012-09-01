@@ -23,6 +23,7 @@ import it.unicaradio.android.services.StreamingService.LocalBinder;
 import it.unicaradio.android.utils.ImageUtils;
 import it.unicaradio.android.utils.NetworkUtils;
 import it.unicaradio.android.utils.StringUtils;
+import it.unicaradio.android.utils.ViewUtils;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -157,6 +158,19 @@ public class StreamingFragment extends UnicaradioFragment
 			Bundle savedInstanceState)
 	{
 		return inflater.inflate(R.layout.streaming, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		ViewUtils.setRobotoFont(getActivity(), view.findViewById(R.id.author));
+		ViewUtils.setRobotoFont(getActivity(),
+				view.findViewById(R.id.songTitle));
 	}
 
 	/**
