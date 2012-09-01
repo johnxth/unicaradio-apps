@@ -17,7 +17,6 @@
 package it.unicaradio.android.gui;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.utils.StringUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -70,13 +69,6 @@ public class TrackInfos
 	public String getAuthor()
 	{
 		synchronized(this) {
-			return "- " + author + " -";
-		}
-	}
-
-	public String getCleanedAuthor()
-	{
-		synchronized(this) {
 			return author;
 		}
 	}
@@ -85,12 +77,7 @@ public class TrackInfos
 	{
 		synchronized(this) {
 			if(author != null) {
-				if(!author.startsWith("-")) {
-					this.author = author;
-				} else {
-					this.author = StringUtils.substringBetween(author, "- ",
-							" -");
-				}
+				this.author = author;
 				cleaned = false;
 			} else {
 				this.author = "UnicaRadio";

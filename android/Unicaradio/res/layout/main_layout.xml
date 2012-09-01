@@ -5,7 +5,9 @@
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:background="@android:color/black">
+	android:background="@android:color/black"
+	android:gravity="top"
+	android:layout_gravity="top">
 
 	<include
 		android:id="@+id/include1"
@@ -15,6 +17,6 @@
 		android:layout_below="@+id/include1"
 		android:id="@+id/fragment_content"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
+		android:layout_height="match_parent" />
 
 </RelativeLayout>

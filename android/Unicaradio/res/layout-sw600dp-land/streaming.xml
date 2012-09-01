@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/window_bg">
+
+	<ImageView
+		android:id="@+id/cover"
+		android:layout_width="350dp"
+		android:layout_height="350dp"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentTop="true"
+		android:src="@drawable/cover"
+		android:scaleType="fitCenter"
+		android:layout_marginTop="20dp" />
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:layout_toLeftOf="@id/cover"
+		android:paddingRight="15dp"
+		android:paddingLeft="15dp"
+		android:paddingTop="30dp"
+		android:paddingBottom="15dp">
+
+		<View
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/tablet_layout"
+			android:visibility="gone" />
+
+		<TextView
+			android:id="@+id/author_label"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textSize="15dp"
+			android:layout_marginTop="15dp"
+			android:text="Author:"
+			android:visibility="gone" />
+		<it.unicaradio.android.gui.ScrollTextView
+			android:id="@+id/author"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:marqueeRepeatLimit="marquee_forever"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:textSize="22dp" />
+
+		<TextView
+			android:id="@+id/title_label"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp"
+			android:textSize="15dp"
+			android:text="Title:"
+			android:visibility="gone" />
+		<it.unicaradio.android.gui.ScrollTextView
+			android:id="@+id/songTitle"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:marqueeRepeatLimit="marquee_forever"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:textSize="22dp" />
+
+	</LinearLayout>
+
+	<RelativeLayout
+		android:id="@+id/playPauseButtonContainer"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="4dip"
+		android:paddingBottom="10dip">
+		<ImageButton
+			android:id="@+id/playPauseButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@android:color/transparent"
+			android:paddingRight="10dp"
+			android:src="@drawable/play" />
+	</RelativeLayout>
+</RelativeLayout>

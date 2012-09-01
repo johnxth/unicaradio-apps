@@ -11,42 +11,34 @@
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:layout_alignParentLeft="true"
-		android:paddingLeft="15dp"
-		android:paddingRight="15dp">
+		android:layout_alignParentTop="true"
+		android:padding="15dp"
+		android:weightSum="1">
 
 		<ImageView
 			android:id="@+id/cover"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical" />
-
-		<LinearLayout
-			android:orientation="vertical"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
+			android:layout_gravity="center_vertical|left"
+			android:src="@drawable/cover"
+			android:scaleType="fitCenter"
+			android:layout_weight="0.65" />
+
+		<it.unicaradio.android.gui.ScrollTextView
+			android:id="@+id/songTitle"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
 			android:paddingTop="20dp"
-			android:paddingLeft="10dp">
-			<it.unicaradio.android.gui.ScrollTextView
-				android:id="@+id/author"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:singleLine="true"
-				android:ellipsize="marquee"
-				android:marqueeRepeatLimit="marquee_forever"
-				android:paddingTop="10dp"
-				android:textSize="18dp" />
-			<it.unicaradio.android.gui.ScrollTextView
-				android:id="@+id/songTitle"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:singleLine="true"
-				android:ellipsize="marquee"
-				android:marqueeRepeatLimit="marquee_forever"
-				android:textSize="30dp"
-				android:paddingTop="10dp" />
-		</LinearLayout>
+			android:paddingLeft="10dp"
+			android:layout_gravity="center_horizontal|top"
+			android:gravity="center_horizontal|top"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:marqueeRepeatLimit="marquee_forever"
+			android:textSize="30dp"
+			android:text="- Unicaradio -"
+			android:layout_weight="0.35" />
+
 	</LinearLayout>
 
 	<RelativeLayout

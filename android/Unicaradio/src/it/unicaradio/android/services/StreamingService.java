@@ -222,9 +222,9 @@ public class StreamingService extends Service
 		sendBroadcast(i);
 		if(!infos.isClean()) {
 			if(infos.getTitle().equals("")) {
-				sendNotification(infos.getCleanedAuthor(), "");
+				sendNotification(infos.getAuthor(), "");
 			} else {
-				sendNotification(infos.getTitle(), infos.getCleanedAuthor());
+				sendNotification(infos.getTitle(), infos.getAuthor());
 			}
 		}
 		error = StringUtils.EMPTY;

@@ -7,6 +7,6 @@
 	<style
 		name="unicaradio_theme2"
 		parent="@style/Theme.Sherlock">
-		<item name="actionBarStyle">@style/Widget.Unicaradio.ActionBar</item>
+		<item name="android:actionBarStyle">@style/Widget.Unicaradio.ActionBar</item>
 	</style>
 </resources>

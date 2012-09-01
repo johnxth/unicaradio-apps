@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/window_bg">
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:gravity="center_horizontal"
+		android:layout_gravity="center_horizontal"
+		android:layout_above="@+id/playPauseButtonContainer"
+		android:layout_alignParentTop="true"
+		android:layout_marginTop="15dp">
+
+		<it.unicaradio.android.gui.ScrollTextView
+			android:id="@+id/songTitle"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:marqueeRepeatLimit="marquee_forever"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:textSize="30dp" />
+
+		<ImageView
+			android:id="@+id/cover"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:scaleType="fitCenter"
+			android:layout_margin="8dp"
+			android:adjustViewBounds="true" />
+	</LinearLayout>
+
+	<RelativeLayout
+		android:id="@+id/playPauseButtonContainer"
+		android:layout_alignParentBottom="true"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingTop="4dip"
+		android:paddingBottom="4dip">
+		<ImageButton
+			android:id="@+id/playPauseButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@android:color/transparent"
+			android:layout_centerInParent="true"
+			android:src="@drawable/play" />
+	</RelativeLayout>
+</RelativeLayout>

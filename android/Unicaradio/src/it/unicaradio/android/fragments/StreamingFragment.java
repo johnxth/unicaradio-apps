@@ -156,7 +156,7 @@ public class StreamingFragment extends UnicaradioFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
-		return inflater.inflate(R.layout.main, null);
+		return inflater.inflate(R.layout.streaming, null);
 	}
 
 	/**
@@ -226,13 +226,6 @@ public class StreamingFragment extends UnicaradioFragment
 	private void updateResultsInUi()
 	{
 		try {
-			TextView trackAuthor = (TextView) getActivity().findViewById(
-					R.id.author);
-			TextView trackTitle = (TextView) getActivity().findViewById(
-					R.id.songTitle);
-			ImageView cover = (ImageView) getActivity()
-					.findViewById(R.id.cover);
-
 			if(((streamingService == null) || !streamingService.isPlaying())) {
 				synchronized(this) {
 					infos.clean();
@@ -240,21 +233,66 @@ public class StreamingFragment extends UnicaradioFragment
 			}
 
 			synchronized(this) {
-				if(trackAuthor != null) {
-					trackAuthor.setText(infos.getAuthor());
-				}
-				if(trackTitle != null) {
-					trackTitle.setText(infos.getTitle());
-				}
-				if(cover != null) {
-					Bitmap bitmap = ImageUtils.resize(getActivity()
-							.getWindowManager().getDefaultDisplay(), infos
-							.getCover(), 60);
-					cover.setImageBitmap(bitmap);
-				}
+				updateAuthorAndTitleInUi();
+				updateCoverInUi();
 			}
 		} catch(NullPointerException e) {
 			Log.d(TAG, e.getMessage(), e);
+		}
+	}
+
+	private void updateAuthorAndTitleInUi()
+	{
+		TextView trackAuthor = (TextView) getActivity().findViewById(
+				R.id.author);
+		TextView trackTitle = (TextView) getActivity().findViewById(
+				R.id.songTitle);
+
+		if(trackTitle == null) {
+			return;
+		}
+
+		if(trackAuthor != null) {
+			boolean isDeviceATablet = getActivity().findViewById(
+					R.id.tablet_layout) != null;
+			trackAuthor.setText(StringUtils.EMPTY);
+			if(isDeviceATablet && !infos.isClean()) {
+				trackAuthor.setText(infos.getAuthor());
+				getActivity().findViewById(R.id.author_label).setVisibility(
+						View.VISIBLE);
+				getActivity().findViewById(R.id.title_label).setVisibility(
+						View.VISIBLE);
+			} else if(isDeviceATablet) {
+				getActivity().findViewById(R.id.author_label).setVisibility(
+						View.GONE);
+				getActivity().findViewById(R.id.title_label).setVisibility(
+						View.GONE);
+			} else {
+				trackAuthor.setText("- " + infos.getAuthor() + " -");
+			}
+
+			trackTitle.setText(infos.getTitle());
+		} else {
+			String currentlyOnAir = infos.getAuthor();
+			if(!infos.isClean() && !StringUtils.isEmpty(infos.getTitle())) {
+				currentlyOnAir += " - " + infos.getTitle();
+			} else if(infos.isClean()) {
+				currentlyOnAir = "- " + currentlyOnAir + " -";
+			}
+
+			trackTitle.setText(currentlyOnAir);
+		}
+	}
+
+	private void updateCoverInUi()
+	{
+		ImageView cover = (ImageView) getActivity().findViewById(R.id.cover);
+		if(cover != null) {
+			// Bitmap bitmap = ImageUtils.resize(getActivity()
+			// .getWindowManager().getDefaultDisplay(), infos
+			// .getCover(), 60);
+			Bitmap bitmap = infos.getCover();
+			cover.setImageBitmap(bitmap);
 		}
 	}
 
