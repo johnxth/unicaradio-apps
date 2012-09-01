@@ -99,4 +99,9 @@
 	<!-- app_version -->
 	<string name="prefs_app_version_title">Versione app</string>
 
+	<!-- Menu -->
+	<string name="menu_settings">Impostazioni</string>
+	<string name="menu_refresh_schedule">Aggiorna palinsesto</string>
+	<string name="menu_change_captcha">Cambia CAPTCHA</string>
+
 </resources>

@@ -3,6 +3,6 @@
 	<item
 		android:id="@+id/songsChangeCaptcha"
 		android:icon="@drawable/ic_menu_refresh"
-		android:title="Cambia CAPTCHA"
+		android:title="@string/menu_change_captcha"
 		android:showAsAction="ifRoom" />
 </menu>

@@ -3,6 +3,7 @@
 	<item
 		android:id="@+id/unicaradio_settings"
 		android:showAsAction="ifRoom"
-		android:title="Settings"
-		android:icon="@android:drawable/ic_menu_preferences" />
+		android:title="@string/menu_settings"
+		android:icon="@android:drawable/ic_menu_preferences"
+		android:menuCategory="secondary" />
 </menu>
