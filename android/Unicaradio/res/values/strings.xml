@@ -64,6 +64,9 @@
 	<string name="wait_dialog_default_title">Caricamento&#8230;</string>
 	<string name="wait_dialog_default_message">Caricamento in corso.</string>
 
+	<string name="toast_error_roaming_not_permitted">Attenzione! Sei in Roaming</string>
+	<string name="toast_error_mobiledata_not_permitted">Attenzione! Sei connesso alla rete dati</string>
+
 	<!-- Preferences -->
 
 	<!-- network_type -->

@@ -16,7 +16,10 @@
  */
 package it.unicaradio.android.receivers;
 
+import it.unicaradio.android.R;
+import it.unicaradio.android.enums.NetworkType;
 import it.unicaradio.android.services.StreamingService;
+import it.unicaradio.android.utils.UnicaradioPreferences;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -43,9 +46,12 @@ public class TelephonyBroadcastReceiver extends BroadcastReceiver
 	{
 		PhoneStateListener phoneListener = new UnicaradioPhoneStateListener();
 
-		TelephonyManager telephony = (TelephonyManager) context
+		TelephonyManager telephonyManager = (TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE);
-		telephony.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+		telephonyManager.listen(phoneListener,
+				PhoneStateListener.LISTEN_CALL_STATE);
+		telephonyManager.listen(phoneListener,
+				PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
 	}
 
 	private final class UnicaradioPhoneStateListener extends PhoneStateListener
@@ -60,6 +66,42 @@ public class TelephonyBroadcastReceiver extends BroadcastReceiver
 				case TelephonyManager.CALL_STATE_RINGING:
 					streamingService.stop();
 					break;
+			}
+		}
+
+		@Override
+		public void onDataConnectionStateChanged(int state)
+		{
+			super.onDataConnectionStateChanged(state);
+
+			TelephonyManager telephonyManager = (TelephonyManager) streamingService
+					.getSystemService(Context.TELEPHONY_SERVICE);
+
+			boolean isRoaming = telephonyManager.isNetworkRoaming();
+			boolean isRoamingPermitted = UnicaradioPreferences
+					.isRoamingPermitted(streamingService);
+			boolean isConnectedToMobileData = TelephonyManager.DATA_CONNECTED == state;
+
+			NetworkType networkType = UnicaradioPreferences
+					.getNetworkType(streamingService);
+			boolean isMobileDataPermitted = (networkType == NetworkType.MOBILE_DATA);
+
+			if(isConnectedToMobileData && isRoaming && !isRoamingPermitted) {
+				if(streamingService.isPlaying()) {
+					Intent i = new Intent(StreamingService.ACTION_TOAST_MESSAGE);
+					i.putExtra("message",
+							R.string.toast_error_roaming_not_permitted);
+					streamingService.sendBroadcast(i);
+				}
+				streamingService.stop();
+			} else if(isConnectedToMobileData && !isMobileDataPermitted) {
+				if(streamingService.isPlaying()) {
+					Intent i = new Intent(StreamingService.ACTION_TOAST_MESSAGE);
+					i.putExtra("message",
+							R.string.toast_error_mobiledata_not_permitted);
+					streamingService.sendBroadcast(i);
+				}
+				streamingService.stop();
 			}
 		}
 	}

@@ -38,6 +38,10 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 			<intent-filter>
+				<action android:name="it.unicaradio.android.intent.action.TOAST_MESSAGE" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			<intent-filter>
 				<action android:name="android.intent.action.PHONE_STATE" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>

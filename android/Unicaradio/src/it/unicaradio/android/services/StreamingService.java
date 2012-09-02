@@ -63,6 +63,8 @@ public class StreamingService extends Service
 
 	public static final String ACTION_STOP = "it.unicaradio.android.intent.action.STOP";
 
+	public static final String ACTION_TOAST_MESSAGE = "it.unicaradio.android.intent.action.TOAST_MESSAGE";
+
 	private static final String STREAM_URL = "http://streaming.unicaradio.it:80/unica64.aac";
 
 	private static final int NOTIFICATION_ID = 1;
@@ -269,7 +271,8 @@ public class StreamingService extends Service
 				return;
 			}
 
-			streamer.addOnInfoListener(new OnInfoListener() {
+			streamer.addOnInfoListener(new OnInfoListener()
+			{
 				@Override
 				public void onInfo(TrackInfos trackInfos)
 				{
