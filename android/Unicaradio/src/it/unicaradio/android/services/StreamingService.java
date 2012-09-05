@@ -271,8 +271,7 @@ public class StreamingService extends Service
 				return;
 			}
 
-			streamer.addOnInfoListener(new OnInfoListener()
-			{
+			streamer.addOnInfoListener(new OnInfoListener() {
 				@Override
 				public void onInfo(TrackInfos trackInfos)
 				{

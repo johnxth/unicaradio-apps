@@ -80,8 +80,7 @@ public class StreamingFragment extends UnicaradioFragment
 
 	private boolean isStopped;
 
-	private final Runnable mUpdateResults = new Runnable()
-	{
+	private final Runnable mUpdateResults = new Runnable() {
 		@Override
 		public void run()
 		{
@@ -89,8 +88,7 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	};
 
-	protected BroadcastReceiver trackinforeceiver = new BroadcastReceiver()
-	{
+	protected BroadcastReceiver trackinforeceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
@@ -125,8 +123,7 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	};
 
-	private final BroadcastReceiver stopReceiver = new BroadcastReceiver()
-	{
+	private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
@@ -134,13 +131,14 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	};
 
-	private final BroadcastReceiver toastMessageReceiver = new BroadcastReceiver()
-	{
+	private final BroadcastReceiver toastMessageReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
 			int messageId = intent.getIntExtra("message", 0);
+			Log.d(TAG, "Received toast to show: " + messageId);
 			String message = getString(messageId);
+			Log.d(TAG, "toast string: " + message);
 
 			if(message != null) {
 				Toast.makeText(getActivity(), message, Toast.LENGTH_LONG)
@@ -149,8 +147,7 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	};
 
-	private final ServiceConnection serviceConnection = new ServiceConnection()
-	{
+	private final ServiceConnection serviceConnection = new ServiceConnection() {
 		@Override
 		public void onServiceDisconnected(ComponentName arg0)
 		{
@@ -224,8 +221,7 @@ public class StreamingFragment extends UnicaradioFragment
 
 		ImageButton playPauseButton = (ImageButton) getActivity().findViewById(
 				R.id.playPauseButton);
-		playPauseButton.setOnClickListener(new OnClickListener()
-		{
+		playPauseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0)
 			{
@@ -439,8 +435,7 @@ public class StreamingFragment extends UnicaradioFragment
 		final ImageButton playPauseButton = (ImageButton) getActivity()
 				.findViewById(R.id.playPauseButton);
 		playPauseButton.setImageResource(R.drawable.pause);
-		playPauseButton.post(new Runnable()
-		{
+		playPauseButton.post(new Runnable() {
 			@Override
 			public void run()
 			{

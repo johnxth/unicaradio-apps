@@ -16,6 +16,7 @@
  */
 package it.unicaradio.android.receivers;
 
+import it.unicaradio.android.R;
 import it.unicaradio.android.services.StreamingService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,7 +45,18 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
 				ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
 
 		if(noConnectivity) {
-			streamingService.stop();
+			stopWithMessage(R.string.toast_error_connection_lost);
 		}
+	}
+
+	private void stopWithMessage(int messageId)
+	{
+		if(streamingService.isPlaying()) {
+			Intent i = new Intent(StreamingService.ACTION_TOAST_MESSAGE);
+			i.putExtra("message", messageId);
+			streamingService.sendBroadcast(i);
+		}
+
+		streamingService.stop();
 	}
 }
