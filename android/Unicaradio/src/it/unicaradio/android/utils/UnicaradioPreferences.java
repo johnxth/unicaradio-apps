@@ -16,6 +16,7 @@
  */
 package it.unicaradio.android.utils;
 
+import it.unicaradio.android.enums.CoverDownloadMode;
 import it.unicaradio.android.enums.NetworkType;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -68,5 +69,17 @@ public class UnicaradioPreferences
 
 		return sharedPreferences.getBoolean(
 				UnicaradioPreferences.PREF_PERMIT_ROAMING, false);
+	}
+
+	public static CoverDownloadMode getCoverDownloadMode(Context context)
+	{
+		SharedPreferences sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		String coverDownloadMode = sharedPreferences.getString(
+				UnicaradioPreferences.PREF_DOWNLOAD_COVER, StringUtils.EMPTY);
+
+		Log.d(TAG, "Cover download mode: " + coverDownloadMode);
+
+		return CoverDownloadMode.fromString(coverDownloadMode);
 	}
 }

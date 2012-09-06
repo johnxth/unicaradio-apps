@@ -17,6 +17,7 @@
 package it.unicaradio.android.fragments;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.enums.CoverDownloadMode;
 import it.unicaradio.android.enums.NetworkType;
 import it.unicaradio.android.exceptions.NotConnectedException;
 import it.unicaradio.android.exceptions.RoamingForbiddenException;
@@ -118,8 +119,32 @@ public class StreamingFragment extends UnicaradioFragment
 			infos.setTitle(title);
 			mHandler.post(mUpdateResults);
 
-			imageThread = new Thread(new LoadCoverRunnable());
-			imageThread.start();
+			if(canLoadCover()) {
+				imageThread = new Thread(new LoadCoverRunnable());
+				imageThread.start();
+			}
+		}
+
+		private boolean canLoadCover()
+		{
+			CoverDownloadMode coverDownloadMode = UnicaradioPreferences
+					.getCoverDownloadMode(getActivity());
+
+			boolean connectedToWifi = NetworkUtils
+					.isConnectedToWifi(getActivity());
+			switch(coverDownloadMode) {
+				case MOBILE_DATA:
+					return true;
+
+				case WIFI_ONLY:
+					return connectedToWifi;
+
+				case NEVER:
+					return false;
+
+				default:
+					return false;
+			}
 		}
 	};
 
