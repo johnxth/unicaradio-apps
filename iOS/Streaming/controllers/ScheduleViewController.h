@@ -18,6 +18,10 @@
 	IBOutlet UITableView *scheduleTable;
 	IBOutlet UINavigationBar *navigationBar;
 
+	NSOperationQueue *queue;
+	BOOL isDownloading;
+	int clickedItem;
+
 	NSMutableArray *days;
 	ScheduleState state;
 	Schedule *schedule;

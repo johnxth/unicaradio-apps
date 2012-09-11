@@ -10,8 +10,9 @@
 
 #import "ScheduleViewController.h"
 #import "../widgets/DTCustomColoredAccessory.h"
-#import "../JSONKit/JSONKit.h"
+#import "../libs/JSONKit/JSONKit.h"
 #import "../models/Transmission.h"
+#import "../operations/DownloadScheduleOperation.h"
 
 @interface ScheduleViewController ()
 
@@ -34,6 +35,9 @@
         self.title = NSLocalizedString(@"Schedule", @"Schedule");
         self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
 		self.state = DAYS;
+
+		queue = [[NSOperationQueue alloc] init];
+		[queue setMaxConcurrentOperationCount: 1];
     }
     return self;
 }
@@ -46,20 +50,6 @@
 	self.days = [[NSMutableArray alloc] initWithObjects:@"Lunedì", @"Martedì",
 			 @"Mercoledì", @"Giovedì", @"Venerdì", @"Sabato", @"Domenica", nil];
 
-	if(schedule == nil) {
-		NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:SCHEDULE_URL]
-											 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-											 timeoutInterval:60.0];
-		
-		NSURLResponse *response = nil;
-		NSError *error = nil;
-		NSData *scheduleJSON = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-
-		// TODO: check errors
-		self.schedule = [Schedule fromJSON:scheduleJSON];
-	}
-
-
 	self.scheduleTable.rowHeight = 55;
 	self.scheduleTable.backgroundColor = [UIColor blackColor];
 	self.state = DAYS;
@@ -69,6 +59,25 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	NSLog(@"ScheduleViewController - viewDidAppear");
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"GetSchedule" object:nil];
+
+	if(schedule == nil) {
+		DownloadScheduleOperation *operation = [[DownloadScheduleOperation alloc] init];
+		[queue addOperation:operation];
+	}
+}
+
+- (void) receiveNotification: (NSNotification *)notification
+{
+	NSLog(@"ScheduleViewController - receiveNotification");
+	self.schedule = [Schedule fromJSON:[notification object]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

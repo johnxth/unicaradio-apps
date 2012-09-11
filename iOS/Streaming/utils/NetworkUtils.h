@@ -19,4 +19,6 @@
 
 + (NSData *) httpPost: (NSURL *)url postData:(NSString *)postData contentType:(NSString *)contentType;
 
++ (BOOL) isConnected;
+
 @end

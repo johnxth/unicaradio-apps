@@ -7,7 +7,7 @@
 //
 
 #import "SongRequest.h"
-#import "../JSONKit/JSONKit.h"
+#import "../libs/JSONKit/JSONKit.h"
 
 @implementation SongRequest
 

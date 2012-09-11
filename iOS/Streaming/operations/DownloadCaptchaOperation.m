@@ -7,7 +7,7 @@
 //
 
 #import "DownloadCaptchaOperation.h"
-#import "../JSONKit/JSONKit.h"
+#import "../libs/JSONKit/JSONKit.h"
 #import "../utils/NetworkUtils.h"
 #import "../enums/Error.h"
 

@@ -8,7 +8,7 @@
 
 #import "Schedule.h"
 
-#import "../JSONKit/JSONKit.h"
+#import "../libs/JSONKit/JSONKit.h"
 #import "Transmission.h"
 
 @implementation Schedule

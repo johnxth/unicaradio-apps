@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AudioStreamer.h"
+#import "../libs/audiostreamer/AudioStreamer.h"
 
 #define PLAY_IMAGE_NORMAL @"play_normal.png"
 #define PAUSE_IMAGE_NORMAL @"pause_0.png"

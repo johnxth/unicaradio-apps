@@ -8,6 +8,8 @@
 
 #import "NetworkUtils.h"
 
+#import "../libs/reachability/Reachability.h"
+
 @implementation NetworkUtils
 
 + (NSData *) httpGet:(NSURL *)url
@@ -40,6 +42,23 @@
 	}
 
 	return data;
+}
+
++ (BOOL) isConnected
+{
+	Reachability *reachability = [Reachability reachabilityForInternetConnection];
+	NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+
+	switch(networkStatus) {
+		case NotReachable:
+			return NO;
+		case ReachableViaWiFi:
+			return YES;
+		case ReachableViaWWAN:
+			return YES;
+		default:
+			return NO;
+	}
 }
 
 @end

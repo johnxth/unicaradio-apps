@@ -8,7 +8,7 @@
 
 #import "RequestSongOperation.h"
 #import "../utils/NetworkUtils.h"
-#import "../JSONKit/JSONKit.h"
+#import "../libs/JSONKit/JSONKit.h"
 #import "../enums/Error.h"
 
 @implementation RequestSongOperation
