@@ -33,13 +33,14 @@ public class IntentUtils
 		context.startActivity(i);
 	}
 
-	public static void sendEmail(Activity context, String subject,
+	public static void sendEmail(final Activity context, String subject,
 			String content)
 	{
-		final Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("message/rfc822");
+		final Intent intent = new Intent(Intent.ACTION_SENDTO,
+				Uri.parse("mailto:"));
 		intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 		intent.putExtra(Intent.EXTRA_TEXT, content);
+
 		context.startActivity(intent);
 	}
 }
