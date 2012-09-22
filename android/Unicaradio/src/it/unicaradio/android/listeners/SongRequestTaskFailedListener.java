@@ -16,27 +16,23 @@
  */
 package it.unicaradio.android.listeners;
 
-import it.unicaradio.android.enums.Error;
-import it.unicaradio.android.models.Response;
-import it.unicaradio.android.tasks.BlockingAsyncTask.OnTaskFailedListener;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
+import it.unicaradio.android.enums.Error;
+import it.unicaradio.android.models.Response;
 
 /**
  * @author Paolo Cortis
  */
-public class GenericAsyncTaskFailedListener<Result> implements
-		OnTaskFailedListener<Response<Result>>
+public class SongRequestTaskFailedListener<Result> extends
+		GenericAsyncTaskFailedListener<Result>
 {
-	private static final String TAG = GenericAsyncTaskFailedListener.class
-			.getName();
-
-	private final Context context;
-
-	public GenericAsyncTaskFailedListener(Context context)
+	/**
+	 * @param context
+	 */
+	public SongRequestTaskFailedListener(Context context)
 	{
-		this.context = context;
+		super(context);
 	}
 
 	/**
@@ -45,26 +41,12 @@ public class GenericAsyncTaskFailedListener<Result> implements
 	@Override
 	public void onTaskFailed(Response<Result> result)
 	{
-		Log.e(TAG, "Got error: " + result.getErrorCode());
-
-		if(result.getErrorCode() == Error.INTERNAL_DOWNLOAD_ERROR) {
-			new AlertDialog.Builder(context).setTitle("Errore")
-					.setMessage("Verifica di essere connesso ad Internet.")
+		if(result.getErrorCode() == Error.OPERATION_FORBIDDEN) {
+			new AlertDialog.Builder(getContext()).setTitle("Errore")
+					.setMessage("Attendi prima di effettuare altre richieste.")
 					.setCancelable(false).setPositiveButton("OK", null).show();
 		} else {
-			new AlertDialog.Builder(context)
-					.setTitle("Errore!")
-					.setMessage(
-							"È avvenuto un errore imprevisto. Riprova più tardi.")
-					.setCancelable(false).setPositiveButton("OK", null).show();
+			super.onTaskFailed(result);
 		}
-	}
-
-	/**
-	 * @return the context
-	 */
-	public Context getContext()
-	{
-		return context;
 	}
 }
