@@ -66,6 +66,10 @@
 
 	<string name="toast_error_connection_lost">Connessione persa.</string>
 
+	<string name="suggest_subject">Ascolta Unicaradio!</string>
+	<string name="suggest_content">Ciao!!\nAscolta Unicaradio, la webradio degli studenti universitari di Cagliari.\n\nVisita il sito
+		http://www.unicaradio.it/ e scarica l\'app per Android dal Play Store!</string>
+
 	<!-- Preferences -->
 
 	<!-- network_type -->
@@ -105,5 +109,6 @@
 	<string name="menu_settings">Impostazioni</string>
 	<string name="menu_refresh_schedule">Aggiorna palinsesto</string>
 	<string name="menu_change_captcha">Cambia CAPTCHA</string>
+	<string name="menu_suggest">Suggerisci agli amici</string>
 
 </resources>

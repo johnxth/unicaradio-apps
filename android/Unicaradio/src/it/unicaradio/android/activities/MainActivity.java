@@ -21,6 +21,7 @@ import it.unicaradio.android.fragments.UnicaradioFragment;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.listeners.TabSelectedListener;
+import it.unicaradio.android.utils.IntentUtils;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
 
@@ -189,6 +190,9 @@ public class MainActivity extends SherlockFragmentActivity
 			}
 
 			startActivity(intent);
+		} else if(item.getItemId() == R.id.unicaradio_suggest) {
+			IntentUtils.sendEmail(this, getString(R.string.suggest_subject),
+					getString(R.string.suggest_content));
 		}
 
 		return super.onOptionsItemSelected(item);

@@ -16,6 +16,7 @@
  */
 package it.unicaradio.android.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -30,5 +31,15 @@ public class IntentUtils
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setData(Uri.parse(url));
 		context.startActivity(i);
+	}
+
+	public static void sendEmail(Activity context, String subject,
+			String content)
+	{
+		final Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("message/rfc822");
+		intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+		intent.putExtra(Intent.EXTRA_TEXT, content);
+		context.startActivity(intent);
 	}
 }
