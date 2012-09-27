@@ -14,33 +14,39 @@
  * 
  * Copyright UnicaRadio
  */
-package it.unicaradio.android.utils;
+package it.unicaradio.android.listeners;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import it.unicaradio.android.enums.Error;
+import it.unicaradio.android.models.Response;
 
 /**
  * @author Paolo Cortis
  */
-public class IntentUtils
+public class SongRequestTaskFailedListener<Result> extends
+		GenericAsyncTaskFailedListener<Result>
 {
-	public static void openLink(Context context, String url)
+	/**
+	 * @param context
+	 */
+	public SongRequestTaskFailedListener(Context context)
 	{
-		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setData(Uri.parse(url));
-		context.startActivity(i);
+		super(context);
 	}
 
-	public static void sendEmail(final Activity context, String subject,
-			String content)
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onTaskFailed(Response<Result> result)
 	{
-		final Intent intent = new Intent(Intent.ACTION_SENDTO,
-				Uri.parse("mailto:"));
-		intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-		intent.putExtra(Intent.EXTRA_TEXT, content);
-
-		context.startActivity(intent);
+		if(result.getErrorCode() == Error.OPERATION_FORBIDDEN) {
+			new AlertDialog.Builder(getContext()).setTitle("Errore")
+					.setMessage("Attendi prima di effettuare altre richieste.")
+					.setCancelable(false).setPositiveButton("OK", null).show();
+		} else {
+			super.onTaskFailed(result);
+		}
 	}
 }

@@ -38,10 +38,6 @@ public class SongRequest
 
 	private String title;
 
-	private String captcha;
-
-	private String result;
-
 	/**
 	 * @return the email
 	 */
@@ -90,46 +86,12 @@ public class SongRequest
 		this.title = title;
 	}
 
-	/**
-	 * @return the captcha
-	 */
-	public String getCaptcha()
-	{
-		return captcha;
-	}
-
-	/**
-	 * @param captcha the captcha to set
-	 */
-	public void setCaptcha(String captcha)
-	{
-		this.captcha = captcha;
-	}
-
-	/**
-	 * @return the result
-	 */
-	public String getResult()
-	{
-		return result;
-	}
-
-	/**
-	 * @param result the result to set
-	 */
-	public void setResult(String result)
-	{
-		this.result = result;
-	}
-
 	public JSONObject toJSON(Context context)
 	{
 		JSONObject params = new JSONObject();
 		try {
 			params.put("art", getAuthor());
-			params.put("op", getCaptcha());
 			params.put("mail", getEmail());
-			params.put("r", getResult());
 			params.put("tit", getTitle());
 
 			JSONObject app = new JSONObject();

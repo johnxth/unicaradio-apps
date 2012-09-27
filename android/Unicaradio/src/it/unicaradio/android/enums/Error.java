@@ -11,6 +11,8 @@ public enum Error {
 
 	MAIL_ERROR_SENDING,
 
+	OPERATION_FORBIDDEN,
+
 	GENERIC_ERROR;
 
 	public static Error fromInteger(int errorCode)
@@ -36,6 +38,8 @@ public enum Error {
 				return CAPTCHA_NOT_FOUND;
 			case 0x200:
 				return MAIL_ERROR_SENDING;
+			case 0x300:
+				return OPERATION_FORBIDDEN;
 			case 0x900:
 				return GENERIC_ERROR;
 
@@ -67,6 +71,8 @@ public enum Error {
 				return 0x100;
 			case MAIL_ERROR_SENDING:
 				return 0x200;
+			case OPERATION_FORBIDDEN:
+				return 0x300;
 			case GENERIC_ERROR:
 				return 0x900;
 			default:

@@ -25,7 +25,6 @@ import android.util.Log;
 
 /**
  * @author Paolo Cortis
- * 
  */
 public class GenericAsyncTaskFailedListener<Result> implements
 		OnTaskFailedListener<Response<Result>>
@@ -59,5 +58,13 @@ public class GenericAsyncTaskFailedListener<Result> implements
 							"È avvenuto un errore imprevisto. Riprova più tardi.")
 					.setCancelable(false).setPositiveButton("OK", null).show();
 		}
+	}
+
+	/**
+	 * @return the context
+	 */
+	public Context getContext()
+	{
+		return context;
 	}
 }

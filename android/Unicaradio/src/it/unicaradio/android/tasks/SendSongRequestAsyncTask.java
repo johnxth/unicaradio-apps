@@ -22,6 +22,7 @@ import it.unicaradio.android.models.SongRequest;
 import it.unicaradio.android.utils.NetworkUtils;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
@@ -29,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * @author Paolo Cortis
@@ -37,6 +39,12 @@ public class SendSongRequestAsyncTask extends
 		BlockingAsyncTaskWithResponse<String>
 {
 	private static final String WEB_SERVICE = "http://www.unicaradio.it/regia/test/unicaradio-mail/endpoint.php";
+
+	// private static final String WEB_SERVICE =
+	// "http://172.20.0.199/unicaradio-mail/endpoint.php";
+
+	private static final String TAG = SendSongRequestAsyncTask.class
+			.getSimpleName();
 
 	private SongRequest songRequest;
 
@@ -67,7 +75,10 @@ public class SendSongRequestAsyncTask extends
 			return new Response<String>(Error.INTERNAL_GENERIC_ERROR);
 		}
 
-		byte[] postData = request.toString().getBytes();
+		String requestJSONString = request.toString();
+		Log.d(TAG, MessageFormat.format("request: {0}", requestJSONString));
+
+		byte[] postData = requestJSONString.getBytes();
 		byte[] httpResult;
 		try {
 			httpResult = NetworkUtils.httpPost(WEB_SERVICE, postData,
@@ -85,6 +96,7 @@ public class SendSongRequestAsyncTask extends
 		}
 
 		String httpResultString = new String(httpResult);
+		Log.d(TAG, MessageFormat.format("response: {0}", httpResultString));
 		try {
 			JSONObject response = new JSONObject(httpResultString);
 			int errorCodeInt = response.getInt("errorCode");
