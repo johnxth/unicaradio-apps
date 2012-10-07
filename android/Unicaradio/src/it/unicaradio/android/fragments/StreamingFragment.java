@@ -382,21 +382,16 @@ public class StreamingFragment extends UnicaradioFragment
 			return;
 		}
 
+		boolean isInfoNotBlank = !infos.isClean();
 		if(trackAuthor != null) {
 			boolean isDeviceATablet = getActivity().findViewById(
 					R.id.tablet_layout) != null;
 			trackAuthor.setText(StringUtils.EMPTY);
-			if(isDeviceATablet && !infos.isClean()) {
+			if(isDeviceATablet && isInfoNotBlank) {
 				trackAuthor.setText(infos.getAuthor());
-				getActivity().findViewById(R.id.author_label).setVisibility(
-						View.VISIBLE);
-				getActivity().findViewById(R.id.title_label).setVisibility(
-						View.VISIBLE);
+				showAuthorAndTitleFields();
 			} else if(isDeviceATablet) {
-				getActivity().findViewById(R.id.author_label).setVisibility(
-						View.GONE);
-				getActivity().findViewById(R.id.title_label).setVisibility(
-						View.GONE);
+				hideAuthorAndTitleFields();
 			} else {
 				trackAuthor.setText("- " + infos.getAuthor() + " -");
 			}
@@ -404,7 +399,7 @@ public class StreamingFragment extends UnicaradioFragment
 			trackTitle.setText(infos.getTitle());
 		} else {
 			String currentlyOnAir = infos.getAuthor();
-			if(!infos.isClean() && !StringUtils.isEmpty(infos.getTitle())) {
+			if(isInfoNotBlank && !StringUtils.isEmpty(infos.getTitle())) {
 				currentlyOnAir += " - " + infos.getTitle();
 			} else if(infos.isClean()) {
 				currentlyOnAir = "- " + currentlyOnAir + " -";
@@ -412,6 +407,20 @@ public class StreamingFragment extends UnicaradioFragment
 
 			trackTitle.setText(currentlyOnAir);
 		}
+	}
+
+	private void showAuthorAndTitleFields()
+	{
+		getActivity().findViewById(R.id.author_label).setVisibility(
+				View.VISIBLE);
+		getActivity().findViewById(R.id.title_label)
+				.setVisibility(View.VISIBLE);
+	}
+
+	private void hideAuthorAndTitleFields()
+	{
+		getActivity().findViewById(R.id.author_label).setVisibility(View.GONE);
+		getActivity().findViewById(R.id.title_label).setVisibility(View.GONE);
 	}
 
 	private void updateCoverInUi()
