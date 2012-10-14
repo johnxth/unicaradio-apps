@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:unicaradio="http://schemas.android.com/apk/res/it.unicaradio.android"
+	android:orientation="horizontal"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_alignParentTop="true"
+	android:id="@+id/tabBarContainer">
+
+	<it.unicaradio.android.gui.TabBar
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/tabBar"
+		android:background="@drawable/tab_background">
+		<it.unicaradio.android.gui.Tabs
+			android:id="@+id/tabs"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<it.unicaradio.android.gui.Tab
+				android:id="@+id/streamingTab"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:paddingTop="15dip"
+				android:paddingBottom="15dip"
+				android:background="@drawable/tab_background"
+				unicaradio:type="STREAMING">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:text="In onda"
+					android:drawableLeft="@drawable/onair"
+					android:drawablePadding="8dp"
+					android:gravity="center" />
+			</it.unicaradio.android.gui.Tab>
+			<it.unicaradio.android.gui.Tab
+				android:id="@+id/scheduleTab"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:paddingTop="15dip"
+				android:paddingBottom="15dip"
+				android:background="@drawable/tab_background"
+				unicaradio:type="SCHEDULE">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:text="Palinsesto"
+					android:drawableLeft="@drawable/schedule"
+					android:drawablePadding="8dp"
+					android:gravity="center" />
+			</it.unicaradio.android.gui.Tab>
+			<it.unicaradio.android.gui.Tab
+				android:id="@+id/songTab"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:paddingTop="15dip"
+				android:paddingBottom="15dip"
+				android:background="@drawable/tab_background"
+				unicaradio:type="SONG">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:text="Richiedi canzone"
+					android:drawableLeft="@drawable/song"
+					android:drawablePadding="8dp"
+					android:gravity="center" />
+			</it.unicaradio.android.gui.Tab>
+			<it.unicaradio.android.gui.Tab
+				android:id="@+id/favoritesTab"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:paddingTop="15dip"
+				android:paddingBottom="15dip"
+				android:background="@drawable/tab_background"
+				unicaradio:type="FAVOURITES">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:text="Preferiti"
+					android:drawableLeft="@drawable/favorites"
+					android:drawablePadding="8dp"
+					android:gravity="center" />
+			</it.unicaradio.android.gui.Tab>
+			<it.unicaradio.android.gui.Tab
+				android:id="@+id/infosTab"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:paddingTop="15dip"
+				android:paddingBottom="15dip"
+				android:background="@drawable/tab_background"
+				unicaradio:type="INFO">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:text="Info"
+					android:drawableLeft="@drawable/info"
+					android:drawablePadding="8dp"
+					android:gravity="center" />
+			</it.unicaradio.android.gui.Tab>
+		</it.unicaradio.android.gui.Tabs>
+	</it.unicaradio.android.gui.TabBar>
+</LinearLayout>

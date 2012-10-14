@@ -13,10 +13,11 @@
 		android:id="@+id/include1"
 		layout="@layout/tabs" />
 
-	<FrameLayout
+	<android.support.v4.view.ViewPager
 		android:layout_below="@+id/include1"
-		android:id="@+id/fragment_content"
+		android:id="@+id/pager"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+		android:layout_height="match_parent">
+	</android.support.v4.view.ViewPager>
 
 </RelativeLayout>

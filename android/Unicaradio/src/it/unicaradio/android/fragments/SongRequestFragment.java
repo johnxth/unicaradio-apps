@@ -106,6 +106,16 @@ public class SongRequestFragment extends UnicaradioFragment
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void onResume()
+	{
+		super.onResume();
+		setupTab();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -118,9 +128,17 @@ public class SongRequestFragment extends UnicaradioFragment
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
-		outState.putString("mail", emailView.getText().toString());
-		outState.putString("author", authorView.getText().toString());
-		outState.putString("title", titleView.getText().toString());
+		if(emailView != null) {
+			outState.putString("mail", emailView.getText().toString());
+		}
+
+		if(authorView != null) {
+			outState.putString("author", authorView.getText().toString());
+		}
+
+		if(titleView != null) {
+			outState.putString("title", titleView.getText().toString());
+		}
 
 		super.onSaveInstanceState(outState);
 	}

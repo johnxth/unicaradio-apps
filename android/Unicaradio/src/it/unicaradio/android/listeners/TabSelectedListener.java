@@ -17,17 +17,22 @@
 package it.unicaradio.android.listeners;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.fragments.FavouritesFragment;
-import it.unicaradio.android.fragments.InfoFragment;
-import it.unicaradio.android.fragments.ScheduleFragment;
-import it.unicaradio.android.fragments.SongRequestFragment;
-import it.unicaradio.android.fragments.StreamingFragment;
+import it.unicaradio.android.adapters.UnicaradioPagerAdapter;
 import it.unicaradio.android.fragments.UnicaradioFragment;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tab.OnTabSelectedListener;
 import it.unicaradio.android.gui.Tabs;
+
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 
 /**
  * @author Paolo Cortis
@@ -38,25 +43,43 @@ public class TabSelectedListener implements OnTabSelectedListener
 
 	private static int currentTab = Tabs.STREAMING;
 
-	private static StreamingFragment streamingFragment;
-
-	private static ScheduleFragment scheduleFragment;
-
-	private static SongRequestFragment songRequestFragment;
-
-	private static FavouritesFragment favouritesFragment;
-
-	private static InfoFragment infoFragment;
-
-	private UnicaradioFragment currentFragment;
-
 	private FragmentManager fragmentManager;
 
-	public TabSelectedListener(FragmentManager fragmentManager)
+	private ViewPager viewPager;
+
+	private PagerAdapter pagerAdapter;
+
+	private Context context;
+
+	public TabSelectedListener(Context context,
+			FragmentManager fragmentManager, ViewPager viewPager)
 	{
+		this.viewPager = viewPager;
+		this.context = context;
 		this.fragmentManager = fragmentManager;
 
-		showFragment(new StreamingFragment());
+		init();
+	}
+
+	public void init()
+	{
+		this.pagerAdapter = new UnicaradioPagerAdapter(fragmentManager,
+				Tabs.getFragmentsAsList(context));
+		this.viewPager.setAdapter(pagerAdapter);
+		this.viewPager
+				.setOnPageChangeListener(new UnicaradioOnPageChangeListener());
+
+		showCurrentFragment();
+	}
+
+	/**
+	 * @return
+	 */
+	public UnicaradioFragment getCurrentFragment()
+	{
+		List<Fragment> fragmentsAsList = Tabs.getFragmentsAsList(context);
+
+		return (UnicaradioFragment) fragmentsAsList.get(currentTab);
 	}
 
 	/**
@@ -73,87 +96,7 @@ public class TabSelectedListener implements OnTabSelectedListener
 		}
 
 		currentTab = selectedTab;
-		switch(selectedTab) {
-			case Tabs.STREAMING:
-				Log.i(TAG, "Showing Streaming");
-				showFragment(getStreamingFragment());
-				break;
-			case Tabs.SCHEDULE:
-				Log.i(TAG, "Showing Schedule");
-				showFragment(getScheduleFragment());
-				break;
-			case Tabs.SONG:
-				Log.i(TAG, "Showing SongRequest");
-				showFragment(getSongRequestFragment());
-				break;
-			case Tabs.FAVORITES:
-				Log.i(TAG, "Showing Favourites");
-				showFragment(getFavouritesFragment());
-				break;
-			case Tabs.INFO:
-				Log.i(TAG, "Showing Info");
-				showFragment(getInfoFragment());
-				break;
-
-			default:
-				break;
-		}
-	}
-
-	/**
-	 * @return the streamingFragment
-	 */
-	private static StreamingFragment getStreamingFragment()
-	{
-		if(streamingFragment == null) {
-			streamingFragment = new StreamingFragment();
-		}
-
-		return streamingFragment;
-	}
-
-	private static ScheduleFragment getScheduleFragment()
-	{
-		if(scheduleFragment == null) {
-			scheduleFragment = new ScheduleFragment();
-		}
-
-		return scheduleFragment;
-	}
-
-	private static SongRequestFragment getSongRequestFragment()
-	{
-		if(songRequestFragment == null) {
-			songRequestFragment = new SongRequestFragment();
-		}
-
-		return songRequestFragment;
-	}
-
-	private static FavouritesFragment getFavouritesFragment()
-	{
-		if(favouritesFragment == null) {
-			favouritesFragment = new FavouritesFragment();
-		}
-
-		return favouritesFragment;
-	}
-
-	private static InfoFragment getInfoFragment()
-	{
-		if(infoFragment == null) {
-			infoFragment = new InfoFragment();
-		}
-
-		return infoFragment;
-	}
-
-	/**
-	 * @return the currentFragment
-	 */
-	public UnicaradioFragment getCurrentFragment()
-	{
-		return currentFragment;
+		showCurrentFragment();
 	}
 
 	/**
@@ -172,11 +115,46 @@ public class TabSelectedListener implements OnTabSelectedListener
 		this.fragmentManager = fragmentManager;
 	}
 
-	private void showFragment(UnicaradioFragment fragment)
+	private void showCurrentFragment()
 	{
-		currentFragment = fragment;
-		fragmentManager.beginTransaction()
-				.replace(R.id.fragment_content, fragment)
-				.commitAllowingStateLoss();
+		viewPager.setCurrentItem(getCurrentTab());
+	}
+
+	/**
+	 * @param viewPager the viewPager to set
+	 */
+	public void setViewPager(ViewPager viewPager)
+	{
+		this.viewPager = viewPager;
+	}
+
+	/**
+	 * @param context the context to set
+	 */
+	public void setContext(Context context)
+	{
+		this.context = context;
+	}
+
+	/**
+	 * @author Paolo Cortis
+	 */
+	private final class UnicaradioOnPageChangeListener extends
+			ViewPager.SimpleOnPageChangeListener
+	{
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onPageSelected(int position)
+		{
+			currentTab = position;
+
+			View rootView = viewPager.getRootView();
+			Tabs tabsContainer = (Tabs) rootView.findViewById(R.id.tabs);
+
+			Map<Integer, Tab> tabs = Tabs.getTabs(tabsContainer);
+			tabs.get(position).select();
+		}
 	}
 }

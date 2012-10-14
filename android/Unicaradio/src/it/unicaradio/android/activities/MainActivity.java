@@ -25,7 +25,6 @@ import it.unicaradio.android.utils.IntentUtils;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Dialog;
@@ -40,6 +39,7 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,17 +68,22 @@ public class MainActivity extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_layout);
 
+		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 		if(tabSelectedListener == null) {
-			tabSelectedListener = new TabSelectedListener(
-					getSupportFragmentManager());
+			tabSelectedListener = new TabSelectedListener(this,
+					getSupportFragmentManager(), viewPager);
 		} else {
 			tabSelectedListener.setFragmentManager(getSupportFragmentManager());
+			tabSelectedListener.setViewPager(viewPager);
+			tabSelectedListener.setContext(this);
+			tabSelectedListener.init();
 		}
 
 		ViewUtils.setupActionBar(getSupportActionBar(), getResources());
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-		Map<Integer, Tab> tabs = updateReferences();
+		Tabs tabsContainer = (Tabs) findViewById(R.id.tabs);
+		Map<Integer, Tab> tabs = Tabs.getTabs(tabsContainer);
 		tabs.get(TabSelectedListener.getCurrentTab()).setSelected(true);
 		setupListeners(tabs);
 
@@ -196,22 +201,6 @@ public class MainActivity extends SherlockFragmentActivity
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	private Map<Integer, Tab> updateReferences()
-	{
-		Map<Integer, Tab> tabs = new HashMap<Integer, Tab>();
-
-		Tabs tabsContainer = (Tabs) findViewById(R.id.tabs);
-		for(int i = 0; i < tabsContainer.getChildCount(); i++) {
-			View child = tabsContainer.getChildAt(i);
-			if(child instanceof Tab) {
-				Tab tab = (Tab) child;
-				tabs.put(tab.getType(), tab);
-			}
-		}
-
-		return tabs;
 	}
 
 	private void setupListeners(Map<Integer, Tab> tabs)

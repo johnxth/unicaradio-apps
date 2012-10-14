@@ -112,6 +112,16 @@ public class Tab extends LinearLayout
 		});
 	}
 
+	public void select()
+	{
+		ViewGroup parent = (ViewGroup) getParent();
+		for(int i = 0; i < parent.getChildCount(); i++) {
+			parent.getChildAt(i).setSelected(false);
+		}
+
+		setSelected(true);
+	}
+
 	private int convertDpToPixel(int dp)
 	{
 		float scale = context.getResources().getDisplayMetrics().density;

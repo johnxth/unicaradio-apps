@@ -16,8 +16,21 @@
  */
 package it.unicaradio.android.gui;
 
+import it.unicaradio.android.fragments.FavouritesFragment;
+import it.unicaradio.android.fragments.InfoFragment;
+import it.unicaradio.android.fragments.ScheduleFragment;
+import it.unicaradio.android.fragments.SongRequestFragment;
+import it.unicaradio.android.fragments.StreamingFragment;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TableRow;
 
 /**
@@ -44,6 +57,39 @@ public class Tabs extends TableRow
 	public Tabs(Context context)
 	{
 		super(context);
+	}
+
+	public static List<Fragment> getFragmentsAsList(Context context)
+	{
+		ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+
+		fragments.add(Fragment.instantiate(context,
+				StreamingFragment.class.getName()));
+		fragments.add(Fragment.instantiate(context,
+				ScheduleFragment.class.getName()));
+		fragments.add(Fragment.instantiate(context,
+				SongRequestFragment.class.getName()));
+		fragments.add(Fragment.instantiate(context,
+				FavouritesFragment.class.getName()));
+		fragments.add(Fragment.instantiate(context,
+				InfoFragment.class.getName()));
+
+		return fragments;
+	}
+
+	public static Map<Integer, Tab> getTabs(Tabs tabsContainer)
+	{
+		Map<Integer, Tab> tabs = new HashMap<Integer, Tab>();
+
+		for(int i = 0; i < tabsContainer.getChildCount(); i++) {
+			View child = tabsContainer.getChildAt(i);
+			if(child instanceof Tab) {
+				Tab tab = (Tab) child;
+				tabs.put(tab.getType(), tab);
+			}
+		}
+
+		return tabs;
 	}
 
 	private void init()
