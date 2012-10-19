@@ -23,13 +23,10 @@ import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tab.OnTabSelectedListener;
 import it.unicaradio.android.gui.Tabs;
 
-import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -47,7 +44,7 @@ public class TabSelectedListener implements OnTabSelectedListener
 
 	private ViewPager viewPager;
 
-	private PagerAdapter pagerAdapter;
+	private UnicaradioPagerAdapter pagerAdapter;
 
 	private Context context;
 
@@ -77,9 +74,7 @@ public class TabSelectedListener implements OnTabSelectedListener
 	 */
 	public UnicaradioFragment getCurrentFragment()
 	{
-		List<Fragment> fragmentsAsList = Tabs.getFragmentsAsList(context);
-
-		return (UnicaradioFragment) fragmentsAsList.get(currentTab);
+		return (UnicaradioFragment) pagerAdapter.getItem(currentTab);
 	}
 
 	/**

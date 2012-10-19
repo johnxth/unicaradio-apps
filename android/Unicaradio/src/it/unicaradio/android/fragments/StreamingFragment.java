@@ -343,12 +343,12 @@ public class StreamingFragment extends UnicaradioFragment
 			oldInfos.setTrackInfos(infos);
 		}
 
+		unregisterReceivers();
+
 		if(streamingService != null) {
 			getActivity().unbindService(serviceConnection);
 			streamingService = null;
 		}
-
-		unregisterReceivers();
 
 		super.onPause();
 	}

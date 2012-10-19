@@ -13,11 +13,12 @@ public class DownloadScheduleAsyncTask extends
 {
 	private static final String SCHEDULE_URL = "http://www.unicaradio.it/regia/test/palinsesto.php";
 
-	public DownloadScheduleAsyncTask(Context context)
+	public DownloadScheduleAsyncTask(Context context, boolean shouldShowDialog)
 	{
 		super(context);
 
 		setDialogMessage("Caricamento palinsesto in corso...");
+		setDialogVisible(shouldShowDialog);
 	}
 
 	@Override

@@ -20,6 +20,8 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 
 	protected OnTaskFailedListener<Result> taskFailedListener;
 
+	private boolean dialogVisible = true;
+
 	public BlockingAsyncTask(Context context)
 	{
 		this.dialogTitle = context
@@ -34,14 +36,20 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 	{
 		super.onPreExecute();
 
-		progressDialog = ProgressDialog.show(context, dialogTitle,
-				dialogMessage, true);
+		if(dialogVisible) {
+			progressDialog = ProgressDialog.show(context, dialogTitle,
+					dialogMessage, true);
+		}
 	}
 
 	@Override
 	protected void onPostExecute(Result result)
 	{
 		super.onPostExecute(result);
+
+		if(progressDialog == null) {
+			return;
+		}
 
 		try {
 			progressDialog.dismiss();
@@ -53,6 +61,10 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 	@Override
 	protected void onCancelled(Result result)
 	{
+		if(progressDialog == null) {
+			return;
+		}
+
 		try {
 			progressDialog.dismiss();
 		} catch(IllegalArgumentException e) {
@@ -61,8 +73,7 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 	}
 
 	/**
-	 * @param dialogTitle
-	 * the dialogTitle to set
+	 * @param dialogTitle the dialogTitle to set
 	 */
 	public void setDialogTitle(String dialogTitle)
 	{
@@ -70,8 +81,7 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 	}
 
 	/**
-	 * @param dialogMessage
-	 * the dialogMessage to set
+	 * @param dialogMessage the dialogMessage to set
 	 */
 	public void setDialogMessage(String dialogMessage)
 	{
@@ -79,8 +89,7 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 	}
 
 	/**
-	 * @param dialogTitle
-	 * the dialogTitle to set
+	 * @param dialogTitle the dialogTitle to set
 	 */
 	public void setDialogTitle(int dialogTitle)
 	{
@@ -88,8 +97,7 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 	}
 
 	/**
-	 * @param dialogMessage
-	 * the dialogMessage to set
+	 * @param dialogMessage the dialogMessage to set
 	 */
 	public void setDialogMessage(int dialogMessage)
 	{
@@ -134,5 +142,20 @@ public abstract class BlockingAsyncTask<Params, Progress, Result> extends
 	public interface OnTaskFailedListener<Result>
 	{
 		void onTaskFailed(Result result);
+	}
+
+	public void setDialogVisible(boolean isVisible)
+	{
+		this.dialogVisible = isVisible;
+	}
+
+	public void hideDialog()
+	{
+		setDialogVisible(false);
+	}
+
+	public void showDialog()
+	{
+		setDialogVisible(true);
 	}
 }

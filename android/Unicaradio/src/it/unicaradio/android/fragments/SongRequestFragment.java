@@ -30,7 +30,6 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -38,6 +37,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private String email;
 
-	private TextView emailView;
+	private AutoCompleteTextView emailView;
 
 	private TextView authorView;
 
@@ -90,16 +91,15 @@ public class SongRequestFragment extends UnicaradioFragment
 		songButton.setOnClickListener(new SendSongRequestClickListener());
 
 		if(savedInstanceState != null) {
-			email = savedInstanceState.getString("mail");
+			email = StringUtils.defaultString(savedInstanceState
+					.getString("mail"));
 			updateEmailOnView();
 
 			authorView.setText(savedInstanceState.getString("author"));
 			titleView.setText(savedInstanceState.getString("title"));
-		} else {
-			if(!isEmailSet) {
-				setEmailField();
-			}
 		}
+
+		prepareEmailField();
 	}
 
 	/**
@@ -126,6 +126,15 @@ public class SongRequestFragment extends UnicaradioFragment
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void onStart()
+	{
+		super.onStart();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		if(emailView != null) {
@@ -143,7 +152,7 @@ public class SongRequestFragment extends UnicaradioFragment
 		super.onSaveInstanceState(outState);
 	}
 
-	private void setEmailField()
+	private void prepareEmailField()
 	{
 		email = StringUtils.EMPTY;
 		updateEmailOnView();
@@ -164,7 +173,8 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private void setupTab()
 	{
-		emailView = (TextView) getActivity().findViewById(R.id.songsEmail);
+		emailView = (AutoCompleteTextView) getActivity().findViewById(
+				R.id.songsEmail);
 		authorView = (TextView) getActivity().findViewById(R.id.songsAuthor);
 		titleView = (TextView) getActivity().findViewById(R.id.songsTitle);
 		songButton = (Button) getActivity().findViewById(R.id.songButton);
@@ -173,7 +183,9 @@ public class SongRequestFragment extends UnicaradioFragment
 	private void updateEmailOnView()
 	{
 		isEmailSet = true;
-		emailView.setText(email.toString());
+
+		String mail = email.toString();
+		emailView.setText(mail);
 		saveEmailInPreferences();
 	}
 
@@ -314,21 +326,10 @@ public class SongRequestFragment extends UnicaradioFragment
 				final String[] tmpEmails = result.toArray(new String[result
 						.size()]);
 
-				new AlertDialog.Builder(getActivity())
-						.setTitle(
-								"Quale indirizzo vuoi usare per inviare l'email?")
-						.setCancelable(true)
-						.setNegativeButton("Annulla", null)
-						.setItems(tmpEmails,
-								new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog,
-											int item)
-									{
-										email = tmpEmails[item];
-										updateEmailOnView();
-									}
-								}).show();
+				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+						getActivity(),
+						android.R.layout.simple_dropdown_item_1line, tmpEmails);
+				emailView.setAdapter(arrayAdapter);
 			}
 		}
 	}

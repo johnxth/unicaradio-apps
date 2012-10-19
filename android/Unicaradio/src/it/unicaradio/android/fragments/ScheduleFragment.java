@@ -31,10 +31,6 @@ import it.unicaradio.android.utils.NetworkUtils;
 
 import java.util.List;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,7 +41,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  * @author Paolo Cortis
@@ -56,7 +57,7 @@ public class ScheduleFragment extends UnicaradioFragment
 
 	private static Schedule schedule;
 
-	private ListState state;
+	private ListState state = ListState.FIRST_LEVEL;
 
 	private int clicked;
 
@@ -96,7 +97,7 @@ public class ScheduleFragment extends UnicaradioFragment
 		}
 
 		if(schedule == null) {
-			updateScheduleFromJSON();
+			updateScheduleFromJSON(RefreshType.NORMAL);
 		}
 	}
 
@@ -120,7 +121,7 @@ public class ScheduleFragment extends UnicaradioFragment
 		switch(item.getItemId()) {
 			case R.id.scheduleUpdate:
 				drawFirstLevel();
-				updateScheduleFromJSON();
+				updateScheduleFromJSON(RefreshType.FORCED);
 				return true;
 			case android.R.id.home:
 				drawFirstLevel();
@@ -166,6 +167,11 @@ public class ScheduleFragment extends UnicaradioFragment
 		BaseAdapter adapter = new ArrayAlternatedColoursAdapter<Object>(
 				getActivity(), android.R.layout.simple_list_item_1, days);
 		scheduleListView.setAdapter(adapter);
+
+		TextView scheduleDay = (TextView) getActivity().findViewById(
+				R.id.scheduleDay);
+		scheduleDay.setVisibility(View.GONE);
+
 		return scheduleListView;
 	}
 
@@ -182,6 +188,13 @@ public class ScheduleFragment extends UnicaradioFragment
 				getActivity(), transmissions, R.layout.list_two_columns);
 		scheduleListView.setAdapter(transmissionsAdapter);
 
+		TextView scheduleDay = (TextView) getActivity().findViewById(
+				R.id.scheduleDay);
+		scheduleDay.setVisibility(View.VISIBLE);
+		String[] days = getActivity().getResources().getStringArray(
+				R.array.days);
+		scheduleDay.setText(days[position]);
+
 		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
 				true);
 	}
@@ -193,10 +206,12 @@ public class ScheduleFragment extends UnicaradioFragment
 				Toast.LENGTH_LONG).show();
 	}
 
-	private void updateScheduleFromJSON()
+	private void updateScheduleFromJSON(RefreshType refreshType)
 	{
+		boolean shouldShowDialog = (refreshType == RefreshType.FORCED);
+
 		DownloadScheduleAsyncTask task = new DownloadScheduleAsyncTask(
-				getActivity());
+				getActivity(), shouldShowDialog);
 		task.setOnTaskCompletedListener(new OnDownloadScheduleAsyncTaskCompletedListener());
 		task.setOnTaskFailedListener(new OnDownloadScheduleAsyncTaskFailedListener());
 		task.execute();
@@ -263,7 +278,7 @@ public class ScheduleFragment extends UnicaradioFragment
 			if(schedule == null) {
 				if(NetworkUtils.isConnected(getActivity())) {
 					clicked = position;
-					updateScheduleFromJSON();
+					updateScheduleFromJSON(RefreshType.FORCED);
 				} else {
 					alertNoConnectionAvailable();
 				}
@@ -277,5 +292,9 @@ public class ScheduleFragment extends UnicaradioFragment
 
 	private enum ListState {
 		FIRST_LEVEL, SECOND_LEVEL
+	}
+
+	private enum RefreshType {
+		NORMAL, FORCED
 	}
 }

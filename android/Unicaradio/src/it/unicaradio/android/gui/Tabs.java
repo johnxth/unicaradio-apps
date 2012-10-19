@@ -48,31 +48,31 @@ public class Tabs extends TableRow
 
 	public static final int INFO = 4;
 
+	private static List<Fragment> fragments;
+
+	private Context context;
+
 	public Tabs(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
+
+		this.context = context;
 		init();
 	}
 
 	public Tabs(Context context)
 	{
 		super(context);
+
+		this.context = context;
+		init();
 	}
 
 	public static List<Fragment> getFragmentsAsList(Context context)
 	{
-		ArrayList<Fragment> fragments = new ArrayList<Fragment>();
-
-		fragments.add(Fragment.instantiate(context,
-				StreamingFragment.class.getName()));
-		fragments.add(Fragment.instantiate(context,
-				ScheduleFragment.class.getName()));
-		fragments.add(Fragment.instantiate(context,
-				SongRequestFragment.class.getName()));
-		fragments.add(Fragment.instantiate(context,
-				FavouritesFragment.class.getName()));
-		fragments.add(Fragment.instantiate(context,
-				InfoFragment.class.getName()));
+		if(fragments == null) {
+			fragments = initFragments(context);
+		}
 
 		return fragments;
 	}
@@ -95,5 +95,27 @@ public class Tabs extends TableRow
 	private void init()
 	{
 		setOrientation(HORIZONTAL);
+
+		if(fragments == null) {
+			fragments = initFragments(context);
+		}
+	}
+
+	private static ArrayList<Fragment> initFragments(Context context)
+	{
+		ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+
+		fragments.add(Fragment.instantiate(context,
+				StreamingFragment.class.getName()));
+		fragments.add(Fragment.instantiate(context,
+				ScheduleFragment.class.getName()));
+		fragments.add(Fragment.instantiate(context,
+				SongRequestFragment.class.getName()));
+		fragments.add(Fragment.instantiate(context,
+				FavouritesFragment.class.getName()));
+		fragments.add(Fragment.instantiate(context,
+				InfoFragment.class.getName()));
+
+		return fragments;
 	}
 }

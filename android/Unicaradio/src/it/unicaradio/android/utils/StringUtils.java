@@ -247,4 +247,27 @@ public class StringUtils
 	{
 		return (string == null) || string.equals(EMPTY);
 	}
+
+	public static String defaultString(String string)
+	{
+		return defaultString(string, EMPTY);
+	}
+
+	public static String defaultString(String string, String defaultString)
+	{
+		if(string == null) {
+			return EMPTY;
+		}
+
+		return string;
+	}
+
+	public static String defaultIfEmpty(String string, String defaultString)
+	{
+		if(isEmpty(string)) {
+			return defaultString;
+		}
+
+		return string;
+	}
 }
