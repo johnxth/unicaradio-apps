@@ -26,6 +26,14 @@ import android.net.Uri;
  */
 public class IntentUtils
 {
+	public static final String ARG_SCHEDULE_DAY = "schedule_day";
+
+	public static final String ARG_SCHEDULE = "schedule";
+
+	private IntentUtils()
+	{
+	}
+
 	public static void openLink(Context context, String url)
 	{
 		Intent i = new Intent(Intent.ACTION_VIEW);

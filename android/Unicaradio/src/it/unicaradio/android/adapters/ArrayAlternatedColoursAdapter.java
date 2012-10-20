@@ -16,6 +16,8 @@
  */
 package it.unicaradio.android.adapters;
 
+import it.unicaradio.android.R;
+
 import java.util.List;
 
 import android.content.Context;
@@ -30,7 +32,8 @@ import android.widget.ArrayAdapter;
  */
 public class ArrayAlternatedColoursAdapter<T> extends ArrayAdapter<T>
 {
-	private int[] colours = new int[] {0xFF000000, 0xFF333333};
+	private int[] backgrounds = new int[] {R.drawable.list_background_odd,
+			R.drawable.list_background_even};
 
 	/**
 	 * @param context
@@ -102,17 +105,17 @@ public class ArrayAlternatedColoursAdapter<T> extends ArrayAdapter<T>
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		View view = super.getView(position, convertView, parent);
-		int colourPos = position % colours.length;
-		view.setBackgroundColor(colours[colourPos]);
+		int backgroundPos = position % backgrounds.length;
+		view.setBackgroundResource(backgrounds[backgroundPos]);
 
 		return view;
 	}
 
 	/**
-	 * @param colours the colours to set
+	 * @param backgrounds the backgrounds to set
 	 */
-	public void setColours(int[] colours)
+	public void setBackgrounds(int[] backgrounds)
 	{
-		this.colours = colours;
+		this.backgrounds = backgrounds;
 	}
 }

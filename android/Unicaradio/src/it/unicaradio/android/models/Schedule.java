@@ -18,6 +18,7 @@ package it.unicaradio.android.models;
 
 import it.unicaradio.android.enums.Day;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -32,8 +33,10 @@ import android.util.Log;
 /**
  * @author Paolo Cortis
  */
-public class Schedule
+public class Schedule implements Serializable
 {
+	private static final long serialVersionUID = 2816776439144834928L;
+
 	private static final String TAG = Schedule.class.getName();
 
 	private final LinkedHashMap<Day, List<Transmission>> transmissions;

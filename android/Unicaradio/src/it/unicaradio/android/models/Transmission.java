@@ -16,6 +16,7 @@
  */
 package it.unicaradio.android.models;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,8 +30,10 @@ import android.util.Log;
 /**
  * @author Paolo Cortis
  */
-public class Transmission implements Comparable<Transmission>
+public class Transmission implements Comparable<Transmission>, Serializable
 {
+	private static final long serialVersionUID = 4610873281831025836L;
+
 	private static final String PROGRAM_KEY = "programma";
 
 	private static final String START_TIME_KEY = "inizio";
@@ -106,8 +109,7 @@ public class Transmission implements Comparable<Transmission>
 	}
 
 	/**
-	 * @param formatName
-	 *            the formatName to set
+	 * @param formatName the formatName to set
 	 */
 	public void setFormatName(String formatName)
 	{
@@ -123,8 +125,7 @@ public class Transmission implements Comparable<Transmission>
 	}
 
 	/**
-	 * @param startTime
-	 *            the startTime to set
+	 * @param startTime the startTime to set
 	 */
 	public void setStartTime(String startTime)
 	{
