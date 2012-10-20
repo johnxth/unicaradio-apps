@@ -31,6 +31,18 @@ public class UnicaradioFragment extends SherlockFragment implements
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void onResume()
+	{
+		super.onResume();
+
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
+				false);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 		return false;

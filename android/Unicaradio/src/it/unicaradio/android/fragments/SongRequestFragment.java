@@ -100,6 +100,7 @@ public class SongRequestFragment extends UnicaradioFragment
 	public void onResume()
 	{
 		super.onResume();
+
 		setupTab();
 	}
 

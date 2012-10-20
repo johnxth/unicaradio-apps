@@ -41,10 +41,9 @@ public class FavouriteSitesAdapter extends BaseAdapter
 	private final int layout;
 
 	/**
-	 * Layout MUST have:
-	 * 1) a TextView called text1 where to put the description
-	 * 2) a Textview called text2 where to put the address
-	 * 3) a ImageView called icon where to put the logo
+	 * Layout MUST have: 1) a TextView called text1 where to put the description
+	 * 2) a Textview called text2 where to put the address 3) a ImageView called
+	 * icon where to put the logo
 	 * 
 	 * @param context
 	 * @param websites
@@ -87,6 +86,8 @@ public class FavouriteSitesAdapter extends BaseAdapter
 		drawDescription(view, website);
 		drawUrl(view, website);
 		drawLogo(view, website);
+
+		view.setBackgroundResource(R.drawable.list_background_odd);
 
 		return view;
 	}

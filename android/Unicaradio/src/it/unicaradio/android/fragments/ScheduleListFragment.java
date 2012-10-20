@@ -39,7 +39,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.MenuItem;
 
 /**
  * @author Paolo Cortis
@@ -48,6 +47,8 @@ public class ScheduleListFragment extends SherlockListFragment
 {
 	private static final String TAG = ScheduleListFragment.class
 			.getSimpleName();
+
+	public static ScheduleListFragment instance;
 
 	private int clicked = -1;
 
@@ -62,6 +63,8 @@ public class ScheduleListFragment extends SherlockListFragment
 	public void onResume()
 	{
 		super.onResume();
+
+		instance = this;
 
 		initListView();
 
@@ -84,22 +87,6 @@ public class ScheduleListFragment extends SherlockListFragment
 	{
 		isTwoPane = getActivity().getResources().getBoolean(R.bool.isTablet);
 		return inflater.inflate(R.layout.schedule_fragment, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch(item.getItemId()) {
-			case R.id.scheduleUpdate:
-				// TODO: cancellare lato destro
-				updateScheduleFromJSON(RefreshType.FORCED);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
 	}
 
 	private void initListView()
@@ -129,23 +116,22 @@ public class ScheduleListFragment extends SherlockListFragment
 
 	private void drawSecondLevel(int position)
 	{
-		// TODO: sostituire lato destro
+		Bundle arguments = new Bundle();
+		arguments.putInt(IntentUtils.ARG_SCHEDULE_DAY, position);
+		arguments.putSerializable(IntentUtils.ARG_SCHEDULE, schedule);
 
+		ScheduleDetailFragment fragment = new ScheduleDetailFragment();
+		fragment.setArguments(arguments);
 		if(isTwoPane) {
-			Bundle arguments = new Bundle();
-			arguments.putInt(IntentUtils.ARG_SCHEDULE_DAY, position);
-			arguments.putSerializable(IntentUtils.ARG_SCHEDULE, schedule);
-
-			ScheduleDetailFragment fragment = new ScheduleDetailFragment();
-			fragment.setArguments(arguments);
-
 			getFragmentManager()
 					.beginTransaction()
 					.setCustomAnimations(android.R.anim.slide_in_left,
 							android.R.anim.slide_out_right)
 					.replace(R.id.item_detail_container, fragment).commit();
 		} else {
-			// TODO
+			getFragmentManager().beginTransaction()
+					.replace(R.id.schedule_container, fragment)
+					.addToBackStack(null).commit();
 		}
 	}
 
@@ -156,7 +142,7 @@ public class ScheduleListFragment extends SherlockListFragment
 				Toast.LENGTH_LONG).show();
 	}
 
-	private void updateScheduleFromJSON(RefreshType refreshType)
+	void updateScheduleFromJSON(RefreshType refreshType)
 	{
 		boolean shouldShowDialog = (refreshType == RefreshType.FORCED);
 
@@ -236,7 +222,7 @@ public class ScheduleListFragment extends SherlockListFragment
 		}
 	}
 
-	private enum RefreshType {
+	enum RefreshType {
 		NORMAL, FORCED
 	}
 }

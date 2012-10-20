@@ -42,6 +42,7 @@ public class GetEmailAddressAsyncTask extends
 	{
 		super(context);
 
+		hideDialog();
 		setDialogTitle("Email");
 		setDialogMessage("Recupero indirizzo e-mail in corso");
 	}

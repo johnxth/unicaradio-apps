@@ -26,6 +26,7 @@ import it.unicaradio.android.utils.IntentUtils;
 import java.util.List;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,9 @@ import com.actionbarsherlock.app.SherlockListFragment;
  */
 public class ScheduleDetailFragment extends SherlockListFragment
 {
+	private static final String TAG = ScheduleDetailFragment.class
+			.getSimpleName();
+
 	private int dayInt;
 
 	private static Schedule schedule;
@@ -49,6 +53,7 @@ public class ScheduleDetailFragment extends SherlockListFragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Log.v(TAG, "onCreate");
 
 		dayInt = getArguments().getInt(IntentUtils.ARG_SCHEDULE_DAY);
 
@@ -60,11 +65,34 @@ public class ScheduleDetailFragment extends SherlockListFragment
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void onStart()
+	{
+		super.onStart();
+		Log.v(TAG, "onStart");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void onResume()
 	{
 		super.onResume();
+		Log.v(TAG, "onResume");
 
 		initList();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
+				false);
 	}
 
 	private void initList()
