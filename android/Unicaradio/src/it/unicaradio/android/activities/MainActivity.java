@@ -32,6 +32,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -67,6 +68,12 @@ public class MainActivity extends SherlockFragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_layout);
+
+		if(getResources().getBoolean(R.bool.isTablet)) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		} else {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+		}
 
 		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 		if(tabSelectedListener == null) {

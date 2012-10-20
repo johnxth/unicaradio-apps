@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	android:background="@color/dark_gray"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:background="@android:color/black"
+		android:layout_width="900dp"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:layout_centerHorizontal="true"
+		android:padding="16dp">
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textSize="20dp"
+			android:layout_marginBottom="10dp"
+			android:text="Richiedi una canzone!" />
+
+		<AutoCompleteTextView
+			android:id="@+id/songsEmail"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="eMail"
+			android:completionThreshold="1" />
+
+		<EditText
+			android:id="@+id/songsAuthor"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="Autore" />
+
+		<EditText
+			android:id="@+id/songsTitle"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:hint="Titolo canzone" />
+
+	</LinearLayout>
+</RelativeLayout>

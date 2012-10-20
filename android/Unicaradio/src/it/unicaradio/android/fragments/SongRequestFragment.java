@@ -324,6 +324,10 @@ public class SongRequestFragment extends UnicaradioFragment
 				final String[] tmpEmails = result.toArray(new String[result
 						.size()]);
 
+				if(getActivity() == null) {
+					return;
+				}
+
 				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
 						getActivity(),
 						android.R.layout.simple_dropdown_item_1line, tmpEmails);
