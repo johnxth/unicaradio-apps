@@ -82,6 +82,15 @@ public class ScheduleListFragment extends SherlockListFragment
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void onPause()
+	{
+		super.onPause();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
