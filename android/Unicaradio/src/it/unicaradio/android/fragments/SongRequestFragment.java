@@ -35,12 +35,14 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.TextView;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  * @author Paolo Cortis
@@ -56,15 +58,6 @@ public class SongRequestFragment extends UnicaradioFragment
 	private TextView authorView;
 
 	private TextView titleView;
-
-	private Button songButton;
-
-	private boolean isEmailSet;
-
-	public SongRequestFragment()
-	{
-		isEmailSet = false;
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -87,8 +80,6 @@ public class SongRequestFragment extends UnicaradioFragment
 		preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
 
 		setupTab();
-
-		songButton.setOnClickListener(new SendSongRequestClickListener());
 
 		if(savedInstanceState != null) {
 			email = StringUtils.defaultString(savedInstanceState
@@ -126,15 +117,6 @@ public class SongRequestFragment extends UnicaradioFragment
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onStart()
-	{
-		super.onStart();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		if(emailView != null) {
@@ -150,6 +132,32 @@ public class SongRequestFragment extends UnicaradioFragment
 		}
 
 		super.onSaveInstanceState(outState);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		super.onCreateOptionsMenu(menu, inflater);
+
+		inflater.inflate(R.menu.song_menu, menu);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId()) {
+			case R.id.songSend:
+				elaborateRequest();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	private void prepareEmailField()
@@ -177,13 +185,10 @@ public class SongRequestFragment extends UnicaradioFragment
 				R.id.songsEmail);
 		authorView = (TextView) getActivity().findViewById(R.id.songsAuthor);
 		titleView = (TextView) getActivity().findViewById(R.id.songsTitle);
-		songButton = (Button) getActivity().findViewById(R.id.songButton);
 	}
 
 	private void updateEmailOnView()
 	{
-		isEmailSet = true;
-
 		String mail = email.toString();
 		emailView.setText(mail);
 		saveEmailInPreferences();
@@ -263,27 +268,20 @@ public class SongRequestFragment extends UnicaradioFragment
 				.setCancelable(false).setPositiveButton("OK", null).show();
 	}
 
-	private final class SendSongRequestClickListener implements OnClickListener
+	private void elaborateRequest()
 	{
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public void onClick(View v)
-		{
-			if(!areFieldsFilled()) {
-				warnUserForEmptyFields();
-				return;
-			}
-
-			if(!isEmailValid()) {
-				warnUserForNotValidEmail();
-				return;
-			}
-
-			saveEmailInPreferences();
-			sendEmail();
+		if(!areFieldsFilled()) {
+			warnUserForEmptyFields();
+			return;
 		}
+
+		if(!isEmailValid()) {
+			warnUserForNotValidEmail();
+			return;
+		}
+
+		saveEmailInPreferences();
+		sendEmail();
 	}
 
 	private final class OnSendSongRequestAsyncTaskCompletedListener implements

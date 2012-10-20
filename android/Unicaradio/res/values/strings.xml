@@ -112,5 +112,6 @@
 	<string name="menu_refresh_schedule">Aggiorna palinsesto</string>
 	<string name="menu_change_captcha">Cambia CAPTCHA</string>
 	<string name="menu_suggest">Suggerisci agli amici</string>
+	<string name="menu_song_send">Invia</string>
 
 </resources>
