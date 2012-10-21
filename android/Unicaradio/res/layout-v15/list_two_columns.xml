@@ -2,9 +2,9 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:paddingLeft="6dip"
-	android:paddingRight="6dip"
-	android:minHeight="?android:attr/listPreferredItemHeight"
+	android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+	android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+	android:minHeight="?android:attr/listPreferredItemHeightSmall"
 	android:gravity="center_vertical"
 	android:mode="oneLine">
 
@@ -12,7 +12,7 @@
 		android:id="@+id/text1"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
 	<TextView
 		android:id="@+id/text2"
@@ -22,5 +22,5 @@
 		android:layout_alignParentRight="true"
 		android:layout_alignWithParentIfMissing="true"
 		android:paddingLeft="15dip"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 </RelativeLayout>
