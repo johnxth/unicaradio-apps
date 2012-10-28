@@ -46,6 +46,8 @@ public class ScheduleDetailFragment extends SherlockListFragment
 
 	private static Schedule schedule;
 
+	public static ScheduleDetailFragment instance;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -79,6 +81,8 @@ public class ScheduleDetailFragment extends SherlockListFragment
 	{
 		super.onResume();
 		Log.v(TAG, "onResume");
+
+		instance = this;
 
 		initList();
 	}

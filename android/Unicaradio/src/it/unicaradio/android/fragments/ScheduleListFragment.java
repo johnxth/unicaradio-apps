@@ -69,7 +69,7 @@ public class ScheduleListFragment extends SherlockListFragment
 		initListView();
 
 		if(!NetworkUtils.isConnected(getActivity())) {
-			alertNoConnectionAvailable();
+			// alertNoConnectionAvailable();
 			return;
 		}
 
@@ -151,6 +151,16 @@ public class ScheduleListFragment extends SherlockListFragment
 				Toast.LENGTH_LONG).show();
 	}
 
+	void deselectItemOnList()
+	{
+		if(getListView() == null) {
+			return;
+		}
+
+		getListView().setItemChecked(getListView().getCheckedItemPosition(),
+				false);
+	}
+
 	void updateScheduleFromJSON(RefreshType refreshType)
 	{
 		boolean shouldShowDialog = (refreshType == RefreshType.FORCED);
@@ -178,6 +188,7 @@ public class ScheduleListFragment extends SherlockListFragment
 					updateScheduleFromJSON(RefreshType.FORCED);
 				} else {
 					alertNoConnectionAvailable();
+					deselectItemOnList();
 				}
 
 				return;

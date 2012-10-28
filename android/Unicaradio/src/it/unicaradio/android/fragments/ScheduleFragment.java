@@ -83,9 +83,13 @@ public class ScheduleFragment extends UnicaradioFragment
 	{
 		switch(item.getItemId()) {
 			case R.id.scheduleUpdate:
-				// TODO: cancellare lato destro
 				ScheduleListFragment.instance
 						.updateScheduleFromJSON(RefreshType.FORCED);
+				ScheduleListFragment.instance.deselectItemOnList();
+				if(ScheduleDetailFragment.instance != null) {
+					getFragmentManager().beginTransaction()
+							.remove(ScheduleDetailFragment.instance).commit();
+				}
 				return true;
 
 			case android.R.id.home:
