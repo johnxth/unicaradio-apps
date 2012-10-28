@@ -4,5 +4,5 @@
 		android:id="@+id/songSend"
 		android:icon="@drawable/ic_menu_send"
 		android:title="@string/menu_song_send"
-		android:showAsAction="ifRoom|withText" />
+		android:showAsAction="always|withText" />
 </menu>
