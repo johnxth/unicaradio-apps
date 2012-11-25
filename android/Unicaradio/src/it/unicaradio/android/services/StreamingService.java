@@ -36,6 +36,7 @@ import java.text.MessageFormat;
 import org.slackcnt.android.slacknotification.SlackNotification;
 import org.slackcnt.android.slacknotification.SlackNotification.Builder;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -148,7 +149,7 @@ public class StreamingService extends Service
 	public void stop()
 	{
 		disableReceivers();
-		clearNotification();
+		stopForeground(true);
 
 		if(player != null) {
 			player.stop();
@@ -223,11 +224,16 @@ public class StreamingService extends Service
 
 		sendBroadcast(i);
 		if(!infos.isClean()) {
+			stopForeground(true);
+
+			Notification notification;
 			if(infos.getTitle().equals("")) {
-				sendNotification(infos.getAuthor(), "");
+				notification = buildNotification(infos.getAuthor(), "");
 			} else {
-				sendNotification(infos.getTitle(), infos.getAuthor());
+				notification = buildNotification(infos.getTitle(),
+						infos.getAuthor());
 			}
+			startForeground(NOTIFICATION_ID, notification);
 		}
 		error = StringUtils.EMPTY;
 	}
@@ -238,13 +244,7 @@ public class StreamingService extends Service
 		sendBroadcast(i);
 	}
 
-	private void clearNotification()
-	{
-		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.cancel(NOTIFICATION_ID);
-	}
-
-	private void sendNotification(String title, String message)
+	private Notification buildNotification(String title, String message)
 	{
 		Intent intent = new Intent(this, MainActivity.class);
 		PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
@@ -259,7 +259,7 @@ public class StreamingService extends Service
 		b.setWhen(System.currentTimeMillis());
 		b.setOngoing(true);
 
-		notificationManager.notify(NOTIFICATION_ID, b.getNotification());
+		return b.getNotification();
 	}
 
 	private final class PlayThread implements Runnable
@@ -271,7 +271,8 @@ public class StreamingService extends Service
 				return;
 			}
 
-			streamer.addOnInfoListener(new OnInfoListener() {
+			streamer.addOnInfoListener(new OnInfoListener()
+			{
 				@Override
 				public void onInfo(TrackInfos trackInfos)
 				{
