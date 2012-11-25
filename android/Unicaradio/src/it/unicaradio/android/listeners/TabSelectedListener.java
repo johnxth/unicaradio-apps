@@ -60,8 +60,7 @@ public class TabSelectedListener implements OnTabSelectedListener
 
 	public void init()
 	{
-		this.pagerAdapter = new UnicaradioPagerAdapter(fragmentManager,
-				Tabs.getFragmentsAsList(context));
+		this.pagerAdapter = new UnicaradioPagerAdapter(context, fragmentManager);
 		this.viewPager.setAdapter(pagerAdapter);
 		this.viewPager
 				.setOnPageChangeListener(new UnicaradioOnPageChangeListener());
@@ -74,7 +73,15 @@ public class TabSelectedListener implements OnTabSelectedListener
 	 */
 	public UnicaradioFragment getCurrentFragment()
 	{
-		return (UnicaradioFragment) pagerAdapter.getItem(currentTab);
+		String fragmentTag = makeFragmentName(R.id.pager, currentTab);
+
+		return (UnicaradioFragment) fragmentManager
+				.findFragmentByTag(fragmentTag);
+	}
+
+	private String makeFragmentName(int viewId, int index)
+	{
+		return "android:switcher:" + viewId + ":" + index;
 	}
 
 	/**

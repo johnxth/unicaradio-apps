@@ -51,16 +51,20 @@ public class ScheduleFragment extends UnicaradioFragment
 	{
 		View view = inflater.inflate(R.layout.schedule, null);
 
-		boolean isTwoPane = getActivity().getResources().getBoolean(
-				R.bool.isTablet);
-		if(!isTwoPane) {
-			getFragmentManager()
-					.beginTransaction()
-					.replace(R.id.schedule_container,
-							new ScheduleListFragment()).commit();
-		}
-
 		return view;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
+		getFragmentManager().beginTransaction()
+				.replace(R.id.schedule_container, new ScheduleListFragment())
+				.commit();
 	}
 
 	/**

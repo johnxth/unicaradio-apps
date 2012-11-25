@@ -9,12 +9,13 @@
 	android:paddingLeft="16dp"
 	tools:context="it.unicaradio.android.fragments.ScheduleFragment">
 
-	<fragment
-		android:name="it.unicaradio.android.fragments.ScheduleListFragment"
-		android:id="@+id/item_list"
+	<FrameLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/schedule_container"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
-		android:layout_weight="1" />
+		android:layout_weight="1">
+	</FrameLayout>
 
 	<FrameLayout
 		android:id="@+id/item_detail_container"

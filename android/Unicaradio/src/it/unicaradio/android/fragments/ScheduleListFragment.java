@@ -84,7 +84,28 @@ public class ScheduleListFragment extends SherlockListFragment
 	@Override
 	public void onPause()
 	{
+		Log.v(TAG, "onPause");
 		super.onPause();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onDestroy()
+	{
+		Log.v(TAG, "onDestroy");
+		super.onDestroy();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onDestroyView()
+	{
+		Log.v(TAG, "onDestroyView");
+		super.onDestroyView();
 	}
 
 	/**
@@ -94,6 +115,7 @@ public class ScheduleListFragment extends SherlockListFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
+		Log.v(TAG, "onCreateView");
 		isTwoPane = getActivity().getResources().getBoolean(R.bool.isTablet);
 		return inflater.inflate(R.layout.schedule_fragment, null);
 	}

@@ -22,9 +22,7 @@ import it.unicaradio.android.fragments.ScheduleFragment;
 import it.unicaradio.android.fragments.SongRequestFragment;
 import it.unicaradio.android.fragments.StreamingFragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
@@ -48,15 +46,10 @@ public class Tabs extends TableRow
 
 	public static final int INFO = 4;
 
-	private static List<Fragment> fragments;
-
-	private Context context;
-
 	public Tabs(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 
-		this.context = context;
 		init();
 	}
 
@@ -64,17 +57,12 @@ public class Tabs extends TableRow
 	{
 		super(context);
 
-		this.context = context;
 		init();
 	}
 
-	public static List<Fragment> getFragmentsAsList(Context context)
+	public static int getTabCount()
 	{
-		if(fragments == null) {
-			fragments = initFragments(context);
-		}
-
-		return fragments;
+		return 5;
 	}
 
 	public static Map<Integer, Tab> getTabs(Tabs tabsContainer)
@@ -95,27 +83,43 @@ public class Tabs extends TableRow
 	private void init()
 	{
 		setOrientation(HORIZONTAL);
-
-		if(fragments == null) {
-			fragments = initFragments(context);
-		}
 	}
 
-	private static ArrayList<Fragment> initFragments(Context context)
+	public static Fragment initFragment(Context context, int position)
 	{
-		ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+		Fragment fragment;
 
-		fragments.add(Fragment.instantiate(context,
-				StreamingFragment.class.getName()));
-		fragments.add(Fragment.instantiate(context,
-				ScheduleFragment.class.getName()));
-		fragments.add(Fragment.instantiate(context,
-				SongRequestFragment.class.getName()));
-		fragments.add(Fragment.instantiate(context,
-				FavouritesFragment.class.getName()));
-		fragments.add(Fragment.instantiate(context,
-				InfoFragment.class.getName()));
+		switch(position) {
+			case 0:
+				// fragment = Fragment.instantiate(context,
+				// StreamingFragment.class.getName());
+				fragment = new StreamingFragment();
+				break;
+			case 1:
+				// fragment = Fragment.instantiate(context,
+				// ScheduleFragment.class.getName());
+				fragment = new ScheduleFragment();
+				break;
+			case 2:
+				// fragment = Fragment.instantiate(context,
+				// SongRequestFragment.class.getName());
+				fragment = new SongRequestFragment();
+				break;
+			case 3:
+				// fragment = Fragment.instantiate(context,
+				// FavouritesFragment.class.getName());
+				fragment = new FavouritesFragment();
+				break;
+			case 4:
+				// fragment = Fragment.instantiate(context,
+				// InfoFragment.class.getName());
+				fragment = new InfoFragment();
+				break;
 
-		return fragments;
+			default:
+				return null;
+		}
+
+		return fragment;
 	}
 }

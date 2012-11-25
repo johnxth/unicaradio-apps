@@ -63,7 +63,7 @@ import android.widget.Toast;
  */
 public class StreamingFragment extends UnicaradioFragment
 {
-	private static final String TAG = StreamingFragment.class.getName();
+	private static final String TAG = StreamingFragment.class.getSimpleName();
 
 	private static final String ONAIR_COVER_URL = "http://www.unicaradio.it/regia/OnAir.jpg";
 
@@ -207,7 +207,28 @@ public class StreamingFragment extends UnicaradioFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
+		Log.v(TAG, "onCreateView");
 		return inflater.inflate(R.layout.streaming, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onDestroyView()
+	{
+		Log.v(TAG, "onDestroyView");
+		super.onDestroyView();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onDestroy()
+	{
+		Log.v(TAG, "onDestroy");
+		super.onDestroy();
 	}
 
 	/**

@@ -16,8 +16,8 @@
  */
 package it.unicaradio.android.adapters;
 
-import java.util.List;
-
+import it.unicaradio.android.gui.Tabs;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -27,24 +27,25 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class UnicaradioPagerAdapter extends FragmentPagerAdapter
 {
-	private List<Fragment> fragments;
+	private Context context;
 
-	public UnicaradioPagerAdapter(FragmentManager fragmentManager,
-			List<Fragment> fragments)
+	public UnicaradioPagerAdapter(Context context,
+			FragmentManager fragmentManager)
 	{
 		super(fragmentManager);
-		this.fragments = fragments;
+
+		this.context = context;
 	}
 
 	@Override
 	public Fragment getItem(int position)
 	{
-		return this.fragments.get(position);
+		return Tabs.initFragment(context, position);
 	}
 
 	@Override
 	public int getCount()
 	{
-		return this.fragments.size();
+		return Tabs.getTabCount();
 	}
 }
