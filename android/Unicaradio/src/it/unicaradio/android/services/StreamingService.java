@@ -214,7 +214,7 @@ public class StreamingService extends Service
 		stopWithException("E' avvenuto un problema. Riprova.", e);
 	}
 
-	public void notifyChange()
+	public void notifyView()
 	{
 		Intent i = new Intent(ACTION_TRACK_INFO);
 		i.putExtra("author", infos.getAuthor());
@@ -223,6 +223,12 @@ public class StreamingService extends Service
 		i.putExtra("error", error);
 
 		sendBroadcast(i);
+	}
+
+	public void notifyChange()
+	{
+		notifyView();
+
 		if(!infos.isClean()) {
 			stopForeground(true);
 
@@ -271,8 +277,7 @@ public class StreamingService extends Service
 				return;
 			}
 
-			streamer.addOnInfoListener(new OnInfoListener()
-			{
+			streamer.addOnInfoListener(new OnInfoListener() {
 				@Override
 				public void onInfo(TrackInfos trackInfos)
 				{

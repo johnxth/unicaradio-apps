@@ -7,7 +7,7 @@
 		android:dialogTitle="@string/prefs_network_type_dialogtitle"
 		android:entries="@array/prefs_network_type_entries"
 		android:entryValues="@array/prefs_network_type_entryValues"
-		android:defaultValue="wifi_only" />
+		android:defaultValue="mobiledata" />
 
 	<ListPreference
 		android:key="download_cover"
@@ -15,7 +15,7 @@
 		android:dialogTitle="@string/prefs_download_cover_dialogtitle"
 		android:entries="@array/prefs_download_cover_entries"
 		android:entryValues="@array/prefs_download_cover_entryValues"
-		android:defaultValue="wifi_only" />
+		android:defaultValue="mobiledata" />
 
 	<CheckBoxPreference
 		android:key="permit_roaming"

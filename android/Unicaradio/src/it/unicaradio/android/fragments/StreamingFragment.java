@@ -73,9 +73,9 @@ public class StreamingFragment extends UnicaradioFragment
 
 	private StreamingService streamingService;
 
-	private TrackInfos oldInfos;
+	private static TrackInfos oldInfos;
 
-	private TrackInfos infos;
+	private static TrackInfos infos;
 
 	private Thread imageThread;
 
@@ -192,7 +192,7 @@ public class StreamingFragment extends UnicaradioFragment
 			getActivity().registerReceiver(toastMessageReceiver,
 					new IntentFilter(StreamingService.ACTION_TOAST_MESSAGE));
 			if(streamingService.isPlaying()) {
-				streamingService.notifyChange();
+				streamingService.notifyView();
 				setPauseButton();
 			} else {
 				setPlayButton();
