@@ -499,6 +499,7 @@ public class StreamingFragment extends UnicaradioFragment
 				Drawable current = background.getCurrent();
 				if(current instanceof AnimationDrawable) {
 					AnimationDrawable btnAnimation = (AnimationDrawable) current;
+					btnAnimation.stop();
 					btnAnimation.start();
 				}
 			}
