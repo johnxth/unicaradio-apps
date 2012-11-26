@@ -33,7 +33,7 @@
 			android:layout_marginTop="15dp"
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
-			android:textSize="22dp" />
+			android:textSize="22sp" />
 
 		<it.unicaradio.android.gui.ScrollTextView
 			android:id="@+id/songTitle"
@@ -46,7 +46,7 @@
 			android:layout_marginTop="5dp"
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
-			android:textSize="34dp" />
+			android:textSize="34sp" />
 
 	</LinearLayout>
 

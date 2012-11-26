@@ -21,13 +21,10 @@ import it.unicaradio.android.fragments.InfoFragment;
 import it.unicaradio.android.fragments.ScheduleFragment;
 import it.unicaradio.android.fragments.SongRequestFragment;
 import it.unicaradio.android.fragments.StreamingFragment;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.TableRow;
 
@@ -65,9 +62,9 @@ public class Tabs extends TableRow
 		return 5;
 	}
 
-	public static Map<Integer, Tab> getTabs(Tabs tabsContainer)
+	public static SparseArray<Tab> getTabs(Tabs tabsContainer)
 	{
-		Map<Integer, Tab> tabs = new HashMap<Integer, Tab>();
+		SparseArray<Tab> tabs = new SparseArray<Tab>();
 
 		for(int i = 0; i < tabsContainer.getChildCount(); i++) {
 			View child = tabsContainer.getChildAt(i);

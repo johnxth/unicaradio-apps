@@ -17,6 +17,7 @@
 package it.unicaradio.android.gui;
 
 import it.unicaradio.android.R;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -63,6 +64,7 @@ public class Tab extends LinearLayout
 	 * @param attrs
 	 * @param defStyle
 	 */
+	@TargetApi(11)
 	public Tab(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);

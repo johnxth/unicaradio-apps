@@ -24,9 +24,6 @@ import it.unicaradio.android.listeners.TabSelectedListener;
 import it.unicaradio.android.utils.IntentUtils;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
-
-import java.util.Map;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +38,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -90,7 +88,7 @@ public class MainActivity extends SherlockFragmentActivity
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 		Tabs tabsContainer = (Tabs) findViewById(R.id.tabs);
-		Map<Integer, Tab> tabs = Tabs.getTabs(tabsContainer);
+		SparseArray<Tab> tabs = Tabs.getTabs(tabsContainer);
 		tabs.get(TabSelectedListener.getCurrentTab()).setSelected(true);
 		setupListeners(tabs);
 
@@ -210,10 +208,10 @@ public class MainActivity extends SherlockFragmentActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void setupListeners(Map<Integer, Tab> tabs)
+	private void setupListeners(SparseArray<Tab> tabs)
 	{
-		for(final Map.Entry<Integer, Tab> tab : tabs.entrySet()) {
-			Tab viewTab = tab.getValue();
+		for(int i = 0; i < tabs.size(); i++) {
+			Tab viewTab = tabs.valueAt(i);
 
 			viewTab.setOnTabSelectedListener(tabSelectedListener);
 		}
@@ -252,7 +250,7 @@ public class MainActivity extends SherlockFragmentActivity
 	{
 		final Dialog dialog = new Dialog(this);
 		dialog.setContentView(R.layout.popup);
-		dialog.setTitle("L'applicazione è stata aggiornata!");
+		dialog.setTitle(R.string.application_updated);
 		dialog.setCancelable(true);
 
 		TextView textView = (TextView) dialog.findViewById(R.id.updatesText);

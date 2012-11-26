@@ -22,13 +22,11 @@ import it.unicaradio.android.fragments.UnicaradioFragment;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tab.OnTabSelectedListener;
 import it.unicaradio.android.gui.Tabs;
-
-import java.util.Map;
-
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 
 /**
@@ -155,7 +153,7 @@ public class TabSelectedListener implements OnTabSelectedListener
 			View rootView = viewPager.getRootView();
 			Tabs tabsContainer = (Tabs) rootView.findViewById(R.id.tabs);
 
-			Map<Integer, Tab> tabs = Tabs.getTabs(tabsContainer);
+			SparseArray<Tab> tabs = Tabs.getTabs(tabsContainer);
 			tabs.get(position).select();
 		}
 	}

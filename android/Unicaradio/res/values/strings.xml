@@ -21,7 +21,6 @@
 		&lt;a
 		href=\'http://code.google.com/p/unicaradio-apps/\'&gt;Google Code&lt;/a&gt;.
 	</string>
-	<string name="closeApp">Esci</string>
 	<string name="updates">Versione 1.1\n
 		\tCorrezioni:\n
 		\t- [bug] L\'applicazione non va in pausa all\'arrivo di una
@@ -51,6 +50,8 @@
 		Versione 1.0:\n
 		\t- Prima versione.\n
 	</string>
+	<string name="application_updated">Aggiornamento</string>
+
 	<string-array name="days">
 		<item>Lunedì</item>
 		<item>Martedì</item>
@@ -110,7 +111,6 @@
 	<!-- Menu -->
 	<string name="menu_settings">Impostazioni</string>
 	<string name="menu_refresh_schedule">Aggiorna palinsesto</string>
-	<string name="menu_change_captcha">Cambia CAPTCHA</string>
 	<string name="menu_suggest">Suggerisci agli amici</string>
 	<string name="menu_song_send">Invia</string>
 

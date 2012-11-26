@@ -38,9 +38,9 @@
 			android:id="@+id/author_label"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:textSize="15dp"
+			android:textSize="15sp"
 			android:layout_marginTop="15dp"
-			android:text="Author:"
+			android:text="Autore:"
 			android:visibility="gone" />
 		<it.unicaradio.android.gui.ScrollTextView
 			android:id="@+id/author"
@@ -51,15 +51,15 @@
 			android:marqueeRepeatLimit="marquee_forever"
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
-			android:textSize="22dp" />
+			android:textSize="22sp" />
 
 		<TextView
 			android:id="@+id/title_label"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="15dp"
-			android:textSize="15dp"
-			android:text="Title:"
+			android:textSize="15sp"
+			android:text="Titolo:"
 			android:visibility="gone" />
 		<it.unicaradio.android.gui.ScrollTextView
 			android:id="@+id/songTitle"
@@ -70,7 +70,7 @@
 			android:marqueeRepeatLimit="marquee_forever"
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
-			android:textSize="22dp" />
+			android:textSize="22sp" />
 
 	</LinearLayout>
 
