@@ -103,10 +103,23 @@
 	<string name="prefs_permit_roaming_summaryOff">Non ascoltare Unicaradio se il roaming su rete dati è attivo</string>
 
 	<!-- Category: app_infos -->
-	<string name="prefs_app_infos_category">Informazioni</string>
+	<string name="prefs_app_infos_category">Informazioni e licenze</string>
 
 	<!-- app_version -->
 	<string name="prefs_app_version_title">Versione app</string>
+
+	<!-- licences -->
+	<string name="prefs_aacdecoder">AACDecoder v.0.6.1 by Spoledge</string>
+	<string name="prefs_aacdecoder_sub">Apache licence 2.0</string>
+	<string name="prefs_aacdecoder_link">http://code.google.com/p/aacdecoder-android/</string>
+
+	<string name="prefs_abs">ActionBarSherlock v.4.1.0 by Jake Wharton</string>
+	<string name="prefs_abs_sub">Apache licence 2.0</string>
+	<string name="prefs_abs_link">http://actionbarsherlock.com/</string>
+
+	<string name="prefs_acra">ACRA v.4.4.0 by Kevin Gaudin</string>
+	<string name="prefs_acra_sub">Apache licence 2.0</string>
+	<string name="prefs_acra_link">http://acra.ch/</string>
 
 	<!-- Menu -->
 	<string name="menu_settings">Impostazioni</string>

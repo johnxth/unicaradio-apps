@@ -28,6 +28,22 @@
 		<Preference
 			android:key="app_version"
 			android:title="@string/prefs_app_version_title" />
+
+		<Preference
+			android:key="prefs_licences_aacdecoder"
+			android:title="@string/prefs_aacdecoder"
+			android:summary="@string/prefs_aacdecoder_sub" />
+
+		<Preference
+			android:key="prefs_licences_abs"
+			android:title="@string/prefs_abs"
+			android:summary="@string/prefs_abs_sub" />
+
+		<Preference
+			android:key="prefs_licences_acra"
+			android:title="@string/prefs_acra"
+			android:summary="@string/prefs_acra_sub" />
+
 	</PreferenceCategory>
 
 </PreferenceScreen>
