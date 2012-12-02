@@ -58,17 +58,17 @@ public class ViewUtils
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(true);
 
-		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			BitmapDrawable bg = (BitmapDrawable) resources
-					.getDrawable(R.drawable.title_bg);
-			bg.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
-			actionBar.setBackgroundDrawable(bg);
-
-			BitmapDrawable bgSplit = (BitmapDrawable) resources
-					.getDrawable(R.drawable.black_stripe);
-			bgSplit.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
-			actionBar.setSplitBackgroundDrawable(bgSplit);
-		}
+		// if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+		// BitmapDrawable bg = (BitmapDrawable) resources
+		// .getDrawable(R.drawable.title_bg);
+		// bg.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
+		// actionBar.setBackgroundDrawable(bg);
+		//
+		// BitmapDrawable bgSplit = (BitmapDrawable) resources
+		// .getDrawable(R.drawable.black_stripe);
+		// bgSplit.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
+		// actionBar.setSplitBackgroundDrawable(bgSplit);
+		// }
 	}
 
 	private static void setFont(View view, Typeface robotoTypeFace)

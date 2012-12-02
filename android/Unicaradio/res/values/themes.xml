@@ -8,5 +8,8 @@
 		name="unicaradio_theme2"
 		parent="@style/Theme.Sherlock">
 		<item name="actionBarStyle">@style/Widget.Unicaradio.ActionBar</item>
+		<item name="android:windowBackground">@drawable/window_bg2</item>
+		<item name="actionBarItemBackground">@drawable/ab_item_background</item>
+		<item name="android:listViewStyle">@style/Widget.Unicaradio.ListView</item>
 	</style>
 </resources>

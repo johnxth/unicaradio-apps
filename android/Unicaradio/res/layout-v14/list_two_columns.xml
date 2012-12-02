@@ -1,0 +1,25 @@
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:minHeight="?android:attr/listPreferredItemHeightSmall"
+	android:gravity="center_vertical"
+	android:mode="oneLine">
+
+	<TextView
+		android:id="@+id/text1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="10dp"
+		android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+	<TextView
+		android:id="@+id/text2"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/text1"
+		android:layout_alignParentRight="true"
+		android:layout_alignWithParentIfMissing="true"
+		android:paddingLeft="10dp"
+		android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+</RelativeLayout>

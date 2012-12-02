@@ -17,7 +17,7 @@
 package it.unicaradio.android.fragments;
 
 import it.unicaradio.android.R;
-import it.unicaradio.android.adapters.ArrayAlternatedColoursAdapter;
+import it.unicaradio.android.adapters.ScheduleListAdapter;
 import it.unicaradio.android.enums.Error;
 import it.unicaradio.android.models.Response;
 import it.unicaradio.android.models.Schedule;
@@ -136,10 +136,9 @@ public class ScheduleListFragment extends SherlockListFragment
 	{
 		clicked = -1;
 		ListView scheduleListView = getListView();
-		String[] days = getResources().getStringArray(R.array.days);
 
-		BaseAdapter adapter = new ArrayAlternatedColoursAdapter<Object>(
-				getActivity(), android.R.layout.simple_list_item_1, days);
+		BaseAdapter adapter = new ScheduleListAdapter(getActivity(),
+				R.layout.list_simple);
 		scheduleListView.setAdapter(adapter);
 
 		return scheduleListView;

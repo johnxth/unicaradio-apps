@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="45"
+   height="45"
+   id="svg3781"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="schedule.svg">
+  <defs
+     id="defs3783" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="4.4375228"
+     inkscape:cy="-7.1471232"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3786">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-215.521,-112.83361)">
+    <g
+       id="g3999"
+       transform="matrix(0.67015159,0,0,0.67015159,145.42601,-28.689059)"
+       inkscape:export-filename="/home/paolo/Desktop/unicaradio/imgs/tmp/schedule.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       style="opacity:0.8;fill:#ffffff;display:inline">
+      <rect
+         ry="2"
+         rx="2"
+         y="222.37158"
+         x="107.46573"
+         height="10"
+         width="48.765961"
+         id="rect3991"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         ry="2"
+         rx="2"
+         y="239.75456"
+         x="107.46573"
+         height="10"
+         width="61.408989"
+         id="rect3993"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         ry="2"
+         rx="2"
+         y="257.13757"
+         x="107.46573"
+         height="10"
+         width="38.832157"
+         id="rect3995"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+    </g>
+  </g>
+</svg>

@@ -25,14 +25,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * @author Paolo Cortis
  */
-public class FavouriteSitesAdapter extends BaseAdapter
+public class FavouriteSitesAdapter extends AlternatedColoursAdapter
 {
 	private final Context context;
 
@@ -52,6 +51,7 @@ public class FavouriteSitesAdapter extends BaseAdapter
 	public FavouriteSitesAdapter(Context context, List<Website> websites,
 			int layout)
 	{
+		super(context, layout);
 		this.context = context;
 		this.websites = websites;
 		this.layout = layout;
@@ -87,18 +87,11 @@ public class FavouriteSitesAdapter extends BaseAdapter
 		drawUrl(view, website);
 		drawLogo(view, website);
 
-		view.setBackgroundResource(R.drawable.list_background_odd);
+		int backgroundPos = position % backgrounds.length;
+		view.setBackgroundDrawable(context.getResources().getDrawable(
+				backgrounds[backgroundPos]));
 
 		return view;
-	}
-
-	/**
-	 * @return
-	 */
-	private LayoutInflater getInflater()
-	{
-		return (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	/**

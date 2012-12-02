@@ -4,6 +4,12 @@
 	<style
 		name="Widget.Unicaradio.ActionBar"
 		parent="Widget.Sherlock.ActionBar">
-		<item name="android:background">@drawable/ab_bg</item>
+		<!-- <item name="android:background">@drawable/ab_bg</item> -->
+		<item name="android:background">@android:color/black</item>
+	</style>
+	<style
+		name="Widget.Unicaradio.ListView.DropDown"
+		parent="Widget.Sherlock.ListView.DropDown">
+		<item name="android:listSelector">@drawable/ab_item_background</item>
 	</style>
 </resources>

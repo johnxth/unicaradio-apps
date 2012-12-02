@@ -1,5 +1,6 @@
 package it.unicaradio.android.adapters;
 
+import it.unicaradio.android.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,8 @@ public abstract class AlternatedColoursAdapter extends BaseAdapter
 
 	private int layout;
 
-	private int[] colours = new int[] { 0xFF000000, 0xFF333333 };
+	protected int[] backgrounds = new int[] {R.drawable.list_background_odd,
+			R.drawable.list_background_even};
 
 	public AlternatedColoursAdapter(Context context, int layout)
 	{
@@ -26,8 +28,9 @@ public abstract class AlternatedColoursAdapter extends BaseAdapter
 		LayoutInflater layoutInflater = getInflater();
 
 		View view = layoutInflater.inflate(layout, parent, false);
-		int colourPos = position % colours.length;
-		view.setBackgroundColor(colours[colourPos]);
+		int backgroundPos = position % backgrounds.length;
+		view.setBackgroundDrawable(context.getResources().getDrawable(
+				backgrounds[backgroundPos]));
 
 		return view;
 	}
@@ -35,18 +38,17 @@ public abstract class AlternatedColoursAdapter extends BaseAdapter
 	/**
 	 * @return
 	 */
-	private LayoutInflater getInflater()
+	protected LayoutInflater getInflater()
 	{
 		return (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	/**
-	 * @param colours
-	 *            the colours to set
+	 * @param backgrounds the backgrounds to set
 	 */
-	public void setColours(int[] colours)
+	public void setBackgrounds(int[] backgrounds)
 	{
-		this.colours = colours;
+		this.backgrounds = backgrounds;
 	}
 }

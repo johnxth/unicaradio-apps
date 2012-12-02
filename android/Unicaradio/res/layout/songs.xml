@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<LinearLayout
-		android:orientation="vertical"
+	<ScrollView
+		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:padding="15dp">
+		android:layout_height="fill_parent"
+		android:layout_marginLeft="15dp"
+		android:layout_marginRight="15dp"
+		android:background="@color/dark_gray">
 
-		<TextView
+		<LinearLayout
+			android:orientation="vertical"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:textSize="20sp"
-			android:layout_marginBottom="10dp"
-			android:text="Richiedi una canzone!" />
+			android:padding="15dp">
 
-		<AutoCompleteTextView
-			android:id="@+id/songsEmail"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:hint="eMail"
-			android:completionThreshold="1" />
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:layout_marginBottom="10dp"
+				android:text="Richiedi una canzone!" />
 
-		<EditText
-			android:id="@+id/songsAuthor"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			android:hint="Autore" />
+			<AutoCompleteTextView
+				android:id="@+id/songsEmail"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:hint="eMail"
+				android:completionThreshold="1" />
 
-		<EditText
-			android:id="@+id/songsTitle"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			android:hint="Titolo canzone" />
-	</LinearLayout>
-</ScrollView>
+			<EditText
+				android:id="@+id/songsAuthor"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:hint="Autore" />
+
+			<EditText
+				android:id="@+id/songsTitle"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:hint="Titolo canzone" />
+
+		</LinearLayout>
+
+	</ScrollView>
+
+</LinearLayout>
