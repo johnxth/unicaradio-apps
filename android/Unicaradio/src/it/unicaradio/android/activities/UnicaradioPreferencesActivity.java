@@ -18,9 +18,11 @@ package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
 import it.unicaradio.android.enums.NetworkType;
+import it.unicaradio.android.utils.IntentUtils;
 import it.unicaradio.android.utils.StringUtils;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
@@ -31,6 +33,7 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 
@@ -59,6 +62,7 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 			addPreferencesFromResource(R.xml.prefs);
 
 			setCurrentValuesInSummary();
+			initListeners();
 		}
 	}
 
@@ -127,6 +131,29 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 		app_version.setSummary(getAppVersion());
 	}
 
+	@SuppressWarnings("deprecation")
+	private void initListeners()
+	{
+		Preference prefs_licences_aacdecoder = findPreference(UnicaradioPreferences.PREF_LICENCE_AACDECODER);
+		prefs_licences_aacdecoder
+				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
+						R.string.prefs_aacdecoder_link));
+
+		Preference prefs_licences_abs = findPreference(UnicaradioPreferences.PREF_LICENCE_ABS);
+		prefs_licences_abs.setOnPreferenceClickListener(new OpenPreferenceLink(
+				this, R.string.prefs_abs_link));
+
+		Preference prefs_licences_acra = findPreference(UnicaradioPreferences.PREF_LICENCE_ACRA);
+		prefs_licences_acra
+				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
+						R.string.prefs_acra_link));
+
+		Preference prefs_licences_acra_details = findPreference(UnicaradioPreferences.PREF_LICENCE_ACRA_DETAILS);
+		prefs_licences_acra_details
+				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
+						R.string.prefs_acra_details_link));
+	}
+
 	void initSummary(Preference preference)
 	{
 		if(preference instanceof PreferenceCategory) {
@@ -191,6 +218,29 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 			return pInfo.versionName;
 		} catch(NameNotFoundException e) {
 			return StringUtils.EMPTY;
+		}
+	}
+
+	static final class OpenPreferenceLink implements OnPreferenceClickListener
+	{
+		private Context context;
+
+		private String url;
+
+		public OpenPreferenceLink(Context context, int urlResource)
+		{
+			this.context = context;
+			this.url = context.getString(urlResource);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public boolean onPreferenceClick(Preference preference)
+		{
+			IntentUtils.openLink(context, url);
+			return true;
 		}
 	}
 }

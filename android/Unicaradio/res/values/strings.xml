@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-	<string name="app_name">UnicaRadio</string>
 	<string name="infos">
 		&lt;font color=\'#FF0000\'&gt;&lt;b&gt;UnicaRadio&lt;/b&gt;&lt;/font&gt;,
 		la webradio degli studenti
@@ -111,15 +110,15 @@
 	<!-- licences -->
 	<string name="prefs_aacdecoder">AACDecoder v.0.6.1 by Spoledge</string>
 	<string name="prefs_aacdecoder_sub">Apache licence 2.0</string>
-	<string name="prefs_aacdecoder_link">http://code.google.com/p/aacdecoder-android/</string>
 
 	<string name="prefs_abs">ActionBarSherlock v.4.1.0 by Jake Wharton</string>
 	<string name="prefs_abs_sub">Apache licence 2.0</string>
-	<string name="prefs_abs_link">http://actionbarsherlock.com/</string>
 
 	<string name="prefs_acra">ACRA v.4.4.0 by Kevin Gaudin</string>
 	<string name="prefs_acra_sub">Apache licence 2.0</string>
-	<string name="prefs_acra_link">http://acra.ch/</string>
+
+	<string name="prefs_acra_details">Informazioni su ACRA</string>
+	<string name="prefs_acra_details_sub">Come viene usato ACRA su Unicaradio</string>
 
 	<!-- Menu -->
 	<string name="menu_settings">Impostazioni</string>

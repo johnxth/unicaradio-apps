@@ -38,6 +38,14 @@ public class UnicaradioPreferences
 
 	public static final String PREF_LASTRUNVERSIONCODE = "lastRunVersionCode";
 
+	public static final String PREF_LICENCE_AACDECODER = "prefs_licences_aacdecoder";
+
+	public static final String PREF_LICENCE_ABS = "prefs_licences_abs";
+
+	public static final String PREF_LICENCE_ACRA = "prefs_licences_acra";
+
+	public static final String PREF_LICENCE_ACRA_DETAILS = "prefs_licences_acra_details";
+
 	public static final String DOWNLOAD_COVER_MOBILEDATA = "mobiledata";
 
 	public static final String DOWNLOAD_COVER_WIFIONLY = "wifi_only";

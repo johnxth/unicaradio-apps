@@ -20,14 +20,9 @@ import static org.acra.ReportField.ANDROID_VERSION;
 import static org.acra.ReportField.APP_VERSION_CODE;
 import static org.acra.ReportField.APP_VERSION_NAME;
 import static org.acra.ReportField.BRAND;
-import static org.acra.ReportField.CRASH_CONFIGURATION;
-import static org.acra.ReportField.DEVICE_FEATURES;
-import static org.acra.ReportField.DISPLAY;
-import static org.acra.ReportField.INITIAL_CONFIGURATION;
 import static org.acra.ReportField.PHONE_MODEL;
 import static org.acra.ReportField.PRODUCT;
 import static org.acra.ReportField.REPORT_ID;
-import static org.acra.ReportField.SHARED_PREFERENCES;
 import static org.acra.ReportField.STACK_TRACE;
 
 import org.acra.ACRA;
@@ -37,12 +32,10 @@ import android.app.Application;
 
 /**
  * @author Paolo Cortis
- * 
  */
 @ReportsCrashes(formKey = "dHpBTGtCV0RoZzdMRzV4aENjMkNMb0E6MQ", customReportContent = {
 		REPORT_ID, APP_VERSION_CODE, APP_VERSION_NAME, PHONE_MODEL, BRAND,
-		PRODUCT, ANDROID_VERSION, STACK_TRACE, INITIAL_CONFIGURATION,
-		CRASH_CONFIGURATION, DISPLAY, DEVICE_FEATURES, SHARED_PREFERENCES})
+		PRODUCT, ANDROID_VERSION, STACK_TRACE})
 public class UnicaradioApplication extends Application
 {
 	@Override

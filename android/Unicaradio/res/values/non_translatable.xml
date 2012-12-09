@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+	<string
+		name="app_name"
+		translatable="false">UnicaRadio</string>
+
+	<!-- Preferences -->
+	<!-- licences -->
+	<string
+		name="prefs_aacdecoder_link"
+		translatable="false">http://code.google.com/p/aacdecoder-android/</string>
+	<string
+		name="prefs_abs_link"
+		translatable="false">http://actionbarsherlock.com/</string>
+	<string
+		name="prefs_acra_link"
+		translatable="false">http://acra.ch/</string>
+	<string
+		name="prefs_acra_details_link"
+		translatable="false">http://code.google.com/p/unicaradio-apps/wiki/ACRA</string>
+
+</resources>

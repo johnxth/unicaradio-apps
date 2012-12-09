@@ -17,6 +17,7 @@
 package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.activities.UnicaradioPreferencesActivity.OpenPreferenceLink;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
@@ -50,6 +51,7 @@ public class UnicaradioPreferencesFragment extends PreferenceFragment implements
 					.registerOnSharedPreferenceChangeListener(this);
 
 			setCurrentValuesInSummary();
+			initListeners();
 		} else {
 			throw new IllegalArgumentException(
 					"You MUST call this fragment from a UnicaradioPreferencesActivity instance");
@@ -76,5 +78,27 @@ public class UnicaradioPreferencesFragment extends PreferenceFragment implements
 
 		Preference app_version = findPreference(UnicaradioPreferences.PREF_APP_VERSION);
 		app_version.setSummary(preferencesActivity.getAppVersion());
+	}
+
+	private void initListeners()
+	{
+		Preference prefs_licences_aacdecoder = findPreference(UnicaradioPreferences.PREF_LICENCE_AACDECODER);
+		prefs_licences_aacdecoder
+				.setOnPreferenceClickListener(new OpenPreferenceLink(
+						getActivity(), R.string.prefs_aacdecoder_link));
+
+		Preference prefs_licences_abs = findPreference(UnicaradioPreferences.PREF_LICENCE_ABS);
+		prefs_licences_abs.setOnPreferenceClickListener(new OpenPreferenceLink(
+				getActivity(), R.string.prefs_abs_link));
+
+		Preference prefs_licences_acra = findPreference(UnicaradioPreferences.PREF_LICENCE_ACRA);
+		prefs_licences_acra
+				.setOnPreferenceClickListener(new OpenPreferenceLink(
+						getActivity(), R.string.prefs_acra_link));
+
+		Preference prefs_licences_acra_details = findPreference(UnicaradioPreferences.PREF_LICENCE_ACRA_DETAILS);
+		prefs_licences_acra_details
+				.setOnPreferenceClickListener(new OpenPreferenceLink(
+						getActivity(), R.string.prefs_acra_details_link));
 	}
 }
