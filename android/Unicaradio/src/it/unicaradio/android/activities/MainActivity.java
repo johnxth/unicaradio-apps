@@ -18,10 +18,13 @@ package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
 import it.unicaradio.android.fragments.UnicaradioFragment;
+import it.unicaradio.android.gcm.GcmServerRegister;
+import it.unicaradio.android.gcm.GcmServerRpcCall;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.listeners.TabSelectedListener;
 import it.unicaradio.android.utils.IntentUtils;
+import it.unicaradio.android.utils.StringUtils;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
 import android.app.Dialog;
@@ -34,10 +37,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
@@ -48,15 +53,22 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.android.gcm.GCMRegistrar;
 
 /**
  * @author Paolo Cortis
  */
 public class MainActivity extends SherlockFragmentActivity
 {
+	private static final String TAG = MainActivity.class.getSimpleName();
+
+	private static final String SENDER_ID = "";
+
 	private static TabSelectedListener tabSelectedListener;
 
 	private SharedPreferences preferences;
+
+	private AsyncTask<Void, Void, Void> mRegisterTask;
 
 	/**
 	 * {@inheritDoc}
@@ -67,30 +79,8 @@ public class MainActivity extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_layout);
 
-		if(getResources().getBoolean(R.bool.isTablet)) {
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		} else {
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-		}
-
-		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-		if(tabSelectedListener == null) {
-			tabSelectedListener = new TabSelectedListener(this,
-					getSupportFragmentManager(), viewPager);
-		} else {
-			tabSelectedListener.setFragmentManager(getSupportFragmentManager());
-			tabSelectedListener.setViewPager(viewPager);
-			tabSelectedListener.setContext(this);
-			tabSelectedListener.init();
-		}
-
-		ViewUtils.setupActionBar(getSupportActionBar(), getResources());
-		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-		Tabs tabsContainer = (Tabs) findViewById(R.id.tabs);
-		SparseArray<Tab> tabs = Tabs.getTabs(tabsContainer);
-		tabs.get(TabSelectedListener.getCurrentTab()).setSelected(true);
-		setupListeners(tabs);
+		initGcm();
+		initView();
 
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -101,6 +91,154 @@ public class MainActivity extends SherlockFragmentActivity
 		if(hasBeenUpdated()) {
 			showUpdatesDialog();
 		}
+	}
+
+	private void initGcm()
+	{
+		try {
+			GCMRegistrar.checkDevice(this);
+		} catch(UnsupportedOperationException e) {
+			Log.v(TAG, "GCM is not supported on this device :(");
+			return;
+		}
+
+		GCMRegistrar.checkManifest(this);
+
+		String registrationId = GCMRegistrar.getRegistrationId(this);
+		if(StringUtils.isEmpty(registrationId)) {
+			GCMRegistrar.register(this, SENDER_ID);
+		} else if(!GCMRegistrar.isRegisteredOnServer(this)) {
+			registerOnServer(registrationId);
+		}
+	}
+
+	private void registerOnServer(final String regId)
+	{
+		final Context context = this;
+		mRegisterTask = new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... params)
+			{
+				GcmServerRpcCall rpcCall = new GcmServerRegister(context);
+				boolean registered = rpcCall.execute(regId, null);
+
+				if(!registered) {
+					GCMRegistrar.unregister(context);
+				}
+
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result)
+			{
+				mRegisterTask = null;
+			}
+
+		};
+		mRegisterTask.execute(null, null, null);
+	}
+
+	private void initView()
+	{
+		decideAppOrientation();
+
+		initViewPager();
+
+		ViewUtils.setupActionBar(getSupportActionBar(), getResources());
+		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+		initTabs();
+	}
+
+	private void decideAppOrientation()
+	{
+		if(getResources().getBoolean(R.bool.isTablet)) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		} else {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+		}
+	}
+
+	private void initViewPager()
+	{
+		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+		if(tabSelectedListener == null) {
+			tabSelectedListener = new TabSelectedListener(this,
+					getSupportFragmentManager(), viewPager);
+		} else {
+			tabSelectedListener.setFragmentManager(getSupportFragmentManager());
+			tabSelectedListener.setViewPager(viewPager);
+			tabSelectedListener.setContext(this);
+			tabSelectedListener.init();
+		}
+	}
+
+	private void initTabs()
+	{
+		Tabs tabsContainer = (Tabs) findViewById(R.id.tabs);
+		SparseArray<Tab> tabs = Tabs.getTabs(tabsContainer);
+		tabs.get(TabSelectedListener.getCurrentTab()).setSelected(true);
+		setupListeners(tabs);
+	}
+
+	private void setupListeners(SparseArray<Tab> tabs)
+	{
+		for(int i = 0; i < tabs.size(); i++) {
+			Tab viewTab = tabs.valueAt(i);
+
+			viewTab.setOnTabSelectedListener(tabSelectedListener);
+		}
+	}
+
+	private boolean isFirstRun()
+	{
+		long lastRunVersionCode = preferences.getLong(
+				UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
+
+		return(lastRunVersionCode == 0);
+	}
+
+	private boolean hasBeenUpdated()
+	{
+		try {
+			PackageInfo pInfo = getPackageManager().getPackageInfo(
+					getPackageName(), PackageManager.GET_META_DATA);
+			long lastRunVersionCode = preferences.getLong(
+					UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
+			if(lastRunVersionCode < pInfo.versionCode) {
+				Editor editor = preferences.edit();
+				editor.putLong("lastRunVersionCode", pInfo.versionCode);
+				editor.commit();
+
+				return(lastRunVersionCode > 0);
+			}
+		} catch(NameNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	private void showUpdatesDialog()
+	{
+		final Dialog dialog = new Dialog(this);
+		dialog.setContentView(R.layout.popup);
+		dialog.setTitle(R.string.application_updated);
+		dialog.setCancelable(true);
+
+		TextView textView = (TextView) dialog.findViewById(R.id.updatesText);
+		textView.setText(R.string.updates);
+
+		Button button = (Button) dialog.findViewById(R.id.updatesButton);
+		button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v)
+			{
+				dialog.hide();
+			}
+		});
+		dialog.show();
 	}
 
 	/**
@@ -208,62 +346,15 @@ public class MainActivity extends SherlockFragmentActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void setupListeners(SparseArray<Tab> tabs)
+	@Override
+	protected void onDestroy()
 	{
-		for(int i = 0; i < tabs.size(); i++) {
-			Tab viewTab = tabs.valueAt(i);
-
-			viewTab.setOnTabSelectedListener(tabSelectedListener);
-		}
-	}
-
-	private boolean hasBeenUpdated()
-	{
-		try {
-			PackageInfo pInfo = getPackageManager().getPackageInfo(
-					getPackageName(), PackageManager.GET_META_DATA);
-			long lastRunVersionCode = preferences.getLong(
-					UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
-			if(lastRunVersionCode < pInfo.versionCode) {
-				Editor editor = preferences.edit();
-				editor.putLong("lastRunVersionCode", pInfo.versionCode);
-				editor.commit();
-
-				return(lastRunVersionCode > 0);
-			}
-		} catch(NameNotFoundException e) {
-			e.printStackTrace();
+		if(mRegisterTask != null) {
+			mRegisterTask.cancel(true);
 		}
 
-		return false;
-	}
+		GCMRegistrar.onDestroy(this);
 
-	private boolean isFirstRun()
-	{
-		long lastRunVersionCode = preferences.getLong(
-				UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
-
-		return(lastRunVersionCode == 0);
-	}
-
-	private void showUpdatesDialog()
-	{
-		final Dialog dialog = new Dialog(this);
-		dialog.setContentView(R.layout.popup);
-		dialog.setTitle(R.string.application_updated);
-		dialog.setCancelable(true);
-
-		TextView textView = (TextView) dialog.findViewById(R.id.updatesText);
-		textView.setText(R.string.updates);
-
-		Button button = (Button) dialog.findViewById(R.id.updatesButton);
-		button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v)
-			{
-				dialog.hide();
-			}
-		});
-		dialog.show();
+		super.onDestroy();
 	}
 }
