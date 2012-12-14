@@ -1,4 +1,0 @@
-[submodule "android/SlackNotification"]
-	path = android/SlackNotification
-	url = git://github.com/paolinux86/SlackNotification.git
-	ignore = dirty

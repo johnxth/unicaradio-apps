@@ -33,9 +33,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
 
-import org.slackcnt.android.slacknotification.SlackNotification;
-import org.slackcnt.android.slacknotification.SlackNotification.Builder;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -46,6 +43,8 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -242,7 +241,7 @@ public class StreamingService extends Service
 		PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
 				PendingIntent.FLAG_CANCEL_CURRENT);
 
-		Builder b = new SlackNotification.Builder(this);
+		Builder b = new NotificationCompat.Builder(this);
 		b.setContentTitle(title);
 		b.setContentText(message);
 		b.setSmallIcon(R.drawable.ic_stat_notify);
@@ -251,7 +250,7 @@ public class StreamingService extends Service
 		b.setWhen(System.currentTimeMillis());
 		b.setOngoing(true);
 
-		return b.getNotification();
+		return b.build();
 	}
 
 	private final class PlayThread implements Runnable
