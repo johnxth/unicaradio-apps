@@ -23,10 +23,12 @@ import it.unicaradio.android.gcm.GcmServerRpcCall;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tabs;
 import it.unicaradio.android.listeners.TabSelectedListener;
+import it.unicaradio.android.services.GCMIntentService;
 import it.unicaradio.android.utils.IntentUtils;
 import it.unicaradio.android.utils.StringUtils;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -90,6 +92,26 @@ public class MainActivity extends SherlockFragmentActivity
 		}
 		if(hasBeenUpdated()) {
 			showUpdatesDialog();
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		Intent intent = getIntent();
+		if(StringUtils.equals(intent.getAction(),
+				GCMIntentService.ACTION_GCM_MESSAGE) && intent.hasExtra("text")) {
+			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+			dialogBuilder.setTitle("Hai ricevuto un nuovo messaggio!");
+			dialogBuilder.setMessage(intent.getStringExtra("text"));
+			dialogBuilder.setPositiveButton(android.R.string.ok, null);
+			dialogBuilder.show();
+			getIntent().removeExtra("text");
 		}
 	}
 
