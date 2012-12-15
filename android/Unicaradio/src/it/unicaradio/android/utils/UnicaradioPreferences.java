@@ -94,4 +94,22 @@ public class UnicaradioPreferences
 
 		return CoverDownloadMode.fromString(coverDownloadMode);
 	}
+
+	public static boolean areGcmMessagesDisabled(Context context)
+	{
+		SharedPreferences defaultSharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(context);
+
+		return defaultSharedPreferences.getBoolean(
+				UnicaradioPreferences.PREF_GCM_DISABLE_MESSAGES, false);
+	}
+
+	public static boolean areGcmLowMessagesEnabled(Context context)
+	{
+		SharedPreferences defaultSharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(context);
+
+		return defaultSharedPreferences.getBoolean(
+				UnicaradioPreferences.PREF_GCM_ENABLE_LOW_MESSAGES, true);
+	}
 }

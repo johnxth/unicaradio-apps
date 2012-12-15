@@ -169,48 +169,44 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 			Preference preference)
 	{
 		if(preference.getKey().equals(UnicaradioPreferences.PREF_APP_VERSION)) {
-			System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
-			mHits[mHits.length - 1] = SystemClock.uptimeMillis();
-			if(mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
-				AlertDialog.Builder dialogBuilder = new Builder(this);
-				dialogBuilder.setTitle("Messaggi");
-
-				String message = getGcmMessagesDialogMessage();
-				dialogBuilder.setMessage(message);
-				dialogBuilder.setPositiveButton(android.R.string.yes,
-						new OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								toggleGcmMessagesValue();
-							}
-						});
-				dialogBuilder.setNegativeButton(android.R.string.no, null);
-				dialogBuilder.show();
-			}
+			onAppVersionClick();
 		}
 
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}
 
+	void onAppVersionClick()
+	{
+		System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+		mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+		if(mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
+			AlertDialog.Builder dialogBuilder = new Builder(this);
+			dialogBuilder.setTitle("Messaggi");
+
+			String message = getGcmMessagesDialogMessage();
+			dialogBuilder.setMessage(message);
+			dialogBuilder.setPositiveButton(android.R.string.yes,
+					new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							toggleGcmMessagesValue();
+						}
+					});
+			dialogBuilder.setNegativeButton(android.R.string.no, null);
+			dialogBuilder.show();
+		}
+	}
+
 	String getGcmMessagesDialogMessage()
 	{
-		boolean messagesEnabled = getGcmDisableMessagesPreferenceValue();
+		boolean messagesDisabled = UnicaradioPreferences
+				.areGcmMessagesDisabled(this);
 		String message = "I messaggi sono attivi. Vuoi disattivarli?";
-		if(!messagesEnabled) {
+		if(messagesDisabled) {
 			message = "I messaggi sono stati disattivati. Vuoi riattivarli?";
 		}
 		return message;
-	}
-
-	boolean getGcmDisableMessagesPreferenceValue()
-	{
-		SharedPreferences defaultSharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
-		return defaultSharedPreferences.getBoolean(
-				UnicaradioPreferences.PREF_GCM_DISABLE_MESSAGES, true);
 	}
 
 	void toggleGcmMessagesValue()
@@ -218,7 +214,8 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 		SharedPreferences defaultSharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
-		boolean currentValue = getGcmDisableMessagesPreferenceValue();
+		boolean currentValue = UnicaradioPreferences
+				.areGcmMessagesDisabled(this);
 		Editor editor = defaultSharedPreferences.edit();
 		editor.putBoolean(UnicaradioPreferences.PREF_GCM_DISABLE_MESSAGES,
 				!currentValue);

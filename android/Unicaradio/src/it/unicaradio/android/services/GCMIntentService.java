@@ -21,6 +21,7 @@ import it.unicaradio.android.enums.GcmMessagePriority;
 import it.unicaradio.android.gcm.GcmServerRegister;
 import it.unicaradio.android.gcm.GcmServerRpcCall;
 import it.unicaradio.android.gcm.GcmServerUnregister;
+import it.unicaradio.android.utils.UnicaradioPreferences;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -57,21 +58,45 @@ public class GCMIntentService extends GCMBaseIntentService
 	@Override
 	protected void onMessage(Context arg0, Intent arg1)
 	{
+		boolean gcmMessagesDisabled = UnicaradioPreferences
+				.areGcmMessagesDisabled(this);
+		if(gcmMessagesDisabled) {
+			Log.v(TAG, "Messages are disabled. Ignoring.");
+			return;
+		}
+		if(!canNotifyUser(arg1)) {
+			Log.v(TAG, "Message cannot be notified. Ignoring.");
+			return;
+		}
+
 		Notification notification = createNotification(arg1);
 		sendNotification(notification);
 	}
 
+	/**
+	 * @param priorityEnum
+	 * @return
+	 */
+	private boolean canNotifyUser(Intent intent)
+	{
+		String intentPriority = intent.getStringExtra("priority");
+		GcmMessagePriority priorityEnum = GcmMessagePriority
+				.fromString(intentPriority);
+
+		return priorityEnum != GcmMessagePriority.LOW
+				|| UnicaradioPreferences.areGcmLowMessagesEnabled(this);
+	}
+
 	private Notification createNotification(Intent i)
 	{
-		// TODO: check intent content
 		String text = i.getStringExtra("message");
 		String intentPriority = i.getStringExtra("priority");
-		Log.d("GCM", "RECEIVED A MESSAGE: \"" + text + "\" with priority: "
-				+ intentPriority);
-
 		GcmMessagePriority priorityEnum = GcmMessagePriority
 				.fromString(intentPriority);
 		int priority = priorityEnum.toAndroidNotificationPriority();
+
+		Log.v("GCM", "NOTIFYING A MESSAGE: \"" + text + "\" with priority: "
+				+ intentPriority);
 
 		Intent intent = new Intent(ACTION_GCM_MESSAGE);
 		intent.putExtra("text", text);
