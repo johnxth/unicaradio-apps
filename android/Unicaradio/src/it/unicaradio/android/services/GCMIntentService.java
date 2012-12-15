@@ -17,6 +17,7 @@
 package it.unicaradio.android.services;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.enums.GcmMessagePriority;
 import it.unicaradio.android.gcm.GcmServerRegister;
 import it.unicaradio.android.gcm.GcmServerRpcCall;
 import it.unicaradio.android.gcm.GcmServerUnregister;
@@ -56,8 +57,6 @@ public class GCMIntentService extends GCMBaseIntentService
 	@Override
 	protected void onMessage(Context arg0, Intent arg1)
 	{
-		Log.d("GCM", "RECEIVED A MESSAGE: " + arg1.getStringExtra("message"));
-
 		Notification notification = createNotification(arg1);
 		sendNotification(notification);
 	}
@@ -66,8 +65,13 @@ public class GCMIntentService extends GCMBaseIntentService
 	{
 		// TODO: check intent content
 		String text = i.getStringExtra("message");
-		int priority = i.getIntExtra("priority",
-				NotificationCompat.PRIORITY_LOW);
+		String intentPriority = i.getStringExtra("priority");
+		Log.d("GCM", "RECEIVED A MESSAGE: \"" + text + "\" with priority: "
+				+ intentPriority);
+
+		GcmMessagePriority priorityEnum = GcmMessagePriority
+				.fromString(intentPriority);
+		int priority = priorityEnum.toAndroidNotificationPriority();
 
 		Intent intent = new Intent(ACTION_GCM_MESSAGE);
 		intent.putExtra("text", text);

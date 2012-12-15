@@ -375,7 +375,11 @@ public class MainActivity extends SherlockFragmentActivity
 			mRegisterTask.cancel(true);
 		}
 
-		GCMRegistrar.onDestroy(this);
+		try {
+			GCMRegistrar.onDestroy(this);
+		} catch(Exception e) {
+			// do nothing
+		}
 
 		super.onDestroy();
 	}
