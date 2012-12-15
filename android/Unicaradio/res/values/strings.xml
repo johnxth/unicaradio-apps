@@ -101,6 +101,10 @@
 	<string name="prefs_permit_roaming_summaryOn">Puoi ascoltare Unicaradio in roaming su rete dati</string>
 	<string name="prefs_permit_roaming_summaryOff">Non ascoltare Unicaradio se il roaming su rete dati è attivo</string>
 
+	<string name="prefs_gcm_enable_low_messages_title">Messaggi a bassa priorità</string>
+	<string name="prefs_gcm_enable_low_messages_summaryOn">Sono attivi tutti i tipi di messaggi</string>
+	<string name="prefs_gcm_enable_low_messages_summaryOff">Non riceverai i messaggi a bassa priorità</string>
+
 	<!-- Category: app_infos -->
 	<string name="prefs_app_infos_category">Informazioni e licenze</string>
 

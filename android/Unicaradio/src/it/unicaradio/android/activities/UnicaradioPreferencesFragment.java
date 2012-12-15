@@ -20,11 +20,17 @@ import it.unicaradio.android.R;
 import it.unicaradio.android.activities.UnicaradioPreferencesActivity.OpenPreferenceLink;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 
 /**
  * @author Paolo Cortis
@@ -34,6 +40,8 @@ public class UnicaradioPreferencesFragment extends PreferenceFragment implements
 		OnSharedPreferenceChangeListener
 {
 	private UnicaradioPreferencesActivity preferencesActivity;
+
+	private long[] mHits = new long[3];
 
 	/**
 	 * {@inheritDoc}
@@ -67,6 +75,40 @@ public class UnicaradioPreferencesFragment extends PreferenceFragment implements
 	{
 		Preference preference = findPreference(key);
 		preferencesActivity.updatePreferenceSummary(preference);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
+			Preference preference)
+	{
+		if(preference.getKey().equals(UnicaradioPreferences.PREF_APP_VERSION)) {
+			System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+			mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+			if(mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
+				AlertDialog.Builder dialogBuilder = new Builder(getActivity());
+				dialogBuilder.setTitle("Messaggi");
+
+				String message = preferencesActivity
+						.getGcmMessagesDialogMessage();
+				dialogBuilder.setMessage(message);
+				dialogBuilder.setPositiveButton(android.R.string.yes,
+						new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which)
+							{
+								preferencesActivity.toggleGcmMessagesValue();
+							}
+						});
+				dialogBuilder.setNegativeButton(android.R.string.no, null);
+				dialogBuilder.show();
+			}
+		}
+
+		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}
 
 	private void setCurrentValuesInSummary()

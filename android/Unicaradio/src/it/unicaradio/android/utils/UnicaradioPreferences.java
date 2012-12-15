@@ -46,6 +46,10 @@ public class UnicaradioPreferences
 
 	public static final String PREF_LICENCE_ACRA_DETAILS = "prefs_licences_acra_details";
 
+	public static final String PREF_GCM_ENABLE_LOW_MESSAGES = "gcm_enable_low_messages";
+
+	public static final String PREF_GCM_DISABLE_MESSAGES = "gcm_disable_messages";
+
 	public static final String DOWNLOAD_COVER_MOBILEDATA = "mobiledata";
 
 	public static final String DOWNLOAD_COVER_WIFIONLY = "wifi_only";

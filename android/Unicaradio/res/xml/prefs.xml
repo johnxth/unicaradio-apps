@@ -24,6 +24,13 @@
 		android:summaryOff="@string/prefs_permit_roaming_summaryOff"
 		android:defaultValue="false" />
 
+	<CheckBoxPreference
+		android:key="gcm_enable_low_messages"
+		android:title="@string/prefs_gcm_enable_low_messages_title"
+		android:summaryOn="@string/prefs_gcm_enable_low_messages_summaryOn"
+		android:summaryOff="@string/prefs_gcm_enable_low_messages_summaryOff"
+		android:defaultValue="true" />
+
 	<PreferenceCategory android:title="@string/prefs_app_infos_category">
 		<Preference
 			android:key="app_version"
