@@ -112,6 +112,7 @@ public class GCMIntentService extends GCMBaseIntentService
 		b.setWhen(System.currentTimeMillis());
 		b.setPriority(priority);
 		b.setAutoCancel(true);
+		b.setVibrate(new long[] {100L, 600L});
 
 		return b.build();
 	}
