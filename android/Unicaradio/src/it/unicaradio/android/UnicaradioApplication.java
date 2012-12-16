@@ -33,7 +33,7 @@ import android.app.Application;
 /**
  * @author Paolo Cortis
  */
-@ReportsCrashes(formKey = "dHpBTGtCV0RoZzdMRzV4aENjMkNMb0E6MQ", customReportContent = {
+@ReportsCrashes(formKey = "", formUri = "http://unicaradio.slack-counter.org/submit.php", customReportContent = {
 		REPORT_ID, APP_VERSION_CODE, APP_VERSION_NAME, PHONE_MODEL, BRAND,
 		PRODUCT, ANDROID_VERSION, STACK_TRACE})
 public class UnicaradioApplication extends Application
