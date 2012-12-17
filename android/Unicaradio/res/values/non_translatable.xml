@@ -18,5 +18,8 @@
 	<string
 		name="prefs_acra_details_link"
 		translatable="false">http://code.google.com/p/unicaradio-apps/wiki/ACRA</string>
+	<string
+		name="prefs_gcm_link"
+		translatable="false">http://code.google.com/p/unicaradio-apps/wiki/GCM</string>
 
 </resources>

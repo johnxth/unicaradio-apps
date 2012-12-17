@@ -24,12 +24,19 @@
 		android:summaryOff="@string/prefs_permit_roaming_summaryOff"
 		android:defaultValue="false" />
 
-	<CheckBoxPreference
-		android:key="gcm_enable_low_messages"
-		android:title="@string/prefs_gcm_enable_low_messages_title"
-		android:summaryOn="@string/prefs_gcm_enable_low_messages_summaryOn"
-		android:summaryOff="@string/prefs_gcm_enable_low_messages_summaryOff"
-		android:defaultValue="true" />
+	<PreferenceCategory android:title="@string/prefs_gcm_messages_category">
+		<CheckBoxPreference
+			android:key="gcm_enable_low_messages"
+			android:title="@string/prefs_gcm_enable_low_messages_title"
+			android:summaryOn="@string/prefs_gcm_enable_low_messages_summaryOn"
+			android:summaryOff="@string/prefs_gcm_enable_low_messages_summaryOff"
+			android:defaultValue="true" />
+
+		<Preference
+			android:key="gcm_info"
+			android:title="@string/prefs_gcm_info_title"
+			android:summary="@string/prefs_gcm_info_summary" />
+	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_app_infos_category">
 		<Preference
@@ -55,6 +62,11 @@
 			android:key="prefs_licences_acra_details"
 			android:title="@string/prefs_acra_details"
 			android:summary="@string/prefs_acra_details_sub" />
+
+		<Preference
+			android:key="prefs_licences_gcm"
+			android:title="@string/prefs_gcm"
+			android:summary="@string/prefs_gcm_sub" />
 
 	</PreferenceCategory>
 

@@ -161,6 +161,11 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 		prefs_licences_acra_details
 				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
 						R.string.prefs_acra_details_link));
+
+		Preference prefs_gcm_messages_info = findPreference(UnicaradioPreferences.PREF_GCM_MESSAGES_INFO);
+		prefs_gcm_messages_info
+				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
+						R.string.prefs_gcm_link));
 	}
 
 	@Override
@@ -168,14 +173,18 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
 			Preference preference)
 	{
-		if(preference.getKey().equals(UnicaradioPreferences.PREF_APP_VERSION)) {
-			onAppVersionClick();
+		if(StringUtils.equals(preference.getKey(),
+				UnicaradioPreferences.PREF_APP_VERSION)) {
+			// TODO
+		} else if(StringUtils.equals(preference.getKey(),
+				UnicaradioPreferences.PREF_LICENCE_GCM)) {
+			onGcmVersionClick();
 		}
 
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}
 
-	void onAppVersionClick()
+	void onGcmVersionClick()
 	{
 		System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
 		mHits[mHits.length - 1] = SystemClock.uptimeMillis();

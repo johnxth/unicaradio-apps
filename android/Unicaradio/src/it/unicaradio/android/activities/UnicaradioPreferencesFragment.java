@@ -18,6 +18,7 @@ package it.unicaradio.android.activities;
 
 import it.unicaradio.android.R;
 import it.unicaradio.android.activities.UnicaradioPreferencesActivity.OpenPreferenceLink;
+import it.unicaradio.android.utils.StringUtils;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
@@ -77,8 +78,12 @@ public class UnicaradioPreferencesFragment extends PreferenceFragment implements
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
 			Preference preference)
 	{
-		if(preference.getKey().equals(UnicaradioPreferences.PREF_APP_VERSION)) {
-			preferencesActivity.onAppVersionClick();
+		if(StringUtils.equals(preference.getKey(),
+				UnicaradioPreferences.PREF_APP_VERSION)) {
+			// TODO
+		} else if(StringUtils.equals(preference.getKey(),
+				UnicaradioPreferences.PREF_LICENCE_GCM)) {
+			preferencesActivity.onGcmVersionClick();
 		}
 
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -115,5 +120,10 @@ public class UnicaradioPreferencesFragment extends PreferenceFragment implements
 		prefs_licences_acra_details
 				.setOnPreferenceClickListener(new OpenPreferenceLink(
 						getActivity(), R.string.prefs_acra_details_link));
+
+		Preference prefs_gcm_messages_info = findPreference(UnicaradioPreferences.PREF_GCM_MESSAGES_INFO);
+		prefs_gcm_messages_info
+				.setOnPreferenceClickListener(new OpenPreferenceLink(
+						getActivity(), R.string.prefs_gcm_link));
 	}
 }

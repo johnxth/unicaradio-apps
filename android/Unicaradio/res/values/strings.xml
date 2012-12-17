@@ -101,9 +101,15 @@
 	<string name="prefs_permit_roaming_summaryOn">Puoi ascoltare Unicaradio in roaming su rete dati</string>
 	<string name="prefs_permit_roaming_summaryOff">Non ascoltare Unicaradio se il roaming su rete dati è attivo</string>
 
+	<!-- Category: gcm_messages -->
+	<string name="prefs_gcm_messages_category">Messaggi</string>
+
+	<!-- gcm messages -->
 	<string name="prefs_gcm_enable_low_messages_title">Messaggi a bassa priorità</string>
 	<string name="prefs_gcm_enable_low_messages_summaryOn">Sono attivi tutti i tipi di messaggi</string>
 	<string name="prefs_gcm_enable_low_messages_summaryOff">Non riceverai i messaggi a bassa priorità</string>
+	<string name="prefs_gcm_info_title">I messaggi UnicaRadio</string>
+	<string name="prefs_gcm_info_summary">Cosa sono questi messaggi?</string>
 
 	<!-- Category: app_infos -->
 	<string name="prefs_app_infos_category">Informazioni e licenze</string>
@@ -123,6 +129,9 @@
 
 	<string name="prefs_acra_details">Informazioni su ACRA</string>
 	<string name="prefs_acra_details_sub">Come viene usato ACRA su Unicaradio</string>
+
+	<string name="prefs_gcm">Google Cloud Messaging</string>
+	<string name="prefs_gcm_sub">Versione 1.0.2</string>
 
 	<!-- Menu -->
 	<string name="menu_settings">Impostazioni</string>
