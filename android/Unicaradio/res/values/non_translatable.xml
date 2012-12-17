@@ -5,7 +5,7 @@
 		translatable="false">UnicaRadio</string>
 
 	<!-- Preferences -->
-	<!-- licences -->
+	<!-- licenses -->
 	<string
 		name="prefs_aacdecoder_link"
 		translatable="false">http://code.google.com/p/aacdecoder-android/</string>

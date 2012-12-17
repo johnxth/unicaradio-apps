@@ -82,7 +82,7 @@ public class UnicaradioPreferencesFragment extends PreferenceFragment implements
 				UnicaradioPreferences.PREF_APP_VERSION)) {
 			// TODO
 		} else if(StringUtils.equals(preference.getKey(),
-				UnicaradioPreferences.PREF_LICENCE_GCM)) {
+				UnicaradioPreferences.PREF_LICENSE_GCM)) {
 			preferencesActivity.onGcmVersionClick();
 		}
 
@@ -102,22 +102,22 @@ public class UnicaradioPreferencesFragment extends PreferenceFragment implements
 
 	private void initListeners()
 	{
-		Preference prefs_licences_aacdecoder = findPreference(UnicaradioPreferences.PREF_LICENCE_AACDECODER);
-		prefs_licences_aacdecoder
+		Preference prefs_licenses_aacdecoder = findPreference(UnicaradioPreferences.PREF_LICENSE_AACDECODER);
+		prefs_licenses_aacdecoder
 				.setOnPreferenceClickListener(new OpenPreferenceLink(
 						getActivity(), R.string.prefs_aacdecoder_link));
 
-		Preference prefs_licences_abs = findPreference(UnicaradioPreferences.PREF_LICENCE_ABS);
-		prefs_licences_abs.setOnPreferenceClickListener(new OpenPreferenceLink(
+		Preference prefs_licenses_abs = findPreference(UnicaradioPreferences.PREF_LICENSE_ABS);
+		prefs_licenses_abs.setOnPreferenceClickListener(new OpenPreferenceLink(
 				getActivity(), R.string.prefs_abs_link));
 
-		Preference prefs_licences_acra = findPreference(UnicaradioPreferences.PREF_LICENCE_ACRA);
-		prefs_licences_acra
+		Preference prefs_licenses_acra = findPreference(UnicaradioPreferences.PREF_LICENSE_ACRA);
+		prefs_licenses_acra
 				.setOnPreferenceClickListener(new OpenPreferenceLink(
 						getActivity(), R.string.prefs_acra_link));
 
-		Preference prefs_licences_acra_details = findPreference(UnicaradioPreferences.PREF_LICENCE_ACRA_DETAILS);
-		prefs_licences_acra_details
+		Preference prefs_licenses_acra_details = findPreference(UnicaradioPreferences.PREF_LICENSE_ACRA_DETAILS);
+		prefs_licenses_acra_details
 				.setOnPreferenceClickListener(new OpenPreferenceLink(
 						getActivity(), R.string.prefs_acra_details_link));
 

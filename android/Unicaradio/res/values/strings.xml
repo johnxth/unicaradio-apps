@@ -117,15 +117,15 @@
 	<!-- app_version -->
 	<string name="prefs_app_version_title">Versione app</string>
 
-	<!-- licences -->
+	<!-- licenses -->
 	<string name="prefs_aacdecoder">AACDecoder v.0.6.1 by Spoledge</string>
-	<string name="prefs_aacdecoder_sub">Apache licence 2.0</string>
+	<string name="prefs_aacdecoder_sub">Apache license 2.0</string>
 
 	<string name="prefs_abs">ActionBarSherlock v.4.1.0 by Jake Wharton</string>
-	<string name="prefs_abs_sub">Apache licence 2.0</string>
+	<string name="prefs_abs_sub">Apache license 2.0</string>
 
 	<string name="prefs_acra">ACRA v.4.4.0 by Kevin Gaudin</string>
-	<string name="prefs_acra_sub">Apache licence 2.0</string>
+	<string name="prefs_acra_sub">Apache license 2.0</string>
 
 	<string name="prefs_acra_details">Informazioni su ACRA</string>
 	<string name="prefs_acra_details_sub">Come viene usato ACRA su Unicaradio</string>
