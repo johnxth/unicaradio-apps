@@ -239,7 +239,7 @@
 		NSString *message = @"Non è stato possibile inviare la richiesta.";
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
 		[alert show];
-		[self loadCaptcha];
+		//[self loadCaptcha];
 	}
 }
 
@@ -248,7 +248,7 @@
 	self.titoloTextView.text = @"";
 	self.autoreTextView.text = @"";
 	self.captchaTextView.text = @"";
-	[self loadCaptcha];
+	//[self loadCaptcha];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

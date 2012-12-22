@@ -13,6 +13,7 @@
 #import "../libs/JSONKit/JSONKit.h"
 #import "../models/Transmission.h"
 #import "../operations/DownloadScheduleOperation.h"
+#import "../widgets/UnicaradioUINavigationBar.h"
 
 @interface ScheduleViewController ()
 
@@ -39,20 +40,36 @@
 		queue = [[NSOperationQueue alloc] init];
 		[queue setMaxConcurrentOperationCount: 1];
     }
+
     return self;
 }
-							
+
+- (id)initWithSchedule:(Schedule *)s andDayName:(NSString*)dayName andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+	self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	self.schedule = s;
+	self.state = TRANSMISSIONS;
+	self.title = dayName;
+
+	return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	
-	self.days = [[NSMutableArray alloc] initWithObjects:@"Lunedì", @"Martedì",
+
+	if(self.schedule == nil) {
+		self.days = [[NSMutableArray alloc] initWithObjects:@"Lunedì", @"Martedì",
 			 @"Mercoledì", @"Giovedì", @"Venerdì", @"Sabato", @"Domenica", nil];
+		self.state = DAYS;
+	}
 
 	self.scheduleTable.rowHeight = 55;
 	self.scheduleTable.backgroundColor = [UIColor blackColor];
-	self.state = DAYS;
+
+	
+	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
 }
 
 - (void)viewDidUnload
@@ -136,15 +153,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	//NSLog([NSString stringWithFormat:@"selected: %d", [indexPath row]]);
-	if(self.state == DAYS) {
-		self.state = TRANSMISSIONS;
-		self.currentID = indexPath.row;
-
-		NSString *dayString = [[[self.scheduleTable cellForRowAtIndexPath:indexPath] textLabel] text];
-		[self showBackButtonWithNavigationTitle:dayString andButtonTitle:@"\u25C1 Schedule"];
-
-		[self.scheduleTable reloadData];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	if(self.state == TRANSMISSIONS) {
+		return;
 	}
+
+	self.currentID = indexPath.row;
+	
+	NSString *dayString = [[[self.scheduleTable cellForRowAtIndexPath:indexPath] textLabel] text];
+	//[self showBackButtonWithNavigationTitle:dayString andButtonTitle:@"\u25C1 Schedule"];
+	//[self.scheduleTable reloadData];
+	
+	ScheduleViewController *scheduleViewController = [[ScheduleViewController alloc] initWithSchedule:schedule andDayName:dayString andNibName:self.nibName bundle:self.nibBundle];
+	[self.navigationController pushViewController:scheduleViewController animated:YES];
+	[scheduleViewController release];
 }
 
 - (void) showBackButtonWithNavigationTitle: (NSString *)title andButtonTitle: (NSString *)buttonTitle

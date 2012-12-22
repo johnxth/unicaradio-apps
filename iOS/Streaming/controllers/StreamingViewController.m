@@ -46,8 +46,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
 
 	if(streamer == nil || ![streamer isPlaying] || ![streamer isWaiting]) {
-		[self clearCurrentData];
-		[self clearUi];
+		[self clearUi: YES];
 	}
 
 	[self updateUi];
@@ -85,7 +84,9 @@
 
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	[self updateUi];
+	if(streamer != nil && ([streamer isPlaying] || ![streamer isWaiting])) {
+		[self updateUi];
+	}
 }
 
 - (void)dealloc
@@ -99,7 +100,7 @@
 - (IBAction) playOrPause:(id)sender
 {
     NSLog(@"playOrPause");
-    [self clearCurrentData];
+    [self clearUi:YES];
 
     if([streamer isPlaying]) {
         [streamer stop];
@@ -108,7 +109,7 @@
         [self createStreamer];
         [streamer start];
     }
-    [self updateUi];
+    //[self updateUi];
 }
 
 #pragma mark - Notification receivers
@@ -126,8 +127,9 @@
 		// split the key/value pair
 		NSArray *pair = [item componentsSeparatedByString:@"="];
 		// don't bother with bad metadata
-		if ([pair count] == 2)
+		if ([pair count] == 2) {
 			[hash setObject:[pair objectAtIndex:1] forKey:[pair objectAtIndex:0]];
+		}
 	}
     
 	// do something with the StreamTitle
@@ -239,33 +241,62 @@
 	}
 }
 
-- (void) clearUi
+- (void) clearUi:(BOOL)resetCurrentValues
 {
     NSLog(@"clearUi");
 
     UIImage *image = [UIImage imageNamed:DEFAULT_COVER_FILENAME];
     coverImageView.image = image;
-    titleLabel.text = @"";
-    singerLabel.text = @"- Unicaradio -";
-}
 
-- (void) clearCurrentData
-{
-    NSLog(@"clearCurrentData");
-    self.currentTitle = @"";
-    self.currentArtist = @"- Unicaradio -";
+	if([self isPhone] && ![self isLandscape]) {
+		// only titleLabel
+		titleLabel.text = @"- Unicaradio -";
+	} else {
+		if(![self isPhone] && [self isLandscape]) {
+			[self.titleLabel setHidden:YES];
+			[self.singerLabel setHidden:YES];
+		}
+
+		titleLabel.text = @"";
+		singerLabel.text = @"- Unicaradio -";
+	}
+
+	if(resetCurrentValues) {
+		currentTitle = @"";
+		currentArtist = @"";
+	}
 }
 
 - (void) updateUi
 {
     NSLog(@"updateUi");
-    [self clearUi];
+    [self clearUi:NO];
 
     // draw cover, title and singer
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
 	if (appDelegate.uiIsVisible) {
-		singerLabel.text = self.currentArtist;
-        titleLabel.text = self.currentTitle;
+		if([self isPhone] && ![self isLandscape]) {
+			// only titleLabel
+			NSString *currentlyOnAir = self.currentArtist;
+
+			if(self.currentTitle != @"") {
+				currentlyOnAir = [NSString stringWithFormat:@"%@ - %@", currentlyOnAir, self.currentTitle];
+			} else {
+				currentlyOnAir = [NSString stringWithFormat:@"- %@ -", currentlyOnAir];
+			}
+
+			self.titleLabel.text = currentlyOnAir;
+		} else {
+			if(![self isPhone]) {
+				[self.titleLabel setHidden:NO];
+				[self.singerLabel setHidden:NO];
+				self.singerLabel.text = currentArtist;
+			} else {
+				self.singerLabel.text = [NSString stringWithFormat:@"- %@ -", currentArtist];
+			}
+
+			self.titleLabel.text = currentTitle;
+		}
         
         if(streamer != nil && ([streamer isPlaying] || [streamer isWaiting])) {
             NSURL *url = [NSURL URLWithString:COVER_URL];
@@ -286,7 +317,7 @@
 	oldOrientation = interfaceOrientation;
 
 	NSString *deviceLabel;
-    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    if([self isPhone]) {
         deviceLabel = @"iPhone";
     } else {
         deviceLabel = @"iPad";
@@ -300,14 +331,23 @@
     }
 	
 	NSString *nibName = [NSString stringWithFormat:@"%@_%@%@", NSStringFromClass([self class]), deviceLabel, orientationLabel];
-	//NSLog([NSString stringWithFormat:@"orientation: %d", interfaceOrientation]);
-	//NSLog([NSString stringWithFormat:@"%@ %@", @"StreamingViewController - getNibNameByOrientation: nibName is ", nibName]);
 	return nibName;
+}
+
+- (BOOL) isLandscape
+{
+	UIDeviceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+	return [self isLandscape:currentOrientation];
 }
 
 - (BOOL) isLandscape:(UIInterfaceOrientation)interfaceOrientation
 {
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation) || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight;
+}
+
+- (BOOL) isPhone
+{
+	return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 }
 
 @end

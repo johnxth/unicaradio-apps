@@ -72,6 +72,7 @@
 		52D51EF215BC0B7600BC8C94 /* FavouritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D51EF015BC0B7600BC8C94 /* FavouritesViewController.m */; };
 		52D51EF515BC0BAF00BC8C94 /* FavouritesViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D51EF415BC0BAE00BC8C94 /* FavouritesViewController_iPhone.xib */; };
 		52D51EF715BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D51EF615BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib */; };
+		52DC0E021686601700C28163 /* UnicaradioUINavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DC0E011686601700C28163 /* UnicaradioUINavigationController.m */; };
 		52E171FC15E3DFB70020A27C /* DownloadScheduleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E171FB15E3DFB70020A27C /* DownloadScheduleOperation.m */; };
 		52E1720715E440470020A27C /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720115E440470020A27C /* AudioStreamer.m */; };
 		52E1720815E440470020A27C /* UIDevice+Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720315E440470020A27C /* UIDevice+Hardware.m */; };
@@ -183,6 +184,8 @@
 		52D51EF015BC0B7600BC8C94 /* FavouritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouritesViewController.m; sourceTree = "<group>"; };
 		52D51EF415BC0BAE00BC8C94 /* FavouritesViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouritesViewController_iPhone.xib; sourceTree = "<group>"; };
 		52D51EF615BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouritesViewController_iPad.xib; sourceTree = "<group>"; };
+		52DC0E001686601700C28163 /* UnicaradioUINavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUINavigationController.h; sourceTree = "<group>"; };
+		52DC0E011686601700C28163 /* UnicaradioUINavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUINavigationController.m; sourceTree = "<group>"; };
 		52E171FA15E3DFB70020A27C /* DownloadScheduleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadScheduleOperation.h; sourceTree = "<group>"; };
 		52E171FB15E3DFB70020A27C /* DownloadScheduleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadScheduleOperation.m; sourceTree = "<group>"; };
 		52E1720015E440470020A27C /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				52328ABE15CD6FB700B67825 /* DTCustomColoredAccessory.m */,
 				52EA363115E23113004866FA /* LoadingDialog.h */,
 				52EA363215E23113004866FA /* LoadingDialog.m */,
+				52DC0E001686601700C28163 /* UnicaradioUINavigationController.h */,
+				52DC0E011686601700C28163 /* UnicaradioUINavigationController.m */,
 			);
 			path = widgets;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				52E1720715E440470020A27C /* AudioStreamer.m in Sources */,
 				52E1720815E440470020A27C /* UIDevice+Hardware.m in Sources */,
 				52E1720915E440470020A27C /* JSONKit.m in Sources */,
+				52DC0E021686601700C28163 /* UnicaradioUINavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

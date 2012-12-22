@@ -77,7 +77,6 @@
 						<string key="NSFrame">{{348, 863}, {72, 72}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -262,9 +261,9 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="881914949"/>
 							<reference ref="874980441"/>
-							<reference ref="621103430"/>
 							<reference ref="993305961"/>
 							<reference ref="41379368"/>
+							<reference ref="621103430"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
