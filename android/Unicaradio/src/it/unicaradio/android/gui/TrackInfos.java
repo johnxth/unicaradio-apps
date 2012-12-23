@@ -17,6 +17,10 @@
 package it.unicaradio.android.gui;
 
 import it.unicaradio.android.R;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -118,10 +122,34 @@ public class TrackInfos
 				this.cover = cover;
 				cleaned = false;
 			} else if(context != null) {
-				this.cover = BitmapFactory.decodeResource(
-						context.getResources(), R.drawable.cover);
+				this.cover = getDefaultCover();
 			}
 		}
+	}
+
+	private Bitmap getDefaultCover()
+	{
+		if(isXmasTime()) {
+			return BitmapFactory.decodeResource(context.getResources(),
+					R.drawable.cover_xmas);
+		}
+
+		return BitmapFactory.decodeResource(context.getResources(),
+				R.drawable.cover);
+	}
+
+	private boolean isXmasTime()
+	{
+		Calendar today = GregorianCalendar.getInstance();
+		int thisMonth = today.get(Calendar.MONTH);
+		int day = today.get(Calendar.DAY_OF_MONTH);
+		if(thisMonth == Calendar.DECEMBER && day >= 8) {
+			return true;
+		} else if(thisMonth == Calendar.JANUARY && day <= 6) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean isClean()

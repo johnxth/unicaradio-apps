@@ -64,7 +64,7 @@ public class MainActivity extends SherlockFragmentActivity
 {
 	private static final String TAG = MainActivity.class.getSimpleName();
 
-	private static final String SENDER_ID = "";
+	private static final String SENDER_ID = "698508099376";
 
 	private static TabSelectedListener tabSelectedListener;
 
