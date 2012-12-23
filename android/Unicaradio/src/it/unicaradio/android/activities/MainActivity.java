@@ -22,12 +22,16 @@ import it.unicaradio.android.gcm.GcmServerRegister;
 import it.unicaradio.android.gcm.GcmServerRpcCall;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tabs;
+import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.listeners.TabSelectedListener;
 import it.unicaradio.android.services.GCMIntentService;
 import it.unicaradio.android.utils.IntentUtils;
 import it.unicaradio.android.utils.StringUtils;
 import it.unicaradio.android.utils.UnicaradioPreferences;
 import it.unicaradio.android.utils.ViewUtils;
+
+import java.text.MessageFormat;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -55,6 +59,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.android.gcm.GCMRegistrar;
 
 /**
@@ -71,6 +76,8 @@ public class MainActivity extends SherlockFragmentActivity
 	private SharedPreferences preferences;
 
 	private AsyncTask<Void, Void, Void> mRegisterTask;
+
+	private ShareActionProvider shareActionProvider;
 
 	/**
 	 * {@inheritDoc}
@@ -339,7 +346,39 @@ public class MainActivity extends SherlockFragmentActivity
 
 		getSupportMenuInflater().inflate(R.menu.shared_menu, menu);
 
+		MenuItem item = menu.findItem(R.id.menu_item_share);
+		shareActionProvider = (ShareActionProvider) item.getActionProvider();
+		setDefaultSharingIntent();
+
 		return true;
+	}
+
+	public void setDefaultSharingIntent()
+	{
+		Intent intent = IntentUtils.createIntentForSharing(this,
+				getString(R.string.suggest_subject),
+				getString(R.string.suggest_content));
+
+		shareActionProvider.setShareIntent(intent);
+	}
+
+	public void setSharingIntentWithInfos(TrackInfos infos)
+	{
+		String content;
+		if(StringUtils.isEmpty(infos.getTitle())) {
+			content = MessageFormat.format(
+					getText(R.string.suggest_content_only_author).toString(),
+					infos.getAuthor());
+		} else {
+			content = MessageFormat.format(
+					getText(R.string.suggest_content_song).toString(),
+					infos.getTitle(), infos.getAuthor());
+		}
+
+		Intent intent = IntentUtils.createIntentForSharing(this,
+				getString(R.string.suggest_subject), content);
+
+		shareActionProvider.setShareIntent(intent);
 	}
 
 	/**
@@ -360,10 +399,11 @@ public class MainActivity extends SherlockFragmentActivity
 			}
 
 			startActivity(intent);
-		} else if(item.getItemId() == R.id.unicaradio_suggest) {
-			IntentUtils.sendEmail(this, getString(R.string.suggest_subject),
-					getString(R.string.suggest_content));
-		}
+		}/*
+		 * else if(item.getItemId() == R.id.unicaradio_suggest) {
+		 * IntentUtils.sendEmail(this, getString(R.string.suggest_subject),
+		 * getString(R.string.suggest_content)); }
+		 */
 
 		return super.onOptionsItemSelected(item);
 	}

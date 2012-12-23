@@ -229,7 +229,7 @@ public class StreamingService extends Service
 		error = StringUtils.EMPTY;
 	}
 
-	public void notifyStop()
+	private void notifyStop()
 	{
 		Intent i = new Intent(ACTION_STOP);
 		sendBroadcast(i);

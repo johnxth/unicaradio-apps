@@ -17,6 +17,7 @@
 package it.unicaradio.android.fragments;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.activities.MainActivity;
 import it.unicaradio.android.enums.CoverDownloadMode;
 import it.unicaradio.android.enums.NetworkType;
 import it.unicaradio.android.exceptions.NotConnectedException;
@@ -97,13 +98,26 @@ public class StreamingFragment extends UnicaradioFragment
 			if(isPlaying == false && isStopped == false) {
 				stop();
 			}
+
+			checkIntentForErrors(intent);
+
+			updateTrackInfos(intent);
+
+			updateShareIntent(isPlaying);
+		}
+
+		private void checkIntentForErrors(Intent intent)
+		{
 			String error = intent.getStringExtra("error");
 			if(error.length() != 0) {
 				stop();
 				Log.d(LOG, error);
 				showAlertDialog("Unicaradio", "E' avvenuto un errore");
 			}
+		}
 
+		private void updateTrackInfos(Intent intent)
+		{
 			String author = intent.getStringExtra("author");
 			String title = intent.getStringExtra("title");
 			if(oldInfos != null
@@ -112,6 +126,7 @@ public class StreamingFragment extends UnicaradioFragment
 				infos = oldInfos;
 				oldInfos = null;
 				mHandler.post(mUpdateResults);
+
 				return;
 			}
 
@@ -119,6 +134,11 @@ public class StreamingFragment extends UnicaradioFragment
 			infos.setTitle(title);
 			mHandler.post(mUpdateResults);
 
+			downloadCover();
+		}
+
+		private void downloadCover()
+		{
 			if(canLoadCover()) {
 				imageThread = new Thread(new LoadCoverRunnable());
 				imageThread.start();
@@ -144,6 +164,17 @@ public class StreamingFragment extends UnicaradioFragment
 
 				default:
 					return false;
+			}
+		}
+
+		private void updateShareIntent(boolean isPlaying)
+		{
+			MainActivity mainActivity = (MainActivity) getActivity();
+
+			if(isPlaying) {
+				mainActivity.setSharingIntentWithInfos(infos);
+			} else {
+				mainActivity.setDefaultSharingIntent();
 			}
 		}
 	};
@@ -185,6 +216,10 @@ public class StreamingFragment extends UnicaradioFragment
 		public void onServiceConnected(ComponentName name, IBinder service)
 		{
 			streamingService = ((LocalBinder) service).getService();
+			if(getActivity() == null) {
+				return;
+			}
+
 			getActivity().registerReceiver(trackinforeceiver,
 					new IntentFilter(StreamingService.ACTION_TRACK_INFO));
 			getActivity().registerReceiver(stopReceiver,
