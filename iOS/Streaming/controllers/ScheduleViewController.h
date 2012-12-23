@@ -36,7 +36,7 @@
 @property (nonatomic, retain) Schedule *schedule;
 @property (nonatomic) NSInteger currentID;
 
-- (id) initWithSchedule:(Schedule *)schedule andDayName:(NSString*)dayName andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+- (id) initWithSchedule:(Schedule *)schedule andTitle:(NSString*)title andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 - (void) backPressed;
 
 @end

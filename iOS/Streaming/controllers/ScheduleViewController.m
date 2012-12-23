@@ -44,14 +44,15 @@
     return self;
 }
 
-- (id)initWithSchedule:(Schedule *)s andDayName:(NSString*)dayName andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithSchedule:(Schedule *)s andTitle:(NSString *)title andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	self.schedule = s;
 	self.state = TRANSMISSIONS;
-	self.title = dayName;
-
-	return self;
+	self.title = title;
+	self.currentID = dayNumberZeroIndexed;
+	
+	return self;	
 }
 
 - (void)viewDidLoad
@@ -158,13 +159,11 @@
 		return;
 	}
 
-	self.currentID = indexPath.row;
-	
 	NSString *dayString = [[[self.scheduleTable cellForRowAtIndexPath:indexPath] textLabel] text];
 	//[self showBackButtonWithNavigationTitle:dayString andButtonTitle:@"\u25C1 Schedule"];
 	//[self.scheduleTable reloadData];
-	
-	ScheduleViewController *scheduleViewController = [[ScheduleViewController alloc] initWithSchedule:schedule andDayName:dayString andNibName:self.nibName bundle:self.nibBundle];
+
+	ScheduleViewController *scheduleViewController = [[ScheduleViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:indexPath.row andNibName:self.nibName bundle:self.nibBundle];
 	[self.navigationController pushViewController:scheduleViewController animated:YES];
 	[scheduleViewController release];
 }
