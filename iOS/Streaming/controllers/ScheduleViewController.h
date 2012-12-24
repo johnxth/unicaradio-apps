@@ -13,7 +13,7 @@
 
 #define SCHEDULE_URL @"http://www.unicaradio.it/regia/test/palinsesto.php"
 
-@interface ScheduleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface ScheduleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UISplitViewControllerDelegate>
 {
 	IBOutlet UITableView *scheduleTable;
 	IBOutlet UINavigationBar *navigationBar;

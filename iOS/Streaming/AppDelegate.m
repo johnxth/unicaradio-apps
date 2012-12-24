@@ -16,6 +16,8 @@
 #import "controllers/SongRequestViewController.h"
 #import "controllers/FavouritesViewController.h"
 #import "controllers/InfoViewController.h"
+#import "controllers/NoItemSelectedViewController.h"
+#import "controllers/ScheduleSplitViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -36,11 +38,12 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    UIViewController *streamingController, *navScheduleController, *scheduleController, *songRequestController, *favouritesController, *infoController;
+    UIViewController *streamingController, *navScheduleController, *songRequestController, *favouritesController, *infoController;
 
 	self.tabBarController = [[[UnicaradioUITabBarController alloc] init] autorelease];
 	streamingController = [[[StreamingViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+		ScheduleViewController *scheduleController;
         scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPhone" bundle:nil] autorelease];
 		navScheduleController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleController] autorelease];
         songRequestController = [[[SongRequestViewController alloc] initWithNibName:@"SongRequestViewController_iPhone" bundle: nil] autorelease];
@@ -49,12 +52,17 @@
 
 		self.tabBarController.viewControllers = [NSArray arrayWithObjects:streamingController, navScheduleController, songRequestController, favouritesController, infoController, nil];
     } else {
-        scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil] autorelease];
+        ScheduleViewController *scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil] autorelease];
+		NoItemSelectedViewController *noItemSelectedViewController = [[[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil] autorelease];
+		ScheduleSplitViewController *splitScheduleController = [[[ScheduleSplitViewController alloc] init] autorelease];
+		splitScheduleController.delegate = scheduleController;
+		splitScheduleController.viewControllers = [[NSArray alloc] initWithObjects:scheduleController, noItemSelectedViewController, nil];
+
         songRequestController = [[[SongRequestViewController alloc] initWithNibName:@"SongRequestViewController_iPad" bundle: nil] autorelease];
         favouritesController = [[[FavouritesViewController alloc] initWithNibName:@"FavouritesViewController_iPad" bundle: nil] autorelease];
         infoController = [[[InfoViewController alloc] initWithNibName:@"InfoViewController_iPad" bundle: nil] autorelease];
 
-		self.tabBarController.viewControllers = [NSArray arrayWithObjects:streamingController, scheduleController, songRequestController, favouritesController, infoController, nil];
+		self.tabBarController.viewControllers = [NSArray arrayWithObjects:streamingController, splitScheduleController, songRequestController, favouritesController, infoController, nil];
     }
     //self.tabBarController = [[[UITabBarController alloc] init] autorelease];
 

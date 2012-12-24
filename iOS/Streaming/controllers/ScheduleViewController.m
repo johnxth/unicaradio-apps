@@ -13,7 +13,6 @@
 #import "../libs/JSONKit/JSONKit.h"
 #import "../models/Transmission.h"
 #import "../operations/DownloadScheduleOperation.h"
-#import "../widgets/UnicaradioUINavigationBar.h"
 
 @interface ScheduleViewController ()
 
@@ -44,12 +43,12 @@
     return self;
 }
 
-- (id)initWithSchedule:(Schedule *)s andTitle:(NSString *)title andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithSchedule:(Schedule *)s andTitle:(NSString *)t andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	self.schedule = s;
 	self.state = TRANSMISSIONS;
-	self.title = title;
+	self.title = t;
 	self.currentID = dayNumberZeroIndexed;
 	
 	return self;	
@@ -69,8 +68,8 @@
 	self.scheduleTable.rowHeight = 55;
 	self.scheduleTable.backgroundColor = [UIColor blackColor];
 
-	
 	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
+	self.navigationBar.topItem.title = self.title;
 }
 
 - (void)viewDidUnload
@@ -86,6 +85,11 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"GetSchedule" object:nil];
 
+	[self refreshData];
+}
+
+- (void) refreshData
+{
 	if(schedule == nil) {
 		DownloadScheduleOperation *operation = [[DownloadScheduleOperation alloc] init];
 		[queue addOperation:operation];
@@ -154,18 +158,28 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	//NSLog([NSString stringWithFormat:@"selected: %d", [indexPath row]]);
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	if(self.state == TRANSMISSIONS) {
+		NSLog(@"TRANSMISSIONS mode. ignoring.");
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		return;
 	}
 
 	NSString *dayString = [[[self.scheduleTable cellForRowAtIndexPath:indexPath] textLabel] text];
-	//[self showBackButtonWithNavigationTitle:dayString andButtonTitle:@"\u25C1 Schedule"];
-	//[self.scheduleTable reloadData];
 
 	ScheduleViewController *scheduleViewController = [[ScheduleViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:indexPath.row andNibName:self.nibName bundle:self.nibBundle];
-	[self.navigationController pushViewController:scheduleViewController animated:YES];
+	if([self isPhone]) {
+		[self.navigationController pushViewController:scheduleViewController animated:YES];
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	} else {
+		NSArray *newVCs = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], scheduleViewController, nil];
+		self.splitViewController.viewControllers = newVCs;
+	}
 	[scheduleViewController release];
+}
+
+- (BOOL) isPhone
+{
+	return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 }
 
 - (void) showBackButtonWithNavigationTitle: (NSString *)title andButtonTitle: (NSString *)buttonTitle
@@ -173,14 +187,11 @@
 	UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:buttonTitle
 											style:UIBarButtonItemStyleBordered target:self action:@selector(backPressed)];
 	UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:title];
-	//item.backBarButtonItem = backButton;
 	[item setLeftBarButtonItem:backButton];
 
 	[self.navigationBar pushNavigationItem:item animated:YES];
 	[item release];
 	[backButton release];
-	
-	//self.navigationBar.topItem.titleView = label;
 }
 
 -  (void) backPressed

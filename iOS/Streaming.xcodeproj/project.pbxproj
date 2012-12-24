@@ -84,6 +84,9 @@
 		52EA363315E23113004866FA /* LoadingDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA363215E23113004866FA /* LoadingDialog.m */; };
 		52EA363B15E29AFC004866FA /* SongRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA363A15E29AFC004866FA /* SongRequest.m */; };
 		52EA364515E2D485004866FA /* RequestSongOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA364415E2D485004866FA /* RequestSongOperation.m */; };
+		52FBA83A1688991000C19D61 /* NoItemSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */; };
+		52FBA83D16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52FBA83C16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib */; };
+		52FBA8401688A86900C19D61 /* ScheduleSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +207,11 @@
 		52EA363A15E29AFC004866FA /* SongRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongRequest.m; sourceTree = "<group>"; };
 		52EA364315E2D485004866FA /* RequestSongOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestSongOperation.h; sourceTree = "<group>"; };
 		52EA364415E2D485004866FA /* RequestSongOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSongOperation.m; sourceTree = "<group>"; };
+		52FBA8381688991000C19D61 /* NoItemSelectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoItemSelectedViewController.h; sourceTree = "<group>"; };
+		52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoItemSelectedViewController.m; sourceTree = "<group>"; };
+		52FBA83C16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoItemSelectedViewController_iPad.xib; sourceTree = "<group>"; };
+		52FBA83E1688A86900C19D61 /* ScheduleSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleSplitViewController.h; sourceTree = "<group>"; };
+		52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleSplitViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,6 +410,10 @@
 				52D51EF015BC0B7600BC8C94 /* FavouritesViewController.m */,
 				5279553015C3326B00827501 /* InfoViewController.h */,
 				5279553115C3326B00827501 /* InfoViewController.m */,
+				52FBA8381688991000C19D61 /* NoItemSelectedViewController.h */,
+				52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */,
+				52FBA83E1688A86900C19D61 /* ScheduleSplitViewController.h */,
+				52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -458,6 +470,7 @@
 				52D51EF615BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib */,
 				5279553315C3329900827501 /* InfoViewController_iPhone.xib */,
 				5279553515C332B300827501 /* InfoViewController_iPad.xib */,
+				52FBA83C16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -617,6 +630,7 @@
 				52AA0B7115D45B6A00CA2EC3 /* website_icon.png in Resources */,
 				52AA0B7215D45B6A00CA2EC3 /* twitter_icon.png in Resources */,
 				52AA0B7315D45B6A00CA2EC3 /* youtube_icon.png in Resources */,
+				52FBA83D16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,6 +690,8 @@
 				52E1720815E440470020A27C /* UIDevice+Hardware.m in Sources */,
 				52E1720915E440470020A27C /* JSONKit.m in Sources */,
 				52DC0E021686601700C28163 /* UnicaradioUINavigationController.m in Sources */,
+				52FBA83A1688991000C19D61 /* NoItemSelectedViewController.m in Sources */,
+				52FBA8401688A86900C19D61 /* ScheduleSplitViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
