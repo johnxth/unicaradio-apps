@@ -143,6 +143,8 @@
 		52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
 		52B0B2041689A6F3002ACAB8 /* DeviceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUtils.h; sourceTree = "<group>"; };
 		52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUtils.m; sourceTree = "<group>"; };
+		52B0B2071689B194002ACAB8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "/Users/paolo/Desktop/unicaradio-apps/iOS/Streaming/it.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
+		52B0B2081689B194002ACAB8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "/Users/paolo/Desktop/unicaradio-apps/iOS/StreamingTests/it.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		52B1BA6015C1D366001625FC /* play_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_normal.png; sourceTree = "<group>"; };
 		52B1BA6315C1D383001625FC /* pause_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_0.png; sourceTree = "<group>"; };
 		52C219E915CEB236009E55E0 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
@@ -721,6 +723,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				52D51E7A15BBEE3F00BC8C94 /* en */,
+				52B0B2071689B194002ACAB8 /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				52D51EAC15BBEE3F00BC8C94 /* en */,
+				52B0B2081689B194002ACAB8 /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
