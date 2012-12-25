@@ -22,6 +22,10 @@
     if (self) {
         self.title = NSLocalizedString(@"Favourites", @"Favourites");
         self.tabBarItem.image = [UIImage imageNamed:@"favorites"];
+
+		NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"websites" ofType:@"plist"];
+		self.websites = [NSArray arrayWithContentsOfFile:plistPath];
+		NSLog(@"Size: %d", [self.websites count]);
     }
     return self;
 }
@@ -33,10 +37,6 @@
 
 	favouritesTable.rowHeight = 55;
 	favouritesTable.backgroundColor = [UIColor blackColor];
-	
-	NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"websites" ofType:@"plist"];
-	self.websites = [NSArray arrayWithContentsOfFile:plistPath];
-	NSLog(@"Size: %d", [self.websites count]);
 }
 
 - (void)viewDidUnload
