@@ -40,6 +40,7 @@
 		52ADD0AC15CC099300C2B153 /* UnicaradioUITabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52ADD0AB15CC099300C2B153 /* UnicaradioUITabBarController.m */; };
 		52ADD0AF15CC0D4300C2B153 /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 52ADD0AE15CC0D4300C2B153 /* banner.png */; };
 		52AE95CC15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */; };
+		52B0B2061689A6F3002ACAB8 /* DeviceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */; };
 		52B1BA6115C1D366001625FC /* play_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6015C1D366001625FC /* play_normal.png */; };
 		52B1BA6415C1D383001625FC /* pause_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6315C1D383001625FC /* pause_0.png */; };
 		52C219EB15CEB236009E55E0 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C219EA15CEB236009E55E0 /* Schedule.m */; };
@@ -64,7 +65,6 @@
 		52D51EBF15BBF1B500BC8C94 /* StreamingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D51EBD15BBF1B500BC8C94 /* StreamingViewController.m */; };
 		52D51EE215BBF76900BC8C94 /* ScheduleViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D51EDD15BBF76900BC8C94 /* ScheduleViewController_iPad.xib */; };
 		52D51EE315BBF76900BC8C94 /* ScheduleViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D51EDE15BBF76900BC8C94 /* ScheduleViewController_iPhone.xib */; };
-		52D51EE415BBF76900BC8C94 /* StreamingViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D51EDF15BBF76900BC8C94 /* StreamingViewController_iPad.xib */; };
 		52D51EE515BBF76900BC8C94 /* StreamingViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D51EE015BBF76900BC8C94 /* StreamingViewController_iPhone.xib */; };
 		52D51EE915BC093F00BC8C94 /* SongRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D51EE715BC093F00BC8C94 /* SongRequestViewController.m */; };
 		52D51EEC15BC0A5200BC8C94 /* SongRequestViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D51EEB15BC0A5200BC8C94 /* SongRequestViewController_iPhone.xib */; };
@@ -141,6 +141,8 @@
 		52ADD0AB15CC099300C2B153 /* UnicaradioUITabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUITabBarController.m; sourceTree = "<group>"; };
 		52ADD0AE15CC0D4300C2B153 /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
 		52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
+		52B0B2041689A6F3002ACAB8 /* DeviceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUtils.h; sourceTree = "<group>"; };
+		52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUtils.m; sourceTree = "<group>"; };
 		52B1BA6015C1D366001625FC /* play_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_normal.png; sourceTree = "<group>"; };
 		52B1BA6315C1D383001625FC /* pause_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_0.png; sourceTree = "<group>"; };
 		52C219E915CEB236009E55E0 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
@@ -177,7 +179,6 @@
 		52D51EBD15BBF1B500BC8C94 /* StreamingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamingViewController.m; sourceTree = "<group>"; };
 		52D51EDD15BBF76900BC8C94 /* ScheduleViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleViewController_iPad.xib; sourceTree = "<group>"; };
 		52D51EDE15BBF76900BC8C94 /* ScheduleViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleViewController_iPhone.xib; sourceTree = "<group>"; };
-		52D51EDF15BBF76900BC8C94 /* StreamingViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamingViewController_iPad.xib; sourceTree = "<group>"; };
 		52D51EE015BBF76900BC8C94 /* StreamingViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamingViewController_iPhone.xib; sourceTree = "<group>"; };
 		52D51EE615BC093F00BC8C94 /* SongRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongRequestViewController.h; sourceTree = "<group>"; };
 		52D51EE715BC093F00BC8C94 /* SongRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongRequestViewController.m; sourceTree = "<group>"; };
@@ -263,6 +264,8 @@
 				523B6BEF15DFEAB3001E6B10 /* NetworkUtils.m */,
 				529ECADA15E0EB7F00F4EA0A /* CaptchaParser.h */,
 				529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */,
+				52B0B2041689A6F3002ACAB8 /* DeviceUtils.h */,
+				52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -458,7 +461,6 @@
 		52D51EDC15BBF76900BC8C94 /* layout */ = {
 			isa = PBXGroup;
 			children = (
-				52D51EDF15BBF76900BC8C94 /* StreamingViewController_iPad.xib */,
 				52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */,
 				52D51EE015BBF76900BC8C94 /* StreamingViewController_iPhone.xib */,
 				52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */,
@@ -599,7 +601,6 @@
 				52D51E8F15BBEE3F00BC8C94 /* second@2x.png in Resources */,
 				52D51EE215BBF76900BC8C94 /* ScheduleViewController_iPad.xib in Resources */,
 				52D51EE315BBF76900BC8C94 /* ScheduleViewController_iPhone.xib in Resources */,
-				52D51EE415BBF76900BC8C94 /* StreamingViewController_iPad.xib in Resources */,
 				52D51EE515BBF76900BC8C94 /* StreamingViewController_iPhone.xib in Resources */,
 				52D51EEC15BC0A5200BC8C94 /* SongRequestViewController_iPhone.xib in Resources */,
 				52D51EEE15BC0ADE00BC8C94 /* SongRequestViewController_iPad.xib in Resources */,
@@ -692,6 +693,7 @@
 				52DC0E021686601700C28163 /* UnicaradioUINavigationController.m in Sources */,
 				52FBA83A1688991000C19D61 /* NoItemSelectedViewController.m in Sources */,
 				52FBA8401688A86900C19D61 /* ScheduleSplitViewController.m in Sources */,
+				52B0B2061689A6F3002ACAB8 /* DeviceUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

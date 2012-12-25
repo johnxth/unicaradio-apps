@@ -8,6 +8,7 @@
 
 #import "UnicaradioUITabBarController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "../utils/DeviceUtils.h"
 
 @interface UnicaradioUITabBarController (private)
 - (UITabBar *)tabBar;
@@ -49,7 +50,11 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+	if([DeviceUtils isPhone]) {
+		return YES;
+	} else {
+		return [DeviceUtils isLandscape:interfaceOrientation];
+	}
 }
 
 - (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
