@@ -54,7 +54,7 @@
 		scheduleController = [self createScheduleControllerForIPad];
     }
 
-	songRequestController = [[[SongRequestViewController alloc] initWithNibName: [NSString stringWithFormat:@"SongRequestViewController%@", nibNameTail] bundle: nil] autorelease];
+	songRequestController = [self createSongRequestControllerWithNibNameTail:nibNameTail];
 	favouritesController = [[[FavouritesViewController alloc] initWithNibName:[NSString stringWithFormat:@"FavouritesViewController%@", nibNameTail] bundle: nil] autorelease];
 	infoController = [[[InfoViewController alloc] initWithNibName:[NSString stringWithFormat:@"InfoViewController%@", nibNameTail] bundle: nil] autorelease];
 
@@ -158,6 +158,17 @@
 	splitScheduleController.viewControllers = [[NSArray alloc] initWithObjects:scheduleController, noItemSelectedViewController, nil];
 
 	return splitScheduleController;
+}
+
+- (UIViewController *) createSongRequestControllerWithNibNameTail:(NSString *)nibNameTail
+{
+	NSString *nibName = [NSString stringWithFormat:@"SongRequestViewController%@", nibNameTail];
+	SongRequestViewController *songRequestController = [[[SongRequestViewController alloc] initWithNibName:nibName bundle: nil] autorelease];
+
+	UnicaradioUINavigationController *navSongRequestController;
+	navSongRequestController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:songRequestController] autorelease];
+
+	return navSongRequestController;
 }
 
 @end
