@@ -56,7 +56,7 @@
 
 	songRequestController = [self createSongRequestControllerWithNibNameTail:nibNameTail];
 	favouritesController = [self createFavouritesControllerWithNibNameTail:nibNameTail];
-	infoController = [[[InfoViewController alloc] initWithNibName:[NSString stringWithFormat:@"InfoViewController%@", nibNameTail] bundle: nil] autorelease];
+	infoController = [self createInfoControllerWithNibNameTail:nibNameTail];
 
 	self.tabBarController.viewControllers = [NSArray arrayWithObjects:
 											 streamingController,
@@ -171,7 +171,6 @@
 	return navSongRequestController;
 }
 
-
 - (UIViewController *) createFavouritesControllerWithNibNameTail:(NSString *)nibNameTail
 {
 	NSString *nibName = [NSString stringWithFormat:@"FavouritesViewController%@", nibNameTail];
@@ -181,6 +180,17 @@
 	navFavouritesController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:favouritesController] autorelease];
 	
 	return navFavouritesController;
+}
+
+- (UIViewController *) createInfoControllerWithNibNameTail:(NSString *)nibNameTail
+{
+	NSString *nibName = [NSString stringWithFormat:@"InfoViewController%@", nibNameTail];
+	InfoViewController *infoController = [[[InfoViewController alloc] initWithNibName:nibName bundle: nil] autorelease];
+	
+	UnicaradioUINavigationController *navInfoController;
+	navInfoController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:infoController] autorelease];
+	
+	return navInfoController;
 }
 
 @end
