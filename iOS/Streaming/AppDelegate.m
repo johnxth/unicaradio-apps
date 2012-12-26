@@ -19,6 +19,8 @@
 #import "controllers/NoItemSelectedViewController.h"
 #import "controllers/ScheduleSplitViewController.h"
 
+#import "utils/DeviceUtils.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 @implementation AppDelegate
@@ -38,37 +40,36 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    UIViewController *streamingController, *navScheduleController, *songRequestController, *favouritesController, *infoController;
+    UIViewController *streamingController, *scheduleController, *songRequestController, *favouritesController, *infoController;
 
 	self.tabBarController = [[[UnicaradioUITabBarController alloc] init] autorelease];
-	streamingController = [[[StreamingViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-		ScheduleViewController *scheduleController;
-        scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPhone" bundle:nil] autorelease];
-		navScheduleController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleController] autorelease];
-        songRequestController = [[[SongRequestViewController alloc] initWithNibName:@"SongRequestViewController_iPhone" bundle: nil] autorelease];
-        favouritesController = [[[FavouritesViewController alloc] initWithNibName:@"FavouritesViewController_iPhone" bundle: nil] autorelease];
-        infoController = [[[InfoViewController alloc] initWithNibName:@"InfoViewController_iPhone" bundle: nil] autorelease];
+	streamingController = [self createStreamingController];
 
-		self.tabBarController.viewControllers = [NSArray arrayWithObjects:streamingController, navScheduleController, songRequestController, favouritesController, infoController, nil];
+	NSString *nibNameTail;
+    if([DeviceUtils isPhone]) {
+		nibNameTail = @"_iPhone";
+		scheduleController = [self createScheduleControllerForIPhone];
     } else {
-        ScheduleViewController *scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil] autorelease];
-		NoItemSelectedViewController *noItemSelectedViewController = [[[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil] autorelease];
-		ScheduleSplitViewController *splitScheduleController = [[[ScheduleSplitViewController alloc] init] autorelease];
-		splitScheduleController.delegate = scheduleController;
-		splitScheduleController.viewControllers = [[NSArray alloc] initWithObjects:scheduleController, noItemSelectedViewController, nil];
-
-        songRequestController = [[[SongRequestViewController alloc] initWithNibName:@"SongRequestViewController_iPad" bundle: nil] autorelease];
-        favouritesController = [[[FavouritesViewController alloc] initWithNibName:@"FavouritesViewController_iPad" bundle: nil] autorelease];
-        infoController = [[[InfoViewController alloc] initWithNibName:@"InfoViewController_iPad" bundle: nil] autorelease];
-
-		self.tabBarController.viewControllers = [NSArray arrayWithObjects:streamingController, splitScheduleController, songRequestController, favouritesController, infoController, nil];
+		nibNameTail = @"_iPad";
+		scheduleController = [self createScheduleControllerForIPad];
     }
-    //self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+
+	songRequestController = [[[SongRequestViewController alloc] initWithNibName: [NSString stringWithFormat:@"SongRequestViewController%@", nibNameTail] bundle: nil] autorelease];
+	favouritesController = [[[FavouritesViewController alloc] initWithNibName:[NSString stringWithFormat:@"FavouritesViewController%@", nibNameTail] bundle: nil] autorelease];
+	infoController = [[[InfoViewController alloc] initWithNibName:[NSString stringWithFormat:@"InfoViewController%@", nibNameTail] bundle: nil] autorelease];
+
+	self.tabBarController.viewControllers = [NSArray arrayWithObjects:
+											 streamingController,
+											 scheduleController,
+											 songRequestController,
+											 favouritesController,
+											 infoController,
+											 nil];
 
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     self.uiIsVisible = YES;
+
     return YES;
 }
 
@@ -122,5 +123,41 @@
 {
 }
 */
+
+#pragma mark - Controller constructors
+
+- (UIViewController *) createStreamingController
+{
+	StreamingViewController *streamingController;
+	streamingController = [[[StreamingViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+
+	UnicaradioUINavigationController *navStreamingController;
+	navStreamingController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:streamingController] autorelease];
+
+	return navStreamingController;
+}
+
+- (UIViewController *) createScheduleControllerForIPhone
+{
+	ScheduleViewController *scheduleController;
+	scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPhone" bundle:nil] autorelease];
+
+	UnicaradioUINavigationController *navScheduleController;
+	navScheduleController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleController] autorelease];
+
+	return navScheduleController;
+}
+
+- (UIViewController *) createScheduleControllerForIPad
+{
+	ScheduleViewController *scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil] autorelease];
+	NoItemSelectedViewController *noItemSelectedViewController = [[[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil] autorelease];
+
+	ScheduleSplitViewController *splitScheduleController = [[[ScheduleSplitViewController alloc] init] autorelease];
+	splitScheduleController.delegate = scheduleController;
+	splitScheduleController.viewControllers = [[NSArray alloc] initWithObjects:scheduleController, noItemSelectedViewController, nil];
+
+	return splitScheduleController;
+}
 
 @end
