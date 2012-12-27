@@ -325,7 +325,11 @@
 
 	NSString *deviceLabel;
     if([DeviceUtils isPhone]) {
-        deviceLabel = @"iPhone";
+		if([DeviceUtils is4InchRetinaIPhone]) {
+			deviceLabel = @"568h@2x";
+		} else {
+			deviceLabel = @"iPhone";
+		}
     } else {
         deviceLabel = @"iPad";
     }

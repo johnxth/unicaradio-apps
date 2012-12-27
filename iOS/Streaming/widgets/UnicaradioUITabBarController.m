@@ -9,6 +9,7 @@
 #import "UnicaradioUITabBarController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "../utils/DeviceUtils.h"
+#import "UnicaradioUITabBar.h"
 
 @interface UnicaradioUITabBarController (private)
 - (UITabBar *)tabBar;
@@ -20,7 +21,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [self setValue:[[UnicaradioUITabBar alloc] initWithFrame:self.tabBar.frame] forKeyPath:@"tabBar"];
     }
     return self;
 }
@@ -30,7 +31,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 	
-	UIColor *startRed = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
+	/*UIColor *startRed = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
     UIColor *middleRed = [UIColor colorWithRed:0x7F/255.0 green:0 blue:0 alpha:1];
     UIColor *endRed = [UIColor colorWithRed:0x69/255.0 green:0 blue:0 alpha:1];
 	
@@ -39,7 +40,7 @@
 	gradientNavBar.frame = self.tabBar.bounds;
 	gradientNavBar.name = @"unicaradioUITabBar";
 	[self.tabBar.layer insertSublayer:gradientNavBar atIndex:1];
-	self.tabBar.tintColor = [UIColor whiteColor];
+	self.tabBar.tintColor = [UIColor whiteColor];*/
 }
 
 - (void)viewDidUnload
@@ -57,16 +58,12 @@
 	}
 }
 
-- (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-	[self viewDidLoad];
-}
-
-- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-	[self viewDidLoad];
+-(NSUInteger)supportedInterfaceOrientations{
+	if([DeviceUtils isPhone]) {
+		return UIInterfaceOrientationMaskAll;
+	} else {
+		return UIInterfaceOrientationMaskLandscape;
+	}
 }
 
 @end

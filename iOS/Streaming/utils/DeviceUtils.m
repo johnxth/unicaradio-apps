@@ -26,4 +26,9 @@
 	return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 }
 
++ (BOOL) is4InchRetinaIPhone
+{
+	return [[UIScreen mainScreen] bounds].size.height == 568;
+}
+
 @end

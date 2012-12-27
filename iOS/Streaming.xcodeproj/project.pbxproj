@@ -19,6 +19,18 @@
 		5279553215C3326B00827501 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5279553115C3326B00827501 /* InfoViewController.m */; };
 		5279553415C3329900827501 /* InfoViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5279553315C3329900827501 /* InfoViewController_iPhone.xib */; };
 		5279553615C332B300827501 /* InfoViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5279553515C332B300827501 /* InfoViewController_iPad.xib */; };
+		528D4866168C9D4300248B54 /* UnicaradioUITabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 528D4865168C9D4300248B54 /* UnicaradioUITabBar.m */; };
+		528D486A168CB35500248B54 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4869168CB35500248B54 /* Default-568h@2x.png */; };
+		528D486C168CB9C000248B54 /* StreamingViewController_568h@2x.xib in Resources */ = {isa = PBXBuildFile; fileRef = 528D486B168CB9C000248B54 /* StreamingViewController_568h@2x.xib */; };
+		528D486E168CBD0E00248B54 /* StreamingViewController_568h@2x-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 528D486D168CBD0E00248B54 /* StreamingViewController_568h@2x-landscape.xib */; };
+		528D4870168CC06600248B54 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D486F168CC06600248B54 /* Default~iphone.png */; };
+		528D4872168CC07100248B54 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4871168CC07100248B54 /* Default@2x~iphone.png */; };
+		528D4874168CC08A00248B54 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4873168CC08A00248B54 /* Default-Landscape~ipad.png */; };
+		528D4876168CC09200248B54 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4875168CC09200248B54 /* Default-Landscape@2x~ipad.png */; };
+		528D4888168CC5EB00248B54 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4884168CC5EB00248B54 /* Icon-72.png */; };
+		528D4889168CC5EB00248B54 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4885168CC5EB00248B54 /* Icon-72@2x.png */; };
+		528D488A168CC5EB00248B54 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4886168CC5EB00248B54 /* Icon.png */; };
+		528D488B168CC5EB00248B54 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4887168CC5EB00248B54 /* Icon@2x.png */; };
 		529ECADC15E0EB7F00F4EA0A /* CaptchaParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */; };
 		52A159B015C52AD100E09F51 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A615C52AD100E09F51 /* schedule@2x.png */; };
 		52A159B115C52AD100E09F51 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A715C52AD100E09F51 /* schedule.png */; };
@@ -44,6 +56,10 @@
 		52B1BA6415C1D383001625FC /* pause_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6315C1D383001625FC /* pause_0.png */; };
 		52C219EB15CEB236009E55E0 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C219EA15CEB236009E55E0 /* Schedule.m */; };
 		52C219EE15CEB24C009E55E0 /* Transmission.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C219ED15CEB24C009E55E0 /* Transmission.m */; };
+		52C23C60168CEAD000BA580F /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 52C23C5F168CEAD000BA580F /* iTunesArtwork */; };
+		52C23C64168CEADB00BA580F /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C23C61168CEADB00BA580F /* Icon-Small-50.png */; };
+		52C23C65168CEADB00BA580F /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C23C62168CEADB00BA580F /* Icon-Small.png */; };
+		52C23C66168CEADB00BA580F /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C23C63168CEADB00BA580F /* Icon-Small@2x.png */; };
 		52C31B9D15CB0BFE005681EA /* UnicaradioUINavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */; };
 		52CE047A168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */; };
 		52CE047B168BA87A0049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */; };
@@ -118,6 +134,19 @@
 		5279553115C3326B00827501 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		5279553315C3329900827501 /* InfoViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController_iPhone.xib; sourceTree = "<group>"; };
 		5279553515C332B300827501 /* InfoViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController_iPad.xib; sourceTree = "<group>"; };
+		528D4864168C9D4300248B54 /* UnicaradioUITabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUITabBar.h; sourceTree = "<group>"; };
+		528D4865168C9D4300248B54 /* UnicaradioUITabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUITabBar.m; sourceTree = "<group>"; };
+		528D4869168CB35500248B54 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		528D486B168CB9C000248B54 /* StreamingViewController_568h@2x.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_568h@2x.xib"; sourceTree = "<group>"; };
+		528D486D168CBD0E00248B54 /* StreamingViewController_568h@2x-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_568h@2x-landscape.xib"; sourceTree = "<group>"; };
+		528D486F168CC06600248B54 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
+		528D4871168CC07100248B54 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
+		528D4873168CC08A00248B54 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		528D4875168CC09200248B54 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		528D4884168CC5EB00248B54 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		528D4885168CC5EB00248B54 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		528D4886168CC5EB00248B54 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		528D4887168CC5EB00248B54 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		529ECADA15E0EB7F00F4EA0A /* CaptchaParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaParser.h; sourceTree = "<group>"; };
 		529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaParser.m; sourceTree = "<group>"; };
 		52A159A615C52AD100E09F51 /* schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@2x.png"; sourceTree = "<group>"; };
@@ -153,6 +182,10 @@
 		52C219ED15CEB24C009E55E0 /* Transmission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transmission.m; sourceTree = "<group>"; };
 		52C219F015CEB4A9009E55E0 /* Day_enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Day_enum.h; sourceTree = "<group>"; };
 		52C219F215CECC31009E55E0 /* Schedule_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule_state.h; sourceTree = "<group>"; };
+		52C23C5F168CEAD000BA580F /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		52C23C61168CEADB00BA580F /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		52C23C62168CEADB00BA580F /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		52C23C63168CEADB00BA580F /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		52C31B9B15CB0BFE005681EA /* UnicaradioUINavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUINavigationBar.h; sourceTree = "<group>"; };
 		52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUINavigationBar.m; sourceTree = "<group>"; };
 		52CE0478168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
@@ -272,6 +305,18 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
+		528D4868168CB35500248B54 /* Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				528D486F168CC06600248B54 /* Default~iphone.png */,
+				528D4871168CC07100248B54 /* Default@2x~iphone.png */,
+				528D4869168CB35500248B54 /* Default-568h@2x.png */,
+				528D4873168CC08A00248B54 /* Default-Landscape~ipad.png */,
+				528D4875168CC09200248B54 /* Default-Landscape@2x~ipad.png */,
+			);
+			path = Defaults;
+			sourceTree = "<group>";
+		};
 		52B612A3168C68BA000D4ABC /* delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +363,8 @@
 				52EA363215E23113004866FA /* LoadingDialog.m */,
 				52DC0E001686601700C28163 /* UnicaradioUINavigationController.h */,
 				52DC0E011686601700C28163 /* UnicaradioUINavigationController.m */,
+				528D4864168C9D4300248B54 /* UnicaradioUITabBar.h */,
+				528D4865168C9D4300248B54 /* UnicaradioUITabBar.m */,
 			);
 			path = widgets;
 			sourceTree = "<group>";
@@ -385,6 +432,14 @@
 				52D51E8715BBEE3F00BC8C94 /* first@2x.png */,
 				52D51E8C15BBEE3F00BC8C94 /* second.png */,
 				52D51E8E15BBEE3F00BC8C94 /* second@2x.png */,
+				528D4884168CC5EB00248B54 /* Icon-72.png */,
+				528D4885168CC5EB00248B54 /* Icon-72@2x.png */,
+				528D4886168CC5EB00248B54 /* Icon.png */,
+				528D4887168CC5EB00248B54 /* Icon@2x.png */,
+				52C23C61168CEADB00BA580F /* Icon-Small-50.png */,
+				52C23C62168CEADB00BA580F /* Icon-Small.png */,
+				52C23C63168CEADB00BA580F /* Icon-Small@2x.png */,
+				52C23C5F168CEAD000BA580F /* iTunesArtwork */,
 			);
 			path = Streaming;
 			sourceTree = "<group>";
@@ -454,6 +509,7 @@
 		52D51EDB15BBF76900BC8C94 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				528D4868168CB35500248B54 /* Defaults */,
 				52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */,
 				52AA0B6D15D45B6A00CA2EC3 /* website_icon.png */,
 				52AA0B6E15D45B6A00CA2EC3 /* twitter_icon.png */,
@@ -484,6 +540,8 @@
 				52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */,
 				52D51EE015BBF76900BC8C94 /* StreamingViewController_iPhone.xib */,
 				52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */,
+				528D486B168CB9C000248B54 /* StreamingViewController_568h@2x.xib */,
+				528D486D168CBD0E00248B54 /* StreamingViewController_568h@2x-landscape.xib */,
 				52D51EDD15BBF76900BC8C94 /* ScheduleViewController_iPad.xib */,
 				52D51EDE15BBF76900BC8C94 /* ScheduleViewController_iPhone.xib */,
 				52D51EEB15BC0A5200BC8C94 /* SongRequestViewController_iPhone.xib */,
@@ -653,6 +711,20 @@
 				52AA0B7215D45B6A00CA2EC3 /* twitter_icon.png in Resources */,
 				52AA0B7315D45B6A00CA2EC3 /* youtube_icon.png in Resources */,
 				52FBA83D16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib in Resources */,
+				528D486A168CB35500248B54 /* Default-568h@2x.png in Resources */,
+				528D486C168CB9C000248B54 /* StreamingViewController_568h@2x.xib in Resources */,
+				528D486E168CBD0E00248B54 /* StreamingViewController_568h@2x-landscape.xib in Resources */,
+				528D4870168CC06600248B54 /* Default~iphone.png in Resources */,
+				528D4872168CC07100248B54 /* Default@2x~iphone.png in Resources */,
+				528D4874168CC08A00248B54 /* Default-Landscape~ipad.png in Resources */,
+				528D4876168CC09200248B54 /* Default-Landscape@2x~ipad.png in Resources */,
+				528D4888168CC5EB00248B54 /* Icon-72.png in Resources */,
+				528D4889168CC5EB00248B54 /* Icon-72@2x.png in Resources */,
+				528D488A168CC5EB00248B54 /* Icon.png in Resources */,
+				528D488B168CC5EB00248B54 /* Icon@2x.png in Resources */,
+				52C23C64168CEADB00BA580F /* Icon-Small-50.png in Resources */,
+				52C23C65168CEADB00BA580F /* Icon-Small.png in Resources */,
+				52C23C66168CEADB00BA580F /* Icon-Small@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,6 +733,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52D51EAD15BBEE3F00BC8C94 /* InfoPlist.strings in Resources */,
+				52C23C60168CEAD000BA580F /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,6 +788,7 @@
 				52FBA83A1688991000C19D61 /* NoItemSelectedViewController.m in Sources */,
 				52FBA8401688A86900C19D61 /* ScheduleSplitViewController.m in Sources */,
 				52B0B2061689A6F3002ACAB8 /* DeviceUtils.m in Sources */,
+				528D4866168C9D4300248B54 /* UnicaradioUITabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
