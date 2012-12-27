@@ -9,6 +9,7 @@
 #import "StreamingViewController.h"
 #import "AppDelegate.h"
 #import "../utils/DeviceUtils.h"
+#import "../delegates/StreamingPlayerDelegate.h"
 
 @interface StreamingViewController ()
 
@@ -44,7 +45,6 @@
 {
     [super viewDidLoad];
 	NSLog(@"StreamingViewController - viewDidLoad");
-	// Do any additional setup after loading the view, typically from a nib.
 
 	if(streamer == nil || ![streamer isPlaying] || ![streamer isWaiting]) {
 		[self clearUi: YES];
@@ -56,19 +56,34 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
 	NSLog(@"StreamingViewController - viewWillAppear");
 	UIInterfaceOrientation newOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-	//if(oldOrientation != newOrientation) {
-		//NSLog(@"StreamingViewController - viewWillAppear: updating nib");
-		[self willRotateToInterfaceOrientation:newOrientation duration:0.];
-	//} else {
-		//NSLog(@"StreamingViewController - viewWillAppear: orientation OK!");
-	//}
+	[self willRotateToInterfaceOrientation:newOrientation duration:0.];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+
+	UIApplication *application = [UIApplication sharedApplication];
+	if([application respondsToSelector:@selector(beginReceivingRemoteControlEvents)]) {
+		[application beginReceivingRemoteControlEvents];
+	}
+
+	[self becomeFirstResponder]; // this enables listening for events
+
+	// update the UI in case we were in the background
+	NSNotification *notification =
+	[NSNotification notificationWithName:ASStatusChangedNotification object:self];
+	[[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+- (BOOL)canBecomeFirstResponder {
+	return YES;
 }
 
 - (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -105,7 +120,6 @@
         [self createStreamer];
         [streamer start];
     }
-    //[self updateUi];
 }
 
 #pragma mark - Notification receivers
@@ -127,23 +141,21 @@
 			[hash setObject:[pair objectAtIndex:1] forKey:[pair objectAtIndex:0]];
 		}
 	}
-    
-	// do something with the StreamTitle
-	//NSString *streamString = [[hash objectForKey:@"StreamTitle"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
+
     NSString *streamString = [hash objectForKey:@"StreamTitle"];
-	
 	NSArray *streamParts = [streamString componentsSeparatedByString:@" - "];
 	if ([streamParts count] > 0) {
 		streamArtist = [[streamParts objectAtIndex:0] substringFromIndex:1];
 	} else {
 		streamArtist = @"";
 	}
-	// this looks odd but not every server will have all artist hyphen title
+
 	if ([streamParts count] >= 2) {
 		streamTitle = [streamParts objectAtIndex:1];
 	} else {
 		streamTitle = @"";
 	}
+
 	NSLog(@"%@ by %@", streamTitle, streamArtist);
 
 	self.currentArtist = streamArtist;
@@ -159,9 +171,8 @@
 // reports that its playback status has changed.
 //
 - (void)playbackStateChanged:(NSNotification *)aNotification
-{
-	/*
-    iPhoneStreamingPlayerAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+{/*
+    StreamingPlayerDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
 	if ([streamer isWaiting])
 	{
@@ -195,8 +206,7 @@
 			[self setButtonImage:[UIImage imageNamed:@"playbutton.png"]];
 		}
 		[self destroyStreamer];
-	}
-    */
+	}*/
 }
 
 #pragma mark - Other functions
@@ -211,15 +221,16 @@
     streamer = [[AudioStreamer alloc] initWithURL:url];
 
     [[NSNotificationCenter defaultCenter]
-	 addObserver:self
-	 selector:@selector(metadataChanged:)
-	 name:ASUpdateMetadataNotification
-	 object:streamer];
+		addObserver:self
+		selector:@selector(metadataChanged:)
+		name:ASUpdateMetadataNotification
+		object:streamer];
+
     [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(playbackStateChanged:)
-     name:ASStatusChangedNotification
-     object:streamer];
+		addObserver:self
+		selector:@selector(playbackStateChanged:)
+		name:ASStatusChangedNotification
+		object:streamer];
 }
 
 - (void) destroyStreamer

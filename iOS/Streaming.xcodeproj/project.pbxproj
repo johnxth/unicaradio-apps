@@ -146,6 +146,7 @@
 		52B0B2081689B194002ACAB8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "/Users/paolo/Desktop/unicaradio-apps/iOS/StreamingTests/it.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		52B1BA6015C1D366001625FC /* play_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_normal.png; sourceTree = "<group>"; };
 		52B1BA6315C1D383001625FC /* pause_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_0.png; sourceTree = "<group>"; };
+		52B612A5168C68E9000D4ABC /* StreamingPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamingPlayerDelegate.h; sourceTree = "<group>"; };
 		52C219E915CEB236009E55E0 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
 		52C219EA15CEB236009E55E0 /* Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
 		52C219EC15CEB24B009E55E0 /* Transmission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transmission.h; sourceTree = "<group>"; };
@@ -271,6 +272,14 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
+		52B612A3168C68BA000D4ABC /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				52B612A5168C68E9000D4ABC /* StreamingPlayerDelegate.h */,
+			);
+			path = delegates;
+			sourceTree = "<group>";
+		};
 		52C219E715CEB1AC009E55E0 /* models */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +372,7 @@
 				52D51E7715BBEE3F00BC8C94 /* Supporting Files */,
 				52E171FE15E440470020A27C /* libs */,
 				52D51EB915BBF1B500BC8C94 /* controllers */,
+				52B612A3168C68BA000D4ABC /* delegates */,
 				52C219EF15CEB499009E55E0 /* enums */,
 				52C219E715CEB1AC009E55E0 /* models */,
 				523B6BE815DFE3F6001E6B10 /* operations */,
