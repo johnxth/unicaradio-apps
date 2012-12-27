@@ -8,9 +8,7 @@
 
 #import "SongRequestViewController.h"
 
-#import "../operations/DownloadCaptchaOperation.h"
 #import "../operations/RequestSongOperation.h"
-#import "../utils/CaptchaParser.h"
 #import "../models/SongRequest.h"
 #import "../enums/Error.h"
 
@@ -20,15 +18,12 @@
 
 @implementation SongRequestViewController
 
-@synthesize captcha;
-
 @synthesize contentView;
 @synthesize scrollView;
 
 @synthesize emailTextView;
 @synthesize autoreTextView;
 @synthesize titoloTextView;
-@synthesize captchaTextView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,10 +41,12 @@
 {
     [super viewDidLoad];
 	NSLog(@"SongRequestViewController - viewDidLoad");
-	// Do any additional setup after loading the view, typically from a nib.
-	
-	[self.scrollView addSubview: self.contentView];
-    self.scrollView.contentSize = self.contentView.bounds.size;
+
+	if(self.scrollView != nil && self.contentView != nil) {
+		NSLog(@"adding fields to scrollview");
+		[self.scrollView addSubview: self.contentView];
+		self.scrollView.contentSize = self.contentView.bounds.size;
+	}
 }
 
 - (void)viewDidUnload
@@ -65,7 +62,6 @@
 	[super viewDidAppear:animated];
 	NSLog(@"SongRequestViewController - viewDidAppear");
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"GetCaptcha" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"SendEmail" object:nil];
 
 	[self clearForm];
@@ -95,23 +91,14 @@
 
 - (void) receiveNotification: (NSNotification *)notification
 {
-	if([[notification name] isEqualToString:@"GetCaptcha"]) {
-		[self receiveGetCaptchaNotification:notification];
-	} else if([[notification name] isEqualToString:@"SendEmail"]) {
+	if([[notification name] isEqualToString:@"SendEmail"]) {
 		[self receiveSendEmailNotification:notification];
 	}
 }
 
-- (void) receiveGetCaptchaNotification:(NSNotification *)notification
-{
-	NSLog(@"called receiveGetCaptchaNotification");
-
-	[self performSelectorOnMainThread:@selector(displayCaptcha:) withObject:[notification object] waitUntilDone:YES];
-}
-
 - (void) receiveSendEmailNotification:(NSNotification *)notification
 {
-	NSLog(@"called receiveGetCaptchaNotification");
+	NSLog(@"called receiveSendEmailNotification");
 
 	[self performSelectorOnMainThread:@selector(sendEmailCompleted:) withObject:[notification object] waitUntilDone:YES];
 }
@@ -126,54 +113,10 @@
 	[dialog show];
 }
 
-- (void) loadCaptcha
-{
-	[self showLoadingDialog];
-
-	DownloadCaptchaOperation *operation = [[DownloadCaptchaOperation alloc] init];
-	[queue addOperation:operation];
-	[operation release];
-}
-
-- (void) displayCaptcha:(NSDictionary *)captchaResponse
-{
-	captchaTextView.text = @"";
-	if(captchaResponse == nil) {
-		[timer invalidate];
-		captchaTextView.placeholder = @"Non sei connesso ad Internet";
-		return;
-	}
-
-	NSNumber *errorCode = [captchaResponse objectForKey:@"errorCode"];
-	NSLog(@"errorCode: %d", [errorCode integerValue]);
-	BOOL containsError = ([errorCode intValue] != NO_ERROR);
-	NSLog(@"captchaResponse contains error: %@", containsError ? @"YES" : @"NO");
-	if(containsError) {
-		[timer invalidate];
-		captchaTextView.placeholder = @"Impossibile ottenere un captcha";
-		return;
-	}
-
-	NSString *captchaFromServer = [captchaResponse objectForKey:@"result"];
-	NSLog(@"Captcha: %@", captchaFromServer);
-
-	self.captcha = [NSString stringWithString:captchaFromServer];
-	NSLog(@"got captcha: %@", self.captcha);
-	parsedCaptcha = [CaptchaParser parse:self.captcha];
-	NSLog(@"captcha parsed");
-
-	captchaTextView.placeholder = parsedCaptcha;
-	NSLog(@"captcha displayed");
-	[dialog dismiss];
-
-	timer = [NSTimer scheduledTimerWithTimeInterval:4 * 60 target:self selector:@selector(loadCaptcha) userInfo:nil repeats:NO];
-}
-
 - (IBAction) sendEmail:(id)sender
 {
 	if([[titoloTextView text] length] == 0 ||
 	   [[autoreTextView text] length] == 0 ||
-	   [[captchaTextView text] length] == 0 ||
 	   [[emailTextView text] length] == 0) {
 		NSLog(@"Something is missing");
 		NSString *title = @"Something is missing";
@@ -182,7 +125,6 @@
 		[alert show];
 	} else {
 		NSLog(@"OK!");
-		NSLog(@"captcha: %@", self.captcha);
 
 		[timer invalidate];
 		[self saveEmailAddress];
@@ -190,9 +132,7 @@
 		SongRequest *request = [[SongRequest alloc] init];
 		request.title = titoloTextView.text;
 		request.author = autoreTextView.text;
-		request.captcha = self.captcha;
 		request.email = emailTextView.text;
-		request.result = captchaTextView.text;
 
 		[self showLoadingDialog];
 		RequestSongOperation *operation = [[RequestSongOperation alloc] initWithSongRequest:request];
@@ -234,7 +174,6 @@
 		NSString *message = @"Non è stato possibile inviare la richiesta.";
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
 		[alert show];
-		//[self loadCaptcha];
 	}
 }
 
@@ -242,24 +181,21 @@
 {
 	self.titoloTextView.text = @"";
 	self.autoreTextView.text = @"";
-	self.captchaTextView.text = @"";
-	//[self loadCaptcha];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
+/*- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self animateTextField: textField up: YES];
 }
 
-
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [self animateTextField: textField up: NO];
-}
+}*/
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
-    const int movementDistance = 80; // tweak as needed
+    const int movementDistance = 50; // tweak as needed
     const float movementDuration = 0.3f; // tweak as needed
 	
     int movement = (up ? -movementDistance : movementDistance);

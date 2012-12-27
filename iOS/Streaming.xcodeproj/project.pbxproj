@@ -11,7 +11,6 @@
 		52208E6715C0933D006B27BD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6615C0933D006B27BD /* CFNetwork.framework */; };
 		52208E6915C0935B006B27BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6815C0935B006B27BD /* QuartzCore.framework */; };
 		52328ABF15CD6FB700B67825 /* DTCustomColoredAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 52328ABE15CD6FB700B67825 /* DTCustomColoredAccessory.m */; };
-		523B6BEC15DFE44E001E6B10 /* DownloadCaptchaOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 523B6BEB15DFE44E001E6B10 /* DownloadCaptchaOperation.m */; };
 		523B6BF015DFEAB3001E6B10 /* NetworkUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 523B6BEF15DFEAB3001E6B10 /* NetworkUtils.m */; };
 		5240F86B15CEE8D4004EE213 /* Day.m in Sources */ = {isa = PBXBuildFile; fileRef = 5240F86A15CEE8D4004EE213 /* Day.m */; };
 		5279552615C2E4BA00827501 /* pause_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5279552515C2E4BA00827501 /* pause_pressed.png */; };
@@ -46,6 +45,8 @@
 		52C219EB15CEB236009E55E0 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C219EA15CEB236009E55E0 /* Schedule.m */; };
 		52C219EE15CEB24C009E55E0 /* Transmission.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C219ED15CEB24C009E55E0 /* Transmission.m */; };
 		52C31B9D15CB0BFE005681EA /* UnicaradioUINavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */; };
+		52CE047A168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */; };
+		52CE047B168BA87A0049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */; };
 		52D51E7115BBEE3F00BC8C94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7015BBEE3F00BC8C94 /* UIKit.framework */; };
 		52D51E7315BBEE3F00BC8C94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7215BBEE3F00BC8C94 /* Foundation.framework */; };
 		52D51E7515BBEE3F00BC8C94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7415BBEE3F00BC8C94 /* CoreGraphics.framework */; };
@@ -106,8 +107,6 @@
 		522DA0AD15E375880089126C /* Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
 		52328ABD15CD6FB700B67825 /* DTCustomColoredAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCustomColoredAccessory.h; sourceTree = "<group>"; };
 		52328ABE15CD6FB700B67825 /* DTCustomColoredAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCustomColoredAccessory.m; sourceTree = "<group>"; };
-		523B6BEA15DFE44E001E6B10 /* DownloadCaptchaOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCaptchaOperation.h; sourceTree = "<group>"; };
-		523B6BEB15DFE44E001E6B10 /* DownloadCaptchaOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadCaptchaOperation.m; sourceTree = "<group>"; };
 		523B6BEE15DFEAB3001E6B10 /* NetworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkUtils.h; sourceTree = "<group>"; };
 		523B6BEF15DFEAB3001E6B10 /* NetworkUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkUtils.m; sourceTree = "<group>"; };
 		5240F86915CEE8D4004EE213 /* Day.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Day.h; sourceTree = "<group>"; };
@@ -155,6 +154,8 @@
 		52C219F215CECC31009E55E0 /* Schedule_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule_state.h; sourceTree = "<group>"; };
 		52C31B9B15CB0BFE005681EA /* UnicaradioUINavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUINavigationBar.h; sourceTree = "<group>"; };
 		52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUINavigationBar.m; sourceTree = "<group>"; };
+		52CE0478168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		52D51E6C15BBEE3F00BC8C94 /* Streaming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streaming.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D51E7015BBEE3F00BC8C94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		52D51E7215BBEE3F00BC8C94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -249,8 +250,6 @@
 		523B6BE815DFE3F6001E6B10 /* operations */ = {
 			isa = PBXGroup;
 			children = (
-				523B6BEA15DFE44E001E6B10 /* DownloadCaptchaOperation.h */,
-				523B6BEB15DFE44E001E6B10 /* DownloadCaptchaOperation.m */,
 				52EA364315E2D485004866FA /* RequestSongOperation.h */,
 				52EA364415E2D485004866FA /* RequestSongOperation.m */,
 				52E171FA15E3DFB70020A27C /* DownloadScheduleOperation.h */,
@@ -312,6 +311,15 @@
 				52DC0E011686601700C28163 /* UnicaradioUINavigationController.m */,
 			);
 			path = widgets;
+			sourceTree = "<group>";
+		};
+		52CE0476168BA6500049ABB3 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				52CE0478168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.h */,
+				52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */,
+			);
+			path = TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
 		52D51E6115BBEE3E00BC8C94 = {
@@ -489,6 +497,7 @@
 		52E171FE15E440470020A27C /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				52CE0476168BA6500049ABB3 /* TPKeyboardAvoiding */,
 				52E171FF15E440470020A27C /* audiostreamer */,
 				52E1720415E440470020A27C /* JSONKit */,
 				52E1720A15E441300020A27C /* reachability */,
@@ -668,6 +677,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52CE047B168BA87A0049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				52E1721015E526DD0020A27C /* Reachability.m in Sources */,
 				52D51E7D15BBEE3F00BC8C94 /* main.m in Sources */,
 				52D51E8115BBEE3F00BC8C94 /* AppDelegate.m in Sources */,
@@ -682,7 +692,6 @@
 				52C219EB15CEB236009E55E0 /* Schedule.m in Sources */,
 				52C219EE15CEB24C009E55E0 /* Transmission.m in Sources */,
 				5240F86B15CEE8D4004EE213 /* Day.m in Sources */,
-				523B6BEC15DFE44E001E6B10 /* DownloadCaptchaOperation.m in Sources */,
 				523B6BF015DFEAB3001E6B10 /* NetworkUtils.m in Sources */,
 				529ECADC15E0EB7F00F4EA0A /* CaptchaParser.m in Sources */,
 				52EA363315E23113004866FA /* LoadingDialog.m in Sources */,
@@ -705,6 +714,7 @@
 			files = (
 				52D51EB015BBEE3F00BC8C94 /* StreamingTests.m in Sources */,
 				52E1720D15E441560020A27C /* Reachability.m in Sources */,
+				52CE047A168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,7 +803,12 @@
 				GCC_PREFIX_HEADER = "Streaming/Streaming-Prefix.pch";
 				INFOPLIST_FILE = "Streaming/Streaming-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Streaming/libs/KeyboardHandler\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -805,7 +820,12 @@
 				GCC_PREFIX_HEADER = "Streaming/Streaming-Prefix.pch";
 				INFOPLIST_FILE = "Streaming/Streaming-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Streaming/libs/KeyboardHandler\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
