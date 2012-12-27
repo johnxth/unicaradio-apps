@@ -15,15 +15,11 @@
 	NSString *author;
 	NSString *title;
 	NSString *email;
-	NSString *captcha;
-	NSString *result;
 }
 
 @property (nonatomic, retain) NSString *author;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *email;
-@property (nonatomic, retain) NSString *captcha;
-@property (nonatomic, retain) NSString *result;
 
 - (id) init;
 - (NSDictionary *)toJSON;

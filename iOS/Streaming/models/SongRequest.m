@@ -14,8 +14,6 @@
 @synthesize author;
 @synthesize title;
 @synthesize email;
-@synthesize captcha;
-@synthesize result;
 
 - (id) init
 {
@@ -30,9 +28,7 @@
 {
 	NSMutableDictionary *resultDict = [NSMutableDictionary dictionary];
 	[resultDict setObject:author forKey:@"art"];
-	[resultDict setObject:captcha forKey:@"op"];
 	[resultDict setObject:email forKey:@"mail"];
-	[resultDict setObject:result forKey:@"r"];
 	[resultDict setObject:title forKey:@"tit"];
 
 	NSMutableDictionary *appDictionary = [NSMutableDictionary dictionary];
@@ -42,9 +38,12 @@
 	NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
 	[appDictionary setObject:appVersion forKey:@"versionCode"];
 
-	NSString *systemVersion = [NSString stringWithFormat:@"%@ - %@", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
+	NSString *deviceModel = [[UIDevice currentDevice] model];
+	[appDictionary setObject:deviceModel forKey:@"deviceModel"];
+	
+	NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
 	[appDictionary setObject:systemVersion forKey:@"systemVersion"];
-
+	
 	[resultDict setObject:appDictionary forKey:@"app"];
 
 	return resultDict;
