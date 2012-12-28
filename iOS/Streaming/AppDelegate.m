@@ -43,6 +43,8 @@
     UIViewController *streamingController, *scheduleController, *songRequestController, *favouritesController, *infoController;
 
 	self.tabBarController = [[[UnicaradioUITabBarController alloc] init] autorelease];
+	self.tabBarController.delegate = self;
+
 	streamingController = [self createStreamingController];
 
 	NSString *nibNameTail;
@@ -91,7 +93,8 @@
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     self.uiIsVisible = YES;
-    UIViewController *currentController = _tabBarController.selectedViewController;
+    UnicaradioUINavigationController *firstController = [_tabBarController.viewControllers objectAtIndex:0];
+	UIViewController *currentController = [firstController.viewControllers objectAtIndex:0];
     if([currentController isKindOfClass:[StreamingViewController class]]) {
         StreamingViewController *streamingController = (StreamingViewController *) currentController;
         [streamingController updateUi];
@@ -110,12 +113,23 @@
     self.uiIsVisible = NO;
 }
 
-/*
+
 // Optional UITabBarControllerDelegate method.
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
+	if(![viewController isKindOfClass:[UnicaradioUINavigationController class]]) {
+		return;
+	}
+
+	UnicaradioUINavigationController *currentNavigationController = (UnicaradioUINavigationController *) viewController;
+	UIViewController *firstController = [currentNavigationController.viewControllers objectAtIndex:0];
+	if(firstController == nil || ![firstController isKindOfClass:[StreamingViewController class]]) {
+		return;
+	}
+
+	StreamingViewController *streamingController = (StreamingViewController *)firstController;
+	[streamingController updateUi];
 }
-*/
 
 /*
 // Optional UITabBarControllerDelegate method.

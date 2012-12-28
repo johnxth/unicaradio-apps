@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "../libs/audiostreamer/AudioStreamer.h"
+
+#pragma mark - Constants
 
 #define PLAY_IMAGE_NORMAL @"play_normal.png"
 #define PAUSE_IMAGE_NORMAL @"pause_0.png"
@@ -18,11 +19,14 @@
 #define SERVER_URL @"http://streaming.unicaradio.it:80/unica64.aac"
 #define COVER_URL @"http://www.unicaradio.it/regia/OnAir.jpg"
 
+#pragma mark - Interface
+
+@class AudioStreamer;
+
 @interface StreamingViewController : UIViewController
 {
     AudioStreamer *streamer;
-    //NSURL *SERVER_URL;
-    
+
     IBOutlet UILabel *titleLabel;
     IBOutlet UILabel *singerLabel;
     IBOutlet UIButton *playPauseButton;

@@ -6,8 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/CoreAnimation.h>
+
 #import "StreamingViewController.h"
 #import "AppDelegate.h"
+
+#import "../libs/audiostreamer/AudioStreamer.h"
 #import "../utils/DeviceUtils.h"
 #import "../delegates/StreamingPlayerDelegate.h"
 
@@ -30,7 +34,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	NSLog(@"StreamingViewController - initWithNibName");
-	//NSString *nibName = [self getNibNameByOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	
     if (self) {
@@ -66,7 +69,8 @@
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
 	[super viewDidAppear:animated];
 
 	UIApplication *application = [UIApplication sharedApplication];
@@ -77,12 +81,12 @@
 	[self becomeFirstResponder]; // this enables listening for events
 
 	// update the UI in case we were in the background
-	NSNotification *notification =
-	[NSNotification notificationWithName:ASStatusChangedNotification object:self];
+	NSNotification *notification = [NSNotification notificationWithName:ASStatusChangedNotification object:self];
 	[[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
-- (BOOL)canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder
+{
 	return YES;
 }
 
@@ -113,12 +117,16 @@
     NSLog(@"playOrPause");
     [self clearUi:YES];
 
-    if([streamer isPlaying]) {
+    if([streamer isPlaying] || [streamer isWaiting]) {
         [streamer stop];
         [self destroyStreamer];
+		[self setPlayButtonImage];
     } else {
         [self createStreamer];
         [streamer start];
+
+		// TODO: pulsante di attesa
+		[self setPauseButtonImage];
     }
 }
 
@@ -171,42 +179,28 @@
 // reports that its playback status has changed.
 //
 - (void)playbackStateChanged:(NSNotification *)aNotification
-{/*
+{
     StreamingPlayerDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    
-	if ([streamer isWaiting])
-	{
-		if (appDelegate.uiIsVisible) {
-			[levelMeterView updateMeterWithLeftValue:0.0 
-                                          rightValue:0.0];
-			[streamer setMeteringEnabled:NO];
-			[self setButtonImage:[UIImage imageNamed:@"loadingbutton.png"]];
-		}
-	}
-	else if ([streamer isPlaying])
-	{
-		if (appDelegate.uiIsVisible) {
-			[streamer setMeteringEnabled:YES];
-			[self setButtonImage:[UIImage imageNamed:@"stopbutton.png"]];
-		}
-	}
-	else if ([streamer isPaused]) {
-		if (appDelegate.uiIsVisible) {
-			[levelMeterView updateMeterWithLeftValue:0.0 
-                                          rightValue:0.0];
-			[streamer setMeteringEnabled:NO];
-			[self setButtonImage:[UIImage imageNamed:@"pausebutton.png"]];
-		}
-	}
-	else if ([streamer isIdle])
-	{
-		if (appDelegate.uiIsVisible) {
-			[levelMeterView updateMeterWithLeftValue:0.0 
-                                          rightValue:0.0];
-			[self setButtonImage:[UIImage imageNamed:@"playbutton.png"]];
-		}
+
+	[streamer setMeteringEnabled:NO];
+	if([streamer isIdle]) {
 		[self destroyStreamer];
-	}*/
+	}
+	if(!appDelegate.uiIsVisible) {
+		return;
+	}
+
+	if([streamer isWaiting]) {
+		//TODO: [self setButtonImage:[UIImage imageNamed:@"loadingbutton.png"]];
+		[self setPauseButtonImage];
+	} else if([streamer isPlaying]) {
+		[self setPauseButtonImage];
+	} else if([streamer isPaused]) {
+		[streamer stop];
+		[self setPlayButtonImage];
+	} else if([streamer isIdle]) {
+		[self setPlayButtonImage];
+	}
 }
 
 #pragma mark - Other functions
@@ -214,6 +208,7 @@
 - (void) createStreamer
 {
     if(streamer != nil) {
+		[streamer stop];
         [self destroyStreamer];
     }
 
@@ -310,11 +305,9 @@
             UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
             coverImageView.image = image;
 			
-			[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_NORMAL] forState:UIControlStateNormal];
-			[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_PRESSED] forState:UIControlStateHighlighted];
+			[self setPauseButtonImage];
 		} else {
-			[playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_NORMAL] forState:UIControlStateNormal];
-			[playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_PRESSED] forState:UIControlStateHighlighted];
+			[self setPlayButtonImage];
         }
 	}
 }
@@ -343,6 +336,43 @@
 	
 	NSString *nibName = [NSString stringWithFormat:@"%@_%@%@", NSStringFromClass([self class]), deviceLabel, orientationLabel];
 	return nibName;
+}
+
+- (void)setPlayButtonImage
+{
+	[playPauseButton.layer removeAllAnimations];
+
+	[playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_NORMAL] forState:UIControlStateNormal];
+	[playPauseButton setImage:[UIImage imageNamed:PLAY_IMAGE_PRESSED] forState:UIControlStateHighlighted];
+}
+
+
+- (void)setPauseButtonImage
+{
+	[playPauseButton.layer removeAllAnimations];
+	
+	[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_NORMAL] forState:UIControlStateNormal];
+	[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_PRESSED] forState:UIControlStateHighlighted];
+}
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+	switch(event.subtype) {
+		case UIEventSubtypeRemoteControlTogglePlayPause:
+			[streamer stop];
+			break;
+		case UIEventSubtypeRemoteControlPlay:
+			[streamer start];
+			break;
+		case UIEventSubtypeRemoteControlPause:
+			[streamer stop];
+			break;
+		case UIEventSubtypeRemoteControlStop:
+			[streamer stop];
+			break;
+		default:
+			break;
+	}
 }
 
 @end
