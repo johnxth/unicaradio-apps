@@ -11,7 +11,7 @@
 #pragma mark - Constants
 
 #define PLAY_IMAGE_NORMAL @"play_normal.png"
-#define PAUSE_IMAGE_NORMAL @"pause_0.png"
+#define PAUSE_IMAGE_0 @"pause_0.png"
 #define WAIT_IMAGE_NORMAL @"wait.png"
 #define PLAY_IMAGE_PRESSED @"play_pressed.png"
 #define PAUSE_IMAGE_PRESSED @"pause_pressed.png"

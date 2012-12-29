@@ -139,7 +139,7 @@
 
 - (BOOL) isPlaying
 {
-	return [playPauseButton.currentImage isEqual:[UIImage imageNamed:PAUSE_IMAGE_NORMAL]] ||
+	return [playPauseButton.currentImage isEqual:[UIImage imageNamed:PAUSE_IMAGE_0]] ||
 		[playPauseButton.currentImage isEqual:[UIImage imageNamed:PAUSE_IMAGE_PRESSED]];
 }
 
@@ -285,6 +285,10 @@
     NSLog(@"updateUi");
     [self clearUi:NO];
 
+	if(streamer == nil || [streamer isIdle]) {
+		return;
+	}
+
     // draw cover, title and singer
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
 	if (appDelegate.uiIsVisible) {
@@ -362,7 +366,7 @@
 {
 	[playPauseButton.layer removeAllAnimations];
 	
-	[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_NORMAL] forState:UIControlStateNormal];
+	[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_0] forState:UIControlStateNormal];
 	[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_PRESSED] forState:UIControlStateHighlighted];
 }
 
@@ -403,17 +407,10 @@
 	animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
 	animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
 	animation.delegate = self;
+	animation.repeatCount = -1;
 	[playPauseButton.layer addAnimation:animation forKey:@"rotationAnimation"];
 	
 	[CATransaction commit];
-}
-
-- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
-{
-	if (finished)
-	{
-		[self spinButton];
-	}
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
