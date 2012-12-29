@@ -115,19 +115,32 @@
 - (IBAction) playOrPause:(id)sender
 {
     NSLog(@"playOrPause");
-    [self clearUi:YES];
+	if([self isPlayerLoading]) {
+		return;
+	}
 
-    if([streamer isPlaying] || [streamer isWaiting]) {
-        [streamer stop];
-        [self destroyStreamer];
+	[self clearUi:YES];
+	if([self isPlaying]) {
 		[self setPlayButtonImage];
-    } else {
+		[self destroyStreamer];
+	} else {
         [self createStreamer];
         [streamer start];
 
-		// TODO: pulsante di attesa
-		[self setPauseButtonImage];
+		[self setWaitButtonImage:NO];
     }
+}
+
+- (BOOL) isPlayerLoading
+{
+	return [playPauseButton.currentImage isEqual:[UIImage imageNamed:WAIT_IMAGE_NORMAL]] ||
+		[playPauseButton.currentImage isEqual:[UIImage imageNamed:WAIT_IMAGE_PRESSED]];
+}
+
+- (BOOL) isPlaying
+{
+	return [playPauseButton.currentImage isEqual:[UIImage imageNamed:PAUSE_IMAGE_NORMAL]] ||
+		[playPauseButton.currentImage isEqual:[UIImage imageNamed:PAUSE_IMAGE_PRESSED]];
 }
 
 #pragma mark - Notification receivers
@@ -141,7 +154,7 @@
 	NSArray *metaParts = [[[aNotification userInfo] objectForKey:@"metadata"] componentsSeparatedByString:@"';"];
 	NSString *item;
 	NSMutableDictionary *hash = [[NSMutableDictionary alloc] init];
-	for (item in metaParts) {
+	for(item in metaParts) {
 		// split the key/value pair
 		NSArray *pair = [item componentsSeparatedByString:@"="];
 		// don't bother with bad metadata
@@ -191,8 +204,7 @@
 	}
 
 	if([streamer isWaiting]) {
-		//TODO: [self setButtonImage:[UIImage imageNamed:@"loadingbutton.png"]];
-		[self setPauseButtonImage];
+		[self setWaitButtonImage:YES];
 	} else if([streamer isPlaying]) {
 		[self setPauseButtonImage];
 	} else if([streamer isPaused]) {
@@ -208,7 +220,6 @@
 - (void) createStreamer
 {
     if(streamer != nil) {
-		[streamer stop];
         [self destroyStreamer];
     }
 
@@ -353,6 +364,56 @@
 	
 	[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_NORMAL] forState:UIControlStateNormal];
 	[playPauseButton setImage:[UIImage imageNamed:PAUSE_IMAGE_PRESSED] forState:UIControlStateHighlighted];
+}
+
+- (void)setWaitButtonImage:(BOOL)animate
+{
+	[playPauseButton.layer removeAllAnimations];
+	
+	[playPauseButton setImage:[UIImage imageNamed:WAIT_IMAGE_NORMAL] forState:UIControlStateNormal];
+	[playPauseButton setImage:[UIImage imageNamed:WAIT_IMAGE_PRESSED] forState:UIControlStateHighlighted];
+
+	if(animate) {
+		[self spinButton];
+	}
+}
+
+//
+// spinButton
+//
+// Shows the spin button when the audio is loading. This is largely irrelevant
+// now that the audio is loaded from a local file.
+//
+- (void)spinButton
+{
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	CGRect frame = [playPauseButton frame];
+	playPauseButton.layer.anchorPoint = CGPointMake(0.5, 0.5);
+	playPauseButton.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
+	[CATransaction commit];
+	
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+	[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
+	
+	CABasicAnimation *animation;
+	animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+	animation.fromValue = [NSNumber numberWithFloat:0.0];
+	animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+	animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
+	animation.delegate = self;
+	[playPauseButton.layer addAnimation:animation forKey:@"rotationAnimation"];
+	
+	[CATransaction commit];
+}
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
+{
+	if (finished)
+	{
+		[self spinButton];
+	}
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event

@@ -12,8 +12,10 @@
 
 #define PLAY_IMAGE_NORMAL @"play_normal.png"
 #define PAUSE_IMAGE_NORMAL @"pause_0.png"
+#define WAIT_IMAGE_NORMAL @"wait.png"
 #define PLAY_IMAGE_PRESSED @"play_pressed.png"
 #define PAUSE_IMAGE_PRESSED @"pause_pressed.png"
+#define WAIT_IMAGE_PRESSED @"wait_pressed.png"
 #define DEFAULT_COVER_FILENAME @"cover.png"
 
 #define SERVER_URL @"http://streaming.unicaradio.it:80/unica64.aac"
