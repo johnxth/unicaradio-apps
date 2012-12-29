@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  Streaming
+
+  Created by Paolo on 29/12/12.
+*/
+
+// Controller titles
+"CONTROLLER_TITLE_ONAIR" = "On Air";
+"CONTROLLER_TITLE_SCHEDULE" = "Schedule";
+"CONTROLLER_TITLE_SONGREQUEST" = "Ask for a song";
+"CONTROLLER_TITLE_FAVOURITES" = "Favourites";
+"CONTROLLER_TITLE_INFO" = "Information";
+
+// Dialogs
+"DIALOG_LOADING" = "Loading...";
+
+"DIALOG_SOMETHING_MISSING_TITLE" = "Something is missing";
+"DIALOG_SOMETHING_MISSING_MESSAGE" = "Hey! You forgot something!";
+
+"DIALOG_SEND_FAILED_TITLE" = "Error";
+"DIALOG_SEND_FAILED_MESSAGE" = "I wasn't able to send the request.";

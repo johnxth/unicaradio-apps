@@ -23,7 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Info", @"Info");
+        self.title = NSLocalizedString(@"CONTROLLER_TITLE_INFO", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"info"];
     }
     NSLog(@"init info view controller");

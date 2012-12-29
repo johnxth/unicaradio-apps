@@ -37,7 +37,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	
     if (self) {
-        self.title = NSLocalizedString(@"On Air", @"On Air");
+        self.title = NSLocalizedString(@"CONTROLLER_TITLE_ONAIR", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"onair"];
     }
     NSLog(@"init streaming view controller");

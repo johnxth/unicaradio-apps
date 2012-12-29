@@ -20,7 +20,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Favourites", @"Favourites");
+        self.title = NSLocalizedString(@"CONTROLLER_TITLE_FAVOURITES", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"favorites"];
 
 		NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"websites" ofType:@"plist"];

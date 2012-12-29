@@ -32,7 +32,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Schedule", @"Schedule");
+        self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
 		self.state = DAYS;
 

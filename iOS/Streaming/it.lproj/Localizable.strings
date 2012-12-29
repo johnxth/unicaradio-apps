@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  Streaming
+
+  Created by Paolo on 29/12/12.
+*/
+
+// Controller titles
+"CONTROLLER_TITLE_ONAIR" = "In onda";
+"CONTROLLER_TITLE_SCHEDULE" = "Palinsesto";
+"CONTROLLER_TITLE_SONGREQUEST" = "Invia richiesta";
+"CONTROLLER_TITLE_FAVOURITES" = "Preferiti";
+"CONTROLLER_TITLE_INFO" = "Informazioni";
+
+// Dialogs
+"DIALOG_LOADING" = "Caricamento in corso...";
+
+"DIALOG_SOMETHING_MISSING_TITLE" = "Manca qualcosa";
+"DIALOG_SOMETHING_MISSING_MESSAGE" = "Hey! Hai dimenticato qualcosa!";
+
+"DIALOG_SEND_FAILED_TITLE" = "Invio fallito";
+"DIALOG_SEND_FAILED_MESSAGE" = "Non è stato possibile inviare la richiesta.";
+
+"DIALOG_SEND_OK_TITLE" = "Richiesta inviata";
+"DIALOG_SEND_OK_MESSAGE" = "La richiesta è stata inviata correttamente";

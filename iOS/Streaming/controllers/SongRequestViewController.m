@@ -29,7 +29,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Request song", @"Request song");
+        self.title = NSLocalizedString(@"CONTROLLER_TITLE_SONGREQUEST", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"song"];
 		queue = [[NSOperationQueue alloc] init];
 		[queue setMaxConcurrentOperationCount: 1];
@@ -67,8 +67,7 @@
 	[self clearForm];
 
 	NSString *filePath =[self getDataFilePath];
-	if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
-	{
+	if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
 		NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:filePath];
 		emailTextView.text = [dict objectForKey:@"email"];
 		[dict release];
@@ -84,7 +83,8 @@
 	[super viewDidDisappear:animated];
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+- (BOOL) textFieldShouldReturn:(UITextField *)textField
+{
     [textField resignFirstResponder];
     return YES;
 }
@@ -109,7 +109,8 @@
 		[dialog release];
 	}
 
-	dialog = [[LoadingDialog alloc] initWithTitle:@"Loading..." message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+	NSString *dialogTitle = NSLocalizedString(@"DIALOG_LOADING", @"");
+	dialog = [[LoadingDialog alloc] initWithTitle:dialogTitle message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
 	[dialog show];
 }
 
@@ -119,8 +120,8 @@
 	   [[autoreTextView text] length] == 0 ||
 	   [[emailTextView text] length] == 0) {
 		NSLog(@"Something is missing");
-		NSString *title = @"Something is missing";
-		NSString *message = @"Hey! You forgot something!";
+		NSString *title = NSLocalizedString(@"DIALOG_SOMETHING_MISSING_TITLE", @"");
+		NSString *message = NSLocalizedString(@"DIALOG_SOMETHING_MISSING_MESSAGE", @"");
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
 		[alert show];
 	} else {
@@ -152,8 +153,8 @@
 {
 	[dialog dismiss];
 	if(serverResponse == nil) {
-		NSString *title = @"Invio fallito";
-		NSString *message = @"Non è stato possibile inviare la richiesta.";
+		NSString *title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
+		NSString *message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
 		[alert show];
 		return;
@@ -164,14 +165,14 @@
 	BOOL containsError = ([errorCode intValue] != NO_ERROR);
 	NSLog(@"contains error: %@", containsError ? @"YES" : @"NO");
 	if(!containsError) {
-		NSString *title = @"Richiesta inviata";
-		NSString *message = @"La richiesta è stata ricevuta.";
+		NSString *title = NSLocalizedString(@"DIALOG_SEND_OK_TITLE", @"");
+		NSString *message = NSLocalizedString(@"DIALOG_SEND_OK_TITLE_MESSAGE", @"");
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
 		[alert show];
 		[self clearForm];
 	} else {
-		NSString *title = @"Invio fallito";
-		NSString *message = @"Non è stato possibile inviare la richiesta.";
+		NSString *title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
+		NSString *message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
 		[alert show];
 	}

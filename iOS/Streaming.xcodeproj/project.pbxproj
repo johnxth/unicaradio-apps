@@ -43,6 +43,7 @@
 		52A159B815C52AD100E09F51 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AE15C52AD100E09F51 /* info.png */; };
 		52A159B915C52AD100E09F51 /* onair@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AF15C52AD100E09F51 /* onair@2x.png */; };
 		52A159BB15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */; };
+		52A25F25168F2E8400E41BF6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52A25F27168F2E8400E41BF6 /* Localizable.strings */; };
 		52A750EE168EF15500E36CE7 /* wait_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750EC168EF15500E36CE7 /* wait_pressed.png */; };
 		52A750EF168EF15500E36CE7 /* wait.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750ED168EF15500E36CE7 /* wait.png */; };
 		52AA0B6A15D4307F00CA2EC3 /* websites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6915D4307F00CA2EC3 /* websites.plist */; };
@@ -162,6 +163,8 @@
 		52A159AE15C52AD100E09F51 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		52A159AF15C52AD100E09F51 /* onair@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onair@2x.png"; sourceTree = "<group>"; };
 		52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPad-landscape.xib"; sourceTree = "<group>"; };
+		52A25F26168F2E8400E41BF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		52A25F28168F2E8B00E41BF6 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		52A750EC168EF15500E36CE7 /* wait_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait_pressed.png; sourceTree = "<group>"; };
 		52A750ED168EF15500E36CE7 /* wait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait.png; sourceTree = "<group>"; };
 		52AA0B6915D4307F00CA2EC3 /* websites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = websites.plist; sourceTree = "<group>"; };
@@ -456,6 +459,7 @@
 				52D51E7C15BBEE3F00BC8C94 /* main.m */,
 				52D51E7E15BBEE3F00BC8C94 /* Streaming-Prefix.pch */,
 				52AA0B6915D4307F00CA2EC3 /* websites.plist */,
+				52A25F27168F2E8400E41BF6 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -733,6 +737,7 @@
 				52C23C66168CEADB00BA580F /* Icon-Small@2x.png in Resources */,
 				52A750EE168EF15500E36CE7 /* wait_pressed.png in Resources */,
 				52A750EF168EF15500E36CE7 /* wait.png in Resources */,
+				52A25F25168F2E8400E41BF6 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,6 +826,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		52A25F27168F2E8400E41BF6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52A25F26168F2E8400E41BF6 /* en */,
+				52A25F28168F2E8B00E41BF6 /* it */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		52D51E7915BBEE3F00BC8C94 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
