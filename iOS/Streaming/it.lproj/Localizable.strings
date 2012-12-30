@@ -23,3 +23,14 @@
 
 "DIALOG_SEND_OK_TITLE" = "Richiesta inviata";
 "DIALOG_SEND_OK_MESSAGE" = "La richiesta è stata inviata correttamente";
+
+// Controllers
+// Schedule
+"DAYS_SUNDAY" = "Domenica";
+"DAYS_MONDAY" = "Lunedì";
+"DAYS_TUESDAY" = "Martedì";
+"DAYS_WEDNESDAY" = "Mercoledì";
+"DAYS_THURSDAY" = "Giovedì";
+"DAYS_FRIDAY" = "Venerdì";
+"DAYS_SATURDAY" = "Sabato";
+"FIRST_DAY" = "1";

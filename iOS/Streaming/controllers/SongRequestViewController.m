@@ -184,16 +184,6 @@
 	self.autoreTextView.text = @"";
 }
 
-/*- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    [self animateTextField: textField up: YES];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    [self animateTextField: textField up: NO];
-}*/
-
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
     const int movementDistance = 50; // tweak as needed

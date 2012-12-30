@@ -20,3 +20,14 @@
 
 "DIALOG_SEND_FAILED_TITLE" = "Error";
 "DIALOG_SEND_FAILED_MESSAGE" = "I wasn't able to send the request.";
+
+// Controllers
+// Schedule
+"DAYS_SUNDAY" = "Sunday";
+"DAYS_MONDAY" = "Monday";
+"DAYS_TUESDAY" = "Tuesday";
+"DAYS_WEDNESDAY" = "Wednesday";
+"DAYS_THURSDAY" = "Thursday";
+"DAYS_FRIDAY" = "Friday";
+"DAYS_SATURDAY" = "Saturday";
+"FIRST_DAY" = "0";

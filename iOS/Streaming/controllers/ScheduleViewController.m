@@ -60,8 +60,27 @@
 	// Do any additional setup after loading the view, typically from a nib.
 
 	if(self.schedule == nil) {
-		self.days = [[NSMutableArray alloc] initWithObjects:@"Lunedì", @"Martedì",
-			 @"Mercoledì", @"Giovedì", @"Venerdì", @"Sabato", @"Domenica", nil];
+		if([NSLocalizedString(@"FIRST_DAY", @"") isEqual:@"1"]) {
+			self.days = [[NSMutableArray alloc] initWithObjects:
+							NSLocalizedString(@"DAYS_MONDAY", @""),
+							NSLocalizedString(@"DAYS_TUESDAY", @""),
+							NSLocalizedString(@"DAYS_WEDNESDAY", @""),
+							NSLocalizedString(@"DAYS_THURSDAY", @""),
+							NSLocalizedString(@"DAYS_FRIDAY", @""),
+							NSLocalizedString(@"DAYS_SATURDAY", @""),
+							NSLocalizedString(@"DAYS_SUNDAY", @""),
+							nil];
+		} else {
+			self.days = [[NSMutableArray alloc] initWithObjects:
+							NSLocalizedString(@"DAYS_SUNDAY", @""),
+							NSLocalizedString(@"DAYS_MONDAY", @""),
+							NSLocalizedString(@"DAYS_TUESDAY", @""),
+							NSLocalizedString(@"DAYS_WEDNESDAY", @""),
+							NSLocalizedString(@"DAYS_THURSDAY", @""),
+							NSLocalizedString(@"DAYS_FRIDAY", @""),
+							NSLocalizedString(@"DAYS_SATURDAY", @""),
+							nil];
+		}
 		self.state = DAYS;
 	}
 
@@ -161,7 +180,14 @@
 
 	NSString *dayString = [[[self.scheduleTable cellForRowAtIndexPath:indexPath] textLabel] text];
 
-	ScheduleViewController *scheduleViewController = [[ScheduleViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:indexPath.row andNibName:self.nibName bundle:self.nibBundle];
+	NSInteger dayNumber = indexPath.row;
+	NSLog(@"dayNumber: %d", dayNumber);
+	if(![NSLocalizedString(@"FIRST_DAY", @"") isEqual:@"1"]) {
+		dayNumber = dayNumber - 1 < 0 ? 6 : dayNumber - 1;
+		NSLog(@"Uh! First day isn't 1. New dayNumber: %d", dayNumber);
+	}
+
+	ScheduleViewController *scheduleViewController = [[ScheduleViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:dayNumber andNibName:self.nibName bundle:self.nibBundle];
 	if([self isPhone]) {
 		[self.navigationController pushViewController:scheduleViewController animated:YES];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
