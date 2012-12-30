@@ -15,6 +15,7 @@
 		5240F86B15CEE8D4004EE213 /* Day.m in Sources */ = {isa = PBXBuildFile; fileRef = 5240F86A15CEE8D4004EE213 /* Day.m */; };
 		524885A3169084B90039E827 /* websites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 524885A5169084B90039E827 /* websites.plist */; };
 		524885AE16908B500039E827 /* app_infos.htm in Resources */ = {isa = PBXBuildFile; fileRef = 524885B016908B500039E827 /* app_infos.htm */; };
+		524885B3169094030039E827 /* NoItemSelectedViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 524885B5169094030039E827 /* NoItemSelectedViewController_iPad.xib */; };
 		5279552615C2E4BA00827501 /* pause_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5279552515C2E4BA00827501 /* pause_pressed.png */; };
 		5279552815C2E4C600827501 /* play_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5279552715C2E4C600827501 /* play_pressed.png */; };
 		5279552F15C3323800827501 /* cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 5279552E15C3323800827501 /* cover.png */; };
@@ -106,7 +107,6 @@
 		52EA363B15E29AFC004866FA /* SongRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA363A15E29AFC004866FA /* SongRequest.m */; };
 		52EA364515E2D485004866FA /* RequestSongOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA364415E2D485004866FA /* RequestSongOperation.m */; };
 		52FBA83A1688991000C19D61 /* NoItemSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */; };
-		52FBA83D16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52FBA83C16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib */; };
 		52FBA8401688A86900C19D61 /* ScheduleSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +135,8 @@
 		524885A7169084C70039E827 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/websites.plist; sourceTree = "<group>"; };
 		524885AF16908B500039E827 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = it; path = it.lproj/app_infos.htm; sourceTree = "<group>"; };
 		524885B216908B550039E827 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/app_infos.htm; sourceTree = "<group>"; };
+		524885B4169094030039E827 /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/NoItemSelectedViewController_iPad.xib; sourceTree = "<group>"; };
+		524885B61690940A0039E827 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NoItemSelectedViewController_iPad.xib; sourceTree = "<group>"; };
 		5279552515C2E4BA00827501 /* pause_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_pressed.png; sourceTree = "<group>"; };
 		5279552715C2E4C600827501 /* play_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_pressed.png; sourceTree = "<group>"; };
 		5279552E15C3323800827501 /* cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover.png; sourceTree = "<group>"; };
@@ -258,7 +260,6 @@
 		52EA364415E2D485004866FA /* RequestSongOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSongOperation.m; sourceTree = "<group>"; };
 		52FBA8381688991000C19D61 /* NoItemSelectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoItemSelectedViewController.h; sourceTree = "<group>"; };
 		52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoItemSelectedViewController.m; sourceTree = "<group>"; };
-		52FBA83C16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoItemSelectedViewController_iPad.xib; sourceTree = "<group>"; };
 		52FBA83E1688A86900C19D61 /* ScheduleSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleSplitViewController.h; sourceTree = "<group>"; };
 		52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleSplitViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -565,7 +566,7 @@
 				52D51EF615BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib */,
 				5279553315C3329900827501 /* InfoViewController_iPhone.xib */,
 				5279553515C332B300827501 /* InfoViewController_iPad.xib */,
-				52FBA83C16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib */,
+				524885B5169094030039E827 /* NoItemSelectedViewController_iPad.xib */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -725,7 +726,7 @@
 				52AA0B7115D45B6A00CA2EC3 /* website_icon.png in Resources */,
 				52AA0B7215D45B6A00CA2EC3 /* twitter_icon.png in Resources */,
 				52AA0B7315D45B6A00CA2EC3 /* youtube_icon.png in Resources */,
-				52FBA83D16889A4C00C19D61 /* NoItemSelectedViewController_iPad.xib in Resources */,
+				524885B3169094030039E827 /* NoItemSelectedViewController_iPad.xib in Resources */,
 				528D486A168CB35500248B54 /* Default-568h@2x.png in Resources */,
 				528D486C168CB9C000248B54 /* StreamingViewController_568h@2x.xib in Resources */,
 				528D486E168CBD0E00248B54 /* StreamingViewController_568h@2x-landscape.xib in Resources */,
@@ -848,6 +849,15 @@
 				524885B216908B550039E827 /* en */,
 			);
 			name = app_infos.htm;
+			sourceTree = "<group>";
+		};
+		524885B5169094030039E827 /* NoItemSelectedViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				524885B4169094030039E827 /* it */,
+				524885B61690940A0039E827 /* en */,
+			);
+			name = NoItemSelectedViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 		52A25F27168F2E8400E41BF6 /* Localizable.strings */ = {
