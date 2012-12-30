@@ -263,7 +263,7 @@
 
 	if([DeviceUtils isPhone] && ![DeviceUtils isLandscape]) {
 		// only titleLabel
-		titleLabel.text = @"- Unicaradio -";
+		titleLabel.text = @"- UnicaRadio -";
 	} else {
 		if(![DeviceUtils isPhone] && [DeviceUtils isLandscape]) {
 			[self.titleLabel setHidden:YES];
@@ -271,7 +271,7 @@
 		}
 
 		titleLabel.text = @"";
-		singerLabel.text = @"- Unicaradio -";
+		singerLabel.text = @"- UnicaRadio -";
 	}
 
 	if(resetCurrentValues) {
@@ -343,7 +343,7 @@
     }
 	
     NSString *orientationLabel;
-    if([DeviceUtils isLandscape:interfaceOrientation]) {
+    if([DeviceUtils isLandscape:interfaceOrientation] || ![DeviceUtils isPhone]) {
 		orientationLabel = @"-landscape";
     } else {
         orientationLabel = @"";

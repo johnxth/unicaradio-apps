@@ -37,17 +37,13 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-	NSString *htmlString;
-	
-	if([DeviceUtils isPhone]) {
-		htmlString = @"<html><head><style type='text/css'>body { color: #FFFFFF; } b { color: #FF0000; } a { color: #00FF00; } </style></head><body><b>UnicaRadio</b> la webradio degli studenti universitari di Cagliari.<br /><br />Software sviluppato da <a href='http://code.google.com/p/unicaradio-apps/wiki/Developer'>Paolo Cortis</a> per conto di <b>UnicaRadio</b>, sotto i termini e le condizioni della licenza GPLv2.<br /><br />Codice sorgente liberamente scaricabile da <a href='http://code.google.com/p/unicaradio-apps/'>Google Code</a>.</body></html>";
-	} else {
-		htmlString = @"<html><head><style type='text/css'>body { font-size: 1.3em; color: #FFFFFF; } b { color: #FF0000; } a { color: #00FF00; } </style></head><body><b>UnicaRadio</b> la webradio degli studenti universitari di Cagliari.<br /><br />Software sviluppato da <a href='http://code.google.com/p/unicaradio-apps/wiki/Developer'>Paolo Cortis</a> per conto di <b>UnicaRadio</b>, sotto i termini e le condizioni della licenza GPLv2.<br /><br />Codice sorgente liberamente scaricabile da <a href='http://code.google.com/p/unicaradio-apps/'>Google Code</a>.</body></html>";
-	}
-	
+	NSString *filePath = [[NSBundle mainBundle] pathForResource:@"app_infos" ofType:@"htm"];
+	NSError *error = nil;
+	NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+
 	[self.scrollView addSubview: self.contentView];
     self.scrollView.contentSize = self.contentView.bounds.size;
-	
+
 	//make the background transparent
     [webView setBackgroundColor:[UIColor clearColor]];
 	[[[webView subviews] lastObject] setScrollEnabled:NO];
@@ -68,9 +64,8 @@
         [[UIApplication sharedApplication] openURL:[inRequest URL]];
         return NO;
     }
-	
+
     return YES;
 }
-
 
 @end
