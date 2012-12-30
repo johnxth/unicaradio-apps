@@ -29,20 +29,14 @@
 @synthesize tabBarController = _tabBarController;
 @synthesize uiIsVisible;
 
-- (void)dealloc
-{
-    [_window release];
-    [_tabBarController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     UIViewController *streamingController, *scheduleController, *songRequestController, *favouritesController, *infoController;
 
-	self.tabBarController = [[[UnicaradioUITabBarController alloc] init] autorelease];
+	self.tabBarController = [[UnicaradioUITabBarController alloc] init];
 	self.tabBarController.delegate = self;
 
 	streamingController = [self createStreamingController];
@@ -143,10 +137,10 @@
 - (UIViewController *) createStreamingController
 {
 	StreamingViewController *streamingController;
-	streamingController = [[[StreamingViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+	streamingController = [[StreamingViewController alloc] initWithNibName:nil bundle:nil];
 
 	UnicaradioUINavigationController *navStreamingController;
-	navStreamingController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:streamingController] autorelease];
+	navStreamingController = [[UnicaradioUINavigationController alloc] initWithRootViewController:streamingController];
 
 	return navStreamingController;
 }
@@ -154,20 +148,20 @@
 - (UIViewController *) createScheduleControllerForIPhone
 {
 	ScheduleViewController *scheduleController;
-	scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPhone" bundle:nil] autorelease];
+	scheduleController = [[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPhone" bundle:nil];
 
 	UnicaradioUINavigationController *navScheduleController;
-	navScheduleController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleController] autorelease];
+	navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleController];
 
 	return navScheduleController;
 }
 
 - (UIViewController *) createScheduleControllerForIPad
 {
-	ScheduleViewController *scheduleController = [[[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil] autorelease];
-	NoItemSelectedViewController *noItemSelectedViewController = [[[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil] autorelease];
+	ScheduleViewController *scheduleController = [[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil];
+	NoItemSelectedViewController *noItemSelectedViewController = [[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil];
 
-	ScheduleSplitViewController *splitScheduleController = [[[ScheduleSplitViewController alloc] init] autorelease];
+	ScheduleSplitViewController *splitScheduleController = [[ScheduleSplitViewController alloc] init];
 	splitScheduleController.delegate = scheduleController;
 	splitScheduleController.viewControllers = [[NSArray alloc] initWithObjects:scheduleController, noItemSelectedViewController, nil];
 
@@ -177,10 +171,10 @@
 - (UIViewController *) createSongRequestControllerWithNibNameTail:(NSString *)nibNameTail
 {
 	NSString *nibName = [NSString stringWithFormat:@"SongRequestViewController%@", nibNameTail];
-	SongRequestViewController *songRequestController = [[[SongRequestViewController alloc] initWithNibName:nibName bundle: nil] autorelease];
+	SongRequestViewController *songRequestController = [[SongRequestViewController alloc] initWithNibName:nibName bundle: nil];
 
 	UnicaradioUINavigationController *navSongRequestController;
-	navSongRequestController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:songRequestController] autorelease];
+	navSongRequestController = [[UnicaradioUINavigationController alloc] initWithRootViewController:songRequestController];
 
 	return navSongRequestController;
 }
@@ -188,10 +182,10 @@
 - (UIViewController *) createFavouritesControllerWithNibNameTail:(NSString *)nibNameTail
 {
 	NSString *nibName = [NSString stringWithFormat:@"FavouritesViewController%@", nibNameTail];
-	FavouritesViewController *favouritesController = [[[FavouritesViewController alloc] initWithNibName:nibName bundle: nil] autorelease];
+	FavouritesViewController *favouritesController = [[FavouritesViewController alloc] initWithNibName:nibName bundle: nil];
 	
 	UnicaradioUINavigationController *navFavouritesController;
-	navFavouritesController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:favouritesController] autorelease];
+	navFavouritesController = [[UnicaradioUINavigationController alloc] initWithRootViewController:favouritesController];
 	
 	return navFavouritesController;
 }
@@ -199,10 +193,10 @@
 - (UIViewController *) createInfoControllerWithNibNameTail:(NSString *)nibNameTail
 {
 	NSString *nibName = [NSString stringWithFormat:@"InfoViewController%@", nibNameTail];
-	InfoViewController *infoController = [[[InfoViewController alloc] initWithNibName:nibName bundle: nil] autorelease];
+	InfoViewController *infoController = [[InfoViewController alloc] initWithNibName:nibName bundle: nil];
 	
 	UnicaradioUINavigationController *navInfoController;
-	navInfoController = [[[UnicaradioUINavigationController alloc] initWithRootViewController:infoController] autorelease];
+	navInfoController = [[UnicaradioUINavigationController alloc] initWithRootViewController:infoController];
 	
 	return navInfoController;
 }

@@ -15,6 +15,6 @@
 	NSArray *websites;
 }
 
-@property (nonatomic, retain) NSArray *websites;
+@property (nonatomic, strong) NSArray *websites;
 
 @end

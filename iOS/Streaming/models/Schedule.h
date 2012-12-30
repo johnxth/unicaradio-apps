@@ -14,7 +14,7 @@
 	NSMutableDictionary *transmissions;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *transmissions;
+@property (nonatomic, strong) NSMutableDictionary *transmissions;
 
 + (Schedule *) fromJSON: (NSData *)json;
 - (NSArray *) getTransmissionsByDay: (enum Day)day;

@@ -20,16 +20,10 @@
     return self;
 }
 
-- (void)dealloc
-{
-	[_accessoryColor release];
-	[_highlightedColor release];
-    [super dealloc];
-}
 
 + (DTCustomColoredAccessory *)accessoryWithColor:(UIColor *)color andHighlightedColor:(UIColor *)highlightedColor
 {
-	DTCustomColoredAccessory *ret = [[[DTCustomColoredAccessory alloc] initWithFrame:CGRectMake(0, 0, 11.0, 15.0)] autorelease];
+	DTCustomColoredAccessory *ret = [[DTCustomColoredAccessory alloc] initWithFrame:CGRectMake(0, 0, 11.0, 15.0)];
 	ret.accessoryColor = color;
 	ret.highlightedColor = highlightedColor;
 
@@ -38,7 +32,7 @@
 
 + (DTCustomColoredAccessory *)accessoryWithColor:(UIColor *)color
 {
-	DTCustomColoredAccessory *ret = [[[DTCustomColoredAccessory alloc] initWithFrame:CGRectMake(0, 0, 11.0, 15.0)] autorelease];
+	DTCustomColoredAccessory *ret = [[DTCustomColoredAccessory alloc] initWithFrame:CGRectMake(0, 0, 11.0, 15.0)];
 	ret.accessoryColor = color;
 
 	return ret;

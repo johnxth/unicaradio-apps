@@ -66,8 +66,7 @@
 		52C23C65168CEADB00BA580F /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C23C62168CEADB00BA580F /* Icon-Small.png */; };
 		52C23C66168CEADB00BA580F /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C23C63168CEADB00BA580F /* Icon-Small@2x.png */; };
 		52C31B9D15CB0BFE005681EA /* UnicaradioUINavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */; };
-		52CE047A168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */; };
-		52CE047B168BA87A0049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */; };
+		52CE047B168BA87A0049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		52D51E7115BBEE3F00BC8C94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7015BBEE3F00BC8C94 /* UIKit.framework */; };
 		52D51E7315BBEE3F00BC8C94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7215BBEE3F00BC8C94 /* Foundation.framework */; };
 		52D51E7515BBEE3F00BC8C94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7415BBEE3F00BC8C94 /* CoreGraphics.framework */; };
@@ -96,12 +95,11 @@
 		52D51EF715BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D51EF615BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib */; };
 		52DC0E021686601700C28163 /* UnicaradioUINavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DC0E011686601700C28163 /* UnicaradioUINavigationController.m */; };
 		52E171FC15E3DFB70020A27C /* DownloadScheduleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E171FB15E3DFB70020A27C /* DownloadScheduleOperation.m */; };
-		52E1720715E440470020A27C /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720115E440470020A27C /* AudioStreamer.m */; };
-		52E1720815E440470020A27C /* UIDevice+Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720315E440470020A27C /* UIDevice+Hardware.m */; };
-		52E1720915E440470020A27C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720615E440470020A27C /* JSONKit.m */; };
-		52E1720D15E441560020A27C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720C15E441560020A27C /* Reachability.m */; };
+		52E1720715E440470020A27C /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720115E440470020A27C /* AudioStreamer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		52E1720815E440470020A27C /* UIDevice+Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720315E440470020A27C /* UIDevice+Hardware.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		52E1720915E440470020A27C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720615E440470020A27C /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		52E1720F15E445790020A27C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E1720E15E445790020A27C /* SystemConfiguration.framework */; };
-		52E1721015E526DD0020A27C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720C15E441560020A27C /* Reachability.m */; };
+		52E1721015E526DD0020A27C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720C15E441560020A27C /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		52E5D6A115BDC50900EFB134 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E5D6A015BDC50900EFB134 /* MediaPlayer.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		52EA363315E23113004866FA /* LoadingDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA363215E23113004866FA /* LoadingDialog.m */; };
 		52EA363B15E29AFC004866FA /* SongRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA363A15E29AFC004866FA /* SongRequest.m */; };
@@ -581,10 +579,10 @@
 		52E171FE15E440470020A27C /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				52CE0476168BA6500049ABB3 /* TPKeyboardAvoiding */,
 				52E171FF15E440470020A27C /* audiostreamer */,
 				52E1720415E440470020A27C /* JSONKit */,
 				52E1720A15E441300020A27C /* reachability */,
+				52CE0476168BA6500049ABB3 /* TPKeyboardAvoiding */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -817,8 +815,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				52D51EB015BBEE3F00BC8C94 /* StreamingTests.m in Sources */,
-				52E1720D15E441560020A27C /* Reachability.m in Sources */,
-				52CE047A168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -939,16 +935,16 @@
 		52D51EB415BBEE4000BC8C94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streaming/Streaming-Prefix.pch";
 				INFOPLIST_FILE = "Streaming/Streaming-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Streaming/libs/KeyboardHandler\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				USER_HEADER_SEARCH_PATHS = "";
+				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -956,16 +952,16 @@
 		52D51EB515BBEE4000BC8C94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streaming/Streaming-Prefix.pch";
 				INFOPLIST_FILE = "Streaming/Streaming-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Streaming/libs/KeyboardHandler\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				USER_HEADER_SEARCH_PATHS = "";
+				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -974,6 +970,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Streaming.app/Streaming";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -983,6 +980,7 @@
 				INFOPLIST_FILE = "StreamingTests/StreamingTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -991,6 +989,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Streaming.app/Streaming";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -1000,6 +999,7 @@
 				INFOPLIST_FILE = "StreamingTests/StreamingTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;

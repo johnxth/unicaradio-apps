@@ -17,8 +17,8 @@
 	NSString *startTime;
 }
 
-@property (nonatomic, retain) NSString *formatName;
-@property (nonatomic, retain) NSString *startTime;
+@property (nonatomic, strong) NSString *formatName;
+@property (nonatomic, strong) NSString *startTime;
 
 - (id) initWithFormatName: (NSString *)formatName andStartTime: (NSString *)startTime;
 - (NSComparisonResult)compare: (Transmission *)otherObject;

@@ -31,8 +31,8 @@
 + (NSMutableArray *) sortTransmissions: (NSArray *)transmissionsArray
 {
 	NSSortDescriptor *sortDescriptor;
-	sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"startTime"
-												  ascending:YES] autorelease];
+	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime"
+												  ascending:YES];
 	NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
 	NSMutableArray *sortedArray = [[transmissionsArray sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
 	

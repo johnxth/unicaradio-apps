@@ -141,7 +141,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell;
-	cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil] autorelease];
+	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
 
 	UIColor *textColor = [UIColor whiteColor];
 	
@@ -162,7 +162,7 @@
 	[cell.textLabel setTextColor:textColor];
 	[cell.detailTextLabel setTextColor:textColor];
 
-	UIView *redColorView = [[[UIView alloc] init] autorelease];
+	UIView *redColorView = [[UIView alloc] init];
 	redColorView.backgroundColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:0.70];
 	cell.selectedBackgroundView = redColorView;
 
@@ -195,7 +195,6 @@
 		NSArray *newVCs = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], scheduleViewController, nil];
 		self.splitViewController.viewControllers = newVCs;
 	}
-	[scheduleViewController release];
 }
 
 - (BOOL) isPhone
@@ -211,8 +210,6 @@
 	[item setLeftBarButtonItem:backButton];
 
 	[self.navigationBar pushNavigationItem:item animated:YES];
-	[item release];
-	[backButton release];
 }
 
 -  (void) backPressed

@@ -28,12 +28,12 @@
 	NSInteger currentID;
 }
 
-@property (nonatomic, retain) IBOutlet UITableView *scheduleTable;
-@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
+@property (nonatomic, strong) IBOutlet UITableView *scheduleTable;
+@property (nonatomic, strong) IBOutlet UINavigationBar *navigationBar;
 
-@property (nonatomic, retain) NSMutableArray *days;
+@property (nonatomic, strong) NSMutableArray *days;
 @property (nonatomic) ScheduleState state;
-@property (nonatomic, retain) Schedule *schedule;
+@property (nonatomic, strong) Schedule *schedule;
 @property (nonatomic) NSInteger currentID;
 
 - (id) initWithSchedule:(Schedule *)schedule andTitle:(NSString*)title andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;

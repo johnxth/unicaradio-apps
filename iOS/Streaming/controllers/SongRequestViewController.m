@@ -70,7 +70,6 @@
 	if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
 		NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:filePath];
 		emailTextView.text = [dict objectForKey:@"email"];
-		[dict release];
 	}
 }
 
@@ -105,9 +104,6 @@
 
 - (void) showLoadingDialog
 {
-	if(dialog != nil) {
-		[dialog release];
-	}
 
 	NSString *dialogTitle = NSLocalizedString(@"DIALOG_LOADING", @"");
 	dialog = [[LoadingDialog alloc] initWithTitle:dialogTitle message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
@@ -122,7 +118,7 @@
 		NSLog(@"Something is missing");
 		NSString *title = NSLocalizedString(@"DIALOG_SOMETHING_MISSING_TITLE", @"");
 		NSString *message = NSLocalizedString(@"DIALOG_SOMETHING_MISSING_MESSAGE", @"");
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 		[alert show];
 	} else {
 		NSLog(@"OK!");
@@ -146,7 +142,6 @@
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 	[dict setObject:emailTextView.text forKey:@"email"];
 	[dict writeToFile:[self getDataFilePath] atomically:YES];
-	[dict release];
 }
 
 - (void) sendEmailCompleted:(NSDictionary *)serverResponse
@@ -155,7 +150,7 @@
 	if(serverResponse == nil) {
 		NSString *title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
 		NSString *message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 		[alert show];
 		return;
 	}
@@ -167,13 +162,13 @@
 	if(!containsError) {
 		NSString *title = NSLocalizedString(@"DIALOG_SEND_OK_TITLE", @"");
 		NSString *message = NSLocalizedString(@"DIALOG_SEND_OK_TITLE_MESSAGE", @"");
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 		[alert show];
 		[self clearForm];
 	} else {
 		NSString *title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
 		NSString *message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 		[alert show];
 	}
 }
@@ -207,7 +202,6 @@
 
 - (void) dealloc
 {
-	[super dealloc];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

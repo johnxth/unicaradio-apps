@@ -688,7 +688,7 @@ void ASReadStreamCallBack
 		if (fileLength > 0 && seekByteOffset > 0)
 		{
 			CFHTTPMessageSetHeaderFieldValue(message, CFSTR("Range"),
-				(CFStringRef)[NSString stringWithFormat:@"bytes=%ld-%ld", seekByteOffset, fileLength - 1]);
+				(CFStringRef)[NSString stringWithFormat:@"bytes=%d-%d", seekByteOffset, fileLength - 1]);
 			discontinuous = vbr;
 		}
 		
@@ -796,7 +796,7 @@ void ASReadStreamCallBack
 			if (state != AS_STOPPING &&
 				state != AS_STOPPED)
 			{
-				NSLog(@"### Not starting audio thread. State code is: %ld", state);
+				NSLog(@"### Not starting audio thread. State code is: %d", state);
 			}
 			self.state = AS_INITIALIZED;
 			[pool release];
@@ -1519,11 +1519,11 @@ cleanup:
 								parsedHeaders = YES;
 							}*/
 							NSString *metaInt;
-							NSString *contentType;
-							NSString *icyBr;
+							//NSString *contentType;
+							//NSString *icyBr;
 							metaInt = (NSString *) CFHTTPMessageCopyHeaderFieldValue(myResponse, CFSTR("Icy-Metaint"));
-							contentType = (NSString *) CFHTTPMessageCopyHeaderFieldValue(myResponse, CFSTR("Content-Type"));
-							icyBr = (NSString *) CFHTTPMessageCopyHeaderFieldValue(myResponse, CFSTR("icy-br"));
+							//contentType = (NSString *) CFHTTPMessageCopyHeaderFieldValue(myResponse, CFSTR("Content-Type"));
+							//icyBr = (NSString *) CFHTTPMessageCopyHeaderFieldValue(myResponse, CFSTR("icy-br"));
 							/*if (contentType) 
 							{
 								// only if we haven't already set a content-type
@@ -1657,7 +1657,7 @@ cleanup:
 					if (metaDataBytesRemaining > 0)
 					{
 						//NSLog(@"meta: %C", bytes[i]);
-						[metaDataString appendFormat:@"%C", bytes[i]];
+						[metaDataString appendFormat:@"%c", bytes[i]];
 						
 						metaDataBytesRemaining -= 1;
 						

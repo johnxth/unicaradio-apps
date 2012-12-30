@@ -38,7 +38,7 @@
 	NSMutableDictionary *resultsDictionary = [json objectFromJSONData];
 	for(int day = MONDAY; day <= SUNDAY; day++) {
 		NSString *dayString = [Day getStringByDay:day];
-		NSMutableArray *transmissionsByDay = [result getTransmissionsByDay:day];
+		NSMutableArray *transmissionsByDay = [NSMutableArray arrayWithArray:[result getTransmissionsByDay:day]];
 
 		NSArray *itemArray = [resultsDictionary objectForKey:dayString];
 		for (NSMutableDictionary *transmissionDictionary in itemArray) {

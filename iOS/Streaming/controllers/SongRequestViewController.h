@@ -28,12 +28,12 @@
 	CGFloat animatedDistance;
 }
 
-@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, retain) IBOutlet UIView *contentView;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) IBOutlet UIView *contentView;
 
-@property (nonatomic, retain) IBOutlet UITextField *emailTextView;
-@property (nonatomic, retain) IBOutlet UITextField *autoreTextView;
-@property (nonatomic, retain) IBOutlet UITextField *titoloTextView;
+@property (nonatomic, strong) IBOutlet UITextField *emailTextView;
+@property (nonatomic, strong) IBOutlet UITextField *autoreTextView;
+@property (nonatomic, strong) IBOutlet UITextField *titoloTextView;
 
 - (IBAction) sendEmail:(id)sender;
 

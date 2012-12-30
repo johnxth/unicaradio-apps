@@ -47,12 +47,12 @@
 - (void) updateUi;
 
 #pragma mark - Properties
-@property (nonatomic, retain) IBOutlet UILabel *titleLabel;
-@property (nonatomic, retain) IBOutlet UILabel *singerLabel;
-@property (nonatomic, retain) IBOutlet UIButton *playPauseButton;
-@property (nonatomic, retain) IBOutlet UIImageView *coverImageView;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *singerLabel;
+@property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
+@property (nonatomic, strong) IBOutlet UIImageView *coverImageView;
 
-@property (retain) NSString *currentArtist;
-@property (retain) NSString *currentTitle;
+@property (strong) NSString *currentArtist;
+@property (strong) NSString *currentTitle;
 
 @end

@@ -31,7 +31,4 @@
     // Release any retained subviews of the main view.
 }
 
-- (void)dealloc {
-	[super dealloc];
-}
 @end

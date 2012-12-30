@@ -107,7 +107,6 @@
 - (void)dealloc
 {
     [self destroyStreamer];
-	[super dealloc];
 }
 
 #pragma mark - Actions
@@ -249,7 +248,6 @@
          object:streamer];
 
 		[streamer stop];
-		[streamer release];
 		streamer = nil;
 	}
 }

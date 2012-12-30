@@ -14,8 +14,8 @@
 	UIColor *_highlightedColor;
 }
 
-@property (nonatomic, retain) UIColor *accessoryColor;
-@property (nonatomic, retain) UIColor *highlightedColor;
+@property (nonatomic, strong) UIColor *accessoryColor;
+@property (nonatomic, strong) UIColor *highlightedColor;
 
 + (DTCustomColoredAccessory *)accessoryWithColor:(UIColor *)color andHighlightedColor:(UIColor *)highlightedColor;
 + (DTCustomColoredAccessory *)accessoryWithColor:(UIColor *)color;

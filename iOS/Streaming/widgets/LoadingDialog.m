@@ -28,7 +28,6 @@
 
     [self addSubview:activityIndicatorView];
     [activityIndicatorView startAnimating];
-    [activityIndicatorView release];
 }
 
 - (void) dismiss

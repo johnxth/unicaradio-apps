@@ -15,9 +15,9 @@
     IBOutlet UIView *contentView;
 }
 
-@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, retain) IBOutlet UIView *contentView;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) IBOutlet UIView *contentView;
 
-@property (nonatomic, retain) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) IBOutlet UIWebView *webView;
 
 @end
