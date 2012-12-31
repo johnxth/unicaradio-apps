@@ -94,7 +94,7 @@
 					<object class="IBUILabel" id="987327005">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{210, 35}, {348, 21}}</string>
+						<string key="NSFrame">{{210, 41}, {348, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="979279868"/>
@@ -104,7 +104,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">- Unicaradio -</string>
+						<string key="IBUIText">- UnicaRadio -</string>
 						<reference key="IBUITextColor" ref="895893727"/>
 						<reference key="IBUIHighlightedColor" ref="895893727"/>
 						<int key="IBUIBaselineAdjustment">0</int>
@@ -124,7 +124,7 @@
 					<object class="IBUILabel" id="979279868">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{210, 72}, {348, 29}}</string>
+						<string key="NSFrame">{{210, 73}, {348, 29}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>

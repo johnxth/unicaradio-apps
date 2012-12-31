@@ -13,6 +13,7 @@
 		52328ABF15CD6FB700B67825 /* DTCustomColoredAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 52328ABE15CD6FB700B67825 /* DTCustomColoredAccessory.m */; };
 		523B6BF015DFEAB3001E6B10 /* NetworkUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 523B6BEF15DFEAB3001E6B10 /* NetworkUtils.m */; };
 		5240F86B15CEE8D4004EE213 /* Day.m in Sources */ = {isa = PBXBuildFile; fileRef = 5240F86A15CEE8D4004EE213 /* Day.m */; };
+		524777A71691A35F000F953E /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 524777A61691A35F000F953E /* MarqueeLabel.m */; };
 		524885A3169084B90039E827 /* websites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 524885A5169084B90039E827 /* websites.plist */; };
 		524885AE16908B500039E827 /* app_infos.htm in Resources */ = {isa = PBXBuildFile; fileRef = 524885B016908B500039E827 /* app_infos.htm */; };
 		524885B3169094030039E827 /* NoItemSelectedViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 524885B5169094030039E827 /* NoItemSelectedViewController_iPad.xib */; };
@@ -129,6 +130,8 @@
 		523B6BEF15DFEAB3001E6B10 /* NetworkUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkUtils.m; sourceTree = "<group>"; };
 		5240F86915CEE8D4004EE213 /* Day.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Day.h; sourceTree = "<group>"; };
 		5240F86A15CEE8D4004EE213 /* Day.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Day.m; sourceTree = "<group>"; };
+		524777A51691A35F000F953E /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
+		524777A61691A35F000F953E /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
 		524885A4169084B90039E827 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = it; path = it.lproj/websites.plist; sourceTree = "<group>"; };
 		524885A7169084C70039E827 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/websites.plist; sourceTree = "<group>"; };
 		524885AF16908B500039E827 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = it; path = it.lproj/app_infos.htm; sourceTree = "<group>"; };
@@ -313,6 +316,15 @@
 				52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		524777A41691A35F000F953E /* MarqueeLabel */ = {
+			isa = PBXGroup;
+			children = (
+				524777A51691A35F000F953E /* MarqueeLabel.h */,
+				524777A61691A35F000F953E /* MarqueeLabel.m */,
+			);
+			path = MarqueeLabel;
 			sourceTree = "<group>";
 		};
 		528D4868168CB35500248B54 /* Defaults */ = {
@@ -581,6 +593,7 @@
 			children = (
 				52E171FF15E440470020A27C /* audiostreamer */,
 				52E1720415E440470020A27C /* JSONKit */,
+				524777A41691A35F000F953E /* MarqueeLabel */,
 				52E1720A15E441300020A27C /* reachability */,
 				52CE0476168BA6500049ABB3 /* TPKeyboardAvoiding */,
 			);
@@ -807,6 +820,7 @@
 				52FBA8401688A86900C19D61 /* ScheduleSplitViewController.m in Sources */,
 				52B0B2061689A6F3002ACAB8 /* DeviceUtils.m in Sources */,
 				528D4866168C9D4300248B54 /* UnicaradioUITabBar.m in Sources */,
+				524777A71691A35F000F953E /* MarqueeLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,7 +919,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -924,7 +938,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -939,7 +953,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streaming/Streaming-Prefix.pch";
 				INFOPLIST_FILE = "Streaming/Streaming-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -956,7 +970,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streaming/Streaming-Prefix.pch";
 				INFOPLIST_FILE = "Streaming/Streaming-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;

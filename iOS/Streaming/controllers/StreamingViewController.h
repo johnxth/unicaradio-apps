@@ -24,6 +24,7 @@
 #pragma mark - Interface
 
 @class AudioStreamer;
+@class MarqueeLabel;
 
 @interface StreamingViewController : UIViewController
 {
@@ -33,6 +34,9 @@
     IBOutlet UILabel *singerLabel;
     IBOutlet UIButton *playPauseButton;
     IBOutlet UIImageView *coverImageView;
+
+	MarqueeLabel *titleMarqueeLabel;
+	MarqueeLabel *singerMarqueeLabel;
     
     NSString *currentArtist;
 	NSString *currentTitle;

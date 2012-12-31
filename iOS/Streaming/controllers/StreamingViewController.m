@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 
 #import "../libs/audiostreamer/AudioStreamer.h"
+#import "../libs/MarqueeLabel/MarqueeLabel.h"
+
 #import "../utils/DeviceUtils.h"
 #import "../delegates/StreamingPlayerDelegate.h"
 
@@ -68,6 +70,22 @@
 	[self willRotateToInterfaceOrientation:newOrientation duration:0.];
 }
 
+- (void) initMarqueeLabel:(MarqueeLabel *)marqueeLabel andUILabel:(UILabel *)label andInitialText:(NSString *) initialText
+{
+    marqueeLabel.marqueeType = MLContinuous;
+	marqueeLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+    marqueeLabel.numberOfLines = 1;
+    marqueeLabel.opaque = NO;
+    marqueeLabel.enabled = YES;
+    marqueeLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+    marqueeLabel.textAlignment = UITextAlignmentCenter;
+    marqueeLabel.textColor = label.textColor;
+    marqueeLabel.backgroundColor = [UIColor clearColor];
+    marqueeLabel.font = label.font;
+    marqueeLabel.text = initialText;
+    [self.view addSubview:marqueeLabel];
+	[label setHidden:YES];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -92,13 +110,29 @@
 
 - (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+	NSLog(@"willRotateToInterfaceOrientation");
 	[[NSBundle mainBundle] loadNibNamed: [self getNibNameByOrientation:toInterfaceOrientation]
 								  owner: self
 								options: nil];
+
+	titleMarqueeLabel = nil;
+	singerMarqueeLabel = nil;
+	if([DeviceUtils isPhone]) {
+		titleMarqueeLabel = [[MarqueeLabel alloc] initWithFrame:titleLabel.frame rate:80.0f andFadeLength:10.0f];
+		titleMarqueeLabel.tag = 101;
+		[self initMarqueeLabel:titleMarqueeLabel andUILabel:titleLabel andInitialText:@"- UnicaRadio -"];
+		
+		if([DeviceUtils isLandscape:toInterfaceOrientation]) {
+			singerMarqueeLabel = [[MarqueeLabel alloc] initWithFrame:singerLabel.frame rate:80.0f andFadeLength:10.0f];
+			singerMarqueeLabel.tag = 101;
+			[self initMarqueeLabel:singerMarqueeLabel andUILabel:singerLabel andInitialText:@""];
+		}
+	}
 }
 
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+	NSLog(@"didRotateFromInterfaceOrientation");
 	if(streamer != nil && ([streamer isPlaying] || ![streamer isWaiting])) {
 		[self updateUi];
 	}
@@ -261,15 +295,22 @@
 
 	if([DeviceUtils isPhone] && ![DeviceUtils isLandscape]) {
 		// only titleLabel
-		titleLabel.text = @"- UnicaRadio -";
+		//titleLabel.text = @"- UnicaRadio -";
+		titleMarqueeLabel.text = @"- UnicaRadio -";
+		[titleMarqueeLabel setTextAlignment:UITextAlignmentCenter];
 	} else {
-		if(![DeviceUtils isPhone] && [DeviceUtils isLandscape]) {
+		if(![DeviceUtils isPhone]) {
 			[self.titleLabel setHidden:YES];
 			[self.singerLabel setHidden:YES];
-		}
 
-		titleLabel.text = @"";
-		singerLabel.text = @"- UnicaRadio -";
+			titleLabel.text = @"";
+			singerLabel.text = @"- UnicaRadio -";
+		} else {
+			titleMarqueeLabel.text = @"";
+			[titleMarqueeLabel setTextAlignment:UITextAlignmentCenter];
+			singerMarqueeLabel.text = @"- UnicaRadio -";
+			[singerMarqueeLabel setTextAlignment:UITextAlignmentCenter];
+		}
 	}
 
 	if(resetCurrentValues) {
@@ -300,17 +341,22 @@
 				currentlyOnAir = [NSString stringWithFormat:@"- %@ -", currentlyOnAir];
 			}
 
-			self.titleLabel.text = currentlyOnAir;
+			//self.titleLabel.text = currentlyOnAir;
+			titleMarqueeLabel.text = currentlyOnAir;
+			[titleMarqueeLabel setTextAlignment:UITextAlignmentCenter];
 		} else {
 			if(![DeviceUtils isPhone]) {
 				[self.titleLabel setHidden:NO];
 				[self.singerLabel setHidden:NO];
 				self.singerLabel.text = currentArtist;
+				self.titleLabel.text = currentTitle;
 			} else {
-				self.singerLabel.text = [NSString stringWithFormat:@"- %@ -", currentArtist];
+				//self.singerLabel.text = [NSString stringWithFormat:@"- %@ -", currentArtist];
+				singerMarqueeLabel.text = [NSString stringWithFormat:@"- %@ -", currentArtist];
+				[singerMarqueeLabel setTextAlignment:UITextAlignmentCenter];
+				titleMarqueeLabel.text = currentTitle;
+				[titleMarqueeLabel setTextAlignment:UITextAlignmentCenter];
 			}
-
-			self.titleLabel.text = currentTitle;
 		}
         
         if(streamer != nil && ([streamer isPlaying] || [streamer isWaiting])) {
