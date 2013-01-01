@@ -31,6 +31,9 @@
 @synthesize currentTitle;
 @synthesize currentArtist;
 
+@synthesize infos;
+@synthesize oldInfos;
+
 #pragma mark - Controller lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -156,6 +159,10 @@
 	if([self isPlaying]) {
 		[self setPlayButtonImage];
 		[self destroyStreamer];
+
+		[NSObject cancelPreviousPerformRequestsWithTarget:self
+												 selector:@selector(updateCover)
+												   object:nil];
 	} else {
         [self createStreamer];
         [streamer start];
@@ -360,15 +367,29 @@
 		}
         
         if(streamer != nil && ([streamer isPlaying] || [streamer isWaiting])) {
-            NSURL *url = [NSURL URLWithString:COVER_URL];
-            UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
-            coverImageView.image = image;
+            [self performSelector:@selector(updateCover) withObject:nil afterDelay:5];
 			
 			[self setPauseButtonImage];
 		} else {
 			[self setPlayButtonImage];
         }
 	}
+}
+
+- (void) updateCover
+{
+	if(![self isPlaying]) {
+		return;
+	}
+
+	NSURL *url = [NSURL URLWithString:COVER_URL];
+	UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
+
+	if(![self isPlaying]) {
+		return;
+	}
+
+	coverImageView.image = image;
 }
 
 - (NSString *) getNibNameByOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -23,6 +23,7 @@
 		5279553215C3326B00827501 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5279553115C3326B00827501 /* InfoViewController.m */; };
 		5279553415C3329900827501 /* InfoViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5279553315C3329900827501 /* InfoViewController_iPhone.xib */; };
 		5279553615C332B300827501 /* InfoViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5279553515C332B300827501 /* InfoViewController_iPad.xib */; };
+		527A3D351691E43D00F53B18 /* TrackInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 527A3D341691E43D00F53B18 /* TrackInfos.m */; };
 		528D4866168C9D4300248B54 /* UnicaradioUITabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 528D4865168C9D4300248B54 /* UnicaradioUITabBar.m */; };
 		528D486A168CB35500248B54 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4869168CB35500248B54 /* Default-568h@2x.png */; };
 		528D486C168CB9C000248B54 /* StreamingViewController_568h@2x.xib in Resources */ = {isa = PBXBuildFile; fileRef = 528D486B168CB9C000248B54 /* StreamingViewController_568h@2x.xib */; };
@@ -145,6 +146,8 @@
 		5279553115C3326B00827501 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		5279553315C3329900827501 /* InfoViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController_iPhone.xib; sourceTree = "<group>"; };
 		5279553515C332B300827501 /* InfoViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController_iPad.xib; sourceTree = "<group>"; };
+		527A3D331691E43D00F53B18 /* TrackInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackInfos.h; sourceTree = "<group>"; };
+		527A3D341691E43D00F53B18 /* TrackInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackInfos.m; sourceTree = "<group>"; };
 		528D4864168C9D4300248B54 /* UnicaradioUITabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUITabBar.h; sourceTree = "<group>"; };
 		528D4865168C9D4300248B54 /* UnicaradioUITabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUITabBar.m; sourceTree = "<group>"; };
 		528D4869168CB35500248B54 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -356,6 +359,8 @@
 				52C219ED15CEB24C009E55E0 /* Transmission.m */,
 				52EA363915E29AFC004866FA /* SongRequest.h */,
 				52EA363A15E29AFC004866FA /* SongRequest.m */,
+				527A3D331691E43D00F53B18 /* TrackInfos.h */,
+				527A3D341691E43D00F53B18 /* TrackInfos.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -821,6 +826,7 @@
 				52B0B2061689A6F3002ACAB8 /* DeviceUtils.m in Sources */,
 				528D4866168C9D4300248B54 /* UnicaradioUITabBar.m in Sources */,
 				524777A71691A35F000F953E /* MarqueeLabel.m in Sources */,
+				527A3D351691E43D00F53B18 /* TrackInfos.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

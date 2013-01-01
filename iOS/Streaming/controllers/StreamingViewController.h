@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "../models/TrackInfos.h"
 
 #pragma mark - Constants
 
@@ -37,7 +38,9 @@
 
 	MarqueeLabel *titleMarqueeLabel;
 	MarqueeLabel *singerMarqueeLabel;
-    
+
+	TrackInfos *infos;
+	TrackInfos *oldInfos;
     NSString *currentArtist;
 	NSString *currentTitle;
 	
@@ -58,5 +61,7 @@
 
 @property (strong) NSString *currentArtist;
 @property (strong) NSString *currentTitle;
+@property (strong) TrackInfos *infos;
+@property (strong) TrackInfos *oldInfos;
 
 @end
