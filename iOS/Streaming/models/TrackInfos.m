@@ -38,4 +38,9 @@
 	[self setCover:infos.cover];
 }
 
+- (BOOL) isClean
+{
+	return author == nil && title == nil && cover == nil;
+}
+
 @end

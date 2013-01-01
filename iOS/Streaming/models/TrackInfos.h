@@ -13,7 +13,6 @@
 	@private NSString* author;
 	@private NSString* title;
 	@private UIImage* cover;
-	@private BOOL cleaned;
 }
 
 @property (strong, readwrite) NSString* author;
@@ -21,5 +20,7 @@
 @property (strong, readwrite) UIImage* cover;
 
 - (void) clean;
+- (void) setTrackInfos:(TrackInfos *)trackInfos;
+- (BOOL) isClean;
 
 @end

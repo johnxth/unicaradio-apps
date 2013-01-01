@@ -41,8 +41,6 @@
 
 	TrackInfos *infos;
 	TrackInfos *oldInfos;
-    NSString *currentArtist;
-	NSString *currentTitle;
 	
 	UIInterfaceOrientation oldOrientation;
 }
@@ -59,8 +57,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
 @property (nonatomic, strong) IBOutlet UIImageView *coverImageView;
 
-@property (strong) NSString *currentArtist;
-@property (strong) NSString *currentTitle;
 @property (strong) TrackInfos *infos;
 @property (strong) TrackInfos *oldInfos;
 

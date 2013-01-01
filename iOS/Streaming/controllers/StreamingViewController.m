@@ -28,9 +28,6 @@
 @synthesize playPauseButton;
 @synthesize coverImageView;
 
-@synthesize currentTitle;
-@synthesize currentArtist;
-
 @synthesize infos;
 @synthesize oldInfos;
 
@@ -44,6 +41,10 @@
     if (self) {
         self.title = NSLocalizedString(@"CONTROLLER_TITLE_ONAIR", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"onair"];
+
+		if(infos == nil) {
+			infos = [[TrackInfos alloc] init];	
+		}
     }
     NSLog(@"init streaming view controller");
     return self;
@@ -71,6 +72,14 @@
 	NSLog(@"StreamingViewController - viewWillAppear");
 	UIInterfaceOrientation newOrientation = [[UIApplication sharedApplication] statusBarOrientation];
 	[self willRotateToInterfaceOrientation:newOrientation duration:0.];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+
+	oldInfos = [[TrackInfos alloc] init];
+	[oldInfos setTrackInfos:infos];
 }
 
 - (void) initMarqueeLabel:(MarqueeLabel *)marqueeLabel andUILabel:(UILabel *)label andInitialText:(NSString *) initialText
@@ -160,6 +169,7 @@
 		[self setPlayButtonImage];
 		[self destroyStreamer];
 
+		[infos clean];
 		[NSObject cancelPreviousPerformRequestsWithTarget:self
 												 selector:@selector(updateCover)
 												   object:nil];
@@ -219,10 +229,27 @@
 
 	NSLog(@"%@ by %@", streamTitle, streamArtist);
 
-	self.currentArtist = streamArtist;
-	self.currentTitle = streamTitle;
+	[self updateTrackInfosWithAutor:streamArtist andTitle:streamTitle];
+}
 
-    [self updateUi];
+- (void) updateTrackInfosWithAutor:(NSString *)author andTitle:(NSString *)title
+{
+	if(oldInfos != nil &&
+	   [author isEqualToString:oldInfos.author] &&
+	   [title isEqualToString:oldInfos.title]) {
+		infos = oldInfos;
+		oldInfos = nil;
+
+		[self updateUi];
+		return;
+	}
+
+	[infos setAuthor:author];
+	[infos setTitle:title];
+	[infos setCover:nil];
+	[self updateUi];
+
+	[self performSelector:@selector(updateCover) withObject:nil afterDelay:5];
 }
 
 //
@@ -321,8 +348,7 @@
 	}
 
 	if(resetCurrentValues) {
-		currentTitle = @"";
-		currentArtist = @"";
+		[infos clean];
 	}
 }
 
@@ -332,6 +358,10 @@
     [self clearUi:NO];
 
 	if(streamer == nil || [streamer isIdle]) {
+		[infos clean];
+		return;
+	}
+	if([infos isClean]) {
 		return;
 	}
 
@@ -340,35 +370,35 @@
 	if (appDelegate.uiIsVisible) {
 		if([DeviceUtils isPhone] && ![DeviceUtils isLandscape]) {
 			// only titleLabel
-			NSString *currentlyOnAir = self.currentArtist;
+			NSString *currentlyOnAir = infos.author;
 
-			if(self.currentTitle != @"") {
-				currentlyOnAir = [NSString stringWithFormat:@"%@ - %@", currentlyOnAir, self.currentTitle];
+			if(![infos.title isEqualToString:@""]) {
+				currentlyOnAir = [NSString stringWithFormat:@"%@ - %@", currentlyOnAir, infos.title];
 			} else {
 				currentlyOnAir = [NSString stringWithFormat:@"- %@ -", currentlyOnAir];
 			}
 
-			//self.titleLabel.text = currentlyOnAir;
 			titleMarqueeLabel.text = currentlyOnAir;
 			[titleMarqueeLabel setTextAlignment:UITextAlignmentCenter];
 		} else {
 			if(![DeviceUtils isPhone]) {
 				[self.titleLabel setHidden:NO];
 				[self.singerLabel setHidden:NO];
-				self.singerLabel.text = currentArtist;
-				self.titleLabel.text = currentTitle;
+				self.singerLabel.text = infos.author;
+				self.titleLabel.text = infos.title;
 			} else {
-				//self.singerLabel.text = [NSString stringWithFormat:@"- %@ -", currentArtist];
-				singerMarqueeLabel.text = [NSString stringWithFormat:@"- %@ -", currentArtist];
+				singerMarqueeLabel.text = [NSString stringWithFormat:@"- %@ -", infos.author];
 				[singerMarqueeLabel setTextAlignment:UITextAlignmentCenter];
-				titleMarqueeLabel.text = currentTitle;
+				titleMarqueeLabel.text = infos.title;
 				[titleMarqueeLabel setTextAlignment:UITextAlignmentCenter];
 			}
 		}
-        
+
+		if(infos.cover != nil) {
+			coverImageView.image = infos.cover;
+		}
+
         if(streamer != nil && ([streamer isPlaying] || [streamer isWaiting])) {
-            [self performSelector:@selector(updateCover) withObject:nil afterDelay:5];
-			
 			[self setPauseButtonImage];
 		} else {
 			[self setPlayButtonImage];
@@ -379,17 +409,21 @@
 - (void) updateCover
 {
 	if(![self isPlaying]) {
+		[infos setCover:nil];
+		[self clearUi:YES];
 		return;
 	}
 
 	NSURL *url = [NSURL URLWithString:COVER_URL];
-	UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
+	[infos setCover:[UIImage imageWithData: [NSData dataWithContentsOfURL:url]]];
 
 	if(![self isPlaying]) {
+		[infos setCover:nil];
+		[self clearUi:YES];
 		return;
 	}
 
-	coverImageView.image = image;
+	coverImageView.image = infos.cover;
 }
 
 - (NSString *) getNibNameByOrientation:(UIInterfaceOrientation)interfaceOrientation
