@@ -9,6 +9,7 @@
 #import <QuartzCore/CoreAnimation.h>
 
 #import "StreamingViewController.h"
+#import "SettingsViewController.h"
 #import "AppDelegate.h"
 
 #import "../libs/audiostreamer/AudioStreamer.h"
@@ -31,6 +32,8 @@
 @synthesize infos;
 @synthesize oldInfos;
 
+@synthesize popover;
+
 #pragma mark - Controller lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,11 +48,43 @@
 		if(infos == nil) {
 			infos = [[TrackInfos alloc] init];	
 		}
+
+		UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(openSettings:)];
+		UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:23.0];
+		NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, UITextAttributeFont, nil];
+		[settingsButton setTitleTextAttributes:dict forState:UIControlStateNormal];
+
+		self.navigationItem.rightBarButtonItem = settingsButton;
     }
     NSLog(@"init streaming view controller");
     return self;
 }
-							
+
+- (void) openSettings:(id) sender
+{
+	NSLog(@"Open settings");
+	if([DeviceUtils isPhone]) {
+		UIViewController *settingsViewController = [SettingsViewController createSettingsController];
+		[self presentModalViewController:settingsViewController animated:YES];
+	} else {
+		[self openSettingsForIPad:sender];
+	}
+}
+
+- (void) openSettingsForIPad:(id) sender
+{
+	if(popover == nil) {
+		UIViewController *settingsViewController = [SettingsViewController createSettingsController];
+		popover = [[UIPopoverController alloc] initWithContentViewController:settingsViewController];
+	}
+
+	if([popover isPopoverVisible]) {
+		[popover dismissPopoverAnimated:YES];
+	} else {
+		[popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+	}
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

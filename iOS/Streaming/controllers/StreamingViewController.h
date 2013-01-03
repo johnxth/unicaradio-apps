@@ -41,7 +41,9 @@
 
 	TrackInfos *infos;
 	TrackInfos *oldInfos;
-	
+
+	UIPopoverController *popover;
+
 	UIInterfaceOrientation oldOrientation;
 }
 
@@ -59,5 +61,7 @@
 
 @property (strong) TrackInfos *infos;
 @property (strong) TrackInfos *oldInfos;
+
+@property (strong) UIPopoverController *popover;
 
 @end

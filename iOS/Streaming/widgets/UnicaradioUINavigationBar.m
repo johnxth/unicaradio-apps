@@ -23,30 +23,6 @@
     return self;
 }
 
-/*
-- (void)drawRect:(CGRect)rect
-{
-    UIColor *startRed = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
-    UIColor *middleRed = [UIColor colorWithRed:0x7F/255.0 green:0 blue:0 alpha:1];
-    UIColor *endRed = [UIColor colorWithRed:0x69/255.0 green:0 blue:0 alpha:1];
-
-	CAGradientLayer *gradientNavBar = [CAGradientLayer layer];
-	gradientNavBar.colors = [NSArray arrayWithObjects:(id)[startRed CGColor], (id)[middleRed CGColor], (id)[endRed CGColor], nil];
-	gradientNavBar.frame = self.bounds;
-	gradientNavBar.name = @"unicaradioUINavigationBar";
-	//[self.layer insertSublayer:gradientNavBar atIndex:0];
-	[self.layer insertSublayer:gradientNavBar above:self.layer];
-	self.tintColor = startRed;
- */
-
-	/*CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextSetFillColor(context, CGColorGetComponents([endRed CGColor]));
-	CGContextFillRect(context, rect);
-	self.tintColor = startRed;*/
-/*
-}
- */
-
 - (void) drawRect:(CGRect)rect
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();

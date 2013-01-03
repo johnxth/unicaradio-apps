@@ -49,6 +49,7 @@
 		52A159B915C52AD100E09F51 /* onair@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159AF15C52AD100E09F51 /* onair@2x.png */; };
 		52A159BB15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */; };
 		52A25F25168F2E8400E41BF6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52A25F27168F2E8400E41BF6 /* Localizable.strings */; };
+		52A36A091694AAD500BC8CEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A36A081694AAD500BC8CEC /* SettingsViewController.m */; };
 		52A750EE168EF15500E36CE7 /* wait_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750EC168EF15500E36CE7 /* wait_pressed.png */; };
 		52A750EF168EF15500E36CE7 /* wait.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750ED168EF15500E36CE7 /* wait.png */; };
 		52AA0B7015D45B6A00CA2EC3 /* facebook_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */; };
@@ -176,6 +177,8 @@
 		52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPad-landscape.xib"; sourceTree = "<group>"; };
 		52A25F26168F2E8400E41BF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		52A25F28168F2E8B00E41BF6 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		52A36A071694AAD500BC8CEC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		52A36A081694AAD500BC8CEC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		52A750EC168EF15500E36CE7 /* wait_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait_pressed.png; sourceTree = "<group>"; };
 		52A750ED168EF15500E36CE7 /* wait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait.png; sourceTree = "<group>"; };
 		52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_icon.png; sourceTree = "<group>"; };
@@ -521,6 +524,8 @@
 				52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */,
 				52FBA83E1688A86900C19D61 /* ScheduleSplitViewController.h */,
 				52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */,
+				52A36A071694AAD500BC8CEC /* SettingsViewController.h */,
+				52A36A081694AAD500BC8CEC /* SettingsViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -827,6 +832,7 @@
 				528D4866168C9D4300248B54 /* UnicaradioUITabBar.m in Sources */,
 				524777A71691A35F000F953E /* MarqueeLabel.m in Sources */,
 				527A3D351691E43D00F53B18 /* TrackInfos.m in Sources */,
+				52A36A091694AAD500BC8CEC /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
