@@ -38,6 +38,8 @@
    self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
 		self.title = @"Settings";
+
+		enableRoaming = [[UISwitch alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -112,13 +114,37 @@
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSLog(@"cellForRowAtIndexPath");
-    //NSInteger numberOfSection = [indexPath section];
-    //NSInteger numberOfRow = [indexPath row];
+    NSInteger numberOfSection = [indexPath section];
+    NSInteger numberOfRow = [indexPath row];
 
 	UITableViewCell *cell;
 	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-	cell.textLabel.text = @"TEST";
-	cell.detailTextLabel.text = @"DETAIL";
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+	switch(numberOfSection) {
+		case 0:
+			if(numberOfRow == 0) {
+				cell.textLabel.text = @"Tipo";
+				cell.detailTextLabel.text = @"WiFi e Mobile";
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			} else if(numberOfRow == 1) {
+				cell.textLabel.text = @"Download cover";
+				cell.detailTextLabel.text = @"WiFi e Mobile";
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			} else if(numberOfRow == 2) {
+				cell.textLabel.text = @"Roaming";
+				cell.accessoryView = enableRoaming;
+			} else {
+				cell.textLabel.text = @"TEST";
+				cell.detailTextLabel.text = @"DETAIL";
+			}
+			break;
+			
+		default:
+			cell.textLabel.text = @"TEST";
+			cell.detailTextLabel.text = @"DETAIL";
+			break;
+	}
 
 	return  cell;
 }

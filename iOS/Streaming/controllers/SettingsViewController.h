@@ -10,7 +10,7 @@
 
 @interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISplitViewControllerDelegate>
 {
-	
+	UISwitch *enableRoaming;
 }
 
 + (UIViewController *) createSettingsController;
