@@ -11,6 +11,7 @@
 "CONTROLLER_TITLE_SONGREQUEST" = "Ask for a song";
 "CONTROLLER_TITLE_FAVOURITES" = "Favourites";
 "CONTROLLER_TITLE_INFO" = "Information";
+"CONTROLLER_TITLE_SETTINGS" = "Settings";
 
 // Dialogs
 "DIALOG_LOADING" = "Loading...";
@@ -31,3 +32,17 @@
 "DAYS_FRIDAY" = "Friday";
 "DAYS_SATURDAY" = "Saturday";
 "FIRST_DAY" = "0";
+
+// Settings
+// Categories
+"CATEGORY_NETWORK" = "Network";
+"CATEGORY_INFO" = "Information";
+
+// Preferences
+"PREF_NETWORK_TYPE" = "Network type";
+"PREF_COVER_NETWORK" = "Cover download";
+"PREF_ENABLE_ROAMING" = "Permit roaming";
+
+"WIFI_AND_MOBILE" = "WiFi and mobile";
+"WIFI_ONLY" = "Only WiFi";
+"NEVER" = "Never";

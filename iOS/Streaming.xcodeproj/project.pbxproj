@@ -37,6 +37,7 @@
 		528D488A168CC5EB00248B54 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4886168CC5EB00248B54 /* Icon.png */; };
 		528D488B168CC5EB00248B54 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4887168CC5EB00248B54 /* Icon@2x.png */; };
 		529ECADC15E0EB7F00F4EA0A /* CaptchaParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */; };
+		52A12B0D16963692007B2BC6 /* NetworkTypeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */; };
 		52A159B015C52AD100E09F51 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A615C52AD100E09F51 /* schedule@2x.png */; };
 		52A159B115C52AD100E09F51 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A715C52AD100E09F51 /* schedule.png */; };
 		52A159B215C52AD100E09F51 /* song@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A815C52AD100E09F51 /* song@2x.png */; };
@@ -50,6 +51,8 @@
 		52A159BB15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A159BA15C5326900E09F51 /* StreamingViewController_iPad-landscape.xib */; };
 		52A25F25168F2E8400E41BF6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52A25F27168F2E8400E41BF6 /* Localizable.strings */; };
 		52A36A091694AAD500BC8CEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A36A081694AAD500BC8CEC /* SettingsViewController.m */; };
+		52A3840C1698358B009BD922 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A3840B1698358B009BD922 /* SettingsViewController.xib */; };
+		52A3840E169835B0009BD922 /* NetworkTypeChooseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A3840D169835B0009BD922 /* NetworkTypeChooseViewController.xib */; };
 		52A750EE168EF15500E36CE7 /* wait_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750EC168EF15500E36CE7 /* wait_pressed.png */; };
 		52A750EF168EF15500E36CE7 /* wait.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750ED168EF15500E36CE7 /* wait.png */; };
 		52AA0B7015D45B6A00CA2EC3 /* facebook_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */; };
@@ -164,6 +167,8 @@
 		528D4887168CC5EB00248B54 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		529ECADA15E0EB7F00F4EA0A /* CaptchaParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaParser.h; sourceTree = "<group>"; };
 		529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaParser.m; sourceTree = "<group>"; };
+		52A12B0B16963692007B2BC6 /* NetworkTypeChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTypeChooseViewController.h; sourceTree = "<group>"; };
+		52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTypeChooseViewController.m; sourceTree = "<group>"; };
 		52A159A615C52AD100E09F51 /* schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@2x.png"; sourceTree = "<group>"; };
 		52A159A715C52AD100E09F51 /* schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schedule.png; sourceTree = "<group>"; };
 		52A159A815C52AD100E09F51 /* song@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "song@2x.png"; sourceTree = "<group>"; };
@@ -179,6 +184,10 @@
 		52A25F28168F2E8B00E41BF6 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		52A36A071694AAD500BC8CEC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		52A36A081694AAD500BC8CEC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		52A3840816982C24009BD922 /* NetworkType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkType.h; sourceTree = "<group>"; };
+		52A3840A16982E34009BD922 /* Preferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		52A3840B1698358B009BD922 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		52A3840D169835B0009BD922 /* NetworkTypeChooseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NetworkTypeChooseViewController.xib; sourceTree = "<group>"; };
 		52A750EC168EF15500E36CE7 /* wait_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait_pressed.png; sourceTree = "<group>"; };
 		52A750ED168EF15500E36CE7 /* wait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait.png; sourceTree = "<group>"; };
 		52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_icon.png; sourceTree = "<group>"; };
@@ -195,7 +204,6 @@
 		52B0B2081689B194002ACAB8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "/Users/paolo/Desktop/unicaradio-apps/iOS/StreamingTests/it.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		52B1BA6015C1D366001625FC /* play_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_normal.png; sourceTree = "<group>"; };
 		52B1BA6315C1D383001625FC /* pause_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_0.png; sourceTree = "<group>"; };
-		52B612A5168C68E9000D4ABC /* StreamingPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamingPlayerDelegate.h; sourceTree = "<group>"; };
 		52C219E915CEB236009E55E0 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
 		52C219EA15CEB236009E55E0 /* Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
 		52C219EC15CEB24B009E55E0 /* Transmission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transmission.h; sourceTree = "<group>"; };
@@ -348,7 +356,6 @@
 		52B612A3168C68BA000D4ABC /* delegates */ = {
 			isa = PBXGroup;
 			children = (
-				52B612A5168C68E9000D4ABC /* StreamingPlayerDelegate.h */,
 			);
 			path = delegates;
 			sourceTree = "<group>";
@@ -376,6 +383,8 @@
 				5240F86915CEE8D4004EE213 /* Day.h */,
 				5240F86A15CEE8D4004EE213 /* Day.m */,
 				522DA0AD15E375880089126C /* Error.h */,
+				52A3840816982C24009BD922 /* NetworkType.h */,
+				52A3840A16982E34009BD922 /* Preferences.h */,
 			);
 			path = enums;
 			sourceTree = "<group>";
@@ -526,6 +535,8 @@
 				52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */,
 				52A36A071694AAD500BC8CEC /* SettingsViewController.h */,
 				52A36A081694AAD500BC8CEC /* SettingsViewController.m */,
+				52A12B0B16963692007B2BC6 /* NetworkTypeChooseViewController.h */,
+				52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -587,6 +598,8 @@
 				5279553315C3329900827501 /* InfoViewController_iPhone.xib */,
 				5279553515C332B300827501 /* InfoViewController_iPad.xib */,
 				524885B5169094030039E827 /* NoItemSelectedViewController_iPad.xib */,
+				52A3840B1698358B009BD922 /* SettingsViewController.xib */,
+				52A3840D169835B0009BD922 /* NetworkTypeChooseViewController.xib */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -766,6 +779,8 @@
 				52A750EF168EF15500E36CE7 /* wait.png in Resources */,
 				52A25F25168F2E8400E41BF6 /* Localizable.strings in Resources */,
 				524885AE16908B500039E827 /* app_infos.htm in Resources */,
+				52A3840C1698358B009BD922 /* SettingsViewController.xib in Resources */,
+				52A3840E169835B0009BD922 /* NetworkTypeChooseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,6 +848,7 @@
 				524777A71691A35F000F953E /* MarqueeLabel.m in Sources */,
 				527A3D351691E43D00F53B18 /* TrackInfos.m in Sources */,
 				52A36A091694AAD500BC8CEC /* SettingsViewController.m in Sources */,
+				52A12B0D16963692007B2BC6 /* NetworkTypeChooseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

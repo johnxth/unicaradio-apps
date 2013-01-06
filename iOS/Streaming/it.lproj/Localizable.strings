@@ -11,6 +11,7 @@
 "CONTROLLER_TITLE_SONGREQUEST" = "Invia richiesta";
 "CONTROLLER_TITLE_FAVOURITES" = "Preferiti";
 "CONTROLLER_TITLE_INFO" = "Informazioni";
+"CONTROLLER_TITLE_SETTINGS" = "Impostazioni";
 
 // Dialogs
 "DIALOG_LOADING" = "Caricamento in corso...";
@@ -34,3 +35,17 @@
 "DAYS_FRIDAY" = "Venerdì";
 "DAYS_SATURDAY" = "Sabato";
 "FIRST_DAY" = "1";
+
+// Settings
+// Categories
+"CATEGORY_NETWORK" = "Rete";
+"CATEGORY_INFO" = "Informazioni";
+
+// Preferences
+"PREF_NETWORK_TYPE" = "Tipo di rete";
+"PREF_COVER_NETWORK" = "Scarica copertina";
+"PREF_ENABLE_ROAMING" = "Roaming";
+
+"WIFI_AND_MOBILE" = "WiFi e mobile";
+"WIFI_ONLY" = "Solo WiFi";
+"NEVER" = "Mai";

@@ -16,7 +16,6 @@
 #import "../libs/MarqueeLabel/MarqueeLabel.h"
 
 #import "../utils/DeviceUtils.h"
-#import "../delegates/StreamingPlayerDelegate.h"
 
 @interface StreamingViewController ()
 
@@ -295,7 +294,7 @@
 //
 - (void)playbackStateChanged:(NSNotification *)aNotification
 {
-    StreamingPlayerDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 
 	[streamer setMeteringEnabled:NO];
 	if([streamer isIdle]) {

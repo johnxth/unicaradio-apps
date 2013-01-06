@@ -7,11 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NetworkTypeChooseViewController.h"
 
-@interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISplitViewControllerDelegate>
+#define kPlistname @"Settings.plist"
+
+@interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, NetworkTypeChooseViewControllerDelegate>
 {
+	IBOutlet UITableView *tableView;
+
 	UISwitch *enableRoaming;
+
+	NSMutableDictionary *settings;
 }
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSDictionary *settings;
 
 + (UIViewController *) createSettingsController;
 
