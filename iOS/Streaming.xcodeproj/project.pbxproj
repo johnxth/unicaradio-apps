@@ -107,6 +107,7 @@
 		52E1720F15E445790020A27C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E1720E15E445790020A27C /* SystemConfiguration.framework */; };
 		52E1721015E526DD0020A27C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720C15E441560020A27C /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		52E5D6A115BDC50900EFB134 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E5D6A015BDC50900EFB134 /* MediaPlayer.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		52E77A87169E138600E5C701 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E77A86169E138600E5C701 /* SettingsManager.m */; };
 		52EA363315E23113004866FA /* LoadingDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA363215E23113004866FA /* LoadingDialog.m */; };
 		52EA363B15E29AFC004866FA /* SongRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA363A15E29AFC004866FA /* SongRequest.m */; };
 		52EA364515E2D485004866FA /* RequestSongOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA364415E2D485004866FA /* RequestSongOperation.m */; };
@@ -267,6 +268,8 @@
 		52E1720C15E441560020A27C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		52E1720E15E445790020A27C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		52E5D6A015BDC50900EFB134 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		52E77A85169E138600E5C701 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsManager.h; sourceTree = "<group>"; };
+		52E77A86169E138600E5C701 /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsManager.m; sourceTree = "<group>"; };
 		52EA363115E23113004866FA /* LoadingDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingDialog.h; sourceTree = "<group>"; };
 		52EA363215E23113004866FA /* LoadingDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingDialog.m; sourceTree = "<group>"; };
 		52EA363915E29AFC004866FA /* SongRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongRequest.h; sourceTree = "<group>"; };
@@ -460,6 +463,7 @@
 				52D51EB915BBF1B500BC8C94 /* controllers */,
 				52B612A3168C68BA000D4ABC /* delegates */,
 				52C219EF15CEB499009E55E0 /* enums */,
+				52E77A83169E135600E5C701 /* managers */,
 				52C219E715CEB1AC009E55E0 /* models */,
 				523B6BE815DFE3F6001E6B10 /* operations */,
 				52D51EDA15BBF76900BC8C94 /* resources */,
@@ -650,6 +654,15 @@
 				52E1720C15E441560020A27C /* Reachability.m */,
 			);
 			path = reachability;
+			sourceTree = "<group>";
+		};
+		52E77A83169E135600E5C701 /* managers */ = {
+			isa = PBXGroup;
+			children = (
+				52E77A85169E138600E5C701 /* SettingsManager.h */,
+				52E77A86169E138600E5C701 /* SettingsManager.m */,
+			);
+			path = managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -849,6 +862,7 @@
 				527A3D351691E43D00F53B18 /* TrackInfos.m in Sources */,
 				52A36A091694AAD500BC8CEC /* SettingsViewController.m in Sources */,
 				52A12B0D16963692007B2BC6 /* NetworkTypeChooseViewController.m in Sources */,
+				52E77A87169E138600E5C701 /* SettingsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

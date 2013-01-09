@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NetworkTypeChooseViewController.h"
-
-#define kPlistname @"Settings.plist"
+#import "../managers/SettingsManager.h"
 
 @interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, NetworkTypeChooseViewControllerDelegate>
 {
@@ -17,11 +16,11 @@
 
 	UISwitch *enableRoaming;
 
-	NSMutableDictionary *settings;
+	SettingsManager *settingsManager;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSDictionary *settings;
+@property (strong, nonatomic) SettingsManager *settingsManager;
 
 + (UIViewController *) createSettingsController;
 

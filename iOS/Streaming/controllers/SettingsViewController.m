@@ -19,12 +19,12 @@
 
 @implementation SettingsViewController
 
-@synthesize settings;
+@synthesize settingsManager;
 @synthesize tableView;
 
 + (UIViewController *) createSettingsController
 {
-	SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController_iPhone" bundle:nil];
+	SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
 
 	UINavigationController *navigationController;
 	if([DeviceUtils isPhone]) {
@@ -39,12 +39,14 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
    self = [super initWithNibName:nibNameOrNil bundle:nil];
-    if (self) {
+	if(self) {
 		self.title = NSLocalizedString(@"CONTROLLER_TITLE_SETTINGS", @"");
 
 		enableRoaming = [[UISwitch alloc] initWithFrame:CGRectZero];
 		[enableRoaming addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
+		settingsManager = [SettingsManager getInstance];
     }
+
     return self;
 }
 
@@ -56,15 +58,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-	NSString *filePath = [self getDataFilePath];
-	if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-		NSLog(@"file exists");
-		settings = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
-	} else {
-		NSLog(@"file does not exists");
-		settings = [[NSMutableDictionary alloc] init];
-	}
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -73,13 +66,6 @@
 		UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closeMe)];
 		self.navigationItem.rightBarButtonItem = doneButton;
 	}
-}
-
-- (NSString *) getDataFilePath
-{
-	NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDirectory = [path objectAtIndex:0];
-	return [documentsDirectory stringByAppendingPathComponent:kPlistname];
 }
 
 - (void)didReceiveMemoryWarning
@@ -143,8 +129,7 @@
 		case 0:
 			if(numberOfRow == 0) {
 				cell.textLabel.text = NSLocalizedString(@"PREF_NETWORK_TYPE", @"");
-				id networkTypeAsId = [settings objectForKey:@"PREF_NETWORK_TYPE"];
-				NetworkType savedNetworkType = [networkTypeAsId intValue];
+				NetworkType savedNetworkType = [settingsManager getNetworkType];
 				if(savedNetworkType == WIFI_ONLY) {
 					cell.detailTextLabel.text = NSLocalizedString(@"WIFI_ONLY", @"");
 				} else {
@@ -154,8 +139,7 @@
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			} else if(numberOfRow == 1) {
 				cell.textLabel.text = NSLocalizedString(@"PREF_COVER_NETWORK", @"");
-				id networkTypeAsId = [settings objectForKey:@"PREF_COVER_NETWORK"];
-				NetworkType savedNetworkType = [networkTypeAsId intValue];
+				NetworkType savedNetworkType = [settingsManager getNetworkTypeForCover];
 				if(savedNetworkType == WIFI_ONLY) {
 					cell.detailTextLabel.text = NSLocalizedString(@"WIFI_ONLY", @"");
 				} else if(savedNetworkType == NEVER) {
@@ -167,9 +151,7 @@
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			} else if(numberOfRow == 2) {
 				cell.textLabel.text = NSLocalizedString(@"PREF_ENABLE_ROAMING", @"");
-				id roamingEnabledAsId = [settings objectForKey:@"PREF_ENABLE_ROAMING"];
-				NSLog(@"roamingEnabledAsId is %@", roamingEnabledAsId == nil ? @"nil" : @"not nil");
-				BOOL roamingEnabled = [roamingEnabledAsId boolValue];
+				BOOL roamingEnabled = [settingsManager isRoamingEnabled];
 				NSLog(@"roamingEnabled: %d", roamingEnabled);
 				enableRoaming.on = roamingEnabled;
 
@@ -198,15 +180,13 @@
 		case 0:
 			if(numberOfRow == 0) {
 				NetworkTypeChooseViewController *networkTypeChooseViewController;
-				id networkTypeAsId = [settings objectForKey:@"PREF_NETWORK_TYPE"];
-				NetworkType savedNetworkType = [networkTypeAsId intValue];
+				NetworkType savedNetworkType = [settingsManager getNetworkType];
 				networkTypeChooseViewController = [[NetworkTypeChooseViewController alloc] initWithPreference:NETWORK_TYPE andCurrentValue:savedNetworkType];
 				networkTypeChooseViewController.delegate = self;
 				[self.navigationController pushViewController:networkTypeChooseViewController animated:YES];
 			} else if(numberOfRow == 1) {
 				NetworkTypeChooseViewController *networkTypeChooseViewController;
-				id networkTypeAsId = [settings objectForKey:@"PREF_COVER_NETWORK"];
-				NetworkType savedNetworkType = [networkTypeAsId intValue];
+				NetworkType savedNetworkType = [settingsManager getNetworkTypeForCover];
 				networkTypeChooseViewController = [[NetworkTypeChooseViewController alloc] initWithPreference:COVER_DOWNLOAD_NETWORK andCurrentValue:savedNetworkType];
 				networkTypeChooseViewController.delegate = self;
 				[self.navigationController pushViewController:networkTypeChooseViewController animated:YES];
@@ -225,19 +205,16 @@
 	NSInteger row = 0;
     if(preference == NETWORK_TYPE) {
 		NSLog(@"Network type");
-		[settings setObject:[NSNumber numberWithInt:selectedNetworkType] forKey:@"PREF_NETWORK_TYPE"];
+		[settingsManager saveNetworkType:selectedNetworkType];
 		row = 0;
     } else if(preference == COVER_DOWNLOAD_NETWORK) {
 		NSLog(@"Cover Network");
-		[settings setObject:[NSNumber numberWithInt:selectedNetworkType] forKey:@"PREF_COVER_NETWORK"];
+		[settingsManager saveNetworkTypeForCover:selectedNetworkType];
 		row = 1;
 	}
 
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-
-	BOOL result = [settings writeToFile:[self getDataFilePath] atomically:YES];
-	NSLog(@"result: %@", result ? @"OK" : @"ERROR");
 }
 
 - (void) switchValueChanged:(id) sender
@@ -247,9 +224,7 @@
     
     if([selectedSwitch isEqual:enableRoaming]) {
 		NSLog(@"Changed enableRoaming");
-		[settings setObject:[NSNumber numberWithBool:selectedSwitch.on] forKey:@"PREF_ENABLE_ROAMING"];
-		BOOL result = [settings writeToFile:[self getDataFilePath] atomically:YES];
-		NSLog(@"result: %@", result ? @"OK" : @"ERROR");
+		[settingsManager enableRoaming:selectedSwitch.on];
     }
 }
 
