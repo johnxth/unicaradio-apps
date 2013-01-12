@@ -484,6 +484,19 @@
 		return;
 	}
 
+	NetworkType enabledNetworkType = [settingsManager getNetworkTypeForCover];
+	if(enabledNetworkType == NEVER) {
+		[infos setCover:nil];
+		UIImage *image = [UIImage imageNamed:DEFAULT_COVER_FILENAME];
+		coverImageView.image = image;
+		return;
+	} else if(enabledNetworkType == WIFI_ONLY && ![NetworkUtils isConnectedToWiFi]) {
+		[infos setCover:nil];
+		UIImage *image = [UIImage imageNamed:DEFAULT_COVER_FILENAME];
+		coverImageView.image = image;
+		return;
+	} // else ok
+
 	NSURL *url = [NSURL URLWithString:COVER_URL];
 	[infos setCover:[UIImage imageWithData: [NSData dataWithContentsOfURL:url]]];
 
