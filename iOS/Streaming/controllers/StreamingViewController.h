@@ -26,6 +26,7 @@
 
 @class AudioStreamer;
 @class MarqueeLabel;
+@class SettingsManager;
 
 @interface StreamingViewController : UIViewController
 {
@@ -45,6 +46,8 @@
 	UIPopoverController *popover;
 
 	UIInterfaceOrientation oldOrientation;
+
+	SettingsManager *settingsManager;
 }
 
 #pragma mark - Actions
@@ -63,5 +66,7 @@
 @property (strong) TrackInfos *oldInfos;
 
 @property (strong) UIPopoverController *popover;
+
+@property (strong, nonatomic) SettingsManager *settingsManager;
 
 @end

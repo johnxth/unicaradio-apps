@@ -16,6 +16,7 @@
 #import "../libs/MarqueeLabel/MarqueeLabel.h"
 
 #import "../utils/DeviceUtils.h"
+#import "../utils/NetworkUtils.h"
 
 @interface StreamingViewController ()
 
@@ -33,6 +34,8 @@
 
 @synthesize popover;
 
+@synthesize settingsManager;
+
 #pragma mark - Controller lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,6 +50,7 @@
 		if(infos == nil) {
 			infos = [[TrackInfos alloc] init];	
 		}
+		settingsManager = [SettingsManager getInstance];
 
 		UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(openSettings:)];
 		UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:23.0];
@@ -208,11 +212,43 @@
 												 selector:@selector(updateCover)
 												   object:nil];
 	} else {
+		if(![self isConnectionOK]) {
+			return;
+		}
+
         [self createStreamer];
         [streamer start];
 
 		[self setWaitButtonImage:NO];
     }
+}
+
+- (BOOL) isConnectionOK
+{
+	if(![NetworkUtils isConnected]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Non connesso"
+														message: @"Oh oh... non sei connesso alla rete. Riprova."
+													   delegate: nil
+											  cancelButtonTitle: @"OK"
+											  otherButtonTitles: nil];
+		[alert show];
+
+		return NO;
+	}
+
+	NetworkType enabledNetworkType = [settingsManager getNetworkType];
+	if(enabledNetworkType == WIFI_ONLY && ![NetworkUtils isConnectedToWiFi]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Non connesso"
+														message: @"Oh oh... non sei connesso in wifi. Controlla le impostazioni se vuoi usare questo tipo di rete"
+													   delegate: nil
+											  cancelButtonTitle: @"OK"
+											  otherButtonTitles: nil];
+		[alert show];
+
+		return NO;
+	}
+
+	return YES;
 }
 
 - (BOOL) isPlayerLoading
@@ -294,7 +330,7 @@
 //
 - (void)playbackStateChanged:(NSNotification *)aNotification
 {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
 
 	[streamer setMeteringEnabled:NO];
 	if([streamer isIdle]) {

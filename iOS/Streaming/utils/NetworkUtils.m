@@ -61,4 +61,21 @@
 	}
 }
 
++ (BOOL) isConnectedToWiFi
+{
+	Reachability *reachability = [Reachability reachabilityForInternetConnection];
+	NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+	
+	switch(networkStatus) {
+		case NotReachable:
+			return NO;
+		case ReachableViaWiFi:
+			return YES;
+		case ReachableViaWWAN:
+			return NO;
+		default:
+			return NO;
+	}
+}
+
 @end

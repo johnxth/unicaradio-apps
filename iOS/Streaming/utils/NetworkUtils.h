@@ -21,4 +21,6 @@
 
 + (BOOL) isConnected;
 
++ (BOOL) isConnectedToWiFi;
+
 @end
