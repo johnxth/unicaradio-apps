@@ -82,13 +82,6 @@
 	return [networkTypeAsId intValue];
 }
 
-- (BOOL) isRoamingEnabled
-{
-	id roamingEnabledAsId = [self getPreference:PREF_ENABLE_ROAMING];
-
-	return [roamingEnabledAsId boolValue];
-}
-
 - (void) saveNetworkType:(NetworkType) networkType
 {
 	[self savePreference:PREF_NETWORK_TYPE andValue:[NSNumber numberWithInt:networkType]];
@@ -97,11 +90,6 @@
 - (void) saveNetworkTypeForCover:(NetworkType) networkType
 {
 	[self savePreference:PREF_COVER_NETWORK andValue:[NSNumber numberWithInt:networkType]];
-}
-
-- (void) enableRoaming:(BOOL)value
-{
-	[self savePreference:PREF_ENABLE_ROAMING andValue:[NSNumber numberWithBool:value]];
 }
 
 @end

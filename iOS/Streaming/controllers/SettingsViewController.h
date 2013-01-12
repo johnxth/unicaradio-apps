@@ -14,8 +14,6 @@
 {
 	IBOutlet UITableView *tableView;
 
-	UISwitch *enableRoaming;
-
 	SettingsManager *settingsManager;
 }
 

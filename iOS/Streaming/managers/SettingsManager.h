@@ -14,7 +14,6 @@
 
 #define PREF_NETWORK_TYPE @"PREF_NETWORK_TYPE"
 #define PREF_COVER_NETWORK @"PREF_COVER_NETWORK"
-#define PREF_ENABLE_ROAMING @"PREF_ENABLE_ROAMING"
 
 @interface SettingsManager : NSObject
 {
@@ -30,10 +29,8 @@
 
 - (NetworkType) getNetworkType;
 - (NetworkType) getNetworkTypeForCover;
-- (BOOL) isRoamingEnabled;
 
 - (void) saveNetworkType:(NetworkType) networkType;
 - (void) saveNetworkTypeForCover:(NetworkType) networkType;
-- (void) enableRoaming:(BOOL) value;
 
 @end

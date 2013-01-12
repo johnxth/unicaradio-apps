@@ -44,7 +44,6 @@
 // Preferences
 "PREF_NETWORK_TYPE" = "Tipo di rete";
 "PREF_COVER_NETWORK" = "Scarica copertina";
-"PREF_ENABLE_ROAMING" = "Roaming";
 
 "WIFI_AND_MOBILE" = "WiFi e mobile";
 "WIFI_ONLY" = "Solo WiFi";

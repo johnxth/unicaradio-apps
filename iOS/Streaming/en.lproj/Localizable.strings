@@ -41,7 +41,6 @@
 // Preferences
 "PREF_NETWORK_TYPE" = "Network type";
 "PREF_COVER_NETWORK" = "Cover download";
-"PREF_ENABLE_ROAMING" = "Permit roaming";
 
 "WIFI_AND_MOBILE" = "WiFi and mobile";
 "WIFI_ONLY" = "Only WiFi";

@@ -42,8 +42,6 @@
 	if(self) {
 		self.title = NSLocalizedString(@"CONTROLLER_TITLE_SETTINGS", @"");
 
-		enableRoaming = [[UISwitch alloc] initWithFrame:CGRectZero];
-		[enableRoaming addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
 		settingsManager = [SettingsManager getInstance];
     }
 
@@ -104,7 +102,7 @@
 
     switch (section) {
         case 0:
-            rows = 3;
+            rows = 2;
             break;
         case 1:
             rows = 1;
@@ -149,13 +147,6 @@
 				}
 
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			} else if(numberOfRow == 2) {
-				cell.textLabel.text = NSLocalizedString(@"PREF_ENABLE_ROAMING", @"");
-				BOOL roamingEnabled = [settingsManager isRoamingEnabled];
-				NSLog(@"roamingEnabled: %d", roamingEnabled);
-				enableRoaming.on = roamingEnabled;
-
-				cell.accessoryView = enableRoaming;
 			}
 			break;
 
@@ -215,17 +206,6 @@
 
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-}
-
-- (void) switchValueChanged:(id) sender
-{
-	NSLog(@"switchValueChanged");
-	UISwitch *selectedSwitch = (UISwitch *)sender;
-    
-    if([selectedSwitch isEqual:enableRoaming]) {
-		NSLog(@"Changed enableRoaming");
-		[settingsManager enableRoaming:selectedSwitch.on];
-    }
 }
 
 - (void)viewDidUnload {
