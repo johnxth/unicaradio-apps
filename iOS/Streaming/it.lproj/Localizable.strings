@@ -48,3 +48,5 @@
 "WIFI_AND_MOBILE" = "WiFi e mobile";
 "WIFI_ONLY" = "Solo WiFi";
 "NEVER" = "Mai";
+
+"APP_VERSION" = "Versione";

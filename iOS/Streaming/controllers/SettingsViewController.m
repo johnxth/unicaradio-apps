@@ -150,6 +150,13 @@
 			}
 			break;
 
+		case 1:
+			if(numberOfRow == 0) {
+				NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+				cell.textLabel.text = NSLocalizedString(@"APP_VERSION", @"");
+				cell.detailTextLabel.text = appVersion;
+			}
+			break;
 		default:
 			cell.textLabel.text = @"TEST";
 			cell.detailTextLabel.text = @"DETAIL";
