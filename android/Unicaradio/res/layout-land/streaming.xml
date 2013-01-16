@@ -35,7 +35,7 @@
 			android:ellipsize="marquee"
 			android:marqueeRepeatLimit="marquee_forever"
 			android:textSize="30sp"
-			android:text="- Unicaradio -"
+			android:text="- UnicaRadio -"
 			android:layout_weight="0.35" />
 
 	</LinearLayout>
