@@ -7,34 +7,37 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "../widgets/LoadingDialog.h"
+#import "LoadingDialog.h"
+
+#import "US2ValidatorUIDelegate.h"
+#import "US2ValidatorUIProtocol.h"
+
+#import "TooltipView.h"
+#import "FormTableViewCell.h"
 
 #define kPlistname @"Information.plist"
 
-@interface SongRequestViewController : UIViewController<UITextFieldDelegate>
+@interface SongRequestViewController : UIViewController<US2ValidatorUIDelegate,
+														FormTableViewCellDelegate,
+														UITextFieldDelegate,
+														UITextViewDelegate,
+														UITableViewDelegate,
+														UITableViewDataSource>
 {
-	IBOutlet UIScrollView *scrollView;
-    IBOutlet UIView *contentView;
-
-	IBOutlet UITextField *emailTextView;
-	IBOutlet UITextField *autoreTextView;
-	IBOutlet UITextField *titoloTextView;
-
+@private
 	LoadingDialog *dialog;
 
 	NSOperationQueue *queue;
 	NSTimer *timer;
 
-	CGFloat animatedDistance;
+	TooltipView    *_tooltipView;
+    id <US2ValidatorUIProtocol> _tooltipConnectedTextUI;
+
+	NSMutableArray *textFields;
+
+	IBOutlet UITableView *tableView;
 }
 
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, strong) IBOutlet UIView *contentView;
-
-@property (nonatomic, strong) IBOutlet UITextField *emailTextView;
-@property (nonatomic, strong) IBOutlet UITextField *autoreTextView;
-@property (nonatomic, strong) IBOutlet UITextField *titoloTextView;
-
-- (IBAction) sendEmail:(id)sender;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

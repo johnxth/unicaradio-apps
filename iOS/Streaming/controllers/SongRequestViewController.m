@@ -12,18 +12,25 @@
 #import "../models/SongRequest.h"
 #import "../enums/Error.h"
 
+#import "FormTextFieldTableViewCell.h"
+#import "ValidTooltipView.h"
+#import "InvalidTooltipView.h"
+#import "SubmitButtonTableViewCell.h"
+
+#import "AuthorTitleValidatorCondition.h"
+
+#import "US2Validator.h"
+#import "US2ValidatorTextView.h"
+#import "US2ValidatorTextField.h"
+#import "US2ValidatorEmail.h"
+
 @interface SongRequestViewController ()
 
 @end
 
 @implementation SongRequestViewController
 
-@synthesize contentView;
-@synthesize scrollView;
-
-@synthesize emailTextView;
-@synthesize autoreTextView;
-@synthesize titoloTextView;
+@synthesize tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,18 +49,44 @@
     [super viewDidLoad];
 	NSLog(@"SongRequestViewController - viewDidLoad");
 
-	if(self.scrollView != nil && self.contentView != nil) {
-		NSLog(@"adding fields to scrollview");
-		[self.scrollView addSubview: self.contentView];
-		self.scrollView.contentSize = self.contentView.bounds.size;
-	}
+	[self initTextFields];
+}
+
+- (void) initTextFields
+{
+	textFields = [[NSMutableArray alloc] init];
+
+	US2ValidatorTextField *textField = [self createTextField];
+	textField.validator = [[US2ValidatorEmail alloc] init];
+	textField.placeholder = @"indirizzo@mail.it";
+	[textFields addObject:textField];
+
+	US2ValidatorTextField *textField2 = [self createTextField];
+	textField2.validator = [[AuthorTitleValidatorCondition alloc] init];
+	textField2.placeholder = @"Autore";
+	[textFields addObject:textField2];
+
+	US2ValidatorTextField *textField3 = [self createTextField];
+	textField3.validator = [[AuthorTitleValidatorCondition alloc] init];
+	textField3.placeholder = @"Titolo";
+	[textFields addObject:textField3];
+}
+
+- (US2ValidatorTextField *) createTextField
+{
+	US2ValidatorTextField *textField = [[US2ValidatorTextField alloc] init];
+	textField.delegate = self;
+	textField.shouldAllowViolations = YES;
+	textField.validateOnFocusLossOnly = NO;
+	textField.text = @"";
+	textField.placeholder = @"";
+	textField.validatorUIDelegate = self;
+
+	return textField;
 }
 
 - (void)viewDidUnload
 {
-	self.scrollView  = nil;
-    self.contentView = nil;
-
     [super viewDidUnload];
 }
 
@@ -66,11 +99,11 @@
 
 	[self clearForm];
 
-	NSString *filePath =[self getDataFilePath];
+	/*NSString *filePath = [self getDataFilePath];
 	if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
 		NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:filePath];
-		emailTextView.text = [dict objectForKey:@"email"];
-	}
+		//emailTextView.text = [dict objectForKey:@"email"];
+	}*/
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -112,36 +145,36 @@
 
 - (IBAction) sendEmail:(id)sender
 {
-	if([[titoloTextView text] length] == 0 ||
-	   [[autoreTextView text] length] == 0 ||
-	   [[emailTextView text] length] == 0) {
-		NSLog(@"Something is missing");
-		NSString *title = NSLocalizedString(@"DIALOG_SOMETHING_MISSING_TITLE", @"");
-		NSString *message = NSLocalizedString(@"DIALOG_SOMETHING_MISSING_MESSAGE", @"");
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-		[alert show];
-	} else {
-		NSLog(@"OK!");
-
-		[timer invalidate];
-		[self saveEmailAddress];
-
-		SongRequest *request = [[SongRequest alloc] init];
-		request.title = titoloTextView.text;
-		request.author = autoreTextView.text;
-		request.email = emailTextView.text;
-
-		[self showLoadingDialog];
-		RequestSongOperation *operation = [[RequestSongOperation alloc] initWithSongRequest:request];
-		[queue addOperation:operation];
-	}
+//	if([[titoloTextView text] length] == 0 ||
+//	   [[autoreTextView text] length] == 0 ||
+//	   [[emailTextView text] length] == 0) {
+//		NSLog(@"Something is missing");
+//		NSString *title = NSLocalizedString(@"DIALOG_SOMETHING_MISSING_TITLE", @"");
+//		NSString *message = NSLocalizedString(@"DIALOG_SOMETHING_MISSING_MESSAGE", @"");
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//		[alert show];
+//	} else {
+//		NSLog(@"OK!");
+//
+//		[timer invalidate];
+//		[self saveEmailAddress];
+//
+//		SongRequest *request = [[SongRequest alloc] init];
+//		request.title = titoloTextView.text;
+//		request.author = autoreTextView.text;
+//		request.email = emailTextView.text;
+//
+//		[self showLoadingDialog];
+//		RequestSongOperation *operation = [[RequestSongOperation alloc] initWithSongRequest:request];
+//		[queue addOperation:operation];
+//	}
 }
 
 - (void) saveEmailAddress
 {
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	/*NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 	[dict setObject:emailTextView.text forKey:@"email"];
-	[dict writeToFile:[self getDataFilePath] atomically:YES];
+	[dict writeToFile:[self getDataFilePath] atomically:YES];*/
 }
 
 - (void) sendEmailCompleted:(NSDictionary *)serverResponse
@@ -175,22 +208,110 @@
 
 - (void) clearForm
 {
-	self.titoloTextView.text = @"";
-	self.autoreTextView.text = @"";
 }
 
-- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+- (FormTextFieldTableViewCell *)formTextFieldTableViewCellFromTableView:(UITableView *)_tableView
 {
-    const int movementDistance = 50; // tweak as needed
-    const float movementDuration = 0.3f; // tweak as needed
-	
-    int movement = (up ? -movementDistance : movementDistance);
-	
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-    [UIView commitAnimations];
+	FormTextFieldTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"FormTextFieldTableViewCellReuseIdentifier"];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FormTextFieldTableViewCellReuseIdentifier"];
+    if (nil == cell)
+    {
+        cell = [[FormTextFieldTableViewCell alloc] initWithReuseIdentifier:@"FormTextFieldTableViewCellReuseIdentifier"];
+    }
+
+    return cell;
+}
+
+/**
+ * Creating new submit button table view cell or re-use it
+ */
+- (SubmitButtonTableViewCell *)submitButtonTableViewCellFromTableView:(UITableView *)_tableView
+{
+    SubmitButtonTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"SubmitButtonTableViewCellReuseIdentifier"];
+    if (nil == cell)
+    {
+        cell = [[SubmitButtonTableViewCell alloc] initWithReuseIdentifier:@"SubmitButtonTableViewCellReuseIdentifier"];
+    }
+    
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
+{
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return @"";
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	if(section == 0) {
+		return 3;
+	} else {
+		return 1;
+	}
+}
+
+- (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.section == 1) {
+        SubmitButtonTableViewCell *cell = [self submitButtonTableViewCellFromTableView:tableView];
+        [cell.button addTarget:self action:@selector(submitButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+
+        return cell;
+    }
+
+	NSInteger row = indexPath.row;
+	US2ValidatorTextField *textField = [textFields objectAtIndex:row];
+
+	FormTextFieldTableViewCell *cell;
+	if(row == 0) {
+		cell = [self formTextFieldTableViewCellFromTableView:_tableView];
+		cell.textUI = textField;
+
+		cell.textLabel.text       = @"eMail";
+		cell.detailTextLabel.text = @"required";
+	} else if(row == 1) {
+		cell = [self formTextFieldTableViewCellFromTableView:_tableView];
+		cell.textUI = textField;
+
+		cell.textLabel.text       = @"Autore";
+		cell.detailTextLabel.text = @"required";
+	} else if(row == 2) {
+		cell = [self formTextFieldTableViewCellFromTableView:_tableView];
+		cell.textUI = textField;
+
+		cell.textLabel.text       = @"Titolo";
+		cell.detailTextLabel.text = @"required";
+	}
+
+	cell.delegate = self;
+
+	return cell;
+
+//	switch(section) {
+//		case 0:
+//			
+//			if(row == 0) {
+//				
+//			} else if(row == 1) {
+//				
+//			} else if(row == 2) {
+//				
+//			}
+//			break;
+//			
+//		default:
+//			break;
+//	}
+}
+
+- (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [_tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (NSString *) getDataFilePath
@@ -203,6 +324,210 @@
 - (void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Validator text field protocol
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    // Hide tooltip
+    if (nil != _tooltipView && ![_tooltipConnectedTextUI isEqual:textField])
+    {
+        [_tooltipView removeFromSuperview];
+        _tooltipView = nil;
+    }
+    
+    _tooltipConnectedTextUI = nil;
+    
+    return YES;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    // Hide tooltip
+    if (nil != _tooltipView && ![_tooltipConnectedTextUI isEqual:textView])
+    {
+        [_tooltipView removeFromSuperview];
+        _tooltipView = nil;
+    }
+    
+    _tooltipConnectedTextUI = nil;
+    
+    return YES;
+}
+
+/**
+ Called for every valid or violated state change
+ React to this information by showing up warnings or disabling a 'send' button e.g.
+ */
+- (void)validatorUI:(id <US2ValidatorUIProtocol>)validatorUI changedValidState:(BOOL)isValid
+{
+    NSLog(@"validatorUI changedValidState: %d", isValid);
+    
+    // 1st super view UITableViewCellContentView
+    // 2nd super view FormTextFieldTableViewCell
+    id cell = ((UIView *)validatorUI).superview.superview;
+    if ([cell isKindOfClass:[FormTableViewCell class]])
+    {
+        FormTableViewCell *formTableViewCell = (FormTableViewCell *)cell;
+        kFormTableViewCellStatus status = isValid == YES ? kFormTableViewCellStatusValid : kFormTableViewCellStatusInvalid;
+        status = validatorUI.text.length == 0 ? kFormTableViewCellStatusWaiting : status;
+        [formTableViewCell updateValidationIconByValidStatus:status];
+    }
+    
+    // Hide tooltip
+    if (isValid)
+    {
+        [self dismissTooltip];
+    }
+}
+
+/**
+ Called on every violation of the highest prioritised validator condition.
+ Update UI like showing alert messages or disabling buttons.
+ */
+- (void)validatorUI:(id <US2ValidatorUIProtocol>)validatorUI violatedConditions:(US2ConditionCollection *)conditions
+{
+    NSLog(@"validatorUI violatedConditions: \n%@", conditions);
+}
+
+/**
+ Update violation status of text field after ending editing
+ */
+- (void)textFieldDidEndEditing:(US2ValidatorTextField *)validatorTextField
+{
+    id cell = validatorTextField.superview.superview;
+    if ([cell isKindOfClass:[FormTextFieldTableViewCell class]])
+    {
+        FormTextFieldTableViewCell *formTextFieldTableViewCell = (FormTextFieldTableViewCell *)cell;
+        kFormTableViewCellStatus status = validatorTextField.isValid == YES ? kFormTableViewCellStatusValid : kFormTableViewCellStatusInvalid;
+
+		status = validatorTextField.text.length == 0 ? kFormTableViewCellStatusWaiting : status;
+
+        [formTextFieldTableViewCell updateValidationIconByValidStatus:status];
+    }
+}
+
+/**
+ Update violation status of text view after ending editing
+ */
+- (void)textViewDidEndEditing:(US2ValidatorTextView *)validatorTextView
+{
+    id cell = validatorTextView.superview.superview;
+    if ([cell isKindOfClass:[FormTableViewCell class]])
+    {
+        FormTableViewCell *formTableViewCell = (FormTableViewCell *)cell;
+        kFormTableViewCellStatus status = validatorTextView.isValid == YES ? kFormTableViewCellStatusValid : kFormTableViewCellStatusInvalid;
+
+		status = validatorTextView.text.length == 0 ? kFormTableViewCellStatusWaiting : status;
+
+        [formTableViewCell updateValidationIconByValidStatus:status];
+    }
+}
+
+#pragma mark - Form table view cell delegate
+
+- (void)formTableViewCell:(FormTableViewCell *)cell touchedIconButton:(UIButton *)button aligningTextUI:(id <US2ValidatorUIProtocol>)textUI
+{
+	NSLog(@"formTableViewCell:(FormTableViewCell *)cell touchedIconButton:(UIButton *)button aligningTextUI:(id <US2ValidatorUIProtocol>)textUI");
+    // Show tooltip if status changed to invalid
+    // Hide tooltip if status changed to valid
+    if (nil != _tooltipView)
+    {
+		NSLog(@"removing");
+        [_tooltipView removeFromSuperview];
+        _tooltipView = nil;
+    }
+    
+    // Do not show tooltip again, because it was toggled off
+    if ([_tooltipConnectedTextUI isEqual:textUI])
+    {
+        _tooltipConnectedTextUI = nil;
+        
+        return;
+    }
+    
+    // Determine point where to add the tooltip
+    CGPoint point = [button convertPoint:CGPointMake(0.0, button.frame.size.height - 4.0) toView: tableView];
+    
+    // Create tooltip
+    // Set text to tooltip
+    US2Validator *validator = [textUI validator];
+    US2ConditionCollection *conditionCollection = [validator checkConditions:[textUI text]];
+    CGRect tooltipViewFrame = CGRectMake(6.0, point.y, 309.0, _tooltipView.frame.size.height);
+    if (nil == conditionCollection)
+    {
+        _tooltipView       = [[ValidTooltipView alloc] init];
+        _tooltipView.frame = tooltipViewFrame;
+        
+        _tooltipView.text = @"Everything is okay.";
+    }
+    else
+    {
+        _tooltipView       = [[InvalidTooltipView alloc] init];
+        _tooltipView.frame = tooltipViewFrame;
+        
+        // Get first violation
+        US2Condition *violatedCondition = [conditionCollection conditionAtIndex:0];
+        _tooltipView.text = [violatedCondition localizedViolationString];
+    }
+    [tableView addSubview:_tooltipView];
+    
+    // Remember text UI to which the tooltip was connected
+    _tooltipConnectedTextUI = textUI;
+}
+
+- (void)dismissTooltip
+{
+    if (nil != _tooltipView)
+    {
+        [_tooltipView removeFromSuperview];
+        _tooltipView = nil;
+    }
+    
+    _tooltipConnectedTextUI = nil;
+}
+
+#pragma mark - Submit button
+
+- (void)submitButtonTouched:(UIButton *)button
+{
+    // Create string which will contain the first error in form
+    NSMutableString *errorString = [NSMutableString string];
+
+    // Validate every text UI in custom text UI collection
+    for (NSUInteger i = 0; i < textFields.count && errorString.length == 0; i++) {
+        id <US2ValidatorUIProtocol> textUI = [textFields objectAtIndex:i];
+        id cell = ((UIView *)textUI).superview.superview;
+        if ([cell isKindOfClass:[FormTableViewCell class]]) {
+            FormTableViewCell *formTableViewCell = (FormTextFieldTableViewCell *)cell;
+            kFormTableViewCellStatus status = textUI.isValid == YES ? kFormTableViewCellStatusValid : kFormTableViewCellStatusInvalid;
+            [formTableViewCell updateValidationIconByValidStatus:status];
+
+            // If the text UI has invalid text remember the violated condition with highest priority
+            if (textUI.isValid == NO) {
+                US2Validator *validator = [textUI validator];
+                US2ConditionCollection *conditionCollection = [validator checkConditions:[textUI text]];
+                US2Condition *violatedCondition = [conditionCollection conditionAtIndex:0];
+
+                NSMutableString *violatedString = [NSMutableString string];
+                [violatedString appendString:formTableViewCell.textLabel.text];
+                [violatedString appendString:@": "];
+                [violatedString appendString:[violatedCondition localizedViolationString]];
+                [errorString appendString:violatedString];
+            }
+        }
+    }
+
+    // Show alert if there was an invalid text in UI
+    if (errorString.length > 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Invalid Text"
+                                                            message:errorString
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Continue"
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 @end

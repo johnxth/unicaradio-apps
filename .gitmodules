@@ -1,0 +1,3 @@
+[submodule "iOS/US2FormValidator"]
+	path = iOS/US2FormValidator
+	url = https://github.com/ustwo/US2FormValidator.git

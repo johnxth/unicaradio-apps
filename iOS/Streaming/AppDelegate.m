@@ -50,7 +50,7 @@
 		scheduleController = [self createScheduleControllerForIPad];
     }
 
-	songRequestController = [self createSongRequestControllerWithNibNameTail:nibNameTail];
+	songRequestController = [self createSongRequestController];
 	favouritesController = [self createFavouritesControllerWithNibNameTail:nibNameTail];
 	infoController = [self createInfoControllerWithNibNameTail:nibNameTail];
 
@@ -168,9 +168,9 @@
 	return splitScheduleController;
 }
 
-- (UIViewController *) createSongRequestControllerWithNibNameTail:(NSString *)nibNameTail
+- (UIViewController *) createSongRequestController
 {
-	NSString *nibName = [NSString stringWithFormat:@"SongRequestViewController%@", nibNameTail];
+	NSString *nibName = @"SongRequestViewController";
 	SongRequestViewController *songRequestController = [[SongRequestViewController alloc] initWithNibName:nibName bundle: nil];
 
 	UnicaradioUINavigationController *navSongRequestController;
