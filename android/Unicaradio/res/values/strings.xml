@@ -100,8 +100,8 @@
 
 	<!-- permit_roaming -->
 	<string name="prefs_permit_roaming_title">Ascolto radio in roaming</string>
-	<string name="prefs_permit_roaming_summaryOn">Puoi ascoltare Unicaradio in roaming su rete dati</string>
-	<string name="prefs_permit_roaming_summaryOff">Non ascoltare Unicaradio se il roaming su rete dati è attivo</string>
+	<string name="prefs_permit_roaming_summaryOn">Puoi ascoltare UnicaRadio in roaming su rete dati</string>
+	<string name="prefs_permit_roaming_summaryOff">Non ascoltare UnicaRadio se il roaming su rete dati è attivo</string>
 
 	<!-- Category: gcm_messages -->
 	<string name="prefs_gcm_messages_category">Messaggi</string>
@@ -130,7 +130,7 @@
 	<string name="prefs_acra_sub">Apache license 2.0</string>
 
 	<string name="prefs_acra_details">Informazioni su ACRA</string>
-	<string name="prefs_acra_details_sub">Come viene usato ACRA su Unicaradio</string>
+	<string name="prefs_acra_details_sub">Come viene usato ACRA su UnicaRadio</string>
 
 	<string name="prefs_gcm">Google Cloud Messaging</string>
 	<string name="prefs_gcm_sub">Versione 1.0.2</string>

@@ -39,7 +39,7 @@
 
 		<activity
 			android:name=".activities.MainActivity"
-			android:label="Unicaradio"
+			android:label="UnicaRadio"
 			android:theme="@style/unicaradio_theme2">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
