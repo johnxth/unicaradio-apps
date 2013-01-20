@@ -17,6 +17,10 @@
 
 #define kPlistname @"Information.plist"
 
+#define EMAIL_POSITION 0
+#define AUTHOR_POSITION 1
+#define TITLE_POSITION 2
+
 @interface SongRequestViewController : UIViewController<US2ValidatorUIDelegate,
 														FormTableViewCellDelegate,
 														UITextFieldDelegate,
@@ -28,7 +32,6 @@
 	LoadingDialog *dialog;
 
 	NSOperationQueue *queue;
-	NSTimer *timer;
 
 	TooltipView    *_tooltipView;
     id <US2ValidatorUIProtocol> _tooltipConnectedTextUI;

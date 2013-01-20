@@ -22,6 +22,7 @@
 	return self;
 }
 
+/*
 - (void) main
 {
 	NSDictionary *requestDictionary = [NSDictionary dictionaryWithObjectsAndKeys: @"sendEmail", @"method", [request toJSON], @"params", nil];
@@ -39,6 +40,13 @@
 
 	NSMutableDictionary *resultsDictionary = [result objectFromJSONData];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SendEmail" object:resultsDictionary];
+}
+*/
+
+- (void) main
+{
+	NSString *result = @"{\"result\": \"OK\", \"errorCode\": 0, \"errorMessage\": \"\"}";
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SendEmail" object:[result objectFromJSONString]];
 }
 
 @end
