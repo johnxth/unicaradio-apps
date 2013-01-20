@@ -58,7 +58,7 @@
     CGRect buttonFrame = CGRectMake(0.0, 0.0, 300.0, self.bounds.size.height);
     _button            = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _button.frame      = buttonFrame;
-    [_button setTitle:@"Submit" forState:UIControlStateNormal];
+    [_button setTitle:NSLocalizedString(@"SUBMIT_BUTTON", @"") forState:UIControlStateNormal];
     [self.contentView addSubview:_button];
 
     // Set selection style of cell

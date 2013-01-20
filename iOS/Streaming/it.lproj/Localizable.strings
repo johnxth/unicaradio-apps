@@ -13,18 +13,6 @@
 "CONTROLLER_TITLE_INFO" = "Informazioni";
 "CONTROLLER_TITLE_SETTINGS" = "Impostazioni";
 
-// Dialogs
-"DIALOG_LOADING" = "Caricamento in corso...";
-
-"DIALOG_SOMETHING_MISSING_TITLE" = "Manca qualcosa";
-"DIALOG_SOMETHING_MISSING_MESSAGE" = "Hey! Hai dimenticato qualcosa!";
-
-"DIALOG_SEND_FAILED_TITLE" = "Invio fallito";
-"DIALOG_SEND_FAILED_MESSAGE" = "Non è stato possibile inviare la richiesta.";
-
-"DIALOG_SEND_OK_TITLE" = "Richiesta inviata";
-"DIALOG_SEND_OK_MESSAGE" = "La richiesta è stata inviata correttamente";
-
 // Controllers
 // Schedule
 "DAYS_SUNDAY" = "Domenica";
@@ -35,6 +23,32 @@
 "DAYS_FRIDAY" = "Venerdì";
 "DAYS_SATURDAY" = "Sabato";
 "FIRST_DAY" = "1";
+
+// SendRequest
+"EMAIL_PLACEHOLDER" = "indirizzo@mail.it";
+"AUTHOR_PLACEHOLDER" = "Autore";
+"TITLE_PLACEHOLDER" = "Titolo";
+
+"EMAIL_LABEL" = "eMail";
+"AUTHOR_LABEL" = "Autore";
+"TITLE_LABEL" = "Titolo";
+
+"REQUIRED_FIELD" = "obbligatorio";
+
+"DIALOG_LOADING" = "Caricamento in corso...";
+"DIALOG_SEND_FAILED_TITLE" = "Errore";
+"DIALOG_SEND_FAILED_MESSAGE" = "È avvenuto un errore imprevisto. Riprova più tardi";
+"DIALOG_SEND_OK_TITLE" = "Richiesta inviata";
+"DIALOG_SEND_OK_TITLE_MESSAGE" = "La tua richiesta è stata inviata!";
+"DIALOG_INVALID_TEXT" = "Errore";
+"DIALOG_WAIT_BEFORE_SEND_AGAIN_TITLE" = "Errore";
+"DIALOG_WAIT_BEFORE_SEND_AGAIN_MESSAGE" = "Attendi prima di effettuare altre richieste";
+"DIALOG_CHECK_CONNECTION_TITLE" = "Errore";
+"DIALOG_CHECK_CONNECTION_MESSAGE" = "Verifica di essere connesso ad Internet";
+
+"TOOLTIP_OK" = "Tutto ok!";
+
+"SUBMIT_BUTTON" = "Invia";
 
 // Settings
 // Categories

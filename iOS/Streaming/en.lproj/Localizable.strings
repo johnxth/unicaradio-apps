@@ -13,15 +13,6 @@
 "CONTROLLER_TITLE_INFO" = "Information";
 "CONTROLLER_TITLE_SETTINGS" = "Settings";
 
-// Dialogs
-"DIALOG_LOADING" = "Loading...";
-
-"DIALOG_SOMETHING_MISSING_TITLE" = "Something is missing";
-"DIALOG_SOMETHING_MISSING_MESSAGE" = "Hey! You forgot something!";
-
-"DIALOG_SEND_FAILED_TITLE" = "Error";
-"DIALOG_SEND_FAILED_MESSAGE" = "I wasn't able to send the request.";
-
 // Controllers
 // Schedule
 "DAYS_SUNDAY" = "Sunday";
@@ -32,6 +23,32 @@
 "DAYS_FRIDAY" = "Friday";
 "DAYS_SATURDAY" = "Saturday";
 "FIRST_DAY" = "0";
+
+// SendRequest
+"EMAIL_PLACEHOLDER" = "address@mail.com";
+"AUTHOR_PLACEHOLDER" = "Author";
+"TITLE_PLACEHOLDER" = "Title";
+
+"EMAIL_LABEL" = "eMail";
+"AUTHOR_LABEL" = "Author";
+"TITLE_LABEL" = "Title";
+
+"REQUIRED_FIELD" = "required";
+
+"DIALOG_LOADING" = "Loading...";
+"DIALOG_SEND_FAILED_TITLE" = "Error";
+"DIALOG_SEND_FAILED_MESSAGE" = "An unexpected error occurred. Please retry later";
+"DIALOG_SEND_OK_TITLE" = "Request sent";
+"DIALOG_SEND_OK_TITLE_MESSAGE" = "Your request has been sent!";
+"DIALOG_INVALID_TEXT" = "Error";
+"DIALOG_WAIT_BEFORE_SEND_AGAIN_TITLE" = "Error";
+"DIALOG_WAIT_BEFORE_SEND_AGAIN_MESSAGE" = "Please, wait before send other requests";
+"DIALOG_CHECK_CONNECTION_TITLE" = "Error";
+"DIALOG_CHECK_CONNECTION_MESSAGE" = "Check your Internet connection";
+
+"TOOLTIP_OK" = "All good!";
+
+"SUBMIT_BUTTON" = "Submit";
 
 // Settings
 // Categories

@@ -65,7 +65,7 @@
 
 	US2ValidatorTextField *textField = [self createTextField];
 	textField.validator = [[US2ValidatorEmail alloc] init];
-	textField.placeholder = @"indirizzo@mail.it";
+	textField.placeholder = @"";
 	textField.text = email;
 	[textFields addObject:textField];
 
@@ -179,17 +179,26 @@
 
 	NSNumber *errorCode = [serverResponse objectForKey:@"errorCode"];
 	NSLog(@"errorCode: %d", [errorCode integerValue]);
-	BOOL containsError = ([errorCode intValue] != NO_ERROR);
-	NSLog(@"contains error: %@", containsError ? @"YES" : @"NO");
-	if(!containsError) {
+	if([errorCode intValue] == NO_ERROR) {
 		NSString *title = NSLocalizedString(@"DIALOG_SEND_OK_TITLE", @"");
 		NSString *message = NSLocalizedString(@"DIALOG_SEND_OK_TITLE_MESSAGE", @"");
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 		[alert show];
 		[self clearForm];
 	} else {
-		NSString *title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
-		NSString *message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
+		NSString *title;
+		NSString *message;
+		if([errorCode intValue] == OPERATION_FORBIDDEN) {
+			title = NSLocalizedString(@"DIALOG_WAIT_BEFORE_SEND_AGAIN_TITLE", @"");
+			message = NSLocalizedString(@"DIALOG_WAIT_BEFORE_SEND_AGAIN_MESSAGE", @"");
+		} else if([errorCode intValue] == INTERNAL_DOWNLOAD_ERROR) {
+			title = NSLocalizedString(@"DIALOG_CHECK_CONNECTION_TITLE", @"");
+			message = NSLocalizedString(@"DIALOG_CHECK_CONNECTION_MESSAGE", @"");
+		} else {
+			title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
+			message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
+		}
+
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 		[alert show];
 	}
@@ -198,15 +207,17 @@
 - (void) clearForm
 {
 	for(NSUInteger i = 0; i < textFields.count; i++) {
-		if(i != EMAIL_POSITION) {
-			US2ValidatorTextField *textUI = [textFields objectAtIndex:i];
-			textUI.text = @"";
+		if(i == EMAIL_POSITION) {
+			continue;
+		}
 
-			id cell = textUI.superview.superview;
-			if([cell isKindOfClass:[FormTextFieldTableViewCell class]]) {
-				FormTextFieldTableViewCell *formTextFieldTableViewCell = (FormTextFieldTableViewCell *)cell;
-				[formTextFieldTableViewCell updateValidationIconByValidStatus:kFormTableViewCellStatusWaiting];
-			}
+		US2ValidatorTextField *textUI = [textFields objectAtIndex:i];
+		textUI.text = @"";
+
+		id cell = textUI.superview.superview;
+		if([cell isKindOfClass:[FormTextFieldTableViewCell class]]) {
+			FormTextFieldTableViewCell *formTextFieldTableViewCell = (FormTextFieldTableViewCell *)cell;
+			[formTextFieldTableViewCell updateValidationIconByValidStatus:kFormTableViewCellStatusWaiting];
 		}
 	}
 }
@@ -271,22 +282,20 @@
 		cell = [self formTextFieldTableViewCellFromTableView:_tableView];
 		cell.textUI = textField;
 
-		cell.textLabel.text       = @"eMail";
-		cell.detailTextLabel.text = @"required";
+		cell.textLabel.text = NSLocalizedString(@"EMAIL_LABEL", @"");
 	} else if(row == 1) {
 		cell = [self formTextFieldTableViewCellFromTableView:_tableView];
 		cell.textUI = textField;
 
-		cell.textLabel.text       = @"Autore";
-		cell.detailTextLabel.text = @"required";
+		cell.textLabel.text = NSLocalizedString(@"AUTHOR_LABEL", @"");
 	} else if(row == 2) {
 		cell = [self formTextFieldTableViewCellFromTableView:_tableView];
 		cell.textUI = textField;
 
-		cell.textLabel.text       = @"Titolo";
-		cell.detailTextLabel.text = @"required";
+		cell.textLabel.text = NSLocalizedString(@"TITLE_LABEL", @"");
 	}
 
+	cell.detailTextLabel.text = NSLocalizedString(@"REQUIRED_FIELD", @"");
 	cell.delegate = self;
 
 	return cell;
@@ -434,7 +443,7 @@
         _tooltipView       = [[ValidTooltipView alloc] init];
         _tooltipView.frame = tooltipViewFrame;
 
-        _tooltipView.text = @"Everything is okay.";
+        _tooltipView.text = NSLocalizedString(@"TOOLTIP_OK", @"");
     } else {
         _tooltipView       = [[InvalidTooltipView alloc] init];
         _tooltipView.frame = tooltipViewFrame;
@@ -468,7 +477,7 @@
     NSMutableString *errorString = [NSMutableString string];
 
     // Validate every text UI in custom text UI collection
-    for(NSUInteger i = 0; i < textFields.count && errorString.length == 0; i++) {
+    for(NSUInteger i = 0; i < textFields.count; i++) {
         id <US2ValidatorUIProtocol> textUI = [textFields objectAtIndex:i];
         id cell = ((UIView *)textUI).superview.superview;
         if ([cell isKindOfClass:[FormTableViewCell class]]) {
@@ -477,7 +486,7 @@
             [formTableViewCell updateValidationIconByValidStatus:status];
 
             // If the text UI has invalid text remember the violated condition with highest priority
-            if(textUI.isValid == NO) {
+            if(textUI.isValid == NO && errorString.length == 0) {
                 US2Validator *validator = [textUI validator];
                 US2ConditionCollection *conditionCollection = [validator checkConditions:[textUI text]];
                 US2Condition *violatedCondition = [conditionCollection conditionAtIndex:0];
@@ -493,7 +502,7 @@
 
     // Show alert if there was an invalid text in UI
     if(errorString.length > 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Invalid Text"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DIALOG_INVALID_TEXT", @"")
                                                             message: errorString
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
