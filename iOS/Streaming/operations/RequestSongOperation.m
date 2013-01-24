@@ -18,7 +18,7 @@
 	if(self = [super init]) {
 		request = songRequest;
 	}
-	
+
 	return self;
 }
 

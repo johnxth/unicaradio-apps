@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+#import "UnicaradioBaseViewController.h"
+
 #import "../models/Schedule.h"
 #import "../enums/Schedule_state.h"
 
 #define SCHEDULE_URL @"http://www.unicaradio.it/regia/test/palinsesto.php"
 
-@interface ScheduleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UISplitViewControllerDelegate>
+@interface ScheduleViewController : UnicaradioBaseViewController<UITableViewDelegate,
+																 UITableViewDataSource,
+																 UISplitViewControllerDelegate>
 {
 	IBOutlet UITableView *scheduleTable;
-	IBOutlet UINavigationBar *navigationBar;
 
 	NSOperationQueue *queue;
 	BOOL isDownloading;
@@ -29,7 +32,6 @@
 }
 
 @property (nonatomic, strong) IBOutlet UITableView *scheduleTable;
-@property (nonatomic, strong) IBOutlet UINavigationBar *navigationBar;
 
 @property (nonatomic, strong) NSMutableArray *days;
 @property (nonatomic) ScheduleState state;
@@ -37,6 +39,5 @@
 @property (nonatomic) NSInteger currentID;
 
 - (id) initWithSchedule:(Schedule *)schedule andTitle:(NSString*)title andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
-- (void) backPressed;
 
 @end

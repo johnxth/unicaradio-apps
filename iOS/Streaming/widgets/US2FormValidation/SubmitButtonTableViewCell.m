@@ -25,18 +25,13 @@
 
 #import "SubmitButtonTableViewCell.h"
 
-
 @interface SubmitButtonTableViewCell ()
-- (void)_initUserInterface;
-
+	- (void)_initUserInterface;
 @end
-
 
 @implementation SubmitButtonTableViewCell
 
-
 @synthesize button = _button;
-
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -49,13 +44,17 @@
     return self;
 }
 
-
 #pragma mark - Build user interface
 
 - (void)_initUserInterface
+{
+	[self _initUserInterface:self.bounds];
+}
+
+- (void)_initUserInterface:(CGRect)frame
 {    
     // Add button
-    CGRect buttonFrame = CGRectMake(0.0, 0.0, 300.0, self.bounds.size.height);
+    CGRect buttonFrame = CGRectMake(0.0, 0.0, 300.0, frame.size.height);
     _button            = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _button.frame      = buttonFrame;
     [_button setTitle:NSLocalizedString(@"SUBMIT_BUTTON", @"") forState:UIControlStateNormal];
@@ -63,11 +62,15 @@
 
     // Set selection style of cell
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+
     // Remove background
     self.backgroundView = [[UIView alloc] init];
 }
-
+/*
+- (void)setFrame:(CGRect)frame
+{
+	[self _initUserInterface:frame];
+}*/
 
 #pragma mark - Selection
 

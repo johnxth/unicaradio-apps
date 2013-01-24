@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "../models/TrackInfos.h"
+#import "UnicaradioBaseViewController.h"
 
 #pragma mark - Constants
 
@@ -28,7 +29,7 @@
 @class MarqueeLabel;
 @class SettingsManager;
 
-@interface StreamingViewController : UIViewController
+@interface StreamingViewController : UnicaradioBaseViewController
 {
     AudioStreamer *streamer;
 
@@ -42,8 +43,6 @@
 
 	TrackInfos *infos;
 	TrackInfos *oldInfos;
-
-	UIPopoverController *popover;
 
 	UIInterfaceOrientation oldOrientation;
 
@@ -64,8 +63,6 @@
 
 @property (strong) TrackInfos *infos;
 @property (strong) TrackInfos *oldInfos;
-
-@property (strong) UIPopoverController *popover;
 
 @property (strong, nonatomic) SettingsManager *settingsManager;
 

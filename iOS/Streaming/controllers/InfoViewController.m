@@ -25,6 +25,8 @@
     if (self) {
         self.title = NSLocalizedString(@"CONTROLLER_TITLE_INFO", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"info"];
+
+		[self initButtonBarItems];
     }
     NSLog(@"init info view controller");
     return self;

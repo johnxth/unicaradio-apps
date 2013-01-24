@@ -32,8 +32,6 @@
 @synthesize infos;
 @synthesize oldInfos;
 
-@synthesize popover;
-
 @synthesize settingsManager;
 
 #pragma mark - Controller lifecycle
@@ -52,40 +50,10 @@
 		}
 		settingsManager = [SettingsManager getInstance];
 
-		UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(openSettings:)];
-		UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:23.0];
-		NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, UITextAttributeFont, nil];
-		[settingsButton setTitleTextAttributes:dict forState:UIControlStateNormal];
-
-		self.navigationItem.rightBarButtonItem = settingsButton;
+		[self initButtonBarItems];
     }
     NSLog(@"init streaming view controller");
     return self;
-}
-
-- (void) openSettings:(id) sender
-{
-	NSLog(@"Open settings");
-	if([DeviceUtils isPhone]) {
-		UIViewController *settingsViewController = [SettingsViewController createSettingsController];
-		[self presentModalViewController:settingsViewController animated:YES];
-	} else {
-		[self openSettingsForIPad:sender];
-	}
-}
-
-- (void) openSettingsForIPad:(id) sender
-{
-	if(popover == nil) {
-		UIViewController *settingsViewController = [SettingsViewController createSettingsController];
-		popover = [[UIPopoverController alloc] initWithContentViewController:settingsViewController];
-	}
-
-	if([popover isPopoverVisible]) {
-		[popover dismissPopoverAnimated:YES];
-	} else {
-		[popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-	}
 }
 
 - (void)viewDidLoad

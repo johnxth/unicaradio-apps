@@ -159,11 +159,15 @@
 - (UIViewController *) createScheduleControllerForIPad
 {
 	ScheduleViewController *scheduleController = [[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil];
+	UnicaradioUINavigationController *navScheduleController;
+	navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleController];
 	NoItemSelectedViewController *noItemSelectedViewController = [[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil];
+	UnicaradioUINavigationController *navNoItemSelectedController;
+	navNoItemSelectedController = [[UnicaradioUINavigationController alloc] initWithRootViewController:noItemSelectedViewController];
 
 	ScheduleSplitViewController *splitScheduleController = [[ScheduleSplitViewController alloc] init];
 	splitScheduleController.delegate = scheduleController;
-	splitScheduleController.viewControllers = [[NSArray alloc] initWithObjects:scheduleController, noItemSelectedViewController, nil];
+	splitScheduleController.viewControllers = [[NSArray alloc] initWithObjects:navScheduleController, navNoItemSelectedController, nil];
 
 	return splitScheduleController;
 }

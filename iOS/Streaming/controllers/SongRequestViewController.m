@@ -40,6 +40,8 @@
         self.tabBarItem.image = [UIImage imageNamed:@"song"];
 		queue = [[NSOperationQueue alloc] init];
 		[queue setMaxConcurrentOperationCount: 1];
+
+		[self initButtonBarItems];
     }
     return self;
 }

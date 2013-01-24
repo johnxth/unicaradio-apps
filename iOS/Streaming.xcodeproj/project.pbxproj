@@ -54,6 +54,10 @@
 		52A36A091694AAD500BC8CEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A36A081694AAD500BC8CEC /* SettingsViewController.m */; };
 		52A3840C1698358B009BD922 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A3840B1698358B009BD922 /* SettingsViewController.xib */; };
 		52A3840E169835B0009BD922 /* NetworkTypeChooseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A3840D169835B0009BD922 /* NetworkTypeChooseViewController.xib */; };
+		52A39A8716B0955A00A13964 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A39A8316B0955A00A13964 /* settings.png */; };
+		52A39A8816B0955A00A13964 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A39A8416B0955A00A13964 /* settings@2x.png */; };
+		52A39A8916B0955A00A13964 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A39A8516B0955A00A13964 /* share.png */; };
+		52A39A8A16B0955A00A13964 /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A39A8616B0955A00A13964 /* share@2x.png */; };
 		52A4C11316A1C56800A116AD /* libUS2FormValidationFrameworkStaticLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A4C10B16A1C53100A116AD /* libUS2FormValidationFrameworkStaticLibrary.a */; };
 		52A4C13116A1C6A700A116AD /* US2Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52A4C13016A1C6A700A116AD /* US2Localizable.strings */; };
 		52A5294F16AAA6C000CC28EB /* FormTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A5294916AAA6C000CC28EB /* FormTableViewCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -74,6 +78,7 @@
 		52A5297016AABFE000CC28EB /* image_tooltip_valid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A5296616AABFE000CC28EB /* image_tooltip_valid@2x.png */; };
 		52A750EE168EF15500E36CE7 /* wait_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750EC168EF15500E36CE7 /* wait_pressed.png */; };
 		52A750EF168EF15500E36CE7 /* wait.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750ED168EF15500E36CE7 /* wait.png */; };
+		52A789C116B1D8B4004C5C91 /* ShareView_iOS6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A789C016B1D8B4004C5C91 /* ShareView_iOS6.xib */; };
 		52A7E3D016AAD6F9001C0087 /* AuthorTitleValidatorCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A7E3CF16AAD6F9001C0087 /* AuthorTitleValidatorCondition.m */; };
 		52AA0B7015D45B6A00CA2EC3 /* facebook_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */; };
 		52AA0B7115D45B6A00CA2EC3 /* website_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AA0B6D15D45B6A00CA2EC3 /* website_icon.png */; };
@@ -82,6 +87,9 @@
 		52ADD0AC15CC099300C2B153 /* UnicaradioUITabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52ADD0AB15CC099300C2B153 /* UnicaradioUITabBarController.m */; };
 		52ADD0AF15CC0D4300C2B153 /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 52ADD0AE15CC0D4300C2B153 /* banner.png */; };
 		52AE95CC15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */; };
+		52AFF7BD16ADC25E0012E0BE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFF7BC16ADC25E0012E0BE /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		52AFF7BF16ADC26B0012E0BE /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFF7BE16ADC26B0012E0BE /* Twitter.framework */; };
+		52AFF7C216ADDCCD0012E0BE /* UnicaradioBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF7C116ADDCCD0012E0BE /* UnicaradioBaseViewController.m */; };
 		52B0B2061689A6F3002ACAB8 /* DeviceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */; };
 		52B1BA6115C1D366001625FC /* play_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6015C1D366001625FC /* play_normal.png */; };
 		52B1BA6415C1D383001625FC /* pause_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B1BA6315C1D383001625FC /* pause_0.png */; };
@@ -231,6 +239,10 @@
 		52A3840A16982E34009BD922 /* Preferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		52A3840B1698358B009BD922 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		52A3840D169835B0009BD922 /* NetworkTypeChooseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NetworkTypeChooseViewController.xib; sourceTree = "<group>"; };
+		52A39A8316B0955A00A13964 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		52A39A8416B0955A00A13964 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		52A39A8516B0955A00A13964 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
+		52A39A8616B0955A00A13964 /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
 		52A4C10116A1C52F00A116AD /* US2FormValidationFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = US2FormValidationFramework.xcodeproj; path = US2FormValidator/US2FormValidationFramework/US2FormValidationFramework.xcodeproj; sourceTree = "<group>"; };
 		52A4C12316A1C6A700A116AD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/US2Localizable.strings; sourceTree = "<group>"; };
 		52A4C12416A1C6A700A116AD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/US2Localizable.strings; sourceTree = "<group>"; };
@@ -271,6 +283,7 @@
 		52A5296616AABFE000CC28EB /* image_tooltip_valid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_tooltip_valid@2x.png"; sourceTree = "<group>"; };
 		52A750EC168EF15500E36CE7 /* wait_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait_pressed.png; sourceTree = "<group>"; };
 		52A750ED168EF15500E36CE7 /* wait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait.png; sourceTree = "<group>"; };
+		52A789C016B1D8B4004C5C91 /* ShareView_iOS6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView_iOS6.xib; sourceTree = "<group>"; };
 		52A7E3CE16AAD6F9001C0087 /* AuthorTitleValidatorCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorTitleValidatorCondition.h; sourceTree = "<group>"; };
 		52A7E3CF16AAD6F9001C0087 /* AuthorTitleValidatorCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorTitleValidatorCondition.m; sourceTree = "<group>"; };
 		52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_icon.png; sourceTree = "<group>"; };
@@ -281,6 +294,10 @@
 		52ADD0AB15CC099300C2B153 /* UnicaradioUITabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUITabBarController.m; sourceTree = "<group>"; };
 		52ADD0AE15CC0D4300C2B153 /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
 		52AE95CB15C3E4DF00E134D4 /* StreamingViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StreamingViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
+		52AFF7BC16ADC25E0012E0BE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		52AFF7BE16ADC26B0012E0BE /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		52AFF7C016ADDCCD0012E0BE /* UnicaradioBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioBaseViewController.h; sourceTree = "<group>"; };
+		52AFF7C116ADDCCD0012E0BE /* UnicaradioBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioBaseViewController.m; sourceTree = "<group>"; };
 		52B0B2041689A6F3002ACAB8 /* DeviceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUtils.h; sourceTree = "<group>"; };
 		52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUtils.m; sourceTree = "<group>"; };
 		52B0B2071689B194002ACAB8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "/Users/paolo/Desktop/unicaradio-apps/iOS/Streaming/it.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
@@ -368,6 +385,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52AFF7BF16ADC26B0012E0BE /* Twitter.framework in Frameworks */,
+				52AFF7BD16ADC25E0012E0BE /* Social.framework in Frameworks */,
 				52A4C11316A1C56800A116AD /* libUS2FormValidationFrameworkStaticLibrary.a in Frameworks */,
 				52E1720F15E445790020A27C /* SystemConfiguration.framework in Frameworks */,
 				52208E6915C0935B006B27BD /* QuartzCore.framework in Frameworks */,
@@ -592,6 +611,8 @@
 				52D51E7215BBEE3F00BC8C94 /* Foundation.framework */,
 				52D51E7415BBEE3F00BC8C94 /* CoreGraphics.framework */,
 				52D51EA215BBEE3F00BC8C94 /* SenTestingKit.framework */,
+				52AFF7BE16ADC26B0012E0BE /* Twitter.framework */,
+				52AFF7BC16ADC25E0012E0BE /* Social.framework */,
 				52A4C10116A1C52F00A116AD /* US2FormValidationFramework.xcodeproj */,
 			);
 			name = Frameworks;
@@ -685,6 +706,8 @@
 				52A36A081694AAD500BC8CEC /* SettingsViewController.m */,
 				52A12B0B16963692007B2BC6 /* NetworkTypeChooseViewController.h */,
 				52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */,
+				52AFF7C016ADDCCD0012E0BE /* UnicaradioBaseViewController.h */,
+				52AFF7C116ADDCCD0012E0BE /* UnicaradioBaseViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -726,6 +749,10 @@
 				52B1BA6315C1D383001625FC /* pause_0.png */,
 				52A750EC168EF15500E36CE7 /* wait_pressed.png */,
 				52A750ED168EF15500E36CE7 /* wait.png */,
+				52A39A8316B0955A00A13964 /* settings.png */,
+				52A39A8416B0955A00A13964 /* settings@2x.png */,
+				52A39A8516B0955A00A13964 /* share.png */,
+				52A39A8616B0955A00A13964 /* share@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -748,6 +775,7 @@
 				52A3840B1698358B009BD922 /* SettingsViewController.xib */,
 				52A3840D169835B0009BD922 /* NetworkTypeChooseViewController.xib */,
 				52EC73F516A1B24C00DD3B5C /* SongRequestViewController.xib */,
+				52A789C016B1D8B4004C5C91 /* ShareView_iOS6.xib */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -983,6 +1011,11 @@
 				52A5296E16AABFE000CC28EB /* image_tooltip_invalid@2x.png in Resources */,
 				52A5296F16AABFE000CC28EB /* image_tooltip_valid.png in Resources */,
 				52A5297016AABFE000CC28EB /* image_tooltip_valid@2x.png in Resources */,
+				52A39A8716B0955A00A13964 /* settings.png in Resources */,
+				52A39A8816B0955A00A13964 /* settings@2x.png in Resources */,
+				52A39A8916B0955A00A13964 /* share.png in Resources */,
+				52A39A8A16B0955A00A13964 /* share@2x.png in Resources */,
+				52A789C116B1D8B4004C5C91 /* ShareView_iOS6.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,6 +1093,7 @@
 				52A5295B16AAAE4D00CC28EB /* InvalidTooltipView.m in Sources */,
 				52A7E3D016AAD6F9001C0087 /* AuthorTitleValidatorCondition.m in Sources */,
 				520B6CD116AAE6960038C25F /* SubmitButtonTableViewCell.m in Sources */,
+				52AFF7C216ADDCCD0012E0BE /* UnicaradioBaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

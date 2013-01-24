@@ -13,6 +13,7 @@
 #import "../libs/JSONKit/JSONKit.h"
 #import "../models/Transmission.h"
 #import "../operations/DownloadScheduleOperation.h"
+#import "UnicaradioUINavigationController.h"
 
 @interface ScheduleViewController ()
 
@@ -21,7 +22,6 @@
 @implementation ScheduleViewController
 
 @synthesize scheduleTable;
-@synthesize navigationBar;
 
 @synthesize days;
 @synthesize state;
@@ -50,7 +50,8 @@
 	self.state = TRANSMISSIONS;
 	self.title = t;
 	self.currentID = dayNumberZeroIndexed;
-	
+	[self initButtonBarItems];
+
 	return self;	
 }
 
@@ -88,7 +89,6 @@
 	self.scheduleTable.backgroundColor = [UIColor blackColor];
 
 	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
-	self.navigationBar.topItem.title = self.title;
 }
 
 - (void)viewDidUnload
@@ -188,38 +188,15 @@
 	}
 
 	ScheduleViewController *scheduleViewController = [[ScheduleViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:dayNumber andNibName:self.nibName bundle:self.nibBundle];
-	if([self isPhone]) {
+	if([DeviceUtils isPhone]) {
 		[self.navigationController pushViewController:scheduleViewController animated:YES];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	} else {
-		NSArray *newVCs = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], scheduleViewController, nil];
+		UnicaradioUINavigationController *navScheduleController;
+		navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleViewController];
+		NSArray *newVCs = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], navScheduleController, nil];
 		self.splitViewController.viewControllers = newVCs;
 	}
-}
-
-- (BOOL) isPhone
-{
-	return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
-}
-
-- (void) showBackButtonWithNavigationTitle: (NSString *)title andButtonTitle: (NSString *)buttonTitle
-{
-	UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:buttonTitle
-											style:UIBarButtonItemStyleBordered target:self action:@selector(backPressed)];
-	UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:title];
-	[item setLeftBarButtonItem:backButton];
-
-	[self.navigationBar pushNavigationItem:item animated:YES];
-}
-
--  (void) backPressed
-{
-	NSLog(@"backPressed");
-
-	[self.navigationBar popNavigationItemAnimated:YES];
-	self.state = DAYS;
-	self.currentID = -1;
-	[self.scheduleTable reloadData];
 }
 
 @end

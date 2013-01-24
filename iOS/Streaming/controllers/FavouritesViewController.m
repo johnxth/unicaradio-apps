@@ -26,6 +26,8 @@
 		NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"websites" ofType:@"plist"];
 		self.websites = [NSArray arrayWithContentsOfFile:plistPath];
 		NSLog(@"Size: %d", [self.websites count]);
+
+		[self initButtonBarItems];
     }
     return self;
 }

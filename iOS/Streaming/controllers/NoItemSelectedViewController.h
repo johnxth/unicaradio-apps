@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NoItemSelectedViewController : UIViewController
+#import "UnicaradioBaseViewController.h"
+
+@interface NoItemSelectedViewController : UnicaradioBaseViewController
 
 @end

@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#import "UnicaradioBaseViewController.h"
+
 #import "LoadingDialog.h"
 
 #import "US2ValidatorUIDelegate.h"
@@ -21,7 +24,7 @@
 #define AUTHOR_POSITION 1
 #define TITLE_POSITION 2
 
-@interface SongRequestViewController : UIViewController<US2ValidatorUIDelegate,
+@interface SongRequestViewController : UnicaradioBaseViewController<US2ValidatorUIDelegate,
 														FormTableViewCellDelegate,
 														UITextFieldDelegate,
 														UITextViewDelegate,

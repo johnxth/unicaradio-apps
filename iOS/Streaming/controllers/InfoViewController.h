@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InfoViewController : UIViewController<UIWebViewDelegate>
+#import "UnicaradioBaseViewController.h"
+
+@interface InfoViewController : UnicaradioBaseViewController<UIWebViewDelegate>
 {
 	IBOutlet UIWebView *webView;
 	IBOutlet UIScrollView *scrollView;
