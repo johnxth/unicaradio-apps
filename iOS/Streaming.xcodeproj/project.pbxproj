@@ -76,6 +76,9 @@
 		52A5296E16AABFE000CC28EB /* image_tooltip_invalid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A5296416AABFE000CC28EB /* image_tooltip_invalid@2x.png */; };
 		52A5296F16AABFE000CC28EB /* image_tooltip_valid.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A5296516AABFE000CC28EB /* image_tooltip_valid.png */; };
 		52A5297016AABFE000CC28EB /* image_tooltip_valid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A5296616AABFE000CC28EB /* image_tooltip_valid@2x.png */; };
+		52A5D3F816B322BA006ACE43 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A5D3F716B322BA006ACE43 /* ShareViewController.m */; };
+		52A5D3FA16B324EA006ACE43 /* ShareView_iOS5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A5D3F916B324EA006ACE43 /* ShareView_iOS5.xib */; };
+		52A5D3FC16B33BD1006ACE43 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A5D3FB16B33BD1006ACE43 /* MessageUI.framework */; };
 		52A750EE168EF15500E36CE7 /* wait_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750EC168EF15500E36CE7 /* wait_pressed.png */; };
 		52A750EF168EF15500E36CE7 /* wait.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A750ED168EF15500E36CE7 /* wait.png */; };
 		52A789C116B1D8B4004C5C91 /* ShareView_iOS6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A789C016B1D8B4004C5C91 /* ShareView_iOS6.xib */; };
@@ -281,6 +284,10 @@
 		52A5296416AABFE000CC28EB /* image_tooltip_invalid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_tooltip_invalid@2x.png"; sourceTree = "<group>"; };
 		52A5296516AABFE000CC28EB /* image_tooltip_valid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_tooltip_valid.png; sourceTree = "<group>"; };
 		52A5296616AABFE000CC28EB /* image_tooltip_valid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_tooltip_valid@2x.png"; sourceTree = "<group>"; };
+		52A5D3F616B322BA006ACE43 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		52A5D3F716B322BA006ACE43 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		52A5D3F916B324EA006ACE43 /* ShareView_iOS5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView_iOS5.xib; sourceTree = "<group>"; };
+		52A5D3FB16B33BD1006ACE43 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		52A750EC168EF15500E36CE7 /* wait_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait_pressed.png; sourceTree = "<group>"; };
 		52A750ED168EF15500E36CE7 /* wait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait.png; sourceTree = "<group>"; };
 		52A789C016B1D8B4004C5C91 /* ShareView_iOS6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView_iOS6.xib; sourceTree = "<group>"; };
@@ -385,6 +392,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A5D3FC16B33BD1006ACE43 /* MessageUI.framework in Frameworks */,
 				52AFF7BF16ADC26B0012E0BE /* Twitter.framework in Frameworks */,
 				52AFF7BD16ADC25E0012E0BE /* Social.framework in Frameworks */,
 				52A4C11316A1C56800A116AD /* libUS2FormValidationFrameworkStaticLibrary.a in Frameworks */,
@@ -602,6 +610,7 @@
 		52D51E6F15BBEE3F00BC8C94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				52A5D3FB16B33BD1006ACE43 /* MessageUI.framework */,
 				52E1720E15E445790020A27C /* SystemConfiguration.framework */,
 				52208E6815C0935B006B27BD /* QuartzCore.framework */,
 				52208E6615C0933D006B27BD /* CFNetwork.framework */,
@@ -708,6 +717,8 @@
 				52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */,
 				52AFF7C016ADDCCD0012E0BE /* UnicaradioBaseViewController.h */,
 				52AFF7C116ADDCCD0012E0BE /* UnicaradioBaseViewController.m */,
+				52A5D3F616B322BA006ACE43 /* ShareViewController.h */,
+				52A5D3F716B322BA006ACE43 /* ShareViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -775,6 +786,7 @@
 				52A3840B1698358B009BD922 /* SettingsViewController.xib */,
 				52A3840D169835B0009BD922 /* NetworkTypeChooseViewController.xib */,
 				52EC73F516A1B24C00DD3B5C /* SongRequestViewController.xib */,
+				52A5D3F916B324EA006ACE43 /* ShareView_iOS5.xib */,
 				52A789C016B1D8B4004C5C91 /* ShareView_iOS6.xib */,
 			);
 			path = layout;
@@ -1016,6 +1028,7 @@
 				52A39A8916B0955A00A13964 /* share.png in Resources */,
 				52A39A8A16B0955A00A13964 /* share@2x.png in Resources */,
 				52A789C116B1D8B4004C5C91 /* ShareView_iOS6.xib in Resources */,
+				52A5D3FA16B324EA006ACE43 /* ShareView_iOS5.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1094,6 +1107,7 @@
 				52A7E3D016AAD6F9001C0087 /* AuthorTitleValidatorCondition.m in Sources */,
 				520B6CD116AAE6960038C25F /* SubmitButtonTableViewCell.m in Sources */,
 				52AFF7C216ADDCCD0012E0BE /* UnicaradioBaseViewController.m in Sources */,
+				52A5D3F816B322BA006ACE43 /* ShareViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

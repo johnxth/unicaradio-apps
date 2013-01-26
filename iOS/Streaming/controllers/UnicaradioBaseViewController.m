@@ -15,6 +15,7 @@
 @implementation UnicaradioBaseViewController
 
 @synthesize popover;
+@synthesize sharePopover;
 
 - (void) initButtonBarItemsForNavigationItem:(UINavigationItem *)item
 {
@@ -72,7 +73,7 @@
 		UIViewController *settingsViewController = [SettingsViewController createSettingsController];
 		popover = [[UIPopoverController alloc] initWithContentViewController:settingsViewController];
 	}
-	
+
 	if([popover isPopoverVisible]) {
 		[popover dismissPopoverAnimated:YES];
 	} else {
@@ -86,11 +87,63 @@
 
 - (void) openShareSheet:(id) sender
 {
-	if(NSClassFromString(@"SLComposeViewController") != nil) {
-		NSLog(@"ios 6!");
+	if([DeviceUtils isPhone]) {
+		UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"navigation_share",@"")
+																	  delegate:self
+															 cancelButtonTitle:nil
+														destructiveButtonTitle:nil
+															 otherButtonTitles:@"Twitter", @"eMail", nil];
+		int buttonsCount = 2;
+		if(NSClassFromString(@"SLComposeViewController") != nil) {
+			[shareActionSheet addButtonWithTitle:@"Facebook"];
+			buttonsCount++;
+		}
+		[shareActionSheet addButtonWithTitle:@"Annulla"];
+		shareActionSheet.cancelButtonIndex = buttonsCount;
+
+		[shareActionSheet showFromTabBar:self.tabBarController.tabBar];
 	} else {
-		NSLog(@"ios 5!");
+		[self openShareSheetForIPad:sender];
 	}
+}
+
+- (void) openShareSheetForIPad:(id) sender
+{
+	if(sharePopover == nil) {
+		ShareViewController *shareViewController = [[ShareViewController alloc] init];
+		sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
+		[shareViewController setPopOver:sharePopover];
+	}
+
+	if([sharePopover isPopoverVisible]) {
+		[sharePopover dismissPopoverAnimated:YES];
+	} else {
+		CGRect rect = CGRectMake(992, -7, 0, 0);
+		sharePopover.popoverContentSize = CGSizeMake(354, 143);
+		[sharePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+	}
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	switch (buttonIndex) {
+		case 0:
+		case 1:
+			[ShareViewController share:buttonIndex withUIViewController:self];
+			break;
+		case 2:
+			if(NSClassFromString(@"SLComposeViewController") != nil) {
+				[ShareViewController share:buttonIndex withUIViewController:self];
+			}
+			break;
+		default:
+			break;
+	}
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
