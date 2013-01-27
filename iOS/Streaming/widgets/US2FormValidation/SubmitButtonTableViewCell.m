@@ -24,6 +24,7 @@
 //  
 
 #import "SubmitButtonTableViewCell.h"
+#import "DeviceUtils.h"
 
 @interface SubmitButtonTableViewCell ()
 	- (void)_initUserInterface;
@@ -54,7 +55,18 @@
 - (void)_initUserInterface:(CGRect)frame
 {    
     // Add button
-    CGRect buttonFrame = CGRectMake(0.0, 0.0, 300.0, frame.size.height);
+	float x = 0.0; // iPhone portrait
+	float width = 300.0;
+	if(![DeviceUtils isPhone]) {
+		x = 300.0; //iPad
+	} else if([DeviceUtils isLandscape]) {
+		if([DeviceUtils is4InchRetinaIPhone]) {
+			width = 550.0;
+		} else {
+			width = 460.0;
+		}
+	}
+    CGRect buttonFrame = CGRectMake(x, 0.0, width, frame.size.height);
     _button            = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _button.frame      = buttonFrame;
     [_button setTitle:NSLocalizedString(@"SUBMIT_BUTTON", @"") forState:UIControlStateNormal];
@@ -66,11 +78,6 @@
     // Remove background
     self.backgroundView = [[UIView alloc] init];
 }
-/*
-- (void)setFrame:(CGRect)frame
-{
-	[self _initUserInterface:frame];
-}*/
 
 #pragma mark - Selection
 

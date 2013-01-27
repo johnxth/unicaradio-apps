@@ -504,15 +504,21 @@
 
     // Show alert if there was an invalid text in UI
     if(errorString.length > 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DIALOG_INVALID_TEXT", @"")
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"DIALOG_INVALID_TEXT", @"")
                                                             message: errorString
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
+                                                           delegate: self
+                                                  cancelButtonTitle: @"OK"
+                                                  otherButtonTitles: nil, nil];
         [alertView show];
     } else {
 		[self sendEmail];
 	}
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) fromInterfaceOrientation
+{
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end
