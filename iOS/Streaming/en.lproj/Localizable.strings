@@ -21,8 +21,8 @@
 // ShareViewController
 "SUGGEST_SUBJECT" = "Listen UnicaRadio!";
 "SUGGEST_CONTENT" = "Listen UnicaRadio, the webradio of the university students in Cagliari.\nVisit www.unicaradio.it and download the app from the App Store!";
-"SUGGEST_CONTENT_ONLY_AUTHOR" = "Sto ascoltando {0} su UnicaRadio! www.unicaradio.it";
-"SUGGEST_CONTENT_SONG" = "Sto ascoltando {0} di {1} su UnicaRadio! www.unicaradio.it";
+"SUGGEST_CONTENT_ONLY_AUTHOR" = "Sto ascoltando %@ su UnicaRadio! www.unicaradio.it";
+"SUGGEST_CONTENT_SONG" = "Sto ascoltando %@ di %@ su UnicaRadio! www.unicaradio.it";
 
 // Schedule
 "DAYS_SUNDAY" = "Sunday";

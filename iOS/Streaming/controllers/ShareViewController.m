@@ -7,6 +7,9 @@
 //
 
 #import "ShareViewController.h"
+#import "AppDelegate.h"
+#import "StreamingViewController.h"
+#import "UnicaradioUINavigationController.h"
 
 #import <Twitter/Twitter.h>
 #import <Social/Social.h>
@@ -34,7 +37,7 @@
 + (void) shareOnFacebook:(UIViewController *)viewController
 {
 	SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-	[controller setInitialText:NSLocalizedString(@"SUGGEST_CONTENT", @"")];
+	[controller setInitialText:[ShareViewController getSharingMessage]];
 	[controller addURL:[NSURL URLWithString:@"http://www.unicaradio.it"]];
 
 	[viewController presentViewController:controller animated:YES completion:nil];
@@ -49,15 +52,13 @@
 + (void) shareOnTwitter:(UIViewController *)viewController
 {
 	if(NSClassFromString(@"SLComposeViewController") != nil) {
-		NSLog(NSLocalizedString(@"SUGGEST_CONTENT", @""));
 		SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [controller setInitialText:NSLocalizedString(@"SUGGEST_CONTENT", @"")];
+        [controller setInitialText:[ShareViewController getSharingMessage]];
 
         [viewController presentViewController:controller animated:YES completion:Nil];
 	} else {
 		TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-		[tweetSheet setInitialText:NSLocalizedString(@"SUGGEST_CONTENT", @"")];
-		[tweetSheet addURL:[NSURL URLWithString:@"http://www.unicaradio.it"]];
+		[tweetSheet setInitialText:[ShareViewController getSharingMessage]];
 
 		[viewController presentModalViewController:tweetSheet animated:YES];
 	}
@@ -74,7 +75,7 @@
 	MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
 	mailer.mailComposeDelegate = viewController;
 
-	[mailer setMessageBody:NSLocalizedString(@"SUGGEST_CONTENT", @"") isHTML:NO];
+	[mailer setMessageBody:[ShareViewController getSharingMessage] isHTML:NO];
 	[mailer setSubject:NSLocalizedString(@"SUGGEST_SUBJECT", @"")];
 
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -123,6 +124,24 @@
 			[self shareOnFacebook:viewController];
 		default:
 			break;
+	}
+}
+
++ (NSString *) getSharingMessage
+{
+	AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+	UnicaradioUINavigationController *controller = (UnicaradioUINavigationController *) [appDelegate.tabBarController.viewControllers objectAtIndex:0];
+	StreamingViewController *streamingController = (StreamingViewController *) [controller topViewController];
+
+	TrackInfos *infos = streamingController.infos;
+	if(infos == nil || [infos isClean]) {
+		return NSLocalizedString(@"SUGGEST_CONTENT", @"");
+	} else {
+		if(infos.title == nil || [infos.title isEqualToString:@""]) {
+			return [NSString stringWithFormat:NSLocalizedString(@"SUGGEST_CONTENT_ONLY_AUTHOR", @""), infos.author, nil];
+		} else {
+			return [NSString stringWithFormat:NSLocalizedString(@"SUGGEST_CONTENT_SONG", @""), infos.title, infos.author, nil];
+		}
 	}
 }
 
