@@ -88,7 +88,7 @@
 - (void) openShareSheet:(id) sender
 {
 	if([DeviceUtils isPhone]) {
-		UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"navigation_share",@"")
+		UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"SHARE_SHEET_TITLE",@"")
 																	  delegate:self
 															 cancelButtonTitle:nil
 														destructiveButtonTitle:nil
@@ -98,7 +98,7 @@
 			[shareActionSheet addButtonWithTitle:@"Facebook"];
 			buttonsCount++;
 		}
-		[shareActionSheet addButtonWithTitle:@"Annulla"];
+		[shareActionSheet addButtonWithTitle:NSLocalizedString(@"CANCEL_BUTTON", @"")];
 		shareActionSheet.cancelButtonIndex = buttonsCount;
 
 		[shareActionSheet showFromTabBar:self.tabBarController.tabBar];
@@ -111,7 +111,8 @@
 {
 	if(sharePopover == nil) {
 		ShareViewController *shareViewController = [[ShareViewController alloc] init];
-		sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
+		UINavigationController *navShareViewController = [[UINavigationController alloc] initWithRootViewController:shareViewController];
+		sharePopover = [[UIPopoverController alloc] initWithContentViewController:navShareViewController];
 		[shareViewController setPopOver:sharePopover];
 	}
 
@@ -119,7 +120,7 @@
 		[sharePopover dismissPopoverAnimated:YES];
 	} else {
 		CGRect rect = CGRectMake(992, -7, 0, 0);
-		sharePopover.popoverContentSize = CGSizeMake(354, 143);
+		sharePopover.popoverContentSize = CGSizeMake(354, 175);
 		[sharePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 	}
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		520B6CD116AAE6960038C25F /* SubmitButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 520B6CD016AAE6960038C25F /* SubmitButtonTableViewCell.m */; };
+		5215291A16B47AA400889766 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 5215291816B47AA400889766 /* facebook.png */; };
+		5215291B16B47AA400889766 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 5215291916B47AA400889766 /* twitter.png */; };
+		5215291D16B487AA00889766 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 5215291C16B487AA00889766 /* email.png */; };
 		52208E6515C09322006B27BD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6415C09322006B27BD /* AudioToolbox.framework */; };
 		52208E6715C0933D006B27BD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6615C0933D006B27BD /* CFNetwork.framework */; };
 		52208E6915C0935B006B27BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6815C0935B006B27BD /* QuartzCore.framework */; };
@@ -179,6 +182,9 @@
 /* Begin PBXFileReference section */
 		520B6CCF16AAE6960038C25F /* SubmitButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitButtonTableViewCell.h; sourceTree = "<group>"; };
 		520B6CD016AAE6960038C25F /* SubmitButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitButtonTableViewCell.m; sourceTree = "<group>"; };
+		5215291816B47AA400889766 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
+		5215291916B47AA400889766 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
+		5215291C16B487AA00889766 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
 		52208E6415C09322006B27BD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		52208E6615C0933D006B27BD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		52208E6815C0935B006B27BD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -740,7 +746,10 @@
 				52A5295C16AABFE000CC28EB /* US2FormValidation */,
 				52AA0B6C15D45B6A00CA2EC3 /* facebook_icon.png */,
 				52AA0B6D15D45B6A00CA2EC3 /* website_icon.png */,
+				5215291816B47AA400889766 /* facebook.png */,
+				5215291916B47AA400889766 /* twitter.png */,
 				52AA0B6E15D45B6A00CA2EC3 /* twitter_icon.png */,
+				5215291C16B487AA00889766 /* email.png */,
 				52AA0B6F15D45B6A00CA2EC3 /* youtube_icon.png */,
 				52ADD0AE15CC0D4300C2B153 /* banner.png */,
 				52A159A615C52AD100E09F51 /* schedule@2x.png */,
@@ -1029,6 +1038,9 @@
 				52A39A8A16B0955A00A13964 /* share@2x.png in Resources */,
 				52A789C116B1D8B4004C5C91 /* ShareView_iOS6.xib in Resources */,
 				52A5D3FA16B324EA006ACE43 /* ShareView_iOS5.xib in Resources */,
+				5215291A16B47AA400889766 /* facebook.png in Resources */,
+				5215291B16B47AA400889766 /* twitter.png in Resources */,
+				5215291D16B487AA00889766 /* email.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

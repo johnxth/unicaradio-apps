@@ -14,6 +14,16 @@
 "CONTROLLER_TITLE_SETTINGS" = "Impostazioni";
 
 // Controllers
+// All
+"SHARE_SHEET_TITLE" = "Condividi su...";
+"CANCEL_BUTTON" = "Annulla";
+
+// ShareViewController
+"SUGGEST_SUBJECT" = "Ascolta UnicaRadio!";
+"SUGGEST_CONTENT" = "Ascolta UnicaRadio, la webradio degli studenti universitari di Cagliari.\nVisita www.unicaradio.it e scarica l'app dall'App Store!";
+"SUGGEST_CONTENT_ONLY_AUTHOR" = "Sto ascoltando {0} su UnicaRadio! www.unicaradio.it";
+"SUGGEST_CONTENT_SONG" = "Sto ascoltando {0} di {1} su UnicaRadio! www.unicaradio.it";
+
 // Schedule
 "DAYS_SUNDAY" = "Domenica";
 "DAYS_MONDAY" = "Lunedì";
