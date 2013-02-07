@@ -38,6 +38,10 @@
 
 		queue = [[NSOperationQueue alloc] init];
 		[queue setMaxConcurrentOperationCount: 1];
+
+		if([DeviceUtils isPhone]) {
+			[self initButtonBarItems];
+		}
     }
 
     return self;
