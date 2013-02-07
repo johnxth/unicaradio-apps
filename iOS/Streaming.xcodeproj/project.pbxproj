@@ -313,7 +313,6 @@
 		52AFF7C116ADDCCD0012E0BE /* UnicaradioBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioBaseViewController.m; sourceTree = "<group>"; };
 		52B0B2041689A6F3002ACAB8 /* DeviceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUtils.h; sourceTree = "<group>"; };
 		52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUtils.m; sourceTree = "<group>"; };
-		52B0B2071689B194002ACAB8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "/Users/paolo/Desktop/unicaradio-apps/iOS/Streaming/it.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		52B0B2081689B194002ACAB8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "/Users/paolo/Desktop/unicaradio-apps/iOS/StreamingTests/it.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		52B1BA6015C1D366001625FC /* play_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_normal.png; sourceTree = "<group>"; };
 		52B1BA6315C1D383001625FC /* pause_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_0.png; sourceTree = "<group>"; };
@@ -329,6 +328,7 @@
 		52C23C63168CEADB00BA580F /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		52C31B9B15CB0BFE005681EA /* UnicaradioUINavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUINavigationBar.h; sourceTree = "<group>"; };
 		52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUINavigationBar.m; sourceTree = "<group>"; };
+		52C4CA0916C4588900767514 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		52CE0478168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		52D51E6C15BBEE3F00BC8C94 /* Streaming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streaming.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1208,7 +1208,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				52D51E7A15BBEE3F00BC8C94 /* en */,
-				52B0B2071689B194002ACAB8 /* it */,
+				52C4CA0916C4588900767514 /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

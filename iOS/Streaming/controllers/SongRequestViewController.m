@@ -440,7 +440,20 @@
     // Set text to tooltip
     US2Validator *validator = [textUI validator];
     US2ConditionCollection *conditionCollection = [validator checkConditions:[textUI text]];
-    CGRect tooltipViewFrame = CGRectMake(6.0, point.y, 309.0, _tooltipView.frame.size.height);
+	float x;
+	if(![DeviceUtils isPhone]) {
+		x = 675.0;
+	} else {
+		if([DeviceUtils isLandscape] && [DeviceUtils is4InchRetinaIPhone]) {
+			x = 254.0;
+		} else if([DeviceUtils isLandscape]) {
+			x = 168.0;
+		} else {
+			x = 6.0;
+		}
+	}
+
+    CGRect tooltipViewFrame = CGRectMake(x, point.y, 309.0, _tooltipView.frame.size.height);
     if (nil == conditionCollection) {
         _tooltipView       = [[ValidTooltipView alloc] init];
         _tooltipView.frame = tooltipViewFrame;
