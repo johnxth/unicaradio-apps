@@ -12,7 +12,7 @@
 #import "widgets/UnicaradioUINavigationController.h"
 
 #import "controllers/StreamingViewController.h"
-#import "controllers/ScheduleViewController.h"
+#import "controllers/ScheduleTableViewController.h"
 #import "controllers/SongRequestViewController.h"
 #import "controllers/FavouritesViewController.h"
 #import "controllers/InfoViewController.h"
@@ -147,8 +147,8 @@
 
 - (UIViewController *) createScheduleControllerForIPhone
 {
-	ScheduleViewController *scheduleController;
-	scheduleController = [[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPhone" bundle:nil];
+	ScheduleTableViewController *scheduleController;
+	scheduleController = [[ScheduleTableViewController alloc] initWithNibName:@"ScheduleViewController_iPhone" bundle:nil];
 
 	UnicaradioUINavigationController *navScheduleController;
 	navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleController];
@@ -158,7 +158,7 @@
 
 - (UIViewController *) createScheduleControllerForIPad
 {
-	ScheduleViewController *scheduleController = [[ScheduleViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil];
+	ScheduleTableViewController *scheduleController = [[ScheduleTableViewController alloc] initWithNibName:@"ScheduleViewController_iPad" bundle:nil];
 	UnicaradioUINavigationController *navScheduleController;
 	navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleController];
 	NoItemSelectedViewController *noItemSelectedViewController = [[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil];

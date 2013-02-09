@@ -1,27 +1,27 @@
 //
-//  SecondViewController.m
+//  ScheduleTableViewController.m
 //  Streaming
 //
-//  Created by Paolo on 22/07/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Paolo on 09/02/13.
+//
 //
 
-#import <objc/runtime.h>
+#import "ScheduleTableViewController.h"
 
-#import "ScheduleViewController.h"
-#import "../widgets/DTCustomColoredAccessory.h"
-#import "../libs/JSONKit/JSONKit.h"
-#import "../models/Transmission.h"
-#import "../operations/DownloadScheduleOperation.h"
+#import <CKRefreshControl/CKRefreshControl.h>
+
+#import "DTCustomColoredAccessory.h"
+#import "JSONKit.h"
+#import "Transmission.h"
+#import "DownloadScheduleOperation.h"
 #import "UnicaradioUINavigationController.h"
+#import "DeviceUtils.h"
 
-@interface ScheduleViewController ()
+@interface ScheduleTableViewController ()
 
 @end
 
-@implementation ScheduleViewController
-
-@synthesize scheduleTable;
+@implementation ScheduleTableViewController
 
 @synthesize days;
 @synthesize state;
@@ -32,19 +32,24 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
+		self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
 		self.state = DAYS;
 
+		self.refreshControl = [[UIRefreshControl alloc] init];
+		self.refreshControl.tintColor = [UIColor whiteColor];
+		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"This is a test"];
+		[self.refreshControl addTarget:self action:@selector(doRefresh:) forControlEvents:UIControlEventValueChanged];
+
 		queue = [[NSOperationQueue alloc] init];
 		[queue setMaxConcurrentOperationCount: 1];
-
-		if([DeviceUtils isPhone]) {
-			[self initButtonBarItems];
-		}
     }
-
     return self;
+}
+
+- (void)doRefresh:(CKRefreshControl *)sender {
+    NSLog(@"refreshing");
+    [self.refreshControl performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
 }
 
 - (id)initWithSchedule:(Schedule *)s andTitle:(NSString *)t andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,60 +59,53 @@
 	self.state = TRANSMISSIONS;
 	self.title = t;
 	self.currentID = dayNumberZeroIndexed;
-	[self initButtonBarItems];
+	self.refreshControl = nil;
 
-	return self;	
+	return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 
 	if(self.schedule == nil) {
 		if([NSLocalizedString(@"FIRST_DAY", @"") isEqual:@"1"]) {
 			self.days = [[NSMutableArray alloc] initWithObjects:
-							NSLocalizedString(@"DAYS_MONDAY", @""),
-							NSLocalizedString(@"DAYS_TUESDAY", @""),
-							NSLocalizedString(@"DAYS_WEDNESDAY", @""),
-							NSLocalizedString(@"DAYS_THURSDAY", @""),
-							NSLocalizedString(@"DAYS_FRIDAY", @""),
-							NSLocalizedString(@"DAYS_SATURDAY", @""),
-							NSLocalizedString(@"DAYS_SUNDAY", @""),
-							nil];
+						 NSLocalizedString(@"DAYS_MONDAY", @""),
+						 NSLocalizedString(@"DAYS_TUESDAY", @""),
+						 NSLocalizedString(@"DAYS_WEDNESDAY", @""),
+						 NSLocalizedString(@"DAYS_THURSDAY", @""),
+						 NSLocalizedString(@"DAYS_FRIDAY", @""),
+						 NSLocalizedString(@"DAYS_SATURDAY", @""),
+						 NSLocalizedString(@"DAYS_SUNDAY", @""),
+						 nil];
 		} else {
 			self.days = [[NSMutableArray alloc] initWithObjects:
-							NSLocalizedString(@"DAYS_SUNDAY", @""),
-							NSLocalizedString(@"DAYS_MONDAY", @""),
-							NSLocalizedString(@"DAYS_TUESDAY", @""),
-							NSLocalizedString(@"DAYS_WEDNESDAY", @""),
-							NSLocalizedString(@"DAYS_THURSDAY", @""),
-							NSLocalizedString(@"DAYS_FRIDAY", @""),
-							NSLocalizedString(@"DAYS_SATURDAY", @""),
-							nil];
+						 NSLocalizedString(@"DAYS_SUNDAY", @""),
+						 NSLocalizedString(@"DAYS_MONDAY", @""),
+						 NSLocalizedString(@"DAYS_TUESDAY", @""),
+						 NSLocalizedString(@"DAYS_WEDNESDAY", @""),
+						 NSLocalizedString(@"DAYS_THURSDAY", @""),
+						 NSLocalizedString(@"DAYS_FRIDAY", @""),
+						 NSLocalizedString(@"DAYS_SATURDAY", @""),
+						 nil];
 		}
 		self.state = DAYS;
 	}
 
-	self.scheduleTable.rowHeight = 55;
-	self.scheduleTable.backgroundColor = [UIColor blackColor];
+	self.tableView.rowHeight = 55;
+	self.tableView.backgroundColor = [UIColor blackColor];
 
 	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	NSLog(@"ScheduleViewController - viewDidAppear");
-
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"GetSchedule" object:nil];
-
+	
 	[self refreshData];
 }
 
@@ -125,12 +123,19 @@
 	self.schedule = [Schedule fromJSON:[notification object]];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
-// Setta il numero di righe della tabella .
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	if(self.state == DAYS) {
@@ -141,18 +146,17 @@
 	}
 }
 
-// Setta il contenuto delle varie celle
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell;
 	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-
+	
 	UIColor *textColor = [UIColor whiteColor];
 	
 	NSInteger index = indexPath.row;
 	if(self.state == DAYS) {
 		cell.textLabel.text = [days objectAtIndex:index];
-
+		
 		DTCustomColoredAccessory *accessory = [DTCustomColoredAccessory accessoryWithColor:textColor andHighlightedColor:textColor];
 		cell.accessoryView = accessory;
 	} else {
@@ -161,17 +165,19 @@
 		cell.textLabel.text = transmission.formatName;
 		cell.detailTextLabel.text = transmission.startTime;
 	}
-
+	
 	cell.backgroundColor = [UIColor clearColor];
 	[cell.textLabel setTextColor:textColor];
 	[cell.detailTextLabel setTextColor:textColor];
-
+	
 	UIView *redColorView = [[UIView alloc] init];
 	redColorView.backgroundColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:0.70];
 	cell.selectedBackgroundView = redColorView;
-
+	
 	return cell;
 }
+
+#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -181,17 +187,17 @@
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		return;
 	}
-
-	NSString *dayString = [[[self.scheduleTable cellForRowAtIndexPath:indexPath] textLabel] text];
-
+	
+	NSString *dayString = [[[self.tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+	
 	NSInteger dayNumber = indexPath.row;
 	NSLog(@"dayNumber: %d", dayNumber);
 	if(![NSLocalizedString(@"FIRST_DAY", @"") isEqual:@"1"]) {
 		dayNumber = dayNumber - 1 < 0 ? 6 : dayNumber - 1;
 		NSLog(@"Uh! First day isn't 1. New dayNumber: %d", dayNumber);
 	}
-
-	ScheduleViewController *scheduleViewController = [[ScheduleViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:dayNumber andNibName:self.nibName bundle:self.nibBundle];
+	
+	ScheduleTableViewController *scheduleViewController = [[ScheduleTableViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:dayNumber andNibName:self.nibName bundle:self.nibBundle];
 	if([DeviceUtils isPhone]) {
 		[self.navigationController pushViewController:scheduleViewController animated:YES];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
