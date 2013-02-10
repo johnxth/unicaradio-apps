@@ -17,6 +17,8 @@
 #import "UnicaradioUINavigationController.h"
 #import "DeviceUtils.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 @interface ScheduleTableViewController ()
 
 @end
@@ -28,17 +30,25 @@
 @synthesize schedule;
 @synthesize currentID;
 
+- (void)initCommon
+{
+	self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
+	self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
+	self.state = DAYS;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-		self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
-        self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
-		self.state = DAYS;
+		[self initCommon];
 
 		self.refreshControl = [[UIRefreshControl alloc] init];
+		if(SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+			//FIXME: attributedTitle not always shown in iOS6
+			self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PULL_TO_REFRESH_MESSAGE", @"")];
+		}
 		self.refreshControl.tintColor = [UIColor whiteColor];
-		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"This is a test"];
 		[self.refreshControl addTarget:self action:@selector(doRefresh:) forControlEvents:UIControlEventValueChanged];
 
 		queue = [[NSOperationQueue alloc] init];
@@ -49,17 +59,23 @@
 
 - (void)doRefresh:(CKRefreshControl *)sender {
     NSLog(@"refreshing");
-    [self.refreshControl performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+	if(SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+		//FIXME: attributedTitle not always shown in iOS6
+		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PULL_TO_REFRESH_REFRESHING", @"")];
+	}
+    [self refreshData:YES];
 }
 
 - (id)initWithSchedule:(Schedule *)s andTitle:(NSString *)t andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	self.schedule = s;
-	self.state = TRANSMISSIONS;
-	self.title = t;
-	self.currentID = dayNumberZeroIndexed;
-	self.refreshControl = nil;
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if(self) {
+		[self initCommon];
+		self.schedule = s;
+		self.state = TRANSMISSIONS;
+		self.title = t;
+		self.currentID = dayNumberZeroIndexed;
+	}
 
 	return self;
 }
@@ -103,15 +119,15 @@
 {
 	[super viewDidAppear:animated];
 	NSLog(@"ScheduleViewController - viewDidAppear");
-	
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"GetSchedule" object:nil];
-	
-	[self refreshData];
+
+	[self refreshData:NO];
 }
 
-- (void) refreshData
+- (void) refreshData:(bool) force
 {
-	if(schedule == nil) {
+	if(schedule == nil || force) {
 		DownloadScheduleOperation *operation = [[DownloadScheduleOperation alloc] init];
 		[queue addOperation:operation];
 	}
@@ -121,6 +137,12 @@
 {
 	NSLog(@"ScheduleViewController - receiveNotification");
 	self.schedule = [Schedule fromJSON:[notification object]];
+	NSLog(@"ScheduleViewController - receiveNotification: json parsed");
+	[self.refreshControl performSelector:@selector(endRefreshing)];
+	if(SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+		//FIXME: attributedTitle not always shown in iOS6
+		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PULL_TO_REFRESH_MESSAGE", @"")];
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -187,7 +209,12 @@
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		return;
 	}
-	
+	if([self.refreshControl isRefreshing]) {
+		// is this check useless?
+		NSLog(@"Refreshing. ignoring.");
+		return;
+	}
+
 	NSString *dayString = [[[self.tableView cellForRowAtIndexPath:indexPath] textLabel] text];
 	
 	NSInteger dayNumber = indexPath.row;

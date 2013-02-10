@@ -33,6 +33,8 @@
 "DAYS_FRIDAY" = "Friday";
 "DAYS_SATURDAY" = "Saturday";
 "FIRST_DAY" = "0";
+"PULL_TO_REFRESH_MESSAGE" = "Pull to refresh";
+"PULL_TO_REFRESH_REFRESHING" = "Refreshing...";
 
 // SendRequest
 "EMAIL_PLACEHOLDER" = "address@mail.com";
