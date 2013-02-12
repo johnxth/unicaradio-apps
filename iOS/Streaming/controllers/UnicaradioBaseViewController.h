@@ -14,10 +14,8 @@
 
 #import <MessageUI/MessageUI.h>
 
-@interface UnicaradioBaseViewController : UIViewController<UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+@interface UIViewController (UnicaradioButtons) <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 {
-	UIPopoverController *popover;
-	UIPopoverController *sharePopover;
 }
 
 @property (strong) UIPopoverController *popover;

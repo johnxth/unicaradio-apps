@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UnicaradioBaseViewController.h"
 
-@interface FavouritesViewController : UnicaradioBaseViewController<UITableViewDelegate,
-																   UITableViewDataSource>
+@interface FavouritesViewController : UIViewController<UITableViewDelegate,
+													   UITableViewDataSource>
 {
 	IBOutlet UITableView *favouritesTable;
 	

@@ -10,6 +10,6 @@
 
 #import "UnicaradioBaseViewController.h"
 
-@interface NoItemSelectedViewController : UnicaradioBaseViewController
+@interface NoItemSelectedViewController : UIViewController
 
 @end

@@ -10,7 +10,7 @@
 
 #import "UnicaradioBaseViewController.h"
 
-@interface InfoViewController : UnicaradioBaseViewController<UIWebViewDelegate>
+@interface InfoViewController : UIViewController<UIWebViewDelegate>
 {
 	IBOutlet UIWebView *webView;
 	IBOutlet UIScrollView *scrollView;

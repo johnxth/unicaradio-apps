@@ -29,7 +29,7 @@
 @class MarqueeLabel;
 @class SettingsManager;
 
-@interface StreamingViewController : UnicaradioBaseViewController
+@interface StreamingViewController : UIViewController
 {
     AudioStreamer *streamer;
 

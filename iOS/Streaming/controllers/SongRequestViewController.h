@@ -24,7 +24,7 @@
 #define AUTHOR_POSITION 1
 #define TITLE_POSITION 2
 
-@interface SongRequestViewController : UnicaradioBaseViewController<US2ValidatorUIDelegate,
+@interface SongRequestViewController : UIViewController<US2ValidatorUIDelegate,
 														FormTableViewCellDelegate,
 														UITextFieldDelegate,
 														UITextViewDelegate,

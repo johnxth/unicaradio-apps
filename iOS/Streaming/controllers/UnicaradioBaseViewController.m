@@ -8,14 +8,10 @@
 
 #import "UnicaradioBaseViewController.h"
 
-@interface UnicaradioBaseViewController ()
+@implementation UIViewController (UnicaradioButtons)
 
-@end
-
-@implementation UnicaradioBaseViewController
-
-@synthesize popover;
-@synthesize sharePopover;
+@dynamic popover;
+@dynamic sharePopover;
 
 - (void) initButtonBarItemsForNavigationItem:(UINavigationItem *)item
 {
@@ -37,11 +33,6 @@
 - (void) initButtonBarItems
 {
 	[self initButtonBarItemsForNavigationItem:self.navigationItem];
-}
-
-- (void) didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 - (void) segmentAction:(id) sender
@@ -69,19 +60,19 @@
 
 - (void) openSettingsForIPad:(id) sender
 {
-	if(popover == nil) {
+	if(self.popover == nil) {
 		UIViewController *settingsViewController = [SettingsViewController createSettingsController];
-		popover = [[UIPopoverController alloc] initWithContentViewController:settingsViewController];
+		self.popover = [[UIPopoverController alloc] initWithContentViewController:settingsViewController];
 	}
 
-	if([popover isPopoverVisible]) {
-		[popover dismissPopoverAnimated:YES];
+	if([self.popover isPopoverVisible]) {
+		[self.popover dismissPopoverAnimated:YES];
 	} else {
 		UISegmentedControl *control = sender;
 		CGRect rect = control.frame;
 		rect.origin.x -= 22;
 		rect.origin.y -= 42;
-		[popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+		[self.popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 	}
 }
 
@@ -109,19 +100,19 @@
 
 - (void) openShareSheetForIPad:(id) sender
 {
-	if(sharePopover == nil) {
+	if(self.sharePopover == nil) {
 		ShareViewController *shareViewController = [[ShareViewController alloc] init];
 		UINavigationController *navShareViewController = [[UINavigationController alloc] initWithRootViewController:shareViewController];
-		sharePopover = [[UIPopoverController alloc] initWithContentViewController:navShareViewController];
-		[shareViewController setPopOver:sharePopover];
+		self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:navShareViewController];
+		[shareViewController setPopOver:self.sharePopover];
 	}
 
-	if([sharePopover isPopoverVisible]) {
-		[sharePopover dismissPopoverAnimated:YES];
+	if([self.sharePopover isPopoverVisible]) {
+		[self.sharePopover dismissPopoverAnimated:YES];
 	} else {
 		CGRect rect = CGRectMake(992, -7, 0, 0);
-		sharePopover.popoverContentSize = CGSizeMake(354, 175);
-		[sharePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+		self.sharePopover.popoverContentSize = CGSizeMake(354, 175);
+		[self.sharePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 	}
 }
 

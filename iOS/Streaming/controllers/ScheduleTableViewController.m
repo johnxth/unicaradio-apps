@@ -53,6 +53,11 @@
 
 		queue = [[NSOperationQueue alloc] init];
 		[queue setMaxConcurrentOperationCount: 1];
+
+		if([DeviceUtils isPhone]) {
+			[self initButtonBarItems];
+		}
+
     }
     return self;
 }
@@ -75,6 +80,7 @@
 		self.state = TRANSMISSIONS;
 		self.title = t;
 		self.currentID = dayNumberZeroIndexed;
+		[self initButtonBarItems];
 	}
 
 	return self;

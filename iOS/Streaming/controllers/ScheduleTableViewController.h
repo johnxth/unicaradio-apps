@@ -11,6 +11,8 @@
 #import "Schedule_state.h"
 #import "Schedule.h"
 
+#import "UnicaradioBaseViewController.h"
+
 #define SCHEDULE_URL @"http://www.unicaradio.it/regia/test/palinsesto.php"
 
 @interface ScheduleTableViewController : UITableViewController<UISplitViewControllerDelegate>

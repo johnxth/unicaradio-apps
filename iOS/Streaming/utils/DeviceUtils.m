@@ -12,7 +12,7 @@
 
 + (BOOL) isLandscape
 {
-	UIDeviceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+	UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
 	return [self isLandscape:currentOrientation];
 }
 
