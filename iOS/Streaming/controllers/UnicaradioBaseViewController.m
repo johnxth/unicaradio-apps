@@ -6,12 +6,34 @@
 //
 //
 
+#import <objc/runtime.h>
+
 #import "UnicaradioBaseViewController.h"
+
+static char *const popoverKey = "popoverKey";
+static char *const sharePopoverKey = "sharePopoverKey";
 
 @implementation UIViewController (UnicaradioButtons)
 
-@dynamic popover;
-@dynamic sharePopover;
+- (void)setPopover:(UIPopoverController *)popover
+{
+	objc_setAssociatedObject(self, popoverKey, popover, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (UIPopoverController *)popover
+{
+	return objc_getAssociatedObject(self, popoverKey);
+}
+
+- (void)setSharePopover:(UIPopoverController *)sharePopover
+{
+	objc_setAssociatedObject(self, sharePopoverKey, sharePopover, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (UIPopoverController *)sharePopover
+{
+	return objc_getAssociatedObject(self, sharePopoverKey);
+}
 
 - (void) initButtonBarItemsForNavigationItem:(UINavigationItem *)item
 {
@@ -110,7 +132,11 @@
 	if([self.sharePopover isPopoverVisible]) {
 		[self.sharePopover dismissPopoverAnimated:YES];
 	} else {
-		CGRect rect = CGRectMake(992, -7, 0, 0);
+		//CGRect rect = CGRectMake(992, -7, 1, 1);
+		UISegmentedControl *control = sender;
+		CGRect rect = control.frame;
+		rect.origin.x += 32;
+		rect.origin.y -= 42;
 		self.sharePopover.popoverContentSize = CGSizeMake(354, 175);
 		[self.sharePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 	}

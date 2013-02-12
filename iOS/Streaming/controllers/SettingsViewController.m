@@ -114,6 +114,27 @@
     return rows;
 }
 
+- (UIView *)tableView:(UITableView *)_tableView viewForHeaderInSection:(NSInteger)section {
+	NSString *sectionTitle = [self tableView:_tableView titleForHeaderInSection:section];
+	if (sectionTitle == nil) {
+		return nil;
+	}
+
+	// Create label with section title
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _tableView.bounds.size.width - 40, 30)];
+	//If you add a bit to x and decrease y, it will be more in line with the tableView cell (that is in iPad and landscape)
+	label.backgroundColor = [UIColor clearColor];
+	label.textColor = [UIColor whiteColor];
+	label.font = [UIFont boldSystemFontOfSize:18];
+	label.text = sectionTitle;
+
+	// Create header view and add label as a subview
+	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
+	[view addSubview:label];
+
+	return view;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSLog(@"cellForRowAtIndexPath");
