@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "NoItemSelectedViewController.h"
+#import "LicenceViewController.h"
 
 #import "../widgets/UnicaradioUINavigationController.h"
 
@@ -105,7 +106,7 @@
             rows = 2;
             break;
         case 1:
-            rows = 1;
+            rows = 2;
             break;
         default:
             break;
@@ -176,6 +177,8 @@
 				NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
 				cell.textLabel.text = NSLocalizedString(@"APP_VERSION", @"");
 				cell.detailTextLabel.text = appVersion;
+			} else if(numberOfRow == 1) {
+				cell.textLabel.text = NSLocalizedString(@"LIBRARIES_AND_LICENCES", @"");
 			}
 			break;
 		default:
@@ -211,7 +214,12 @@
 				[self.navigationController pushViewController:networkTypeChooseViewController animated:YES];
 			}
 			break;
-
+		case 1:
+			if(numberOfRow == 1) {
+				LicenceViewController *licenceViewController;
+				licenceViewController = [[LicenceViewController alloc] init];
+				[self.navigationController pushViewController:licenceViewController animated:YES];
+			}
 		default:
 			break;
 	}

@@ -11,6 +11,8 @@
 		5215291A16B47AA400889766 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 5215291816B47AA400889766 /* facebook.png */; };
 		5215291B16B47AA400889766 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 5215291916B47AA400889766 /* twitter.png */; };
 		5215291D16B487AA00889766 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 5215291C16B487AA00889766 /* email.png */; };
+		521634B016CC16BF00570E00 /* LicenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521634AF16CC16BF00570E00 /* LicenceViewController.m */; };
+		521634B416CC16EF00570E00 /* LicenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 521634B316CC16EF00570E00 /* LicenceViewController.xib */; };
 		52208E6515C09322006B27BD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6415C09322006B27BD /* AudioToolbox.framework */; };
 		52208E6715C0933D006B27BD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6615C0933D006B27BD /* CFNetwork.framework */; };
 		52208E6915C0935B006B27BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6815C0935B006B27BD /* QuartzCore.framework */; };
@@ -109,7 +111,6 @@
 		52C23C65168CEADB00BA580F /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C23C62168CEADB00BA580F /* Icon-Small.png */; };
 		52C23C66168CEADB00BA580F /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C23C63168CEADB00BA580F /* Icon-Small@2x.png */; };
 		52C31B9D15CB0BFE005681EA /* UnicaradioUINavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */; };
-		52CE047B168BA87A0049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		52D51E7115BBEE3F00BC8C94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7015BBEE3F00BC8C94 /* UIKit.framework */; };
 		52D51E7315BBEE3F00BC8C94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7215BBEE3F00BC8C94 /* Foundation.framework */; };
 		52D51E7515BBEE3F00BC8C94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D51E7415BBEE3F00BC8C94 /* CoreGraphics.framework */; };
@@ -201,6 +202,9 @@
 		5215291816B47AA400889766 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		5215291916B47AA400889766 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		5215291C16B487AA00889766 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
+		521634AE16CC16BF00570E00 /* LicenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenceViewController.h; sourceTree = "<group>"; };
+		521634AF16CC16BF00570E00 /* LicenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenceViewController.m; sourceTree = "<group>"; };
+		521634B316CC16EF00570E00 /* LicenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenceViewController.xib; sourceTree = "<group>"; };
 		52208E6415C09322006B27BD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		52208E6615C0933D006B27BD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		52208E6815C0935B006B27BD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -349,8 +353,6 @@
 		52C31B9B15CB0BFE005681EA /* UnicaradioUINavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUINavigationBar.h; sourceTree = "<group>"; };
 		52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUINavigationBar.m; sourceTree = "<group>"; };
 		52C4CA0916C4588900767514 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		52CE0478168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
-		52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		52D51E6C15BBEE3F00BC8C94 /* Streaming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streaming.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D51E7015BBEE3F00BC8C94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		52D51E7215BBEE3F00BC8C94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -612,15 +614,6 @@
 			path = widgets;
 			sourceTree = "<group>";
 		};
-		52CE0476168BA6500049ABB3 /* TPKeyboardAvoiding */ = {
-			isa = PBXGroup;
-			children = (
-				52CE0478168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.h */,
-				52CE0479168BA7090049ABB3 /* TPKeyboardAvoidingScrollView.m */,
-			);
-			path = TPKeyboardAvoiding;
-			sourceTree = "<group>";
-		};
 		52D51E6115BBEE3E00BC8C94 = {
 			isa = PBXGroup;
 			children = (
@@ -753,6 +746,8 @@
 				52A5D3F716B322BA006ACE43 /* ShareViewController.m */,
 				52A7893B16C6AB43008B7AA2 /* ScheduleTableViewController.h */,
 				52A7893C16C6AB44008B7AA2 /* ScheduleTableViewController.m */,
+				521634AE16CC16BF00570E00 /* LicenceViewController.h */,
+				521634AF16CC16BF00570E00 /* LicenceViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -826,6 +821,7 @@
 				52EC73F516A1B24C00DD3B5C /* SongRequestViewController.xib */,
 				52A5D3F916B324EA006ACE43 /* ShareView_iOS5.xib */,
 				52A789C016B1D8B4004C5C91 /* ShareView_iOS6.xib */,
+				521634B316CC16EF00570E00 /* LicenceViewController.xib */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -844,7 +840,6 @@
 				52E1720415E440470020A27C /* JSONKit */,
 				524777A41691A35F000F953E /* MarqueeLabel */,
 				52E1720A15E441300020A27C /* reachability */,
-				52CE0476168BA6500049ABB3 /* TPKeyboardAvoiding */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -1083,6 +1078,7 @@
 				5215291B16B47AA400889766 /* twitter.png in Resources */,
 				5215291D16B487AA00889766 /* email.png in Resources */,
 				52A85D5716C58A120015CFB5 /* cover_xmas.png in Resources */,
+				521634B416CC16EF00570E00 /* LicenceViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1118,7 +1114,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52CE047B168BA87A0049ABB3 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				52E1721015E526DD0020A27C /* Reachability.m in Sources */,
 				52D51E7D15BBEE3F00BC8C94 /* main.m in Sources */,
 				52D51E8115BBEE3F00BC8C94 /* AppDelegate.m in Sources */,
@@ -1162,6 +1157,7 @@
 				52AFF7C216ADDCCD0012E0BE /* UnicaradioBaseViewController.m in Sources */,
 				52A5D3F816B322BA006ACE43 /* ShareViewController.m in Sources */,
 				52A7893D16C6AB44008B7AA2 /* ScheduleTableViewController.m in Sources */,
+				521634B016CC16BF00570E00 /* LicenceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

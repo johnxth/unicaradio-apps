@@ -21,7 +21,7 @@
 	NSString *nibName = @"NetworkTypeChooseViewController";
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
-        self.title = @"Scegli rete";
+        self.title = NSLocalizedString(@"CHOOSE_NETWORK_TYPE", @"");
 		self->preference = p;
 		self->currentNetworkType = value;
     }
@@ -59,7 +59,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return @"Tipo di rete";
+	return NSLocalizedString(@"PREF_NETWORK_TYPE", @"");
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
