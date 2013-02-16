@@ -442,39 +442,72 @@ public class StreamingFragment extends UnicaradioFragment
 			return;
 		}
 
-		boolean isInfoNotBlank = !infos.isClean();
 		if(trackAuthor != null) {
-			boolean isDeviceATablet = getActivity().findViewById(
-					R.id.tablet_layout) != null;
-			trackAuthor.setText(StringUtils.EMPTY);
-			if(isDeviceATablet && isInfoNotBlank) {
-				trackAuthor.setText(infos.getAuthor());
-				showAuthorAndTitleFields();
-			} else if(isDeviceATablet) {
-				hideAuthorAndTitleFields();
-			} else {
-				trackAuthor.setText("- " + infos.getAuthor() + " -");
-			}
-
-			trackTitle.setText(infos.getTitle());
+			updateAuthorAndTitleSeparateFields(trackAuthor, trackTitle);
 		} else {
-			String currentlyOnAir = infos.getAuthor();
-			if(isInfoNotBlank && !StringUtils.isEmpty(infos.getTitle())) {
-				currentlyOnAir += " - " + infos.getTitle();
-			} else if(infos.isClean()) {
-				currentlyOnAir = "- " + currentlyOnAir + " -";
+			updateAuthorAndTitleOneField(trackTitle);
+		}
+	}
+
+	private void updateAuthorAndTitleSeparateFields(TextView trackAuthor,
+			TextView trackTitle)
+	{
+		boolean isDeviceATablet = isDeviceATablet();
+
+		trackAuthor.setText(StringUtils.EMPTY);
+		if(isDeviceATablet && infos.isClean()) {
+			hideAuthorAndTitleFields();
+		} else if(isDeviceATablet) {
+			hideAuthorAndTitleFields();
+			if(StringUtils.isEmpty(infos.getTitle())) {
+				showOnAirField();
+			} else {
+				showAuthorAndTitleFields();
 			}
 
-			trackTitle.setText(currentlyOnAir);
+			trackAuthor.setText(infos.getAuthor());
+		} else {
+			trackAuthor.setText("- " + infos.getAuthor() + " -");
 		}
+
+		trackTitle.setText(infos.getTitle());
+	}
+
+	private void updateAuthorAndTitleOneField(TextView trackTitle)
+	{
+		boolean isInfoNotBlank = !infos.isClean();
+		String currentlyOnAir = infos.getAuthor();
+
+		if(isInfoNotBlank && !StringUtils.isEmpty(infos.getTitle())) {
+			currentlyOnAir += " - " + infos.getTitle();
+		} else if(infos.isClean()) {
+			currentlyOnAir = "- " + currentlyOnAir + " -";
+		}
+
+		trackTitle.setText(currentlyOnAir);
+	}
+
+	private boolean isDeviceATablet()
+	{
+		return getActivity().findViewById(R.id.tablet_layout) != null;
 	}
 
 	private void showAuthorAndTitleFields()
 	{
-		getActivity().findViewById(R.id.author_label).setVisibility(
-				View.VISIBLE);
+		TextView author_label = (TextView) getActivity().findViewById(
+				R.id.author_label);
+		author_label.setVisibility(View.VISIBLE);
+		author_label.setText(R.string.streaming_author);
 		getActivity().findViewById(R.id.title_label)
 				.setVisibility(View.VISIBLE);
+	}
+
+	private void showOnAirField()
+	{
+		TextView author_label = (TextView) getActivity().findViewById(
+				R.id.author_label);
+		author_label.setVisibility(View.VISIBLE);
+		author_label.setText(R.string.streaming_onair);
 	}
 
 	private void hideAuthorAndTitleFields()

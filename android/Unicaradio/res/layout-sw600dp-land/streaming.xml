@@ -39,7 +39,7 @@
 			android:layout_height="wrap_content"
 			android:textSize="15sp"
 			android:layout_marginTop="15dp"
-			android:text="Autore:"
+			android:text="@string/streaming_author"
 			android:visibility="gone" />
 		<it.unicaradio.android.gui.ScrollTextView
 			android:id="@+id/author"
@@ -58,7 +58,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="15dp"
 			android:textSize="15sp"
-			android:text="Titolo:"
+			android:text="@string/streaming_title"
 			android:visibility="gone" />
 		<it.unicaradio.android.gui.ScrollTextView
 			android:id="@+id/songTitle"

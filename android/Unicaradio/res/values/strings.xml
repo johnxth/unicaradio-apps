@@ -141,4 +141,9 @@
 	<string name="menu_suggest">Suggerisci agli amici</string>
 	<string name="menu_song_send">Invia</string>
 
+	<!-- layouts -->
+	<string name="streaming_author">Autore:</string>
+	<string name="streaming_title">Titolo:</string>
+	<string name="streaming_onair">Ora in onda:</string>
+	
 </resources>
