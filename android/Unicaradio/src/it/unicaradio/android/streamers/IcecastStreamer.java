@@ -16,6 +16,7 @@
  */
 package it.unicaradio.android.streamers;
 
+import it.unicaradio.android.exceptions.UnicaradioRuntimeException;
 import it.unicaradio.android.gui.TrackInfos;
 import it.unicaradio.android.utils.StringUtils;
 
@@ -151,8 +152,6 @@ public class IcecastStreamer extends Streamer
 		String artistAndTitle = StringUtils.substringBetween(metadataString,
 				"=", ";");
 		artistAndTitle = StringUtils.substring(artistAndTitle, 1, -1);
-		// String[] infos =
-		// StringUtils.splitByWholeSeparator(artistAndTitle, SEPARATOR);
 
 		// infos contiene:
 		// [0] == artista
@@ -160,9 +159,33 @@ public class IcecastStreamer extends Streamer
 		// oppure se infos è grande 1, in [0] contiene il titolo
 		// di un programma
 
+		TrackInfos infos = fillTrackInfos(artistAndTitle);
+
+		failOnEmptyMetadata(infos);
+
+		return infos;
+	}
+
+	/**
+	 * @param artistAndTitle
+	 * @return
+	 */
+	private TrackInfos fillTrackInfos(String artistAndTitle)
+	{
 		TrackInfos infos = new TrackInfos();
 		infos.setAuthor(StringUtils.substringBefore(artistAndTitle, SEPARATOR));
 		infos.setTitle(StringUtils.substringAfter(artistAndTitle, SEPARATOR));
 		return infos;
+	}
+
+	/**
+	 * @param infos
+	 */
+	private void failOnEmptyMetadata(TrackInfos infos)
+	{
+		if(StringUtils.isEmpty(infos.getAuthor())
+				&& StringUtils.isEmpty(infos.getTitle())) {
+			throw new UnicaradioRuntimeException("Could not read icy metadata");
+		}
 	}
 }

@@ -28,6 +28,7 @@ import it.unicaradio.android.streamers.Streamer;
 import it.unicaradio.android.utils.StringUtils;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -288,7 +289,20 @@ public class StreamingService extends Service
 				conn = url.openConnection();
 				conn.addRequestProperty("Icy-MetaData", "1");
 				conn.connect();
-				streamer = new IcecastStreamer(conn);
+
+				if(conn instanceof HttpURLConnection) {
+					HttpURLConnection httpConnection = (HttpURLConnection) conn;
+					int code = httpConnection.getResponseCode();
+					if(code != HttpURLConnection.HTTP_OK) {
+						stop();
+						Log.d(LOG, "Impossibile connettersi");
+					}
+
+					streamer = new IcecastStreamer(conn);
+				} else {
+					stop();
+					Log.d(LOG, "Impossibile connettersi");
+				}
 			} catch(MalformedURLException e) {
 				stopWithException(
 						"Errore: l'indirizzo di streaming non è corretto.", e);
