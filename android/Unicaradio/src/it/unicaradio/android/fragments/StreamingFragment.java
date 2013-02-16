@@ -78,7 +78,7 @@ public class StreamingFragment extends UnicaradioFragment
 
 	private static TrackInfos infos;
 
-	private Thread imageThread;
+	private StoppableThread imageThread;
 
 	private boolean isStopped;
 
@@ -140,7 +140,11 @@ public class StreamingFragment extends UnicaradioFragment
 		private void downloadCover()
 		{
 			if(canLoadCover()) {
-				imageThread = new Thread(new LoadCoverRunnable());
+				if(imageThread != null) {
+					imageThread.stopThread();
+				}
+
+				imageThread = new StoppableThread(new LoadCoverRunnable());
 				imageThread.start();
 			}
 		}
@@ -562,8 +566,45 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	}
 
-	private final class LoadCoverRunnable implements Runnable
+	private interface StoppableRunnable extends Runnable
 	{
+		void stop();
+	}
+
+	public class StoppableThread extends Thread
+	{
+		private StoppableRunnable runnable;
+
+		/**
+		 * @param runnable
+		 * @param threadName
+		 */
+		public StoppableThread(StoppableRunnable runnable, String threadName)
+		{
+			super(runnable, threadName);
+
+			this.runnable = (StoppableRunnable) runnable;
+		}
+
+		/**
+		 * @param runnable
+		 */
+		public StoppableThread(StoppableRunnable runnable)
+		{
+			super(runnable);
+			this.runnable = (StoppableRunnable) runnable;
+		}
+
+		public void stopThread()
+		{
+			this.runnable.stop();
+		}
+	}
+
+	private final class LoadCoverRunnable implements StoppableRunnable
+	{
+		private boolean mustStop = false;
+
 		@Override
 		public void run()
 		{
@@ -571,10 +612,16 @@ public class StreamingFragment extends UnicaradioFragment
 				infos.setCover(null);
 
 				mHandler.post(mUpdateResults);
+				if(mustStop) {
+					return;
+				}
 				try {
 					wait(5000);
 				} catch(InterruptedException e) {
 					Log.d(LOG, "Thread interrotto", e);
+				}
+				if(mustStop) {
+					return;
 				}
 
 				try {
@@ -585,6 +632,15 @@ public class StreamingFragment extends UnicaradioFragment
 							ONAIR_COVER_URL));
 				}
 			}
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void stop()
+		{
+			mustStop = true;
 		}
 	}
 }
