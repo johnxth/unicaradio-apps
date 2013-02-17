@@ -174,12 +174,16 @@ public class ScheduleListFragment extends SherlockListFragment
 
 	void deselectItemOnList()
 	{
-		if(getListView() == null) {
-			return;
-		}
+		try {
+			if(getListView() == null) {
+				return;
+			}
 
-		getListView().setItemChecked(getListView().getCheckedItemPosition(),
-				false);
+			getListView().setItemChecked(
+					getListView().getCheckedItemPosition(), false);
+		} catch(Exception e) {
+			Log.d(TAG, "deselectItemOnList() threw exception: ", e);
+		}
 	}
 
 	void updateScheduleFromJSON(RefreshType refreshType)
