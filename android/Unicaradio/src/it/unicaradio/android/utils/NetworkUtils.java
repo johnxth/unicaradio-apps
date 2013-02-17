@@ -74,6 +74,10 @@ public class NetworkUtils
 		NetworkInfo info = connManager
 				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
+		if(info == null) {
+			return false;
+		}
+
 		return info.isConnected();
 	}
 
