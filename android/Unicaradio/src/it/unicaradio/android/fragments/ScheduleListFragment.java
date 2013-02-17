@@ -28,6 +28,7 @@ import it.unicaradio.android.utils.IntentUtils;
 import it.unicaradio.android.utils.NetworkUtils;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -249,15 +250,20 @@ public class ScheduleListFragment extends SherlockListFragment
 		{
 			Log.e(TAG, "Got error: " + result.getErrorCode());
 
+			FragmentActivity activity = getActivity();
+			if(activity == null) {
+				return;
+			}
+
 			if(result.getErrorCode() == Error.INTERNAL_DOWNLOAD_ERROR) {
-				new AlertDialog.Builder(getActivity())
+				new AlertDialog.Builder(activity)
 						.setTitle("Errore!")
 						.setMessage(
 								"È avvenuto un errore. Verifica di essere connesso ad Internet.")
 						.setCancelable(false).setPositiveButton("OK", null)
 						.show();
 			} else {
-				new AlertDialog.Builder(getActivity())
+				new AlertDialog.Builder(activity)
 						.setTitle("Errore!")
 						.setMessage(
 								"È avvenuto un errore imprevisto. Riprova più tardi.")
