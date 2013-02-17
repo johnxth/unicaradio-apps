@@ -278,6 +278,12 @@ public class MainActivity extends SherlockFragmentActivity
 	{
 		UnicaradioFragment currentFragment = tabSelectedListener
 				.getCurrentFragment();
+
+		if(currentFragment == null) {
+			Log.w(TAG, "MainActivity.onKeyDown(): currentFragment is NULL!");
+			return super.onKeyDown(keyCode, event);
+		}
+
 		boolean result = currentFragment.onKeyDown(keyCode, event);
 		return result || super.onKeyDown(keyCode, event);
 	}
