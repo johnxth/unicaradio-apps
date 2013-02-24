@@ -90,6 +90,14 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	};
 
+	private final Runnable mUpdateCover = new Runnable() {
+		@Override
+		public void run()
+		{
+			updateOnlyCoverInUi();
+		}
+	};
+
 	protected BroadcastReceiver trackinforeceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent)
@@ -118,11 +126,18 @@ public class StreamingFragment extends UnicaradioFragment
 
 		private void updateTrackInfos(Intent intent)
 		{
+			Log.v(TAG, "Updating track info");
+
 			String author = intent.getStringExtra("author");
 			String title = intent.getStringExtra("title");
+
+			Log.d(TAG, "Author: " + author);
+			Log.d(TAG, "Title: " + title);
+
 			if(oldInfos != null
 					&& StringUtils.equals(author, oldInfos.getAuthor())
 					&& StringUtils.equals(title, oldInfos.getTitle())) {
+				Log.v(TAG, "new info equals old");
 				infos = oldInfos;
 				oldInfos = null;
 				mHandler.post(mUpdateResults);
@@ -140,6 +155,7 @@ public class StreamingFragment extends UnicaradioFragment
 		private void downloadCover()
 		{
 			if(canLoadCover()) {
+				Log.v(TAG, "downloading cover");
 				if(imageThread != null) {
 					imageThread.stopThread();
 				}
@@ -431,6 +447,23 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	}
 
+	private void updateOnlyCoverInUi()
+	{
+		try {
+			if(((streamingService == null) || !streamingService.isPlaying())) {
+				synchronized(this) {
+					infos.clean();
+				}
+			}
+
+			synchronized(this) {
+				updateCoverInUi();
+			}
+		} catch(NullPointerException e) {
+			Log.d(TAG, e.getMessage(), e);
+		}
+	}
+
 	private void updateAuthorAndTitleInUi()
 	{
 		TextView trackAuthor = (TextView) getActivity().findViewById(
@@ -548,6 +581,10 @@ public class StreamingFragment extends UnicaradioFragment
 		setPlayButton();
 		infos.clean();
 		mHandler.post(mUpdateResults);
+
+		if(imageThread != null) {
+			imageThread.stopThread();
+		}
 	}
 
 	private void setPlayButton()
@@ -644,7 +681,8 @@ public class StreamingFragment extends UnicaradioFragment
 			synchronized(this) {
 				infos.setCover(null);
 
-				mHandler.post(mUpdateResults);
+				Log.v(TAG, "resetting cover in view");
+				mHandler.post(mUpdateCover);
 				if(mustStop) {
 					return;
 				}
@@ -659,7 +697,11 @@ public class StreamingFragment extends UnicaradioFragment
 
 				try {
 					infos.setCover(ImageUtils.downloadFromUrl(ONAIR_COVER_URL));
-					mHandler.post(mUpdateResults);
+					if(mustStop) {
+						return;
+					}
+					mHandler.post(mUpdateCover);
+					Log.v(TAG, "updated cover in view");
 				} catch(IOException e) {
 					Log.d(LOG, MessageFormat.format("Cannot find file {0}",
 							ONAIR_COVER_URL));

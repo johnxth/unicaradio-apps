@@ -41,13 +41,19 @@
 			android:layout_marginTop="15dp"
 			android:text="@string/streaming_author"
 			android:visibility="gone" />
-		<it.unicaradio.android.gui.ScrollTextView
+		<TextView
 			android:id="@+id/author"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:singleLine="true"
 			android:ellipsize="marquee"
 			android:marqueeRepeatLimit="marquee_forever"
+
+			android:focusable="true"
+			android:focusableInTouchMode="true"
+			android:scrollHorizontally="true"
+			android:textIsSelectable="false"
+
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
 			android:textSize="22sp" />
@@ -60,13 +66,19 @@
 			android:textSize="15sp"
 			android:text="@string/streaming_title"
 			android:visibility="gone" />
-		<it.unicaradio.android.gui.ScrollTextView
+		<TextView
 			android:id="@+id/songTitle"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:singleLine="true"
 			android:ellipsize="marquee"
 			android:marqueeRepeatLimit="marquee_forever"
+
+			android:focusable="true"
+			android:focusableInTouchMode="true"
+			android:scrollHorizontally="true"
+			android:textIsSelectable="false"
+
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
 			android:textSize="22sp" />

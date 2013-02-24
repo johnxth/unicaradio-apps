@@ -23,7 +23,7 @@
 			android:scaleType="fitCenter"
 			android:layout_weight="0.65" />
 
-		<it.unicaradio.android.gui.ScrollTextView
+		<TextView
 			android:id="@+id/songTitle"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
@@ -34,6 +34,12 @@
 			android:singleLine="true"
 			android:ellipsize="marquee"
 			android:marqueeRepeatLimit="marquee_forever"
+			
+			android:focusable="true"
+			android:focusableInTouchMode="true"
+			android:scrollHorizontally="true"
+			android:textIsSelectable="false"
+			
 			android:textSize="30sp"
 			android:text="- UnicaRadio -"
 			android:layout_weight="0.35" />
