@@ -42,8 +42,8 @@ public class SongRequestTaskFailedListener<Result> extends
 	public void onTaskFailed(Response<Result> result)
 	{
 		if(result.getErrorCode() == Error.OPERATION_FORBIDDEN) {
-			new AlertDialog.Builder(getContext()).setTitle("Errore")
-					.setMessage("Attendi prima di effettuare altre richieste.")
+			new AlertDialog.Builder(getContext()).setTitle("Limite massimo raggiunto")
+					.setMessage("Per favore attendi prima di effettuare altre richieste.")
 					.setCancelable(false).setPositiveButton("OK", null).show();
 		} else {
 			super.onTaskFailed(result);
