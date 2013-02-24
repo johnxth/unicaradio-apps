@@ -294,7 +294,9 @@ public class SongRequestFragment extends UnicaradioFragment
 		@Override
 		public void onTaskCompleted(Response<String> result)
 		{
-			new AlertDialog.Builder(getActivity()).setTitle("E-mail inviata!")
+			new AlertDialog.Builder(getActivity())
+					.setTitle("Richiesta inviata")
+					.setMessage("La tua richiesta è stata presa in carico.")
 					.setCancelable(false).setPositiveButton("OK", null).show();
 			clearForm();
 		}
