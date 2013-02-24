@@ -23,6 +23,8 @@ import it.unicaradio.android.utils.StringUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.text.MessageFormat;
 
 import android.util.Log;
@@ -140,7 +142,7 @@ public class IcecastStreamer extends Streamer
 			metadata[i] = (byte) super.read();
 		}
 
-		return new String(metadata, "ISO-8859-1");
+		return new String(metadata, "UTF-8");
 	}
 
 	/**
@@ -160,7 +162,6 @@ public class IcecastStreamer extends Streamer
 		// di un programma
 
 		TrackInfos infos = fillTrackInfos(artistAndTitle);
-
 		failOnEmptyMetadata(infos);
 
 		return infos;

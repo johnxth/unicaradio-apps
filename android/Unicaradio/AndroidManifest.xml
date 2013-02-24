@@ -2,7 +2,7 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="it.unicaradio.android"
-	android:versionName="2.0"
+	android:versionName="2.0.1-SNAPSHOT"
 	android:versionCode="4">
 
 	<uses-sdk
