@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
 	<string name="infos">
-		&lt;font color=\'#FF0000\'&gt;&lt;b&gt;UnicaRadio&lt;/b&gt;&lt;/font&gt;,
-		la webradio degli studenti
-		universitari di Cagliari.
-		&lt;br /&gt;
-		&lt;br /&gt;
-		Software sviluppato da
-		&lt;a
-		href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'&gt;
-		Paolo Cortis&lt;/a&gt; per
-		conto di &lt;font
-		color=\'#FF0000\'&gt;&lt;b&gt;
-		UnicaRadio&lt;/b&gt;&lt;/font&gt;, sotto i termini e le condizioni della
-		licenza GPLv2.
-		&lt;br /&gt;
-		&lt;br /&gt;
-		Codice sorgente liberamente scaricabile da
-		&lt;a
-		href=\'http://code.google.com/p/unicaradio-apps/\'&gt;Google Code&lt;/a&gt;.
+		<![CDATA[
+		<font color=\'#FF0000\'><b>UnicaRadio</b></font>, la webradio degli studenti universitari di Cagliari.
+		<br /><br /><br />
+		Software sviluppato da <a href=\'http://code.google.com/p/unicaradio-apps/wiki/Developer\'>Paolo Cortis</a> per conto di <font color=\'#FF0000\'>
+		<b>UnicaRadio</b></font>, sotto i termini e le condizioni della licenza GPLv2.
+		<br /><br />
+		Codice sorgente liberamente scaricabile da <a href=\'http://code.google.com/p/unicaradio-apps/\'>Google Code</a>.
+		]]>
 	</string>
 	<string name="updates">
 		Versione 2.0\n
 		\tNovità e bug risolti:\n
 		\t- [mod] Nuova grafica!\n
-		\t- [mod] Layout orizzontale e per tablet;\n
+		\t- [mod] Layout orizzontale e per
+		tablet;\n
 		\t- [mod] Eliminato il captcha per la richiesta di canzoni;\n
 		\t- [nuovo] Impostazioni per uso della rete;\n
 		\t- [nuovo] Ricevi informazioni dalla radio direttamente sull\'app;\n
-		\t- [nuovo] Condividi quello che stai ascoltando con i tuoi amici;\n
+		\t- [nuovo] Condividi quello che stai ascoltando
+		con i tuoi amici;\n
 		\t- [bug] Crash in presenza di più account Google;\n
-		\t- [bug] Dopo un errore o una chiamata il pulsante pausa non cambia stato;\n
+		\t- [bug] Dopo un errore o una chiamata il
+		pulsante pausa non cambia stato;\n
 		\t- [bug] Non funziona su Android >= 4.0;\n
 		\n
 		Versione 1.1\n
 		\tCorrezioni:\n
-		\t- [bug] L\'applicazione non va in pausa all\'arrivo di una chiamata;\n
+		\t- [bug]
+		L\'applicazione non va in pausa all\'arrivo di una chiamata;\n
 		\t- [bug] Audio scattoso su alcuni dispositivi;\n
-		\t- [bug] L\'applicazione si chiude quando va in background;\n
+		\t-
+		[bug] L\'applicazione si chiude quando va in background;\n
 		\t- [bug] Palinsesto con orario sbagliato;\n
-		\t- [bug] Dopo lo stop viene ancora caricata una cover;\n
+		\t- [bug] Dopo
+		lo stop viene ancora caricata una cover;\n
 		\t- [bug] Verifica della connessione ad Internet;\n
-		\t- [bug] Crash per assenza della connessione quando si è in play;\n
+		\t- [bug] Crash per
+		assenza della connessione quando si è in play;\n
 		\t- [mod] Invio mail senza ulteriore conferma;\n
-		\t- [mod] Nuovi pulsanti di play e pausa;\n
+		\t- [mod] Nuovi
+		pulsanti di play e pausa;\n
 		\t- [mod] Grafica palinsesto a colori sfalsati;\n
 		\t- [nuovo] Notifiche.\n
 		\n
@@ -145,5 +143,5 @@
 	<string name="streaming_author">Autore:</string>
 	<string name="streaming_title">Titolo:</string>
 	<string name="streaming_onair">Ora in onda:</string>
-	
+
 </resources>

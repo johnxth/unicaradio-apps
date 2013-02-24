@@ -9,23 +9,16 @@
 		android:layout_height="match_parent"
 		android:background="@color/dark_gray"
 		android:layout_centerHorizontal="true">
-		<ImageView
-			android:id="@+id/unicaradio_logo"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentTop="true"
-			android:layout_centerHorizontal="true"
-			android:paddingRight="20dip"
-			android:paddingLeft="20dip"
-			android:src="@drawable/banner" />
 
 		<TextView
 			android:id="@+id/infosText"
-			android:layout_width="fill_parent"
+			android:layout_width="720dp"
 			android:layout_height="wrap_content"
-			android:paddingRight="30dip"
-			android:paddingLeft="30dip"
-			android:layout_below="@+id/unicaradio_logo" />
+			android:layout_centerInParent="true"
+			android:gravity="center"
+			android:textSize="26sp"
+			android:textIsSelectable="false" />
+
 	</RelativeLayout>
 
 </RelativeLayout>
