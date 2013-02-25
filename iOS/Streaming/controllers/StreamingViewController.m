@@ -119,6 +119,7 @@
 	// update the UI in case we were in the background
 	NSNotification *notification = [NSNotification notificationWithName:ASStatusChangedNotification object:self];
 	[[NSNotificationCenter defaultCenter] postNotification:notification];
+	[self updateUi];
 }
 
 - (BOOL)canBecomeFirstResponder

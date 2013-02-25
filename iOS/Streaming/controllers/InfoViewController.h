@@ -13,12 +13,7 @@
 @interface InfoViewController : UIViewController<UIWebViewDelegate>
 {
 	IBOutlet UIWebView *webView;
-	IBOutlet UIScrollView *scrollView;
-    IBOutlet UIView *contentView;
 }
-
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, strong) IBOutlet UIView *contentView;
 
 @property (nonatomic, strong) IBOutlet UIWebView *webView;
 

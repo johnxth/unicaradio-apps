@@ -16,8 +16,6 @@
 @implementation InfoViewController
 
 @synthesize webView;
-@synthesize scrollView;
-@synthesize contentView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,21 +41,10 @@
 	NSError *error = nil;
 	NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
 
-	[self.scrollView addSubview: self.contentView];
-    self.scrollView.contentSize = self.contentView.bounds.size;
-
 	//make the background transparent
     [webView setBackgroundColor:[UIColor clearColor]];
-	[[[webView subviews] lastObject] setScrollEnabled:NO];
+	//[[[webView subviews] lastObject] setScrollEnabled:NO];
 	[webView loadHTMLString:htmlString baseURL:nil];
-}
-
-- (void)viewDidUnload
-{
-	self.scrollView  = nil;
-    self.contentView = nil;
-	
-    [super viewDidUnload];
 }
 
 -(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
