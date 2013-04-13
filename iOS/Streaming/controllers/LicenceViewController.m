@@ -23,6 +23,14 @@
     return self;
 }
 
+- (void) viewDidLoad
+{
+	[super viewDidLoad];
+
+	[self.tableView setBackgroundView:nil];
+	[self.tableView setBackgroundColor:[UIColor blackColor]];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

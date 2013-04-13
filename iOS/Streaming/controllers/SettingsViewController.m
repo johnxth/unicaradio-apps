@@ -57,6 +57,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+	[self.tableView setBackgroundView:nil];
+	[self.tableView setBackgroundColor:[UIColor blackColor]];
 }
 
 - (void) viewDidAppear:(BOOL)animated

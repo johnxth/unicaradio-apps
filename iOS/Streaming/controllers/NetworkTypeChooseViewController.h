@@ -26,6 +26,7 @@
 }
 
 @property(nonatomic, retain) id<NetworkTypeChooseViewControllerDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 - (id)initWithPreference:(Preferences)preference andCurrentValue:(NetworkType)value;
 

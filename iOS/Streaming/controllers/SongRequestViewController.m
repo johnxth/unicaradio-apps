@@ -50,6 +50,9 @@
 {
     [super viewDidLoad];
 	NSLog(@"SongRequestViewController - viewDidLoad");
+	
+	[self.tableView setBackgroundView:nil];
+	[self.tableView setBackgroundColor:[UIColor blackColor]];
 
 	[self initTextFields];
 }

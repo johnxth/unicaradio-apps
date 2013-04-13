@@ -32,7 +32,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+	[self.tableView setBackgroundView:nil];
+	[self.tableView setBackgroundColor:[UIColor blackColor]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,4 +148,8 @@
 	[delegate networkTypeChangedForPreference:preference andNetworkType:indexPath.row];
 }
 
+- (void)viewDidUnload {
+	[self setTableView:nil];
+	[super viewDidUnload];
+}
 @end
