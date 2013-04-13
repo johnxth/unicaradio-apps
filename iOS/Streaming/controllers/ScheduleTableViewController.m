@@ -17,6 +17,8 @@
 #import "UnicaradioUINavigationController.h"
 #import "DeviceUtils.h"
 
+#import "NoItemSelectedViewController.h"
+
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 @interface ScheduleTableViewController ()
@@ -131,6 +133,12 @@
 	[self refreshData:NO];
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+	NoItemSelectedViewController *noItemSelectedViewController = [[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil];
+	[self substituteRightController:noItemSelectedViewController];
+}
+
 - (void) refreshData:(bool) force
 {
 	if(schedule == nil || force) {
@@ -235,11 +243,16 @@
 		[self.navigationController pushViewController:scheduleViewController animated:YES];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	} else {
-		UnicaradioUINavigationController *navScheduleController;
-		navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:scheduleViewController];
-		NSArray *newVCs = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], navScheduleController, nil];
-		self.splitViewController.viewControllers = newVCs;
+		[self substituteRightController:scheduleViewController];
 	}
+}
+
+- (void) substituteRightController:(UIViewController *) controller
+{
+	UnicaradioUINavigationController *navScheduleController;
+	navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:controller];
+	NSArray *newViewControllers = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], navScheduleController, nil];
+	self.splitViewController.viewControllers = newViewControllers;
 }
 
 @end
