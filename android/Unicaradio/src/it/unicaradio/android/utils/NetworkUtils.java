@@ -64,6 +64,10 @@ public class NetworkUtils
 		NetworkInfo info = connManager
 				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
+		if(info == null) {
+			return false;
+		}
+
 		return info.isConnected();
 	}
 
