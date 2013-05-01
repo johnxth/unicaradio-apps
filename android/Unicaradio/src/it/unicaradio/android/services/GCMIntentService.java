@@ -17,6 +17,7 @@
 package it.unicaradio.android.services;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.activities.MainActivity;
 import it.unicaradio.android.enums.GcmMessagePriority;
 import it.unicaradio.android.gcm.GcmServerRegister;
 import it.unicaradio.android.gcm.GcmServerRpcCall;
@@ -42,6 +43,11 @@ public class GCMIntentService extends GCMBaseIntentService
 	public static final String ACTION_GCM_MESSAGE = "it.unicaradio.android.intent.action.GCM_MESSAGE";
 
 	private static final int NOTIFICATION_ID = 2;
+
+	public GCMIntentService()
+	{
+		super(MainActivity.SENDER_ID, null);
+	}
 
 	/**
 	 * {@inheritDoc}

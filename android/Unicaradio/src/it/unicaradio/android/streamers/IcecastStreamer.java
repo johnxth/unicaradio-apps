@@ -16,15 +16,14 @@
  */
 package it.unicaradio.android.streamers;
 
-import it.unicaradio.android.exceptions.UnicaradioRuntimeException;
+import it.unicaradio.android.exceptions.UnicaradioIOException;
 import it.unicaradio.android.gui.TrackInfos;
+import it.unicaradio.android.services.StreamingService;
 import it.unicaradio.android.utils.StringUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLConnection;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.text.MessageFormat;
 
 import android.util.Log;
@@ -148,8 +147,10 @@ public class IcecastStreamer extends Streamer
 	/**
 	 * @param metadataString
 	 * @return
+	 * @throws IOException
 	 */
 	private TrackInfos getTrackInfosFromMetadata(String metadataString)
+			throws UnicaradioIOException
 	{
 		String artistAndTitle = StringUtils.substringBetween(metadataString,
 				"=", ";");
@@ -181,12 +182,17 @@ public class IcecastStreamer extends Streamer
 
 	/**
 	 * @param infos
+	 * @throws IOException
 	 */
 	private void failOnEmptyMetadata(TrackInfos infos)
+			throws UnicaradioIOException
 	{
 		if(StringUtils.isEmpty(infos.getAuthor())
 				&& StringUtils.isEmpty(infos.getTitle())) {
-			throw new UnicaradioRuntimeException("Could not read icy metadata");
+			UnicaradioIOException e = new UnicaradioIOException(
+					"Could not read icy metadata");
+			StreamingService.notifyStreamerException(e);
+			throw e;
 		}
 	}
 }

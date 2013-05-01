@@ -16,40 +16,43 @@
  */
 package it.unicaradio.android.exceptions;
 
+import java.io.IOException;
+
 /**
  * @author Paolo Cortis
  */
-public class UnicaradioRuntimeException extends RuntimeException
+public class UnicaradioIOException extends IOException
 {
-	private static final long serialVersionUID = 7390323168499274433L;
 
-	public UnicaradioRuntimeException()
+	private static final long serialVersionUID = -537128066300460211L;
+
+	public UnicaradioIOException()
 	{
 		super();
 	}
 
 	/**
-	 * @param detailMessage
-	 * @param throwable
+	 * @param message
+	 * @param cause
 	 */
-	public UnicaradioRuntimeException(String detailMessage, Throwable throwable)
+	public UnicaradioIOException(String message, Throwable cause)
 	{
-		super(detailMessage, throwable);
+		super(message, cause);
 	}
 
 	/**
 	 * @param detailMessage
 	 */
-	public UnicaradioRuntimeException(String detailMessage)
+	public UnicaradioIOException(String detailMessage)
 	{
 		super(detailMessage);
 	}
 
 	/**
-	 * @param throwable
+	 * @param cause
 	 */
-	public UnicaradioRuntimeException(Throwable throwable)
+	public UnicaradioIOException(Throwable cause)
 	{
-		super(throwable);
+		super(cause);
 	}
 }

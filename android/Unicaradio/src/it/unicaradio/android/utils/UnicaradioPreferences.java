@@ -68,6 +68,10 @@ public class UnicaradioPreferences
 
 	public static NetworkType getNetworkType(Context context)
 	{
+		if(context == null) {
+			return null;
+		}
+
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		String networkType = sharedPreferences.getString(
@@ -80,6 +84,10 @@ public class UnicaradioPreferences
 
 	public static boolean isRoamingPermitted(Context context)
 	{
+		if(context == null) {
+			return false;
+		}
+
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
@@ -89,6 +97,10 @@ public class UnicaradioPreferences
 
 	public static CoverDownloadMode getCoverDownloadMode(Context context)
 	{
+		if(context == null) {
+			return null;
+		}
+
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		String coverDownloadMode = sharedPreferences.getString(
@@ -101,6 +113,10 @@ public class UnicaradioPreferences
 
 	public static boolean areGcmMessagesDisabled(Context context)
 	{
+		if(context == null) {
+			return false;
+		}
+
 		SharedPreferences defaultSharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
@@ -110,6 +126,10 @@ public class UnicaradioPreferences
 
 	public static boolean areGcmLowMessagesEnabled(Context context)
 	{
+		if(context == null) {
+			return false;
+		}
+
 		SharedPreferences defaultSharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 

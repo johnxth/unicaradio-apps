@@ -114,16 +114,6 @@ public class StreamingFragment extends UnicaradioFragment
 			updateShareIntent(isPlaying);
 		}
 
-		private void checkIntentForErrors(Intent intent)
-		{
-			String error = intent.getStringExtra("error");
-			if(error.length() != 0) {
-				stop();
-				Log.d(LOG, error);
-				showAlertDialog("Unicaradio", "E' avvenuto un errore");
-			}
-		}
-
 		private void updateTrackInfos(Intent intent)
 		{
 			Log.v(TAG, "Updating track info");
@@ -204,6 +194,8 @@ public class StreamingFragment extends UnicaradioFragment
 		public void onReceive(Context context, Intent intent)
 		{
 			stop();
+
+			checkIntentForErrors(intent);
 		}
 	};
 
@@ -633,6 +625,17 @@ public class StreamingFragment extends UnicaradioFragment
 			getActivity().unregisterReceiver(toastMessageReceiver);
 		} catch(IllegalArgumentException e) {
 			// do nothing
+		}
+	}
+
+	private void checkIntentForErrors(Intent intent)
+	{
+		String error = intent.getStringExtra("error");
+		if(!StringUtils.isEmpty(error)) {
+			stop();
+			Log.d(LOG, error);
+			showAlertDialog("Unicaradio",
+					"E' avvenuto un errore. Per favore, riprova.");
 		}
 	}
 

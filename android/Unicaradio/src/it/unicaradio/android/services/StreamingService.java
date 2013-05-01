@@ -50,11 +50,12 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.spoledge.aacdecoder.AACPlayer;
+import com.spoledge.aacdecoder.PlayerCallback;
 
 /**
  * @author Paolo Cortis
  */
-public class StreamingService extends Service
+public class StreamingService extends Service implements PlayerCallback
 {
 	private static final String LOG = StreamingService.class.getName();
 
@@ -87,6 +88,8 @@ public class StreamingService extends Service
 	private String error;
 
 	private boolean isPlaying;
+
+	private static Exception streamerException;
 
 	public StreamingService()
 	{
@@ -272,7 +275,7 @@ public class StreamingService extends Service
 				}
 			});
 
-			player = new AACPlayer();
+			player = new AACPlayer(StreamingService.this);
 
 			try {
 				isPlaying = true;
@@ -322,5 +325,57 @@ public class StreamingService extends Service
 		{
 			return StreamingService.this;
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void playerException(Throwable t)
+	{
+		stopWithException("Got exception", t);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void playerMetadata(String arg0, String arg1)
+	{
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void playerPCMFeedBuffer(boolean arg0, int arg1, int arg2)
+	{
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void playerStarted()
+	{
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void playerStopped(int arg0)
+	{
+		if(streamerException != null) {
+			stopWithException(streamerException);
+			streamerException = null;
+		} else {
+			stop();
+		}
+	}
+
+	public static void notifyStreamerException(Exception e)
+	{
+		streamerException = e;
 	}
 }
