@@ -17,6 +17,7 @@
 package it.unicaradio.android.fragments;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.activities.MainActivity;
 import it.unicaradio.android.adapters.TransmissionsAdapter;
 import it.unicaradio.android.enums.Day;
 import it.unicaradio.android.models.Schedule;
@@ -25,6 +26,7 @@ import it.unicaradio.android.utils.IntentUtils;
 
 import java.util.List;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,8 +41,7 @@ import com.actionbarsherlock.app.SherlockListFragment;
  */
 public class ScheduleDetailFragment extends SherlockListFragment
 {
-	private static final String TAG = ScheduleDetailFragment.class
-			.getSimpleName();
+	private static final String TAG = ScheduleDetailFragment.class.getSimpleName();
 
 	private int dayInt;
 
@@ -59,8 +60,7 @@ public class ScheduleDetailFragment extends SherlockListFragment
 
 		dayInt = getArguments().getInt(IntentUtils.ARG_SCHEDULE_DAY);
 
-		schedule = (Schedule) getArguments().getSerializable(
-				IntentUtils.ARG_SCHEDULE);
+		schedule = (Schedule) getArguments().getSerializable(IntentUtils.ARG_SCHEDULE);
 	}
 
 	/**
@@ -95,8 +95,7 @@ public class ScheduleDetailFragment extends SherlockListFragment
 	{
 		super.onPause();
 
-		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
-				false);
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 	}
 
 	private void initList()
@@ -106,8 +105,8 @@ public class ScheduleDetailFragment extends SherlockListFragment
 		Day day = Day.fromInteger(dayInt);
 		List<Transmission> transmissions = schedule.getTransmissionsByDay(day);
 
-		TransmissionsAdapter transmissionsAdapter = new TransmissionsAdapter(
-				getActivity(), transmissions, R.layout.list_two_columns);
+		TransmissionsAdapter transmissionsAdapter = new TransmissionsAdapter(getMainActivityContext(), transmissions,
+				R.layout.list_two_columns);
 		scheduleListView.setAdapter(transmissionsAdapter);
 	}
 
@@ -115,9 +114,17 @@ public class ScheduleDetailFragment extends SherlockListFragment
 	 * {@inheritDoc}
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		return inflater.inflate(R.layout.schedule_fragment, null);
+	}
+
+	private Context getMainActivityContext()
+	{
+		if(getActivity() == null) {
+			return MainActivity.activityContext;
+		}
+
+		return getActivity();
 	}
 }

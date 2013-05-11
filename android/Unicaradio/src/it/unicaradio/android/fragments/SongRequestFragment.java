@@ -77,7 +77,7 @@ public class SongRequestFragment extends UnicaradioFragment
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+		preferences = getMainActivity().getPreferences(Context.MODE_PRIVATE);
 
 		setupTab();
 
@@ -167,7 +167,7 @@ public class SongRequestFragment extends UnicaradioFragment
 		updateEmailOnView();
 
 		GetEmailAddressAsyncTask getEmailAddressAsyncTask = new GetEmailAddressAsyncTask(
-				getActivity());
+				getMainActivityContext());
 		getEmailAddressAsyncTask
 				.setOnTaskCompletedListener(new OnGetEmailAddressAsyncTaskCompletedListener());
 		getEmailAddressAsyncTask.execute();
@@ -182,10 +182,11 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private void setupTab()
 	{
-		emailView = (AutoCompleteTextView) getActivity().findViewById(
+		emailView = (AutoCompleteTextView) getMainActivity().findViewById(
 				R.id.songsEmail);
-		authorView = (TextView) getActivity().findViewById(R.id.songsAuthor);
-		titleView = (TextView) getActivity().findViewById(R.id.songsTitle);
+		authorView = (TextView) getMainActivity()
+				.findViewById(R.id.songsAuthor);
+		titleView = (TextView) getMainActivity().findViewById(R.id.songsTitle);
 	}
 
 	private void updateEmailOnView()
@@ -227,7 +228,7 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private void warnUserForEmptyFields()
 	{
-		new AlertDialog.Builder(getActivity()).setTitle("Errore!")
+		new AlertDialog.Builder(getMainActivityContext()).setTitle("Errore!")
 				.setMessage("Attenzione! Hai dimenticato qualcosa :)")
 				.setCancelable(false).setPositiveButton("OK", null).show();
 	}
@@ -242,12 +243,12 @@ public class SongRequestFragment extends UnicaradioFragment
 	private void sendEmail()
 	{
 		SendSongRequestAsyncTask sendSongRequestAsyncTask = new SendSongRequestAsyncTask(
-				getActivity(), elaborateSongRequest());
+				getMainActivityContext(), elaborateSongRequest());
 		sendSongRequestAsyncTask
 				.setOnTaskCompletedListener(new OnSendSongRequestAsyncTaskCompletedListener());
 
 		SongRequestTaskFailedListener<String> taskFailedListener = new SongRequestTaskFailedListener<String>(
-				getActivity());
+				getMainActivityContext());
 		sendSongRequestAsyncTask.setOnTaskFailedListener(taskFailedListener);
 		sendSongRequestAsyncTask.execute();
 	}
@@ -264,7 +265,7 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private void warnUserForNotValidEmail()
 	{
-		new AlertDialog.Builder(getActivity()).setTitle("Errore!")
+		new AlertDialog.Builder(getMainActivityContext()).setTitle("Errore!")
 				.setMessage("Attenzione! L'email indicata non è corretta")
 				.setCancelable(false).setPositiveButton("OK", null).show();
 	}
@@ -294,7 +295,7 @@ public class SongRequestFragment extends UnicaradioFragment
 		@Override
 		public void onTaskCompleted(Response<String> result)
 		{
-			new AlertDialog.Builder(getActivity())
+			new AlertDialog.Builder(getMainActivityContext())
 					.setTitle("Richiesta inviata")
 					.setMessage("La tua richiesta è stata presa in carico.")
 					.setCancelable(false).setPositiveButton("OK", null).show();
@@ -327,12 +328,8 @@ public class SongRequestFragment extends UnicaradioFragment
 				final String[] tmpEmails = result.toArray(new String[result
 						.size()]);
 
-				if(getActivity() == null) {
-					return;
-				}
-
 				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-						getActivity(),
+						getMainActivityContext(),
 						android.R.layout.simple_dropdown_item_1line, tmpEmails);
 				emailView.setAdapter(arrayAdapter);
 			}

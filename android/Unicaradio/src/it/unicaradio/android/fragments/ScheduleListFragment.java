@@ -17,6 +17,7 @@
 package it.unicaradio.android.fragments;
 
 import it.unicaradio.android.R;
+import it.unicaradio.android.activities.MainActivity;
 import it.unicaradio.android.adapters.ScheduleListAdapter;
 import it.unicaradio.android.enums.Error;
 import it.unicaradio.android.models.Response;
@@ -27,6 +28,7 @@ import it.unicaradio.android.tasks.DownloadScheduleAsyncTask;
 import it.unicaradio.android.utils.IntentUtils;
 import it.unicaradio.android.utils.NetworkUtils;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -46,8 +48,7 @@ import com.actionbarsherlock.app.SherlockListFragment;
  */
 public class ScheduleListFragment extends SherlockListFragment
 {
-	private static final String TAG = ScheduleListFragment.class
-			.getSimpleName();
+	private static final String TAG = ScheduleListFragment.class.getSimpleName();
 
 	public static ScheduleListFragment instance;
 
@@ -69,7 +70,7 @@ public class ScheduleListFragment extends SherlockListFragment
 
 		initListView();
 
-		if(!NetworkUtils.isConnected(getActivity())) {
+		if(!NetworkUtils.isConnected(getMainActivityContext())) {
 			// alertNoConnectionAvailable();
 			return;
 		}
@@ -113,11 +114,10 @@ public class ScheduleListFragment extends SherlockListFragment
 	 * {@inheritDoc}
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		Log.v(TAG, "onCreateView");
-		isTwoPane = getActivity().getResources().getBoolean(R.bool.isTablet);
+		isTwoPane = getMainActivityContext().getResources().getBoolean(R.bool.isTablet);
 		return inflater.inflate(R.layout.schedule_fragment, null);
 	}
 
@@ -125,8 +125,7 @@ public class ScheduleListFragment extends SherlockListFragment
 	{
 		drawList();
 
-		getListView().setOnItemClickListener(
-				new ScheduleListItemClickListener());
+		getListView().setOnItemClickListener(new ScheduleListItemClickListener());
 
 		if(isTwoPane) {
 			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -138,8 +137,7 @@ public class ScheduleListFragment extends SherlockListFragment
 		clicked = -1;
 		ListView scheduleListView = getListView();
 
-		BaseAdapter adapter = new ScheduleListAdapter(getActivity(),
-				R.layout.list_simple);
+		BaseAdapter adapter = new ScheduleListAdapter(getMainActivityContext(), R.layout.list_simple);
 		scheduleListView.setAdapter(adapter);
 
 		return scheduleListView;
@@ -154,23 +152,19 @@ public class ScheduleListFragment extends SherlockListFragment
 		ScheduleDetailFragment fragment = new ScheduleDetailFragment();
 		fragment.setArguments(arguments);
 		if(isTwoPane) {
-			getFragmentManager()
-					.beginTransaction()
-					.setCustomAnimations(android.R.anim.slide_in_left,
-							android.R.anim.slide_out_right)
+			getFragmentManager().beginTransaction()
+					.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
 					.replace(R.id.item_detail_container, fragment).commit();
 		} else {
-			getFragmentManager().beginTransaction()
-					.replace(R.id.schedule_container, fragment)
-					.addToBackStack(null).commit();
+			getFragmentManager().beginTransaction().replace(R.id.schedule_container, fragment).addToBackStack(null)
+					.commit();
 		}
 	}
 
 	private void alertNoConnectionAvailable()
 	{
 		// FIXME: gestire le traduzioni
-		Toast.makeText(getActivity(), "Verifica la connessione Internet.",
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(getMainActivityContext(), "Verifica la connessione Internet.", Toast.LENGTH_LONG).show();
 	}
 
 	void deselectItemOnList()
@@ -180,8 +174,7 @@ public class ScheduleListFragment extends SherlockListFragment
 				return;
 			}
 
-			getListView().setItemChecked(
-					getListView().getCheckedItemPosition(), false);
+			getListView().setItemChecked(getListView().getCheckedItemPosition(), false);
 		} catch(Exception e) {
 			Log.d(TAG, "deselectItemOnList() threw exception: ", e);
 		}
@@ -191,25 +184,40 @@ public class ScheduleListFragment extends SherlockListFragment
 	{
 		boolean shouldShowDialog = (refreshType == RefreshType.FORCED);
 
-		DownloadScheduleAsyncTask task = new DownloadScheduleAsyncTask(
-				getActivity(), shouldShowDialog);
+		DownloadScheduleAsyncTask task = new DownloadScheduleAsyncTask(getMainActivityContext(), shouldShowDialog);
 		task.setOnTaskCompletedListener(new OnDownloadScheduleAsyncTaskCompletedListener());
 		task.setOnTaskFailedListener(new OnDownloadScheduleAsyncTaskFailedListener());
 		task.execute();
 	}
 
-	private final class ScheduleListItemClickListener implements
-			OnItemClickListener
+	private MainActivity getMainActivity()
+	{
+		if(getActivity() == null) {
+			return MainActivity.activity;
+		}
+
+		return (MainActivity) getActivity();
+	}
+
+	private Context getMainActivityContext()
+	{
+		if(getActivity() == null) {
+			return MainActivity.activityContext;
+		}
+
+		return getActivity();
+	}
+
+	private final class ScheduleListItemClickListener implements OnItemClickListener
 	{
 		/**
 		 * {@inheritDoc}
 		 */
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id)
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 		{
 			if(schedule == null) {
-				if(NetworkUtils.isConnected(getActivity())) {
+				if(NetworkUtils.isConnected(getMainActivityContext())) {
 					clicked = position;
 					updateScheduleFromJSON(RefreshType.FORCED);
 				} else {
@@ -239,8 +247,7 @@ public class ScheduleListFragment extends SherlockListFragment
 		}
 	}
 
-	private final class OnDownloadScheduleAsyncTaskFailedListener implements
-			OnTaskFailedListener<Response<String>>
+	private final class OnDownloadScheduleAsyncTaskFailedListener implements OnTaskFailedListener<Response<String>>
 	{
 		/**
 		 * {@inheritDoc}
@@ -250,25 +257,19 @@ public class ScheduleListFragment extends SherlockListFragment
 		{
 			Log.e(TAG, "Got error: " + result.getErrorCode());
 
-			FragmentActivity activity = getActivity();
+			FragmentActivity activity = getMainActivity();
 			if(activity == null) {
 				return;
 			}
 
 			if(result.getErrorCode() == Error.INTERNAL_DOWNLOAD_ERROR) {
-				new AlertDialog.Builder(activity)
-						.setTitle("Errore!")
-						.setMessage(
-								"È avvenuto un errore. Verifica di essere connesso ad Internet.")
-						.setCancelable(false).setPositiveButton("OK", null)
-						.show();
+				new AlertDialog.Builder(activity).setTitle("Errore!")
+						.setMessage("È avvenuto un errore. Verifica di essere connesso ad Internet.")
+						.setCancelable(false).setPositiveButton("OK", null).show();
 			} else {
-				new AlertDialog.Builder(activity)
-						.setTitle("Errore!")
-						.setMessage(
-								"È avvenuto un errore imprevisto. Riprova più tardi.")
-						.setCancelable(false).setPositiveButton("OK", null)
-						.show();
+				new AlertDialog.Builder(activity).setTitle("Errore!")
+						.setMessage("È avvenuto un errore imprevisto. Riprova più tardi.").setCancelable(false)
+						.setPositiveButton("OK", null).show();
 			}
 		}
 	}

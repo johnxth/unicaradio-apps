@@ -16,16 +16,12 @@
  */
 package it.unicaradio.android.fragments;
 
-import android.app.AlertDialog;
 import android.view.KeyEvent;
-
-import com.actionbarsherlock.app.SherlockFragment;
 
 /**
  * @author Paolo Cortis
  */
-public class UnicaradioFragment extends SherlockFragment implements
-		KeyEvent.Callback
+public abstract class UnicaradioFragment extends UnicaradioBaseFragment implements KeyEvent.Callback
 {
 	/**
 	 * {@inheritDoc}
@@ -35,8 +31,7 @@ public class UnicaradioFragment extends SherlockFragment implements
 	{
 		super.onResume();
 
-		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
-				false);
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 	}
 
 	/**
@@ -78,14 +73,5 @@ public class UnicaradioFragment extends SherlockFragment implements
 	public boolean onBackPressed()
 	{
 		return false;
-	}
-
-	protected void showAlertDialog(String title, String message)
-	{
-		AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
-		adb.setTitle(title);
-		adb.setMessage(message);
-		adb.setPositiveButton("Ok", null);
-		adb.show();
 	}
 }

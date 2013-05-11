@@ -79,6 +79,10 @@ public class MainActivity extends SherlockFragmentActivity
 
 	private ShareActionProvider shareActionProvider;
 
+	public static Context activityContext;
+
+	public static MainActivity activity;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -109,6 +113,9 @@ public class MainActivity extends SherlockFragmentActivity
 	protected void onResume()
 	{
 		super.onResume();
+
+		activityContext = this;
+		activity = this;
 
 		Intent intent = getIntent();
 		if(StringUtils.equals(intent.getAction(),

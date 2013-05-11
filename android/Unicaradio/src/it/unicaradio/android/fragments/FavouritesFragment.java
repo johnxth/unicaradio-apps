@@ -57,10 +57,12 @@ public class FavouritesFragment extends UnicaradioFragment
 
 		List<Website> websites = prepareSitesList();
 
-		sitesListView = (ListView) getActivity().findViewById(R.id.linksList);
+		sitesListView = (ListView) getMainActivity().findViewById(
+				R.id.linksList);
 
 		FavouriteSitesAdapter favouriteSitesAdapter = new FavouriteSitesAdapter(
-				getActivity(), websites, R.layout.list_two_lines_and_image);
+				getMainActivityContext(), websites,
+				R.layout.list_two_lines_and_image);
 		sitesListView.setAdapter(favouriteSitesAdapter);
 		setupListeners();
 	}
@@ -69,7 +71,7 @@ public class FavouritesFragment extends UnicaradioFragment
 	{
 		FavouriteSitesOnItemClickListener onItemClickListener;
 		onItemClickListener = new FavouriteSitesOnItemClickListener(
-				getActivity());
+				getMainActivityContext());
 		sitesListView.setOnItemClickListener(onItemClickListener);
 	}
 

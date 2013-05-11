@@ -48,7 +48,7 @@ public class InfoFragment extends UnicaradioFragment
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		TextView infosText = (TextView) getActivity().findViewById(
+		TextView infosText = (TextView) getMainActivity().findViewById(
 				R.id.infosText);
 		infosText.setText(Html.fromHtml(getString(R.string.infos)));
 		infosText.setMovementMethod(LinkMovementMethod.getInstance());

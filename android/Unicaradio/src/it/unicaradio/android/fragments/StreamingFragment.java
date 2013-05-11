@@ -124,8 +124,7 @@ public class StreamingFragment extends UnicaradioFragment
 			Log.d(TAG, "Author: " + author);
 			Log.d(TAG, "Title: " + title);
 
-			if(oldInfos != null
-					&& StringUtils.equals(author, oldInfos.getAuthor())
+			if(oldInfos != null && StringUtils.equals(author, oldInfos.getAuthor())
 					&& StringUtils.equals(title, oldInfos.getTitle())) {
 				Log.v(TAG, "new info equals old");
 				infos = oldInfos;
@@ -157,11 +156,9 @@ public class StreamingFragment extends UnicaradioFragment
 
 		private boolean canLoadCover()
 		{
-			CoverDownloadMode coverDownloadMode = UnicaradioPreferences
-					.getCoverDownloadMode(getActivity());
+			CoverDownloadMode coverDownloadMode = UnicaradioPreferences.getCoverDownloadMode(getMainActivityContext());
 
-			boolean connectedToWifi = NetworkUtils
-					.isConnectedToWifi(getActivity());
+			boolean connectedToWifi = NetworkUtils.isConnectedToWifi(getMainActivityContext());
 			switch(coverDownloadMode) {
 				case MOBILE_DATA:
 					return true;
@@ -179,7 +176,7 @@ public class StreamingFragment extends UnicaradioFragment
 
 		private void updateShareIntent(boolean isPlaying)
 		{
-			MainActivity mainActivity = (MainActivity) getActivity();
+			MainActivity mainActivity = getMainActivity();
 
 			if(isPlaying) {
 				mainActivity.setSharingIntentWithInfos(infos);
@@ -209,8 +206,7 @@ public class StreamingFragment extends UnicaradioFragment
 			Log.d(TAG, "toast string: " + message);
 
 			if(message != null) {
-				Toast.makeText(getActivity(), message, Toast.LENGTH_LONG)
-						.show();
+				Toast.makeText(getMainActivityContext(), message, Toast.LENGTH_LONG).show();
 			}
 		}
 	};
@@ -228,15 +224,10 @@ public class StreamingFragment extends UnicaradioFragment
 		public void onServiceConnected(ComponentName name, IBinder service)
 		{
 			streamingService = ((LocalBinder) service).getService();
-			if(getActivity() == null) {
-				return;
-			}
 
-			getActivity().registerReceiver(trackinforeceiver,
-					new IntentFilter(StreamingService.ACTION_TRACK_INFO));
-			getActivity().registerReceiver(stopReceiver,
-					new IntentFilter(StreamingService.ACTION_STOP));
-			getActivity().registerReceiver(toastMessageReceiver,
+			getMainActivity().registerReceiver(trackinforeceiver, new IntentFilter(StreamingService.ACTION_TRACK_INFO));
+			getMainActivity().registerReceiver(stopReceiver, new IntentFilter(StreamingService.ACTION_STOP));
+			getMainActivity().registerReceiver(toastMessageReceiver,
 					new IntentFilter(StreamingService.ACTION_TOAST_MESSAGE));
 			if(streamingService.isPlaying()) {
 				streamingService.notifyView();
@@ -251,8 +242,7 @@ public class StreamingFragment extends UnicaradioFragment
 	 * {@inheritDoc}
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		Log.v(TAG, "onCreateView");
 		return inflater.inflate(R.layout.streaming, null);
@@ -286,9 +276,8 @@ public class StreamingFragment extends UnicaradioFragment
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		ViewUtils.setRobotoFont(getActivity(), view.findViewById(R.id.author));
-		ViewUtils.setRobotoFont(getActivity(),
-				view.findViewById(R.id.songTitle));
+		ViewUtils.setRobotoFont(getMainActivityContext(), view.findViewById(R.id.author));
+		ViewUtils.setRobotoFont(getMainActivityContext(), view.findViewById(R.id.songTitle));
 	}
 
 	/**
@@ -300,43 +289,37 @@ public class StreamingFragment extends UnicaradioFragment
 		super.onResume();
 
 		if(infos == null) {
-			infos = new TrackInfos(getActivity().getApplicationContext());
+			infos = new TrackInfos(getMainActivity().getApplicationContext());
 		}
 
 		updateResultsInUi();
 
 		if(streamingService == null) {
-			Intent intent = new Intent(getActivity(), StreamingService.class);
-			getActivity().startService(intent);
-			getActivity().bindService(intent, serviceConnection,
-					Context.BIND_AUTO_CREATE);
+			Intent intent = new Intent(getMainActivityContext(), StreamingService.class);
+			getMainActivity().startService(intent);
+			getMainActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 		}
 
-		ImageButton playPauseButton = (ImageButton) getActivity().findViewById(
-				R.id.playPauseButton);
+		ImageButton playPauseButton = (ImageButton) getMainActivity().findViewById(R.id.playPauseButton);
 		playPauseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0)
 			{
-				boolean isNotPlaying = (streamingService != null)
-						&& !streamingService.isPlaying();
+				boolean isNotPlaying = (streamingService != null) && !streamingService.isPlaying();
 				if(isNotPlaying) {
 					try {
 						warnUserIfNotConnected();
 					} catch(NotConnectedException e) {
 						Log.d(TAG, e.getMessage(), e);
-						showAlertDialog("Unicaradio",
-								"Attenzione! Non sei connesso ad Internet!");
+						showAlertDialog("Unicaradio", "Attenzione! Non sei connesso ad Internet!");
 						return;
 					} catch(WrongNetworkException e) {
 						Log.d(TAG, e.getMessage(), e);
-						showAlertDialog("Unicaradio",
-								"Attenzione! Verifica a quale rete sei connesso");
+						showAlertDialog("Unicaradio", "Attenzione! Verifica a quale rete sei connesso");
 						return;
 					} catch(RoamingForbiddenException e) {
 						Log.d(TAG, e.getMessage(), e);
-						showAlertDialog("Unicaradio",
-								"Attenzione! Sei in roaming!");
+						showAlertDialog("Unicaradio", "Attenzione! Sei in roaming!");
 						return;
 					}
 
@@ -346,34 +329,29 @@ public class StreamingFragment extends UnicaradioFragment
 				}
 			}
 
-			private void warnUserIfNotConnected() throws NotConnectedException,
-					WrongNetworkException, RoamingForbiddenException
+			private void warnUserIfNotConnected() throws NotConnectedException, WrongNetworkException,
+					RoamingForbiddenException
 			{
-				NetworkType networkType = UnicaradioPreferences
-						.getNetworkType(getSherlockActivity());
+				NetworkType networkType = UnicaradioPreferences.getNetworkType(getSherlockActivity());
 
 				if(networkType == null) {
 					throw new NotConnectedException("Unknown network");
 				}
 
-				boolean connectedToWifi = NetworkUtils
-						.isConnectedToWifi(getActivity());
-				boolean connectedToMobileData = NetworkUtils
-						.isConnectedToMobileData(getActivity());
+				boolean connectedToWifi = NetworkUtils.isConnectedToWifi(getMainActivityContext());
+				boolean connectedToMobileData = NetworkUtils.isConnectedToMobileData(getMainActivityContext());
 				switch(networkType) {
 					case WIFI_ONLY:
 						if(!connectedToWifi && !connectedToMobileData) {
 							throw new NotConnectedException("Not connected");
 						} else if(!connectedToWifi) {
-							throw new WrongNetworkException(
-									"Not connected to wifi");
+							throw new WrongNetworkException("Not connected to wifi");
 						}
 						break;
 
 					case MOBILE_DATA:
 						if(!connectedToMobileData && !connectedToWifi) {
-							throw new NotConnectedException(
-									"Not connected neither to wifi nor to mobile");
+							throw new NotConnectedException("Not connected neither to wifi nor to mobile");
 						} else if(connectedToMobileData) {
 							warnUserIfInRoamingAndNotPermitted();
 						}
@@ -384,14 +362,12 @@ public class StreamingFragment extends UnicaradioFragment
 				}
 			}
 
-			private void warnUserIfInRoamingAndNotPermitted()
-					throws RoamingForbiddenException
+			private void warnUserIfInRoamingAndNotPermitted() throws RoamingForbiddenException
 			{
-				TelephonyManager telephony = (TelephonyManager) getActivity()
-						.getSystemService(Context.TELEPHONY_SERVICE);
+				TelephonyManager telephony = (TelephonyManager) getMainActivityContext().getSystemService(
+						Context.TELEPHONY_SERVICE);
 
-				boolean isRoamingPermitted = UnicaradioPreferences
-						.isRoamingPermitted(getActivity());
+				boolean isRoamingPermitted = UnicaradioPreferences.isRoamingPermitted(getMainActivityContext());
 				if(!isRoamingPermitted && telephony.isNetworkRoaming()) {
 					throw new RoamingForbiddenException("Unknown network");
 				}
@@ -407,14 +383,14 @@ public class StreamingFragment extends UnicaradioFragment
 	{
 		Log.d(TAG, "StreamingFragment - onPause");
 		synchronized(this) {
-			oldInfos = new TrackInfos(getActivity().getApplicationContext());
+			oldInfos = new TrackInfos(getMainActivityContext().getApplicationContext());
 			oldInfos.setTrackInfos(infos);
 		}
 
 		unregisterReceivers();
 
 		if(streamingService != null) {
-			getActivity().unbindService(serviceConnection);
+			getMainActivity().unbindService(serviceConnection);
 			streamingService = null;
 		}
 
@@ -458,10 +434,8 @@ public class StreamingFragment extends UnicaradioFragment
 
 	private void updateAuthorAndTitleInUi()
 	{
-		TextView trackAuthor = (TextView) getActivity().findViewById(
-				R.id.author);
-		TextView trackTitle = (TextView) getActivity().findViewById(
-				R.id.songTitle);
+		TextView trackAuthor = (TextView) getMainActivity().findViewById(R.id.author);
+		TextView trackTitle = (TextView) getMainActivity().findViewById(R.id.songTitle);
 
 		if(trackTitle == null) {
 			return;
@@ -474,8 +448,7 @@ public class StreamingFragment extends UnicaradioFragment
 		}
 	}
 
-	private void updateAuthorAndTitleSeparateFields(TextView trackAuthor,
-			TextView trackTitle)
+	private void updateAuthorAndTitleSeparateFields(TextView trackAuthor, TextView trackTitle)
 	{
 		boolean isDeviceATablet = isDeviceATablet();
 
@@ -514,40 +487,34 @@ public class StreamingFragment extends UnicaradioFragment
 
 	private boolean isDeviceATablet()
 	{
-		return getActivity().findViewById(R.id.tablet_layout) != null;
+		return getMainActivity().findViewById(R.id.tablet_layout) != null;
 	}
 
 	private void showAuthorAndTitleFields()
 	{
-		TextView author_label = (TextView) getActivity().findViewById(
-				R.id.author_label);
+		TextView author_label = (TextView) getMainActivity().findViewById(R.id.author_label);
 		author_label.setVisibility(View.VISIBLE);
 		author_label.setText(R.string.streaming_author);
-		getActivity().findViewById(R.id.title_label)
-				.setVisibility(View.VISIBLE);
+		getMainActivity().findViewById(R.id.title_label).setVisibility(View.VISIBLE);
 	}
 
 	private void showOnAirField()
 	{
-		TextView author_label = (TextView) getActivity().findViewById(
-				R.id.author_label);
+		TextView author_label = (TextView) getMainActivity().findViewById(R.id.author_label);
 		author_label.setVisibility(View.VISIBLE);
 		author_label.setText(R.string.streaming_onair);
 	}
 
 	private void hideAuthorAndTitleFields()
 	{
-		getActivity().findViewById(R.id.author_label).setVisibility(View.GONE);
-		getActivity().findViewById(R.id.title_label).setVisibility(View.GONE);
+		getMainActivity().findViewById(R.id.author_label).setVisibility(View.GONE);
+		getMainActivity().findViewById(R.id.title_label).setVisibility(View.GONE);
 	}
 
 	private void updateCoverInUi()
 	{
-		ImageView cover = (ImageView) getActivity().findViewById(R.id.cover);
+		ImageView cover = (ImageView) getMainActivity().findViewById(R.id.cover);
 		if(cover != null) {
-			// Bitmap bitmap = ImageUtils.resize(getActivity()
-			// .getWindowManager().getDefaultDisplay(), infos
-			// .getCover(), 60);
 			Bitmap bitmap = infos.getCover();
 			cover.setImageBitmap(bitmap);
 		}
@@ -581,22 +548,19 @@ public class StreamingFragment extends UnicaradioFragment
 
 	private void setPlayButton()
 	{
-		ImageButton playPauseButton = (ImageButton) getActivity().findViewById(
-				R.id.playPauseButton);
+		ImageButton playPauseButton = (ImageButton) getMainActivity().findViewById(R.id.playPauseButton);
 		playPauseButton.setImageResource(R.drawable.play);
 	}
 
 	private void setPauseButton()
 	{
-		final ImageButton playPauseButton = (ImageButton) getActivity()
-				.findViewById(R.id.playPauseButton);
+		final ImageButton playPauseButton = (ImageButton) getMainActivity().findViewById(R.id.playPauseButton);
 		playPauseButton.setImageResource(R.drawable.pause);
 		playPauseButton.post(new Runnable() {
 			@Override
 			public void run()
 			{
-				StateListDrawable background = (StateListDrawable) playPauseButton
-						.getDrawable();
+				StateListDrawable background = (StateListDrawable) playPauseButton.getDrawable();
 				Drawable current = background.getCurrent();
 				if(current instanceof AnimationDrawable) {
 					AnimationDrawable btnAnimation = (AnimationDrawable) current;
@@ -610,19 +574,19 @@ public class StreamingFragment extends UnicaradioFragment
 	private void unregisterReceivers()
 	{
 		try {
-			getActivity().unregisterReceiver(trackinforeceiver);
+			getMainActivity().unregisterReceiver(trackinforeceiver);
 		} catch(IllegalArgumentException e) {
 			// do nothing
 		}
 
 		try {
-			getActivity().unregisterReceiver(stopReceiver);
+			getMainActivity().unregisterReceiver(stopReceiver);
 		} catch(IllegalArgumentException e) {
 			// do nothing
 		}
 
 		try {
-			getActivity().unregisterReceiver(toastMessageReceiver);
+			getMainActivity().unregisterReceiver(toastMessageReceiver);
 		} catch(IllegalArgumentException e) {
 			// do nothing
 		}
@@ -634,8 +598,7 @@ public class StreamingFragment extends UnicaradioFragment
 		if(!StringUtils.isEmpty(error)) {
 			stop();
 			Log.d(LOG, error);
-			showAlertDialog("Unicaradio",
-					"E' avvenuto un errore. Per favore, riprova.");
+			showAlertDialog("Unicaradio", "E' avvenuto un errore. Per favore, riprova.");
 		}
 	}
 
@@ -706,8 +669,7 @@ public class StreamingFragment extends UnicaradioFragment
 					mHandler.post(mUpdateCover);
 					Log.v(TAG, "updated cover in view");
 				} catch(IOException e) {
-					Log.d(LOG, MessageFormat.format("Cannot find file {0}",
-							ONAIR_COVER_URL));
+					Log.d(LOG, MessageFormat.format("Cannot find file {0}", ONAIR_COVER_URL));
 				}
 			}
 		}
