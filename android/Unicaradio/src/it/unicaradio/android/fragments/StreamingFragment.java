@@ -131,7 +131,11 @@ public class StreamingFragment extends UnicaradioFragment
 				oldInfos = null;
 				mHandler.post(mUpdateResults);
 
-				return;
+				if(infos.getCover() != null) {
+					Log.v(TAG, "cover is already downloaded");
+					mHandler.post(mUpdateCover);
+					return;
+				}
 			}
 
 			infos.setAuthor(author);
