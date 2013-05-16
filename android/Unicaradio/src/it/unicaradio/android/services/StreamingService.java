@@ -154,12 +154,9 @@ public class StreamingService extends Service implements PlayerCallback
 
 	private void initReceivers()
 	{
-		registerReceiver(connectivityReceiver, new IntentFilter(
-				ConnectivityManager.CONNECTIVITY_ACTION));
-		registerReceiver(telephonyReceiver, new IntentFilter(
-				TelephonyManager.ACTION_PHONE_STATE_CHANGED));
-		registerReceiver(noisyAudioStreamReceiver, new IntentFilter(
-				AudioManager.ACTION_AUDIO_BECOMING_NOISY));
+		registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+		registerReceiver(telephonyReceiver, new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED));
+		registerReceiver(noisyAudioStreamReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
 	}
 
 	private void disableReceivers()
@@ -205,6 +202,8 @@ public class StreamingService extends Service implements PlayerCallback
 
 	public void notifyView()
 	{
+		Log.v(LOG, "Notifying view");
+
 		Intent i = new Intent(ACTION_TRACK_INFO);
 		i.putExtra("author", infos.getAuthor());
 		i.putExtra("title", infos.getTitle());
@@ -225,8 +224,7 @@ public class StreamingService extends Service implements PlayerCallback
 			if(infos.getTitle().equals("")) {
 				notification = buildNotification(infos.getAuthor(), "");
 			} else {
-				notification = buildNotification(infos.getTitle(),
-						infos.getAuthor());
+				notification = buildNotification(infos.getTitle(), infos.getAuthor());
 			}
 			startForeground(NOTIFICATION_ID, notification);
 		}
@@ -242,8 +240,7 @@ public class StreamingService extends Service implements PlayerCallback
 	private Notification buildNotification(String title, String message)
 	{
 		Intent intent = new Intent(this, MainActivity.class);
-		PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
-				PendingIntent.FLAG_CANCEL_CURRENT);
+		PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
 		Builder b = new NotificationCompat.Builder(this);
 		b.setContentTitle(title);
@@ -307,8 +304,7 @@ public class StreamingService extends Service implements PlayerCallback
 					Log.d(LOG, "Impossibile connettersi");
 				}
 			} catch(MalformedURLException e) {
-				stopWithException(
-						"Errore: l'indirizzo di streaming non è corretto.", e);
+				stopWithException("Errore: l'indirizzo di streaming non è corretto.", e);
 				return false;
 			} catch(IOException e) {
 				stopWithException(e);

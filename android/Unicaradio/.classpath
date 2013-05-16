@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="libs/aacdecoder-android-0.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/acra-4.4.0.jar"/>
 	<classpathentry kind="lib" path="libs/gcm.jar"/>
+	<classpathentry kind="lib" path="libs/wversionmanager-1.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

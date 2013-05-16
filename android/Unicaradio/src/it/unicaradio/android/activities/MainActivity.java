@@ -61,6 +61,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.android.gcm.GCMRegistrar;
+import com.winsontan520.wversionmanager.library.WVersionManager;
 
 /**
  * @author Paolo Cortis
@@ -104,6 +105,8 @@ public class MainActivity extends SherlockFragmentActivity
 		if(hasBeenUpdated()) {
 			showUpdatesDialog();
 		}
+
+		setupUpdatesChecker();
 	}
 
 	/**
@@ -118,8 +121,7 @@ public class MainActivity extends SherlockFragmentActivity
 		activity = this;
 
 		Intent intent = getIntent();
-		if(StringUtils.equals(intent.getAction(),
-				GCMIntentService.ACTION_GCM_MESSAGE) && intent.hasExtra("text")) {
+		if(StringUtils.equals(intent.getAction(), GCMIntentService.ACTION_GCM_MESSAGE) && intent.hasExtra("text")) {
 			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 			dialogBuilder.setTitle("Hai ricevuto un nuovo messaggio!");
 			dialogBuilder.setMessage(intent.getStringExtra("text"));
@@ -200,8 +202,7 @@ public class MainActivity extends SherlockFragmentActivity
 	{
 		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 		if(tabSelectedListener == null) {
-			tabSelectedListener = new TabSelectedListener(this,
-					getSupportFragmentManager(), viewPager);
+			tabSelectedListener = new TabSelectedListener(this, getSupportFragmentManager(), viewPager);
 		} else {
 			tabSelectedListener.setFragmentManager(getSupportFragmentManager());
 			tabSelectedListener.setViewPager(viewPager);
@@ -229,8 +230,7 @@ public class MainActivity extends SherlockFragmentActivity
 
 	private boolean isFirstRun()
 	{
-		long lastRunVersionCode = preferences.getLong(
-				UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
+		long lastRunVersionCode = preferences.getLong(UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
 
 		return(lastRunVersionCode == 0);
 	}
@@ -238,10 +238,8 @@ public class MainActivity extends SherlockFragmentActivity
 	private boolean hasBeenUpdated()
 	{
 		try {
-			PackageInfo pInfo = getPackageManager().getPackageInfo(
-					getPackageName(), PackageManager.GET_META_DATA);
-			long lastRunVersionCode = preferences.getLong(
-					UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
+			PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
+			long lastRunVersionCode = preferences.getLong(UnicaradioPreferences.PREF_LASTRUNVERSIONCODE, 0);
 			if(lastRunVersionCode < pInfo.versionCode) {
 				Editor editor = preferences.edit();
 				editor.putLong("lastRunVersionCode", pInfo.versionCode);
@@ -277,14 +275,24 @@ public class MainActivity extends SherlockFragmentActivity
 		dialog.show();
 	}
 
+	private void setupUpdatesChecker()
+	{
+		WVersionManager versionManager = new WVersionManager(this);
+		versionManager.setVersionContentUrl("http://www.unicaradio.it/regia/test/updates.php");
+		versionManager.setIgnoreThisVersionLabel("Ignora");
+		versionManager.setUpdateNowLabel("Aggiorna!");
+		versionManager.setTitle("Aggiornamento disponibile");
+		versionManager.setRemindMeLaterLabel("Più tardi");
+		versionManager.checkVersion();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
-		UnicaradioFragment currentFragment = tabSelectedListener
-				.getCurrentFragment();
+		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
 
 		if(currentFragment == null) {
 			Log.w(TAG, "MainActivity.onKeyDown(): currentFragment is NULL!");
@@ -301,8 +309,7 @@ public class MainActivity extends SherlockFragmentActivity
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event)
 	{
-		UnicaradioFragment currentFragment = tabSelectedListener
-				.getCurrentFragment();
+		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
 		boolean result = currentFragment.onKeyUp(keyCode, event);
 		return result || super.onKeyUp(keyCode, event);
 	}
@@ -313,10 +320,8 @@ public class MainActivity extends SherlockFragmentActivity
 	@Override
 	public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event)
 	{
-		UnicaradioFragment currentFragment = tabSelectedListener
-				.getCurrentFragment();
-		boolean result = currentFragment.onKeyMultiple(keyCode, repeatCount,
-				event);
+		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
+		boolean result = currentFragment.onKeyMultiple(keyCode, repeatCount, event);
 		return result || super.onKeyMultiple(keyCode, repeatCount, event);
 	}
 
@@ -326,8 +331,7 @@ public class MainActivity extends SherlockFragmentActivity
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event)
 	{
-		UnicaradioFragment currentFragment = tabSelectedListener
-				.getCurrentFragment();
+		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
 		boolean result = currentFragment.onKeyLongPress(keyCode, event);
 		return result || super.onKeyLongPress(keyCode, event);
 	}
@@ -338,8 +342,7 @@ public class MainActivity extends SherlockFragmentActivity
 	@Override
 	public void onBackPressed()
 	{
-		UnicaradioFragment currentFragment = tabSelectedListener
-				.getCurrentFragment();
+		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
 		boolean backAlreadyHandled = currentFragment.onBackPressed();
 
 		if(backAlreadyHandled) {
@@ -368,8 +371,7 @@ public class MainActivity extends SherlockFragmentActivity
 
 	public void setDefaultSharingIntent()
 	{
-		Intent intent = IntentUtils.createIntentForSharing(this,
-				getString(R.string.suggest_subject),
+		Intent intent = IntentUtils.createIntentForSharing(this, getString(R.string.suggest_subject),
 				getString(R.string.suggest_content));
 
 		shareActionProvider.setShareIntent(intent);
@@ -379,17 +381,13 @@ public class MainActivity extends SherlockFragmentActivity
 	{
 		String content;
 		if(StringUtils.isEmpty(infos.getTitle())) {
-			content = MessageFormat.format(
-					getText(R.string.suggest_content_only_author).toString(),
-					infos.getAuthor());
+			content = MessageFormat.format(getText(R.string.suggest_content_only_author).toString(), infos.getAuthor());
 		} else {
-			content = MessageFormat.format(
-					getText(R.string.suggest_content_song).toString(),
-					infos.getTitle(), infos.getAuthor());
+			content = MessageFormat.format(getText(R.string.suggest_content_song).toString(), infos.getTitle(),
+					infos.getAuthor());
 		}
 
-		Intent intent = IntentUtils.createIntentForSharing(this,
-				getString(R.string.suggest_subject), content);
+		Intent intent = IntentUtils.createIntentForSharing(this, getString(R.string.suggest_subject), content);
 
 		shareActionProvider.setShareIntent(intent);
 	}
@@ -401,13 +399,10 @@ public class MainActivity extends SherlockFragmentActivity
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		if(item.getItemId() == R.id.unicaradio_settings) {
-			Intent intent = new Intent(this,
-					UnicaradioPreferencesActivity.class);
+			Intent intent = new Intent(this, UnicaradioPreferencesActivity.class);
 			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-				intent.putExtra(UnicaradioPreferencesActivity.EXTRA_NO_HEADERS,
-						true);
-				intent.putExtra(
-						UnicaradioPreferencesActivity.EXTRA_SHOW_FRAGMENT,
+				intent.putExtra(UnicaradioPreferencesActivity.EXTRA_NO_HEADERS, true);
+				intent.putExtra(UnicaradioPreferencesActivity.EXTRA_SHOW_FRAGMENT,
 						UnicaradioPreferencesFragment.class.getName());
 			}
 
