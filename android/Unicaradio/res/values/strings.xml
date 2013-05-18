@@ -133,6 +133,9 @@
 	<string name="prefs_gcm">Google Cloud Messaging</string>
 	<string name="prefs_gcm_sub">Versione 1.0.2</string>
 
+	<string name="prefs_wversionmanager">Android-WVersionManager v.1.0 by Winson Tan</string>
+	<string name="prefs_wversionmanager_sub">Apache license 2.0</string>
+
 	<!-- Menu -->
 	<string name="menu_settings">Impostazioni</string>
 	<string name="menu_refresh_schedule">Aggiorna palinsesto</string>

@@ -50,8 +50,8 @@ import com.actionbarsherlock.view.MenuItem;
 /**
  * @author Paolo Cortis
  */
-public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
-		implements OnSharedPreferenceChangeListener
+public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity implements
+		OnSharedPreferenceChangeListener
 {
 	private long[] mHits = new long[3];
 
@@ -83,8 +83,7 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 	{
 		super.onResume();
 
-		SharedPreferences defaultSharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		defaultSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 	}
 
@@ -96,18 +95,15 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 	{
 		super.onPause();
 
-		SharedPreferences defaultSharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		defaultSharedPreferences
-				.unregisterOnSharedPreferenceChangeListener(this);
+		SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		defaultSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-			String key)
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
 	{
 		@SuppressWarnings("deprecation")
 		Preference preference = findPreference(key);
@@ -144,40 +140,34 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 	private void initListeners()
 	{
 		Preference prefs_licenses_aacdecoder = findPreference(UnicaradioPreferences.PREF_LICENSE_AACDECODER);
-		prefs_licenses_aacdecoder
-				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
-						R.string.prefs_aacdecoder_link));
+		prefs_licenses_aacdecoder.setOnPreferenceClickListener(new OpenPreferenceLink(this,
+				R.string.prefs_aacdecoder_link));
 
 		Preference prefs_licenses_abs = findPreference(UnicaradioPreferences.PREF_LICENSE_ABS);
-		prefs_licenses_abs.setOnPreferenceClickListener(new OpenPreferenceLink(
-				this, R.string.prefs_abs_link));
+		prefs_licenses_abs.setOnPreferenceClickListener(new OpenPreferenceLink(this, R.string.prefs_abs_link));
 
 		Preference prefs_licenses_acra = findPreference(UnicaradioPreferences.PREF_LICENSE_ACRA);
-		prefs_licenses_acra
-				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
-						R.string.prefs_acra_link));
+		prefs_licenses_acra.setOnPreferenceClickListener(new OpenPreferenceLink(this, R.string.prefs_acra_link));
 
 		Preference prefs_licenses_acra_details = findPreference(UnicaradioPreferences.PREF_LICENSE_ACRA_DETAILS);
-		prefs_licenses_acra_details
-				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
-						R.string.prefs_acra_details_link));
+		prefs_licenses_acra_details.setOnPreferenceClickListener(new OpenPreferenceLink(this,
+				R.string.prefs_acra_details_link));
 
 		Preference prefs_gcm_messages_info = findPreference(UnicaradioPreferences.PREF_GCM_MESSAGES_INFO);
-		prefs_gcm_messages_info
-				.setOnPreferenceClickListener(new OpenPreferenceLink(this,
-						R.string.prefs_gcm_link));
+		prefs_gcm_messages_info.setOnPreferenceClickListener(new OpenPreferenceLink(this, R.string.prefs_gcm_link));
+
+		Preference prefs_wversionmanager = findPreference(UnicaradioPreferences.PREF_LICENSE_WVERSIONMANAGER);
+		prefs_wversionmanager.setOnPreferenceClickListener(new OpenPreferenceLink(this,
+				R.string.prefs_wversionmanager_link));
 	}
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-			Preference preference)
+	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
 	{
-		if(StringUtils.equals(preference.getKey(),
-				UnicaradioPreferences.PREF_APP_VERSION)) {
+		if(StringUtils.equals(preference.getKey(), UnicaradioPreferences.PREF_APP_VERSION)) {
 			// TODO
-		} else if(StringUtils.equals(preference.getKey(),
-				UnicaradioPreferences.PREF_LICENSE_GCM)) {
+		} else if(StringUtils.equals(preference.getKey(), UnicaradioPreferences.PREF_LICENSE_GCM)) {
 			onGcmVersionClick();
 		}
 
@@ -194,14 +184,13 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 
 			String message = getGcmMessagesDialogMessage();
 			dialogBuilder.setMessage(message);
-			dialogBuilder.setPositiveButton(android.R.string.yes,
-					new OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-							toggleGcmMessagesValue();
-						}
-					});
+			dialogBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					toggleGcmMessagesValue();
+				}
+			});
 			dialogBuilder.setNegativeButton(android.R.string.no, null);
 			dialogBuilder.show();
 		}
@@ -209,8 +198,7 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 
 	String getGcmMessagesDialogMessage()
 	{
-		boolean messagesDisabled = UnicaradioPreferences
-				.areGcmMessagesDisabled(this);
+		boolean messagesDisabled = UnicaradioPreferences.areGcmMessagesDisabled(this);
 		String message = "I messaggi sono attivi. Vuoi disattivarli?";
 		if(messagesDisabled) {
 			message = "I messaggi sono stati disattivati. Vuoi riattivarli?";
@@ -220,14 +208,11 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 
 	void toggleGcmMessagesValue()
 	{
-		SharedPreferences defaultSharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		boolean currentValue = UnicaradioPreferences
-				.areGcmMessagesDisabled(this);
+		boolean currentValue = UnicaradioPreferences.areGcmMessagesDisabled(this);
 		Editor editor = defaultSharedPreferences.edit();
-		editor.putBoolean(UnicaradioPreferences.PREF_GCM_DISABLE_MESSAGES,
-				!currentValue);
+		editor.putBoolean(UnicaradioPreferences.PREF_GCM_DISABLE_MESSAGES, !currentValue);
 		editor.commit();
 	}
 
@@ -263,21 +248,16 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 	 */
 	String getSummaryForListPreference(ListPreference preference)
 	{
-		if(StringUtils.equals(preference.getKey(),
-				UnicaradioPreferences.PREF_NETWORK_TYPE)) {
-			if(StringUtils.equals(preference.getValue(),
-					NetworkType.NETWORK_TYPE_MOBILEDATA)) {
+		if(StringUtils.equals(preference.getKey(), UnicaradioPreferences.PREF_NETWORK_TYPE)) {
+			if(StringUtils.equals(preference.getValue(), NetworkType.NETWORK_TYPE_MOBILEDATA)) {
 				return getString(R.string.prefs_network_type_mobiledata_label);
 			} else {
 				return getString(R.string.prefs_network_type_wifi_label);
 			}
-		} else if(StringUtils.equals(preference.getKey(),
-				UnicaradioPreferences.PREF_DOWNLOAD_COVER)) {
-			if(StringUtils.equals(preference.getValue(),
-					UnicaradioPreferences.DOWNLOAD_COVER_MOBILEDATA)) {
+		} else if(StringUtils.equals(preference.getKey(), UnicaradioPreferences.PREF_DOWNLOAD_COVER)) {
+			if(StringUtils.equals(preference.getValue(), UnicaradioPreferences.DOWNLOAD_COVER_MOBILEDATA)) {
 				return getString(R.string.prefs_download_cover_mobiledata_label);
-			} else if(StringUtils.equals(preference.getValue(),
-					UnicaradioPreferences.DOWNLOAD_COVER_WIFIONLY)) {
+			} else if(StringUtils.equals(preference.getValue(), UnicaradioPreferences.DOWNLOAD_COVER_WIFIONLY)) {
 				return getString(R.string.prefs_download_cover_wifi_label);
 			} else {
 				return getString(R.string.prefs_download_cover_never_label);
@@ -290,8 +270,7 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity
 	String getAppVersion()
 	{
 		try {
-			PackageInfo pInfo = getPackageManager().getPackageInfo(
-					getPackageName(), PackageManager.GET_META_DATA);
+			PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
 			return pInfo.versionName;
 		} catch(NameNotFoundException e) {
 			return StringUtils.EMPTY;

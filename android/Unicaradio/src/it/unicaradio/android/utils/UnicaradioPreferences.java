@@ -48,6 +48,8 @@ public class UnicaradioPreferences
 
 	public static final String PREF_LICENSE_ACRA_DETAILS = "prefs_licenses_acra_details";
 
+	public static final String PREF_LICENSE_WVERSIONMANAGER = "prefs_licenses_wversionmanager";
+
 	public static final String PREF_GCM_ENABLE_LOW_MESSAGES = "gcm_enable_low_messages";
 
 	public static final String PREF_GCM_DISABLE_MESSAGES = "gcm_disable_messages";
@@ -72,10 +74,8 @@ public class UnicaradioPreferences
 			return null;
 		}
 
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		String networkType = sharedPreferences.getString(
-				UnicaradioPreferences.PREF_NETWORK_TYPE, StringUtils.EMPTY);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+		String networkType = sharedPreferences.getString(UnicaradioPreferences.PREF_NETWORK_TYPE, StringUtils.EMPTY);
 
 		Log.d(TAG, "Network type: " + networkType);
 
@@ -88,11 +88,9 @@ public class UnicaradioPreferences
 			return false;
 		}
 
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(context);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-		return sharedPreferences.getBoolean(
-				UnicaradioPreferences.PREF_PERMIT_ROAMING, false);
+		return sharedPreferences.getBoolean(UnicaradioPreferences.PREF_PERMIT_ROAMING, false);
 	}
 
 	public static CoverDownloadMode getCoverDownloadMode(Context context)
@@ -101,10 +99,9 @@ public class UnicaradioPreferences
 			return null;
 		}
 
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		String coverDownloadMode = sharedPreferences.getString(
-				UnicaradioPreferences.PREF_DOWNLOAD_COVER, StringUtils.EMPTY);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+		String coverDownloadMode = sharedPreferences.getString(UnicaradioPreferences.PREF_DOWNLOAD_COVER,
+				StringUtils.EMPTY);
 
 		Log.d(TAG, "Cover download mode: " + coverDownloadMode);
 
@@ -117,11 +114,9 @@ public class UnicaradioPreferences
 			return false;
 		}
 
-		SharedPreferences defaultSharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(context);
+		SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-		return defaultSharedPreferences.getBoolean(
-				UnicaradioPreferences.PREF_GCM_DISABLE_MESSAGES, false);
+		return defaultSharedPreferences.getBoolean(UnicaradioPreferences.PREF_GCM_DISABLE_MESSAGES, false);
 	}
 
 	public static boolean areGcmLowMessagesEnabled(Context context)
@@ -130,10 +125,8 @@ public class UnicaradioPreferences
 			return false;
 		}
 
-		SharedPreferences defaultSharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(context);
+		SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-		return defaultSharedPreferences.getBoolean(
-				UnicaradioPreferences.PREF_GCM_ENABLE_LOW_MESSAGES, true);
+		return defaultSharedPreferences.getBoolean(UnicaradioPreferences.PREF_GCM_ENABLE_LOW_MESSAGES, true);
 	}
 }

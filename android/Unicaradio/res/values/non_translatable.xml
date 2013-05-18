@@ -21,5 +21,8 @@
 	<string
 		name="prefs_gcm_link"
 		translatable="false">http://code.google.com/p/unicaradio-apps/wiki/GCM</string>
+	<string
+		name="prefs_wversionmanager_link"
+		translatable="false">https://github.com/winsontan520/Android-WVersionManager</string>
 
 </resources>

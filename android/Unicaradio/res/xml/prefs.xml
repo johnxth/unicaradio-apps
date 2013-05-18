@@ -54,6 +54,11 @@
 			android:summary="@string/prefs_abs_sub" />
 
 		<Preference
+			android:key="prefs_licenses_wversionmanager"
+			android:title="@string/prefs_wversionmanager"
+			android:summary="@string/prefs_wversionmanager_sub" />
+
+		<Preference
 			android:key="prefs_licenses_acra"
 			android:title="@string/prefs_acra"
 			android:summary="@string/prefs_acra_sub" />
