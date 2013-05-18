@@ -407,11 +407,7 @@ public class MainActivity extends SherlockFragmentActivity
 			}
 
 			startActivity(intent);
-		}/*
-		 * else if(item.getItemId() == R.id.unicaradio_suggest) {
-		 * IntentUtils.sendEmail(this, getString(R.string.suggest_subject),
-		 * getString(R.string.suggest_content)); }
-		 */
+		}
 
 		return super.onOptionsItemSelected(item);
 	}

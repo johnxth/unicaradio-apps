@@ -11,7 +11,6 @@
 	tools:context="it.unicaradio.android.fragments.ScheduleFragment">
 
 	<FrameLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/schedule_container"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
