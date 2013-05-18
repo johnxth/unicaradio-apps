@@ -16,19 +16,14 @@
  */
 package it.unicaradio.android.utils;
 
-import it.unicaradio.android.R;
-
-import com.actionbarsherlock.app.ActionBar;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.graphics.Shader.TileMode;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.ActionBar;
 
 /**
  * @author Paolo Cortis
@@ -44,16 +39,15 @@ public class ViewUtils
 	public static void setRobotoFont(Context context, View view)
 	{
 		if(robotoTypeFace == null) {
-			robotoTypeFace = Typeface.createFromAsset(context.getAssets(),
-					"fonts/Roboto/Roboto-Regular.ttf");
+			robotoTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto/Roboto-Regular.ttf");
 		}
 		setFont(view, robotoTypeFace);
 	}
 
 	public static void setupActionBar(ActionBar actionBar, Resources resources)
 	{
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-				| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_USE_LOGO);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE
+				| ActionBar.DISPLAY_USE_LOGO);
 		actionBar.setDisplayShowHomeEnabled(true);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(true);
