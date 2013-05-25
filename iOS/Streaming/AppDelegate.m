@@ -66,6 +66,12 @@
     [self.window makeKeyAndVisible];
     self.uiIsVisible = YES;
 
+	updateChecker = [[iUC alloc] init];
+	updateChecker.delegate = self;
+	updateChecker.updateURL = [NSURL URLWithString:@"http://www.unicaradio.it/regia/test/updates.php"];
+	updateChecker.appStoreURL = [NSURL URLWithString:@"http://itunes.com/apps/unicaradio"];
+	[updateChecker checkVersion];
+
     return YES;
 }
 

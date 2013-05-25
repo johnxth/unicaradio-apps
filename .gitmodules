@@ -4,3 +4,6 @@
 [submodule "iOS/CKRefreshControl"]
 	path = iOS/CKRefreshControl
 	url = https://github.com/instructure/CKRefreshControl.git
+[submodule "iOS/iUC"]
+	path = iOS/iUC
+	url = git@github.com:paolinux86/iUC.git
