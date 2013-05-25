@@ -42,6 +42,8 @@
 	NSMutableArray *textFields;
 
 	IBOutlet UITableView *tableView;
+
+	bool isTableViewInitialized;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;

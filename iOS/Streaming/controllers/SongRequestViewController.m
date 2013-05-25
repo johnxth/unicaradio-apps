@@ -40,6 +40,7 @@
         self.tabBarItem.image = [UIImage imageNamed:@"song"];
 		queue = [[NSOperationQueue alloc] init];
 		[queue setMaxConcurrentOperationCount: 1];
+		isTableViewInitialized = NO;
 
 		[self initButtonBarItems];
     }
@@ -111,6 +112,11 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"SendEmail" object:nil];
 
 	[self clearForm];
+
+	if(isTableViewInitialized) {
+		[self reloadButtonRow];
+	}
+	isTableViewInitialized = YES;
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -243,10 +249,11 @@
  */
 - (SubmitButtonTableViewCell *)submitButtonTableViewCellFromTableView:(UITableView *)_tableView
 {
-    SubmitButtonTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"SubmitButtonTableViewCellReuseIdentifier"];
-    if(nil == cell) {
+    SubmitButtonTableViewCell *cell;
+	//cell = [_tableView dequeueReusableCellWithIdentifier:@"SubmitButtonTableViewCellReuseIdentifier"];
+    //if(nil == cell) {
         cell = [[SubmitButtonTableViewCell alloc] initWithReuseIdentifier:@"SubmitButtonTableViewCellReuseIdentifier"];
-    }
+    //}
 
     return cell;
 }
@@ -532,6 +539,11 @@
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) fromInterfaceOrientation
+{
+	[self reloadButtonRow];
+}
+
+-(void) reloadButtonRow
 {
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
