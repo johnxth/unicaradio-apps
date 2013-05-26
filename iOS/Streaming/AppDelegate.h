@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+#import "iUC/iUC.h"
+
+#import "iUC/iUCResponder.h"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 {
     BOOL uiIsVisible;
+
+@private
+	iUC *updateChecker;
 }
 
 @property (strong, nonatomic) UIWindow *window;
