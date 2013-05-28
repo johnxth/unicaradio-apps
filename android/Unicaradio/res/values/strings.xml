@@ -11,17 +11,25 @@
 		]]>
 	</string>
 	<string name="updates">
+		Versione 2.0.1\n
+		\tCorrezioni:\n
+		\t- [mod] Fix grafici;\n
+		\t- [bug] Bugfix.\n
+		\n
 		Versione 2.0\n
 		\tNovità e bug risolti:\n
 		\t- [mod] Nuova grafica!\n
 		\t- [mod] Layout orizzontale e per
 		tablet;\n
-		\t- [mod] Eliminato il captcha per la richiesta di canzoni;\n
+		\t- [mod] Eliminato il
+		captcha per la richiesta di canzoni;\n
 		\t- [nuovo] Impostazioni per uso della rete;\n
-		\t- [nuovo] Ricevi informazioni dalla radio direttamente sull\'app;\n
+		\t- [nuovo] Ricevi informazioni
+		dalla radio direttamente sull\'app;\n
 		\t- [nuovo] Condividi quello che stai ascoltando
 		con i tuoi amici;\n
-		\t- [bug] Crash in presenza di più account Google;\n
+		\t- [bug]
+		Crash in presenza di più account Google;\n
 		\t- [bug] Dopo un errore o una chiamata il
 		pulsante pausa non cambia stato;\n
 		\t- [bug] Non funziona su Android >= 4.0;\n
@@ -29,20 +37,25 @@
 		Versione 1.1\n
 		\tCorrezioni:\n
 		\t- [bug]
-		L\'applicazione non va in pausa all\'arrivo di una chiamata;\n
+		L\'applicazione non va in pausa
+		all\'arrivo di una chiamata;\n
 		\t- [bug] Audio scattoso su alcuni dispositivi;\n
 		\t-
-		[bug] L\'applicazione si chiude quando va in background;\n
+		[bug] L\'applicazione si chiude
+		quando va in background;\n
 		\t- [bug] Palinsesto con orario sbagliato;\n
 		\t- [bug] Dopo
-		lo stop viene ancora caricata una cover;\n
+		lo stop viene ancora caricata una
+		cover;\n
 		\t- [bug] Verifica della connessione ad Internet;\n
 		\t- [bug] Crash per
-		assenza della connessione quando si è in play;\n
+		assenza della connessione quando si è in
+		play;\n
 		\t- [mod] Invio mail senza ulteriore conferma;\n
 		\t- [mod] Nuovi
 		pulsanti di play e pausa;\n
-		\t- [mod] Grafica palinsesto a colori sfalsati;\n
+		\t- [mod] Grafica
+		palinsesto a colori sfalsati;\n
 		\t- [nuovo] Notifiche.\n
 		\n
 		Versione 1.0:\n

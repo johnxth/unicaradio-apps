@@ -21,7 +21,6 @@
     <issue id="DuplicateIncludedIds" severity="ignore" />
     <issue id="DuplicateUsesFeature" severity="ignore" />
     <issue id="EnforceUTF8" severity="ignore" />
-    <issue id="ExportedActivity" severity="ignore" />
     <issue id="ExportedContentProvider" severity="ignore" />
     <issue id="ExportedReceiver" severity="ignore" />
     <issue id="ExportedService" severity="ignore" />
@@ -89,7 +88,6 @@
     <issue id="Proguard" severity="ignore" />
     <issue id="ProguardSplit" severity="ignore" />
     <issue id="ProtectedPermissions" severity="ignore" />
-    <issue id="ProtectedPermissons" severity="ignore" />
     <issue id="PxUsage" severity="ignore" />
     <issue id="Recycle" severity="ignore" />
     <issue id="Registered" severity="ignore" />

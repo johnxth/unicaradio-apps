@@ -32,27 +32,10 @@ public class UnicaradioIOException extends IOException
 	}
 
 	/**
-	 * @param message
-	 * @param cause
-	 */
-	public UnicaradioIOException(String message, Throwable cause)
-	{
-		super(message, cause);
-	}
-
-	/**
 	 * @param detailMessage
 	 */
 	public UnicaradioIOException(String detailMessage)
 	{
 		super(detailMessage);
-	}
-
-	/**
-	 * @param cause
-	 */
-	public UnicaradioIOException(Throwable cause)
-	{
-		super(cause);
 	}
 }

@@ -9,7 +9,7 @@
 		parent="@style/Theme.Sherlock">
 		<item name="android:actionBarStyle">@style/Widget.Unicaradio.ActionBar</item>
 		<item name="android:windowBackground">@drawable/window_bg2</item>
-		<item name="actionBarItemBackground">@drawable/ab_item_background</item>
+		<item name="android:actionBarItemBackground">@drawable/ab_item_background</item>
 		<item name="android:dropDownListViewStyle">@style/Widget.Unicaradio.ListView.DropDown</item>
 		<item name="android:listChoiceBackgroundIndicator">@drawable/ab_item_background</item>
 		<item name="android:editTextBackground">@drawable/edit_text</item>
