@@ -40,7 +40,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,6 +73,9 @@
 			cell.textLabel.text = @"tonymillion - Reachability";
 			cell.detailTextLabel.text = @"MIT Licence";
 			break;
+		case 6:
+			cell.textLabel.text = @"paolinux86 - iUC";
+			cell.detailTextLabel.text = @"GPLv2 Licence";
 		default:
 			break;
 	}
@@ -105,6 +108,9 @@
 			break;
 		case 5:
 			url = @"https://github.com/tonymillion/Reachability";
+			break;
+		case 6:
+			url = @"https://github.com/paolinux86/iUC";
 			break;
 
 	}
