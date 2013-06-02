@@ -38,6 +38,9 @@
     IBOutlet UIButton *playPauseButton;
     IBOutlet UIImageView *coverImageView;
 
+	IBOutlet UILabel *authorLbl;
+	IBOutlet UILabel *titleLbl;
+
 	MarqueeLabel *titleMarqueeLabel;
 	MarqueeLabel *singerMarqueeLabel;
 
@@ -60,6 +63,9 @@
 @property (nonatomic, strong) IBOutlet UILabel *singerLabel;
 @property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
 @property (nonatomic, strong) IBOutlet UIImageView *coverImageView;
+
+@property (nonatomic, strong) IBOutlet UILabel *authorLbl;
+@property (nonatomic, strong) IBOutlet UILabel *titleLbl;
 
 @property (strong) TrackInfos *infos;
 @property (strong) TrackInfos *oldInfos;

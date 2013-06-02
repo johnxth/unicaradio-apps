@@ -29,6 +29,9 @@
 @synthesize playPauseButton;
 @synthesize coverImageView;
 
+@synthesize authorLbl;
+@synthesize titleLbl;
+
 @synthesize infos;
 @synthesize oldInfos;
 
@@ -70,6 +73,8 @@
 
 - (void)viewDidUnload
 {
+    authorLbl = nil;
+    titleLbl = nil;
     [super viewDidUnload];
 }
 
@@ -78,6 +83,9 @@
 	NSLog(@"StreamingViewController - viewWillAppear");
 	UIInterfaceOrientation newOrientation = [[UIApplication sharedApplication] statusBarOrientation];
 	[self willRotateToInterfaceOrientation:newOrientation duration:0.];
+
+	self.titleLbl.text = NSLocalizedString(@"STREAMING_TITLE_LABEL", @"");
+	self.authorLbl.text = NSLocalizedString(@"STREAMING_AUTHOR_LABEL", @"");
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -375,6 +383,8 @@
 		if(![DeviceUtils isPhone]) {
 			[self.titleLabel setHidden:YES];
 			[self.singerLabel setHidden:YES];
+			[self.titleLbl setHidden:YES];
+			[self.authorLbl setHidden:YES];
 
 			titleLabel.text = @"";
 			singerLabel.text = @"- UnicaRadio -";
@@ -423,6 +433,8 @@
 			if(![DeviceUtils isPhone]) {
 				[self.titleLabel setHidden:NO];
 				[self.singerLabel setHidden:NO];
+				[self.titleLbl setHidden:NO];
+				[self.authorLbl setHidden:NO];
 				self.singerLabel.text = infos.author;
 				self.titleLabel.text = infos.title;
 			} else {

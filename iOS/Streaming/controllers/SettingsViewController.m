@@ -177,7 +177,7 @@
 
 		case 1:
 			if(numberOfRow == 0) {
-				NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+				NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
 				cell.textLabel.text = NSLocalizedString(@"APP_VERSION", @"");
 				cell.detailTextLabel.text = appVersion;
 			} else if(numberOfRow == 1) {
