@@ -109,14 +109,14 @@
 	return  cell;
 }
 
-- (UIView *)tableView:(UITableView *)_tableView viewForHeaderInSection:(NSInteger)section {
-	NSString *sectionTitle = [self tableView:_tableView titleForHeaderInSection:section];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
 	if (sectionTitle == nil) {
 		return nil;
 	}
 	
 	// Create label with section title
-	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _tableView.bounds.size.width - 40, 30)];
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.bounds.size.width - 40, 30)];
 	//If you add a bit to x and decrease y, it will be more in line with the tableView cell (that is in iPad and landscape)
 	label.backgroundColor = [UIColor clearColor];
 	label.textColor = [UIColor whiteColor];

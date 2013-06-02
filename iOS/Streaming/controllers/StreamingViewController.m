@@ -203,8 +203,8 @@
 - (BOOL) isConnectionOK
 {
 	if(![NetworkUtils isConnected]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Non connesso"
-														message: @"Oh oh... non sei connesso alla rete. Riprova."
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"NOT_CONNECTED_ALERT_TITLE", @"")
+														message: NSLocalizedString(@"NOT_CONNECTED_ALERT_MESSAGE", @"")
 													   delegate: nil
 											  cancelButtonTitle: @"OK"
 											  otherButtonTitles: nil];
@@ -215,8 +215,8 @@
 
 	NetworkType enabledNetworkType = [settingsManager getNetworkType];
 	if(enabledNetworkType == WIFI_ONLY && ![NetworkUtils isConnectedToWiFi]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Non connesso"
-														message: @"Oh oh... non sei connesso in wifi. Controlla le impostazioni se vuoi usare questo tipo di rete"
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"NOT_IN_WIFI_ALERT_TITLE", @"")
+														message: NSLocalizedString(@"NOT_IN_WIFI_ALERT_MESSAGE", @"")
 													   delegate: nil
 											  cancelButtonTitle: @"OK"
 											  otherButtonTitles: nil];
