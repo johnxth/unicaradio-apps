@@ -1,3 +1,2 @@
 include ':Unicaradio'
-include ':actionbarsherlock'
 include ':Android-WVersionManager'
