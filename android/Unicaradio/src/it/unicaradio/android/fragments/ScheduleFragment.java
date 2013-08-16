@@ -72,6 +72,9 @@ public class ScheduleFragment extends UnicaradioFragment
 	{
 		super.onPause();
 
+		if(ScheduleListFragment.instance == null) {
+			return;
+		}
 		getFragmentManager().beginTransaction().remove(ScheduleListFragment.instance).commit();
 	}
 
