@@ -18,6 +18,10 @@
 "SHARE_SHEET_TITLE" = "Share with...";
 "CANCEL_BUTTON" = "Cancel";
 
+// Streaming
+"STREAMING_AUTHOR_LABEL" = "Author";
+"STREAMING_TITLE_LABEL" = "Title";
+
 // ShareViewController
 "SUGGEST_SUBJECT" = "Listen UnicaRadio!";
 "SUGGEST_CONTENT" = "Listen UnicaRadio, the webradio of the university students in Cagliari.\nVisit www.unicaradio.it and download the app from the App Store!";

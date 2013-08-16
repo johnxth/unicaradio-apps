@@ -71,18 +71,21 @@
 
 	US2ValidatorTextField *textField = [self createTextField];
 	textField.validator = [[US2ValidatorEmail alloc] init];
-	textField.placeholder = @"";
+	textField.placeholder = NSLocalizedString(@"EMAIL_PLACEHOLDER", @"");
 	textField.text = email;
+	[textField setKeyboardType:UIKeyboardTypeEmailAddress];
+	[textField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+	[textField setAutocorrectionType:UITextAutocorrectionTypeNo];
 	[textFields addObject:textField];
 
 	US2ValidatorTextField *textField2 = [self createTextField];
 	textField2.validator = [[AuthorTitleValidatorCondition alloc] init];
-	textField2.placeholder = @"Autore";
+	textField2.placeholder = NSLocalizedString(@"AUTHOR_PLACEHOLDER", @"");
 	[textFields addObject:textField2];
 
 	US2ValidatorTextField *textField3 = [self createTextField];
 	textField3.validator = [[AuthorTitleValidatorCondition alloc] init];
-	textField3.placeholder = @"Titolo";
+	textField3.placeholder = NSLocalizedString(@"TITLE_PLACEHOLDER", @"");
 	[textFields addObject:textField3];
 }
 

@@ -68,7 +68,7 @@
 
 	updateChecker = [[iUC alloc] init];
 	updateChecker.delegate = self;
-	updateChecker.updateURL = [NSURL URLWithString:@"http://www.unicaradio.it/regia/test/updates.php"];
+	updateChecker.updateURL = [NSURL URLWithString:@"http://www.unicaradio.it/regia/test/updates_iOS.php"];
 	updateChecker.appStoreURL = [NSURL URLWithString:@"http://itunes.com/apps/unicaradio"];
 	[updateChecker checkVersion];
 

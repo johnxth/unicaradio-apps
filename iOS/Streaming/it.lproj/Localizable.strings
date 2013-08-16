@@ -18,6 +18,16 @@
 "SHARE_SHEET_TITLE" = "Condividi su...";
 "CANCEL_BUTTON" = "Annulla";
 
+// Streaming
+"STREAMING_AUTHOR_LABEL" = "Autore";
+"STREAMING_TITLE_LABEL" = "Titolo";
+
+"NOT_CONNECTED_ALERT_TITLE" = "Non sei connesso ad Internet";
+"NOT_CONNECTED_ALERT_MESSAGE" = "Oh oh... non sei connesso alla rete. Riprova.";
+
+"NOT_IN_WIFI_ALERT_TITLE" = "Non sei connesso in WiFi";
+"NOT_IN_WIFI_ALERT_MESSAGE" = "Oh oh... non sei connesso in WiFi. Controlla le impostazioni, se vuoi usare questo tipo di rete";
+
 // ShareViewController
 "SUGGEST_SUBJECT" = "Ascolta UnicaRadio!";
 "SUGGEST_CONTENT" = "Ascolta UnicaRadio, la webradio degli studenti universitari di Cagliari.\nVisita www.unicaradio.it e scarica l'app dall'App Store!";
