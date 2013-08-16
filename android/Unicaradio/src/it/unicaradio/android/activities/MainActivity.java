@@ -293,7 +293,6 @@ public class MainActivity extends SherlockFragmentActivity
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
-
 		if(currentFragment == null) {
 			Log.w(TAG, "MainActivity.onKeyDown(): currentFragment is NULL!");
 			return super.onKeyDown(keyCode, event);
@@ -310,6 +309,10 @@ public class MainActivity extends SherlockFragmentActivity
 	public boolean onKeyUp(int keyCode, KeyEvent event)
 	{
 		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
+		if(currentFragment == null) {
+			return super.onKeyUp(keyCode, event);
+		}
+
 		boolean result = currentFragment.onKeyUp(keyCode, event);
 		return result || super.onKeyUp(keyCode, event);
 	}
@@ -321,6 +324,10 @@ public class MainActivity extends SherlockFragmentActivity
 	public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event)
 	{
 		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
+		if(currentFragment == null) {
+			return super.onKeyMultiple(keyCode, repeatCount, event);
+		}
+
 		boolean result = currentFragment.onKeyMultiple(keyCode, repeatCount, event);
 		return result || super.onKeyMultiple(keyCode, repeatCount, event);
 	}
@@ -332,6 +339,10 @@ public class MainActivity extends SherlockFragmentActivity
 	public boolean onKeyLongPress(int keyCode, KeyEvent event)
 	{
 		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
+		if(currentFragment == null) {
+			return super.onKeyLongPress(keyCode, event);
+		}
+
 		boolean result = currentFragment.onKeyLongPress(keyCode, event);
 		return result || super.onKeyLongPress(keyCode, event);
 	}
@@ -343,6 +354,11 @@ public class MainActivity extends SherlockFragmentActivity
 	public void onBackPressed()
 	{
 		UnicaradioFragment currentFragment = tabSelectedListener.getCurrentFragment();
+		if(currentFragment == null) {
+			super.onBackPressed();
+			return;
+		}
+
 		boolean backAlreadyHandled = currentFragment.onBackPressed();
 
 		if(backAlreadyHandled) {

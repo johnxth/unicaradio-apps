@@ -91,6 +91,18 @@ public class ScheduleDetailFragment extends SherlockListFragment
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		Log.v(TAG, "onDestroy");
+
+		instance = null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void onPause()
 	{
 		super.onPause();

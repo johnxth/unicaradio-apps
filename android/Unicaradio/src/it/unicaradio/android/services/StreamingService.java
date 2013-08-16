@@ -296,12 +296,14 @@ public class StreamingService extends Service implements PlayerCallback
 					if(code != HttpURLConnection.HTTP_OK) {
 						stop();
 						Log.d(LOG, "Impossibile connettersi");
+						return false;
 					}
 
 					streamer = new IcecastStreamer(conn);
 				} else {
 					stop();
 					Log.d(LOG, "Impossibile connettersi");
+					return false;
 				}
 			} catch(MalformedURLException e) {
 				stopWithException("Errore: l'indirizzo di streaming non è corretto.", e);

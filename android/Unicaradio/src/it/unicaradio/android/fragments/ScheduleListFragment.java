@@ -30,7 +30,6 @@ import it.unicaradio.android.utils.NetworkUtils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +54,8 @@ public class ScheduleListFragment extends SherlockListFragment
 	private int clicked = -1;
 
 	private boolean isTwoPane;
+
+	private boolean refreshForcedFromDetail = false;
 
 	private static Schedule schedule;
 
@@ -182,12 +183,19 @@ public class ScheduleListFragment extends SherlockListFragment
 
 	void updateScheduleFromJSON(RefreshType refreshType)
 	{
-		boolean shouldShowDialog = (refreshType == RefreshType.FORCED);
+		if(refreshType == RefreshType.FORCED_FROM_DETAIL) {
+			schedule = null;
+			clicked = -1;
+			refreshForcedFromDetail = true;
+		} else {
+			boolean shouldShowDialog = (refreshType == RefreshType.FORCED) || refreshForcedFromDetail;
+			refreshForcedFromDetail = false;
 
-		DownloadScheduleAsyncTask task = new DownloadScheduleAsyncTask(getMainActivityContext(), shouldShowDialog);
-		task.setOnTaskCompletedListener(new OnDownloadScheduleAsyncTaskCompletedListener());
-		task.setOnTaskFailedListener(new OnDownloadScheduleAsyncTaskFailedListener());
-		task.execute();
+			DownloadScheduleAsyncTask task = new DownloadScheduleAsyncTask(getMainActivityContext(), shouldShowDialog);
+			task.setOnTaskCompletedListener(new OnDownloadScheduleAsyncTaskCompletedListener());
+			task.setOnTaskFailedListener(new OnDownloadScheduleAsyncTaskFailedListener());
+			task.execute();
+		}
 	}
 
 	private MainActivity getMainActivity()
@@ -257,24 +265,28 @@ public class ScheduleListFragment extends SherlockListFragment
 		{
 			Log.e(TAG, "Got error: " + result.getErrorCode());
 
-			FragmentActivity activity = getMainActivity();
-			if(activity == null) {
+			Context context = getMainActivityContext();
+			if(context == null) {
 				return;
 			}
 
-			if(result.getErrorCode() == Error.INTERNAL_DOWNLOAD_ERROR) {
-				new AlertDialog.Builder(activity).setTitle("Errore!")
-						.setMessage("È avvenuto un errore. Verifica di essere connesso ad Internet.")
-						.setCancelable(false).setPositiveButton("OK", null).show();
-			} else {
-				new AlertDialog.Builder(activity).setTitle("Errore!")
-						.setMessage("È avvenuto un errore imprevisto. Riprova più tardi.").setCancelable(false)
-						.setPositiveButton("OK", null).show();
+			try {
+				if(result.getErrorCode() == Error.INTERNAL_DOWNLOAD_ERROR) {
+					new AlertDialog.Builder(context).setTitle("Errore!")
+							.setMessage("È avvenuto un errore. Verifica di essere connesso ad Internet.")
+							.setCancelable(false).setPositiveButton("OK", null).show();
+				} else {
+					new AlertDialog.Builder(context).setTitle("Errore!")
+							.setMessage("È avvenuto un errore imprevisto. Riprova più tardi.").setCancelable(false)
+							.setPositiveButton("OK", null).show();
+				}
+			} catch(Exception e) {
+				Log.e(TAG, e.getMessage(), e);
 			}
 		}
 	}
 
 	enum RefreshType {
-		NORMAL, FORCED
+		NORMAL, FORCED, FORCED_FROM_DETAIL
 	}
 }

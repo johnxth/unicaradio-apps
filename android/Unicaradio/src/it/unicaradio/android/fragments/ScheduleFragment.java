@@ -46,8 +46,7 @@ public class ScheduleFragment extends UnicaradioFragment
 	 * {@inheritDoc}
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.schedule, null);
 
@@ -62,9 +61,7 @@ public class ScheduleFragment extends UnicaradioFragment
 	{
 		super.onResume();
 
-		getFragmentManager().beginTransaction()
-				.replace(R.id.schedule_container, new ScheduleListFragment())
-				.commit();
+		getFragmentManager().beginTransaction().replace(R.id.schedule_container, new ScheduleListFragment()).commit();
 	}
 
 	/**
@@ -75,8 +72,7 @@ public class ScheduleFragment extends UnicaradioFragment
 	{
 		super.onPause();
 
-		getFragmentManager().beginTransaction()
-				.remove(ScheduleListFragment.instance).commit();
+		getFragmentManager().beginTransaction().remove(ScheduleListFragment.instance).commit();
 	}
 
 	/**
@@ -87,12 +83,15 @@ public class ScheduleFragment extends UnicaradioFragment
 	{
 		switch(item.getItemId()) {
 			case R.id.scheduleUpdate:
-				ScheduleListFragment.instance
-						.updateScheduleFromJSON(RefreshType.FORCED);
-				ScheduleListFragment.instance.deselectItemOnList();
-				if(ScheduleDetailFragment.instance != null) {
-					getFragmentManager().beginTransaction()
-							.remove(ScheduleDetailFragment.instance).commit();
+				ScheduleListFragment scheduleList = ScheduleListFragment.instance;
+				ScheduleDetailFragment scheduleDetail = ScheduleDetailFragment.instance;
+				if(scheduleDetail != null) {
+					scheduleList.updateScheduleFromJSON(RefreshType.FORCED_FROM_DETAIL);
+					getFragmentManager().popBackStack();
+					getFragmentManager().beginTransaction().remove(scheduleDetail).commit();
+				} else {
+					scheduleList.updateScheduleFromJSON(RefreshType.FORCED);
+					scheduleList.deselectItemOnList();
 				}
 				return true;
 
