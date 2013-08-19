@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+<module external.linked.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="Debug" />
         <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
         <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleTest" />
+        <option name="SOURCE_GEN_TASK_NAME" value="TODO" />
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="UPDATE_PROPERTY_FILES" value="true" />
       </configuration>
@@ -62,7 +63,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Android-WVersionManager" />
+    <orderEntry type="module" module-name="Android-WVersionManager" exported="" />
     <orderEntry type="library" name="acra-4.4.0" level="project" />
     <orderEntry type="library" name="gcm" level="project" />
     <orderEntry type="library" name="aacdecoder-android-0.6.1" level="project" />

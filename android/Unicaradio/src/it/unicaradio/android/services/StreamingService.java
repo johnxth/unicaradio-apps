@@ -2,37 +2,19 @@
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; version 2 of the License.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * Copyright UnicaRadio
  */
 package it.unicaradio.android.services;
-
-import it.unicaradio.android.R;
-import it.unicaradio.android.activities.MainActivity;
-import it.unicaradio.android.events.OnInfoListener;
-import it.unicaradio.android.gui.TrackInfos;
-import it.unicaradio.android.receivers.ConnectivityBroadcastReceiver;
-import it.unicaradio.android.receivers.NoisyAudioStreamBroadcastReceiver;
-import it.unicaradio.android.receivers.TelephonyBroadcastReceiver;
-import it.unicaradio.android.streamers.IcecastStreamer;
-import it.unicaradio.android.streamers.Streamer;
-import it.unicaradio.android.utils.StringUtils;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.MessageFormat;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -43,6 +25,7 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
@@ -51,6 +34,28 @@ import android.util.Log;
 
 import com.spoledge.aacdecoder.AACPlayer;
 import com.spoledge.aacdecoder.PlayerCallback;
+
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.params.HttpProtocolParams;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.MessageFormat;
+
+import it.unicaradio.android.R;
+import it.unicaradio.android.activities.MainActivity;
+import it.unicaradio.android.events.OnInfoListener;
+import it.unicaradio.android.gui.TrackInfos;
+import it.unicaradio.android.receivers.ConnectivityBroadcastReceiver;
+import it.unicaradio.android.receivers.NoisyAudioStreamBroadcastReceiver;
+import it.unicaradio.android.receivers.TelephonyBroadcastReceiver;
+import it.unicaradio.android.streamers.IcecastStreamer;
+import it.unicaradio.android.streamers.Streamer;
+import it.unicaradio.android.utils.IntentUtils;
+import it.unicaradio.android.utils.StringUtils;
 
 /**
  * @author Paolo Cortis
@@ -65,7 +70,8 @@ public class StreamingService extends Service implements PlayerCallback
 
 	public static final String ACTION_TOAST_MESSAGE = "it.unicaradio.android.intent.action.TOAST_MESSAGE";
 
-	private static final String STREAM_URL = "http://streaming.unicaradio.it:80/unica64.aac";
+	//private static final String STREAM_URL = "http://streaming.unicaradio.it:80/unica64.aac";
+	private static final String STREAM_URL = "http://10.0.2.2:15000/";
 
 	private static final int NOTIFICATION_ID = 1;
 
@@ -256,6 +262,10 @@ public class StreamingService extends Service implements PlayerCallback
 
 	private final class PlayThread implements Runnable
 	{
+		public static final String USER_AGENT = "User-Agent";
+
+		public static final String ICY_META_DATA = "Icy-MetaData";
+
 		@Override
 		public void run()
 		{
@@ -263,7 +273,8 @@ public class StreamingService extends Service implements PlayerCallback
 				return;
 			}
 
-			streamer.addOnInfoListener(new OnInfoListener() {
+			streamer.addOnInfoListener(new OnInfoListener()
+			{
 				@Override
 				public void onInfo(TrackInfos trackInfos)
 				{
@@ -287,7 +298,8 @@ public class StreamingService extends Service implements PlayerCallback
 			try {
 				URL url = new URL(STREAM_URL);
 				conn = url.openConnection();
-				conn.addRequestProperty("Icy-MetaData", "1");
+				addIcyMetaDataHeader();
+				setUserAgent(conn);
 				conn.connect();
 
 				if(conn instanceof HttpURLConnection) {
@@ -314,6 +326,23 @@ public class StreamingService extends Service implements PlayerCallback
 			}
 
 			return true;
+		}
+
+		private void addIcyMetaDataHeader()
+		{
+			conn.addRequestProperty(ICY_META_DATA, "1");
+		}
+
+		private void setUserAgent(URLConnection conn)
+		{
+			String appVersion = IntentUtils.getAppVersion(StreamingService.this);
+			String androidRelease = Build.VERSION.RELEASE;
+			String deviceModel = Build.MODEL;
+
+			String userAgent = MessageFormat
+					.format("UnicaRadio/{0} (Linux; Android {1}; {2})", appVersion, androidRelease, deviceModel);
+
+			conn.setRequestProperty(USER_AGENT, userAgent);
 		}
 	}
 

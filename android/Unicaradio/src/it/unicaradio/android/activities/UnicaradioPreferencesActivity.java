@@ -133,7 +133,7 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity im
 		}
 
 		Preference app_version = findPreference(UnicaradioPreferences.PREF_APP_VERSION);
-		app_version.setSummary(getAppVersion());
+		app_version.setSummary(IntentUtils.getAppVersion(this));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -265,16 +265,6 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity im
 		}
 
 		return StringUtils.EMPTY;
-	}
-
-	String getAppVersion()
-	{
-		try {
-			PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
-			return pInfo.versionName;
-		} catch(NameNotFoundException e) {
-			return StringUtils.EMPTY;
-		}
 	}
 
 	static final class OpenPreferenceLink implements OnPreferenceClickListener
