@@ -2,31 +2,19 @@
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; version 2 of the License.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * Copyright UnicaRadio
  */
 package it.unicaradio.android.fragments;
-
-import it.unicaradio.android.R;
-import it.unicaradio.android.listeners.SongRequestTaskFailedListener;
-import it.unicaradio.android.models.Response;
-import it.unicaradio.android.models.SongRequest;
-import it.unicaradio.android.tasks.BlockingAsyncTask.OnTaskCompletedListener;
-import it.unicaradio.android.tasks.GetEmailAddressAsyncTask;
-import it.unicaradio.android.tasks.SendSongRequestAsyncTask;
-import it.unicaradio.android.utils.Constants;
-import it.unicaradio.android.utils.StringUtils;
-
-import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -43,6 +31,19 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import it.unicaradio.android.R;
+import it.unicaradio.android.listeners.SongRequestTaskFailedListener;
+import it.unicaradio.android.models.Response;
+import it.unicaradio.android.models.SongRequest;
+import it.unicaradio.android.tasks.BlockingAsyncTask.OnTaskCompletedListener;
+import it.unicaradio.android.tasks.GetEmailAddressAsyncTask;
+import it.unicaradio.android.tasks.SendSongRequestAsyncTask;
+import it.unicaradio.android.utils.Constants;
+import it.unicaradio.android.utils.StringUtils;
 
 /**
  * @author Paolo Cortis
@@ -63,8 +64,7 @@ public class SongRequestFragment extends UnicaradioFragment
 	 * {@inheritDoc}
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		return inflater.inflate(R.layout.songs, null);
 	}
@@ -82,8 +82,7 @@ public class SongRequestFragment extends UnicaradioFragment
 		setupTab();
 
 		if(savedInstanceState != null) {
-			email = StringUtils.defaultString(savedInstanceState
-					.getString("mail"));
+			email = StringUtils.defaultString(savedInstanceState.getString("mail"));
 			updateEmailOnView();
 
 			authorView.setText(savedInstanceState.getString("author"));
@@ -166,10 +165,8 @@ public class SongRequestFragment extends UnicaradioFragment
 		email = StringUtils.EMPTY;
 		updateEmailOnView();
 
-		GetEmailAddressAsyncTask getEmailAddressAsyncTask = new GetEmailAddressAsyncTask(
-				getMainActivityContext());
-		getEmailAddressAsyncTask
-				.setOnTaskCompletedListener(new OnGetEmailAddressAsyncTaskCompletedListener());
+		GetEmailAddressAsyncTask getEmailAddressAsyncTask = new GetEmailAddressAsyncTask(getMainActivityContext());
+		getEmailAddressAsyncTask.setOnTaskCompletedListener(new OnGetEmailAddressAsyncTaskCompletedListener());
 		getEmailAddressAsyncTask.execute();
 	}
 
@@ -182,10 +179,8 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private void setupTab()
 	{
-		emailView = (AutoCompleteTextView) getMainActivity().findViewById(
-				R.id.songsEmail);
-		authorView = (TextView) getMainActivity()
-				.findViewById(R.id.songsAuthor);
+		emailView = (AutoCompleteTextView) getMainActivity().findViewById(R.id.songsEmail);
+		authorView = (TextView) getMainActivity().findViewById(R.id.songsAuthor);
 		titleView = (TextView) getMainActivity().findViewById(R.id.songsTitle);
 	}
 
@@ -202,8 +197,7 @@ public class SongRequestFragment extends UnicaradioFragment
 		final String author = authorView.getText().toString().trim();
 		final String title = titleView.getText().toString().trim();
 
-		if(StringUtils.isEmpty(email) || StringUtils.isEmpty(author)
-				|| StringUtils.isEmpty(title)) {
+		if(StringUtils.isEmpty(email) || StringUtils.isEmpty(author) || StringUtils.isEmpty(title)) {
 			return false;
 		}
 
@@ -229,8 +223,8 @@ public class SongRequestFragment extends UnicaradioFragment
 	private void warnUserForEmptyFields()
 	{
 		new AlertDialog.Builder(getMainActivityContext()).setTitle("Errore!")
-				.setMessage("Attenzione! Hai dimenticato qualcosa :)")
-				.setCancelable(false).setPositiveButton("OK", null).show();
+				.setMessage("Attenzione! Hai dimenticato qualcosa :)").setCancelable(false)
+				.setPositiveButton("OK", null).show();
 	}
 
 	private void saveEmailInPreferences()
@@ -242,19 +236,17 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private void sendEmail()
 	{
-		SendSongRequestAsyncTask sendSongRequestAsyncTask = new SendSongRequestAsyncTask(
-				getMainActivityContext(), elaborateSongRequest());
-		sendSongRequestAsyncTask
-				.setOnTaskCompletedListener(new OnSendSongRequestAsyncTaskCompletedListener());
+		SendSongRequestAsyncTask sendSongRequestAsyncTask =
+				new SendSongRequestAsyncTask(getMainActivityContext(), elaborateSongRequest());
+		sendSongRequestAsyncTask.setOnTaskCompletedListener(new OnSendSongRequestAsyncTaskCompletedListener());
 
-		SongRequestTaskFailedListener<String> taskFailedListener = new SongRequestTaskFailedListener<String>(
-				getMainActivityContext());
+		SongRequestTaskFailedListener<String> taskFailedListener =
+				new SongRequestTaskFailedListener<String>(getMainActivityContext());
 		sendSongRequestAsyncTask.setOnTaskFailedListener(taskFailedListener);
 		sendSongRequestAsyncTask.execute();
 	}
 
 	/**
-	 * @param email
 	 * @return
 	 */
 	private boolean isEmailValid()
@@ -266,8 +258,8 @@ public class SongRequestFragment extends UnicaradioFragment
 	private void warnUserForNotValidEmail()
 	{
 		new AlertDialog.Builder(getMainActivityContext()).setTitle("Errore!")
-				.setMessage("Attenzione! L'email indicata non è corretta")
-				.setCancelable(false).setPositiveButton("OK", null).show();
+				.setMessage("Attenzione! L'email indicata non è corretta").setCancelable(false)
+				.setPositiveButton("OK", null).show();
 	}
 
 	private void elaborateRequest()
@@ -295,16 +287,15 @@ public class SongRequestFragment extends UnicaradioFragment
 		@Override
 		public void onTaskCompleted(Response<String> result)
 		{
-			new AlertDialog.Builder(getMainActivityContext())
-					.setTitle("Richiesta inviata")
-					.setMessage("La tua richiesta è stata presa in carico.")
-					.setCancelable(false).setPositiveButton("OK", null).show();
+			new AlertDialog.Builder(getMainActivityContext()).setTitle("Richiesta inviata")
+					.setMessage("La tua richiesta è stata presa in carico.").setCancelable(false)
+					.setPositiveButton("OK", null).show();
 			clearForm();
 		}
 	}
 
-	private final class OnGetEmailAddressAsyncTaskCompletedListener implements
-			OnTaskCompletedListener<Response<List<String>>>
+	private final class OnGetEmailAddressAsyncTaskCompletedListener
+			implements OnTaskCompletedListener<Response<List<String>>>
 	{
 		/**
 		 * {@inheritDoc}
@@ -317,22 +308,25 @@ public class SongRequestFragment extends UnicaradioFragment
 			}
 
 			List<String> result = response.getResult();
-			if((result == null) || (result.size() == 0)) {
+			if(result == null || result.isEmpty()) {
 				return;
 			}
 
 			if(result.size() == 1) {
 				email = result.get(0);
 				updateEmailOnView();
-			} else {
-				final String[] tmpEmails = result.toArray(new String[result
-						.size()]);
-
-				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-						getMainActivityContext(),
-						android.R.layout.simple_dropdown_item_1line, tmpEmails);
-				emailView.setAdapter(arrayAdapter);
 			}
+
+			prepareAutocompleteSuggests(result);
+		}
+
+		private void prepareAutocompleteSuggests(List<String> result)
+		{
+			final String[] emailsAsStringArray = result.toArray(new String[result.size()]);
+			ArrayAdapter<String> arrayAdapter =
+					new ArrayAdapter<String>(getMainActivityContext(), android.R.layout.simple_dropdown_item_1line,
+											 emailsAsStringArray);
+			emailView.setAdapter(arrayAdapter);
 		}
 	}
 }
