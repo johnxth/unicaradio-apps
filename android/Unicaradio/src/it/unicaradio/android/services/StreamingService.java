@@ -35,9 +35,6 @@ import android.util.Log;
 import com.spoledge.aacdecoder.AACPlayer;
 import com.spoledge.aacdecoder.PlayerCallback;
 
-import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.params.HttpProtocolParams;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;

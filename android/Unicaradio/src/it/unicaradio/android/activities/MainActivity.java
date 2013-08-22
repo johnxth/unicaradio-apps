@@ -248,7 +248,7 @@ public class MainActivity extends SherlockFragmentActivity
 				return(lastRunVersionCode > 0);
 			}
 		} catch(NameNotFoundException e) {
-			e.printStackTrace();
+			Log.e(TAG, "Error while verifying if app has been updated", e);
 		}
 
 		return false;

@@ -99,6 +99,7 @@ public class Tab extends LinearLayout
 		setGravity(Gravity.CENTER);
 		setClickable(true);
 		setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View view)
 			{
 				ViewGroup parent = (ViewGroup) view.getParent();

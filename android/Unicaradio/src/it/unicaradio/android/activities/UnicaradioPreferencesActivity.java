@@ -16,12 +16,6 @@
  */
 package it.unicaradio.android.activities;
 
-import it.unicaradio.android.R;
-import it.unicaradio.android.enums.NetworkType;
-import it.unicaradio.android.utils.IntentUtils;
-import it.unicaradio.android.utils.StringUtils;
-import it.unicaradio.android.utils.UnicaradioPreferences;
-import it.unicaradio.android.utils.ViewUtils;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -30,9 +24,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -46,6 +37,13 @@ import android.preference.PreferenceScreen;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
+
+import it.unicaradio.android.R;
+import it.unicaradio.android.enums.NetworkType;
+import it.unicaradio.android.utils.IntentUtils;
+import it.unicaradio.android.utils.StringUtils;
+import it.unicaradio.android.utils.UnicaradioPreferences;
+import it.unicaradio.android.utils.ViewUtils;
 
 /**
  * @author Paolo Cortis

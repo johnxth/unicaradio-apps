@@ -26,4 +26,8 @@ public class Constants
 	public static final String PREFERENCES_NO_MAIL_VALUE = "no_mail";
 
 	public static final String PREFERENCES_USER_EMAIL_KEY = "user_email";
+
+	private Constants()
+	{
+	}
 }

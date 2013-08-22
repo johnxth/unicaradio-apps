@@ -32,7 +32,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.unicaradio.android.R;
@@ -186,22 +185,17 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private void updateEmailOnView()
 	{
-		String mail = email.toString();
-		emailView.setText(mail);
+		emailView.setText(email);
 		saveEmailInPreferences();
 	}
 
-	private boolean areFieldsFilled()
+	private boolean areThereInvalidFields()
 	{
-		final String email = emailView.getText().toString().trim();
-		final String author = authorView.getText().toString().trim();
-		final String title = titleView.getText().toString().trim();
+		String email = emailView.getText().toString().trim();
+		String author = authorView.getText().toString().trim();
+		String title = titleView.getText().toString().trim();
 
-		if(StringUtils.isEmpty(email) || StringUtils.isEmpty(author) || StringUtils.isEmpty(title)) {
-			return false;
-		}
-
-		return true;
+		return StringUtils.isEmpty(email) || StringUtils.isEmpty(author) || StringUtils.isEmpty(title);
 	}
 
 	private SongRequest elaborateSongRequest()
@@ -251,7 +245,7 @@ public class SongRequestFragment extends UnicaradioFragment
 	 */
 	private boolean isEmailValid()
 	{
-		final String email = emailView.getText().toString().trim();
+		String email = emailView.getText().toString().trim();
 		return Patterns.EMAIL_ADDRESS.matcher(email).matches();
 	}
 
@@ -264,7 +258,7 @@ public class SongRequestFragment extends UnicaradioFragment
 
 	private void elaborateRequest()
 	{
-		if(!areFieldsFilled()) {
+		if(areThereInvalidFields()) {
 			warnUserForEmptyFields();
 			return;
 		}
@@ -322,7 +316,7 @@ public class SongRequestFragment extends UnicaradioFragment
 
 		private void prepareAutocompleteSuggests(List<String> result)
 		{
-			final String[] emailsAsStringArray = result.toArray(new String[result.size()]);
+			String[] emailsAsStringArray = result.toArray(new String[result.size()]);
 			ArrayAdapter<String> arrayAdapter =
 					new ArrayAdapter<String>(getMainActivityContext(), android.R.layout.simple_dropdown_item_1line,
 											 emailsAsStringArray);

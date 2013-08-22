@@ -2,19 +2,26 @@
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; version 2 of the License.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * Copyright UnicaRadio
  */
 package it.unicaradio.android.listeners;
+
+import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.View;
 
 import it.unicaradio.android.R;
 import it.unicaradio.android.adapters.UnicaradioPagerAdapter;
@@ -22,12 +29,6 @@ import it.unicaradio.android.fragments.UnicaradioFragment;
 import it.unicaradio.android.gui.Tab;
 import it.unicaradio.android.gui.Tab.OnTabSelectedListener;
 import it.unicaradio.android.gui.Tabs;
-import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.util.SparseArray;
-import android.view.View;
 
 /**
  * @author Paolo Cortis
@@ -42,12 +43,9 @@ public class TabSelectedListener implements OnTabSelectedListener
 
 	private ViewPager viewPager;
 
-	private UnicaradioPagerAdapter pagerAdapter;
-
 	private Context context;
 
-	public TabSelectedListener(Context context,
-			FragmentManager fragmentManager, ViewPager viewPager)
+	public TabSelectedListener(Context context, FragmentManager fragmentManager, ViewPager viewPager)
 	{
 		this.viewPager = viewPager;
 		this.context = context;
@@ -58,10 +56,8 @@ public class TabSelectedListener implements OnTabSelectedListener
 
 	public void init()
 	{
-		this.pagerAdapter = new UnicaradioPagerAdapter(context, fragmentManager);
-		this.viewPager.setAdapter(pagerAdapter);
-		this.viewPager
-				.setOnPageChangeListener(new UnicaradioOnPageChangeListener());
+		this.viewPager.setAdapter(new UnicaradioPagerAdapter(context, fragmentManager));
+		this.viewPager.setOnPageChangeListener(new UnicaradioOnPageChangeListener());
 
 		showCurrentFragment();
 	}
@@ -73,8 +69,7 @@ public class TabSelectedListener implements OnTabSelectedListener
 	{
 		String fragmentTag = makeFragmentName(R.id.pager, currentTab);
 
-		return (UnicaradioFragment) fragmentManager
-				.findFragmentByTag(fragmentTag);
+		return (UnicaradioFragment) fragmentManager.findFragmentByTag(fragmentTag);
 	}
 
 	private String makeFragmentName(int viewId, int index)
@@ -139,8 +134,7 @@ public class TabSelectedListener implements OnTabSelectedListener
 	/**
 	 * @author Paolo Cortis
 	 */
-	private final class UnicaradioOnPageChangeListener extends
-			ViewPager.SimpleOnPageChangeListener
+	private final class UnicaradioOnPageChangeListener extends ViewPager.SimpleOnPageChangeListener
 	{
 		/**
 		 * {@inheritDoc}

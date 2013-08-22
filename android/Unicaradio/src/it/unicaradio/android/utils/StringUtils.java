@@ -208,7 +208,7 @@ public class StringUtils
 			return string;
 		}
 
-		if(separator.length() == 0) {
+		if(separator.isEmpty()) {
 			return EMPTY;
 		}
 

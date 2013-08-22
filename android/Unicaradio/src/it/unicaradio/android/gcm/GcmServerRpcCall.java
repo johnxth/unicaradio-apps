@@ -147,9 +147,7 @@ public abstract class GcmServerRpcCall
 	private static URL convertAddressToURL()
 	{
 		try {
-			URL url = new URL(SERVER_URL);
-
-			return url;
+			return new URL(SERVER_URL);
 		} catch(MalformedURLException e) {
 			throw new IllegalArgumentException("invalid url: " + SERVER_URL);
 		}

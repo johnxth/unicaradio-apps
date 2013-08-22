@@ -43,9 +43,9 @@ public class IntentUtils
 		context.startActivity(i);
 	}
 
-	public static Intent createIntentForSharing(final Activity context, String subject, String content)
+	public static Intent createIntentForSharing(Activity context, String subject, String content)
 	{
-		final Intent intent = new Intent(Intent.ACTION_SEND);
+		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 		intent.putExtra(Intent.EXTRA_TEXT, content);

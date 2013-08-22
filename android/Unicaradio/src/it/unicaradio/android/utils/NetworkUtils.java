@@ -44,6 +44,10 @@ import android.net.NetworkInfo;
  */
 public class NetworkUtils
 {
+	private NetworkUtils()
+	{
+	}
+
 	public static boolean isConnected(Context context)
 	{
 		ConnectivityManager connectivityManager = (ConnectivityManager) context
