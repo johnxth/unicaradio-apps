@@ -30,6 +30,8 @@ dependencies {
 	//compile project(':actionbarsherlock')
 	compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
 	compile 'com.android.support:support-v4:18.0.+'
+
+	instrumentTestCompile 'com.jayway.android.robotium:robotium-solo:4.2'
 }
 
 android {

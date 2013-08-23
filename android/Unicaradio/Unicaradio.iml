@@ -69,6 +69,7 @@
     <orderEntry type="library" name="aacdecoder-android-0.6.1" level="project" />
     <orderEntry type="library" name="support-v4-18.0.0" level="project" />
     <orderEntry type="library" name="ComActionbarsherlockActionbarsherlock440.aar" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="robotium-solo-4.2" level="project" />
   </component>
 </module>
 
