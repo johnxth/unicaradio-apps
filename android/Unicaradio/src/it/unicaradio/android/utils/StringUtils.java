@@ -256,7 +256,7 @@ public class StringUtils
 	public static String defaultString(String string, String defaultString)
 	{
 		if(string == null) {
-			return EMPTY;
+			return defaultString;
 		}
 
 		return string;
