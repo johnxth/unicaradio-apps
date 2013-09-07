@@ -2,16 +2,16 @@
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; version 2 of the License.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * Copyright UnicaRadio
  */
 package it.unicaradio.android.utils;
@@ -115,8 +115,7 @@ public class StringUtils
 	 * @param close
 	 * @return
 	 */
-	public static String substringBetween(String string, String open,
-			String close)
+	public static String substringBetween(String string, String open, String close)
 	{
 		if((string == null) || (open == null) || (close == null)) {
 			return null;
@@ -142,7 +141,6 @@ public class StringUtils
 	/**
 	 * @param string
 	 * @param start
-	 * @param end
 	 * @return
 	 */
 	public static String substring(String string, int start)
@@ -208,7 +206,7 @@ public class StringUtils
 			return string;
 		}
 
-		if(separator.isEmpty()) {
+		if(isEmpty(separator)) {
 			return EMPTY;
 		}
 
@@ -256,15 +254,6 @@ public class StringUtils
 	public static String defaultString(String string, String defaultString)
 	{
 		if(string == null) {
-			return defaultString;
-		}
-
-		return string;
-	}
-
-	public static String defaultIfEmpty(String string, String defaultString)
-	{
-		if(isEmpty(string)) {
 			return defaultString;
 		}
 

@@ -8,6 +8,7 @@
         <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleTest" />
         <option name="SOURCE_GEN_TASK_NAME" value="TODO" />
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/res" />
         <option name="UPDATE_PROPERTY_FILES" value="true" />
       </configuration>
     </facet>
@@ -54,7 +55,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/build/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/dependency-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/exploded-bundles" />
       <excludeFolder url="file://$MODULE_DIR$/build/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/libs" />
       <excludeFolder url="file://$MODULE_DIR$/build/manifests" />
@@ -63,13 +63,13 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Android-WVersionManager" exported="" />
-    <orderEntry type="library" name="acra-4.4.0" level="project" />
-    <orderEntry type="library" name="gcm" level="project" />
-    <orderEntry type="library" name="aacdecoder-android-0.6.1" level="project" />
-    <orderEntry type="library" name="support-v4-18.0.0" level="project" />
-    <orderEntry type="library" name="ComActionbarsherlockActionbarsherlock440.aar" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-18.0.0" level="project" />
+    <orderEntry type="library" exported="" name="acra-4.4.0" level="project" />
+    <orderEntry type="library" exported="" name="gcm" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="robotium-solo-4.2" level="project" />
+    <orderEntry type="library" exported="" name="ComActionbarsherlockActionbarsherlock440.aar" level="project" />
+    <orderEntry type="module" module-name="Android-WVersionManager" exported="" />
+    <orderEntry type="library" exported="" name="aacdecoder-android-0.6.1" level="project" />
   </component>
 </module>
 
