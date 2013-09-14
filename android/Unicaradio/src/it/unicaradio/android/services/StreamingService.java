@@ -67,7 +67,7 @@ public class StreamingService extends Service implements PlayerCallback
 
 	public static final String ACTION_TOAST_MESSAGE = "it.unicaradio.android.intent.action.TOAST_MESSAGE";
 
-	private static final String STREAM_URL = "http://streaming.unicaradio.it:80/unica64.aac";
+	private static final String STREAM_URL = "http://streaming.unicaradio.it:80/mobile";
 	//private static final String STREAM_URL = "http://10.0.2.2:15000/";
 
 	private static final int NOTIFICATION_ID = 1;
