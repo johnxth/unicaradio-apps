@@ -78,4 +78,8 @@ android {
 			//proguardFile getDefaultProguardFile('proguard-android.txt')
 		}
 	}
+
+	tasks.withType(com.android.build.gradle.tasks.PackageApplication) {
+		pkgTask -> pkgTask.jniDir new File(projectDir, 'libs')
+	}
 }
