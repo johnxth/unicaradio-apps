@@ -150,6 +150,7 @@
 		52EA363B15E29AFC004866FA /* SongRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA363A15E29AFC004866FA /* SongRequest.m */; };
 		52EA364515E2D485004866FA /* RequestSongOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA364415E2D485004866FA /* RequestSongOperation.m */; };
 		52EC73F616A1B24C00DD3B5C /* SongRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EC73F516A1B24C00DD3B5C /* SongRequestViewController.xib */; };
+		52EFA0F91801B90700B154A7 /* InfoViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EFA0F81801B90700B154A7 /* InfoViewController_iPhone-landscape.xib */; };
 		52FBA83A1688991000C19D61 /* NoItemSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */; };
 		52FBA8401688A86900C19D61 /* ScheduleSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */; };
 /* End PBXBuildFile section */
@@ -424,6 +425,7 @@
 		52EA364315E2D485004866FA /* RequestSongOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestSongOperation.h; sourceTree = "<group>"; };
 		52EA364415E2D485004866FA /* RequestSongOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSongOperation.m; sourceTree = "<group>"; };
 		52EC73F516A1B24C00DD3B5C /* SongRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SongRequestViewController.xib; sourceTree = "<group>"; };
+		52EFA0F81801B90700B154A7 /* InfoViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "InfoViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
 		52FBA8381688991000C19D61 /* NoItemSelectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoItemSelectedViewController.h; sourceTree = "<group>"; };
 		52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoItemSelectedViewController.m; sourceTree = "<group>"; };
 		52FBA83E1688A86900C19D61 /* ScheduleSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleSplitViewController.h; sourceTree = "<group>"; };
@@ -844,6 +846,7 @@
 				52D51EF415BC0BAE00BC8C94 /* FavouritesViewController_iPhone.xib */,
 				52D51EF615BC0BCC00BC8C94 /* FavouritesViewController_iPad.xib */,
 				5279553315C3329900827501 /* InfoViewController_iPhone.xib */,
+				52EFA0F81801B90700B154A7 /* InfoViewController_iPhone-landscape.xib */,
 				5279553515C332B300827501 /* InfoViewController_iPad.xib */,
 				524885B5169094030039E827 /* NoItemSelectedViewController_iPad.xib */,
 				52A3840B1698358B009BD922 /* SettingsViewController.xib */,
@@ -1124,6 +1127,7 @@
 				52A39A8916B0955A00A13964 /* share.png in Resources */,
 				52A39A8A16B0955A00A13964 /* share@2x.png in Resources */,
 				52A789C116B1D8B4004C5C91 /* ShareView_iOS6.xib in Resources */,
+				52EFA0F91801B90700B154A7 /* InfoViewController_iPhone-landscape.xib in Resources */,
 				52A5D3FA16B324EA006ACE43 /* ShareView_iOS5.xib in Resources */,
 				5215291A16B47AA400889766 /* facebook.png in Resources */,
 				5215291B16B47AA400889766 /* twitter.png in Resources */,
