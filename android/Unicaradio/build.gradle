@@ -4,7 +4,6 @@ def getReleaseKeystoreFile()
 {
 	return file(System.env.UA_RELEASE_KEYSTORE_FILE_PATH)
 }
-
 def getReleaseKeystorePassword()
 {
 	return System.env.UA_RELEASE_KEYSTORE_PASSWORD
@@ -35,8 +34,8 @@ dependencies {
 }
 
 android {
-	compileSdkVersion 18
-	buildToolsVersion "18.0.1"
+	compileSdkVersion 19
+	buildToolsVersion "19"
 
 	sourceSets {
 		main {
