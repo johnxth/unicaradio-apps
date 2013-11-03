@@ -45,6 +45,7 @@
 		528D4889168CC5EB00248B54 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4885168CC5EB00248B54 /* Icon-72@2x.png */; };
 		528D488A168CC5EB00248B54 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4886168CC5EB00248B54 /* Icon.png */; };
 		528D488B168CC5EB00248B54 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4887168CC5EB00248B54 /* Icon@2x.png */; };
+		529A186E1826AB980009C98D /* SystemUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 529A186D1826AB980009C98D /* SystemUtils.m */; };
 		529ECADC15E0EB7F00F4EA0A /* CaptchaParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */; };
 		52A12B0D16963692007B2BC6 /* NetworkTypeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */; };
 		52A159B015C52AD100E09F51 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A615C52AD100E09F51 /* schedule@2x.png */; };
@@ -274,6 +275,8 @@
 		528D4885168CC5EB00248B54 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		528D4886168CC5EB00248B54 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		528D4887168CC5EB00248B54 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		529A186C1826AB980009C98D /* SystemUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemUtils.h; sourceTree = "<group>"; };
+		529A186D1826AB980009C98D /* SystemUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemUtils.m; sourceTree = "<group>"; };
 		529ECADA15E0EB7F00F4EA0A /* CaptchaParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaParser.h; sourceTree = "<group>"; };
 		529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaParser.m; sourceTree = "<group>"; };
 		52A12B0B16963692007B2BC6 /* NetworkTypeChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTypeChooseViewController.h; sourceTree = "<group>"; };
@@ -496,6 +499,8 @@
 				529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */,
 				52B0B2041689A6F3002ACAB8 /* DeviceUtils.h */,
 				52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */,
+				529A186C1826AB980009C98D /* SystemUtils.h */,
+				529A186D1826AB980009C98D /* SystemUtils.m */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -1203,6 +1208,7 @@
 				52E77A87169E138600E5C701 /* SettingsManager.m in Sources */,
 				52A5294F16AAA6C000CC28EB /* FormTableViewCell.m in Sources */,
 				52A5295016AAA6C000CC28EB /* FormTextFieldTableViewCell.m in Sources */,
+				529A186E1826AB980009C98D /* SystemUtils.m in Sources */,
 				52A5295116AAA6C000CC28EB /* FormTextViewTableViewCell.m in Sources */,
 				52A5295716AAAC0B00CC28EB /* TooltipView.m in Sources */,
 				52A5295816AAAC0B00CC28EB /* ValidTooltipView.m in Sources */,

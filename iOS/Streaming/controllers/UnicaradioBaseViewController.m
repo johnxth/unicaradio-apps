@@ -74,7 +74,7 @@ static char *const sharePopoverKey = "sharePopoverKey";
 	NSLog(@"Open settings");
 	if([DeviceUtils isPhone]) {
 		UIViewController *settingsViewController = [SettingsViewController createSettingsController];
-		[self presentModalViewController:settingsViewController animated:YES];
+		[self presentViewController:settingsViewController animated:YES completion:nil];
 	} else {
 		[self openSettingsForIPad:sender];
 	}

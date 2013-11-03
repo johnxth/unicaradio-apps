@@ -13,6 +13,7 @@
 #import "../widgets/UnicaradioUINavigationController.h"
 
 #import "../utils/DeviceUtils.h"
+#import "SystemUtils.h"
 
 @interface SettingsViewController ()
 
@@ -32,6 +33,10 @@
 		navigationController = [[UnicaradioUINavigationController alloc] initWithRootViewController:settingsViewController];
 	} else {
 		navigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+	}
+
+	if([SystemUtils isIos7]) {
+		[navigationController.navigationBar drawRect:CGRectMake(0, 0, 0, 0)];
 	}
 
 	return navigationController;

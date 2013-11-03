@@ -19,7 +19,7 @@
 
 #import "NoItemSelectedViewController.h"
 
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#import "SystemUtils.h"
 
 @interface ScheduleTableViewController ()
 
@@ -120,7 +120,9 @@
 	self.tableView.rowHeight = 55;
 	self.tableView.backgroundColor = [UIColor blackColor];
 
-	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
+	if(SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+		self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
+	}
 }
 
 - (void) viewDidAppear:(BOOL)animated
