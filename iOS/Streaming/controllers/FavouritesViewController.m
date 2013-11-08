@@ -8,6 +8,8 @@
 
 #import "FavouritesViewController.h"
 
+#import "SystemUtils.h"
+
 @interface FavouritesViewController ()
 
 @end
@@ -26,6 +28,12 @@
 		NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"websites" ofType:@"plist"];
 		self.websites = [NSArray arrayWithContentsOfFile:plistPath];
 		NSLog(@"Size: %d", [self.websites count]);
+
+		if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+			self.edgesForExtendedLayout = UIRectEdgeNone;
+			self.extendedLayoutIncludesOpaqueBars = NO;
+			self.automaticallyAdjustsScrollViewInsets = NO;
+		}
 
 		[self initButtonBarItems];
     }

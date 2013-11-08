@@ -17,6 +17,7 @@
 
 #import "../utils/DeviceUtils.h"
 #import "../utils/NetworkUtils.h"
+#import "SystemUtils.h"
 
 @interface StreamingViewController ()
 
@@ -47,7 +48,7 @@
     if (self) {
         self.title = NSLocalizedString(@"CONTROLLER_TITLE_ONAIR", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"onair"];
-
+		
 		if(infos == nil) {
 			infos = [[TrackInfos alloc] init];	
 		}

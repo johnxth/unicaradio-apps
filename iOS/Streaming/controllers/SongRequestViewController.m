@@ -24,6 +24,8 @@
 #import "US2ValidatorTextField.h"
 #import "US2ValidatorEmail.h"
 
+#import "SystemUtils.h"
+
 @interface SongRequestViewController ()
 
 @end
@@ -41,6 +43,12 @@
 		queue = [[NSOperationQueue alloc] init];
 		[queue setMaxConcurrentOperationCount: 1];
 		isTableViewInitialized = NO;
+
+		if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+			self.edgesForExtendedLayout = UIRectEdgeNone;
+			self.extendedLayoutIncludesOpaqueBars = NO;
+			self.automaticallyAdjustsScrollViewInsets = NO;
+		}
 
 		[self initButtonBarItems];
     }

@@ -9,6 +9,8 @@
 #import "UnicaradioUINavigationController.h"
 #import "UnicaradioUINavigationBar.h"
 
+#import "SystemUtils.h"
+
 @interface UnicaradioUINavigationController ()
 
 @end
@@ -37,11 +39,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (UIStatusBarStyle) preferredStatusBarStyle
-{
-	return UIStatusBarStyleBlackOpaque;
 }
 
 @end

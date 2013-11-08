@@ -35,9 +35,9 @@
 		navigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
 	}
 
-	if([SystemUtils isIos7]) {
-		[navigationController.navigationBar drawRect:CGRectMake(0, 0, 0, 0)];
-	}
+//	if([SystemUtils isIos7]) {
+//		[navigationController.navigationBar drawRect:CGRectMake(0, 0, 0, 0)];
+//	}
 
 	return navigationController;
 }

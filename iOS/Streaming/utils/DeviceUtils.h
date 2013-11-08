@@ -20,4 +20,6 @@
 
 + (BOOL) is4InchRetinaIPhone;
 
++ (BOOL) isIPad;
+
 @end

@@ -11,6 +11,8 @@
 #import "../utils/DeviceUtils.h"
 #import "UnicaradioUITabBar.h"
 
+#import "SystemUtils.h"
+
 @interface UnicaradioUITabBarController (private)
 - (UITabBar *)tabBar;
 @end
@@ -58,7 +60,8 @@
 	}
 }
 
--(NSUInteger)supportedInterfaceOrientations{
+-(NSUInteger)supportedInterfaceOrientations
+{
 	if([DeviceUtils isPhone]) {
 		return UIInterfaceOrientationMaskAll;
 	} else {
