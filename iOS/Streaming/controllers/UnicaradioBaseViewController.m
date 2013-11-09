@@ -9,6 +9,7 @@
 #import <objc/runtime.h>
 
 #import "UnicaradioBaseViewController.h"
+#import "SystemUtils.h"
 
 static char *const popoverKey = "popoverKey";
 static char *const sharePopoverKey = "sharePopoverKey";
@@ -91,11 +92,24 @@ static char *const sharePopoverKey = "sharePopoverKey";
 		[self.popover dismissPopoverAnimated:YES];
 	} else {
 		UISegmentedControl *control = sender;
-		CGRect rect = control.frame;
-		rect.origin.x -= 22;
-		rect.origin.y -= 42;
+		CGRect rect = [self getRectForSettingsPopover:control];
+
 		[self.popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 	}
+}
+
+- (CGRect) getRectForSettingsPopover:(UISegmentedControl *)control
+{
+	CGRect rect = control.frame;
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+		rect.origin.x -= 22;
+		rect.origin.y += 20;
+	} else {
+		rect.origin.x -= 22;
+		rect.origin.y -= 42;
+	}
+
+	return rect;
 }
 
 - (void) openShareSheet:(id) sender
@@ -132,14 +146,25 @@ static char *const sharePopoverKey = "sharePopoverKey";
 	if([self.sharePopover isPopoverVisible]) {
 		[self.sharePopover dismissPopoverAnimated:YES];
 	} else {
-		//CGRect rect = CGRectMake(992, -7, 1, 1);
 		UISegmentedControl *control = sender;
-		CGRect rect = control.frame;
-		rect.origin.x += 32;
-		rect.origin.y -= 42;
+		CGRect rect = [self getRectForSharePopover:control];
 		self.sharePopover.popoverContentSize = CGSizeMake(354, 175);
 		[self.sharePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 	}
+}
+
+- (CGRect) getRectForSharePopover:(UISegmentedControl *)control
+{
+	CGRect rect = control.frame;
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+		rect.origin.x += 22;
+		rect.origin.y += 20;
+	} else {
+		rect.origin.x += 32;
+		rect.origin.y -= 42;
+	}
+	
+	return rect;
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex

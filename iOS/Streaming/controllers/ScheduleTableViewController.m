@@ -37,12 +37,6 @@
 	self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
 	self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
 	self.state = DAYS;
-
-	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-		self.extendedLayoutIncludesOpaqueBars = NO;
-		self.automaticallyAdjustsScrollViewInsets = NO;
-	}
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
