@@ -464,6 +464,14 @@
 			x = 6.0;
 		}
 	}
+	
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+		if([DeviceUtils isIPad]) {
+			x += 45;
+		} else {
+			x += 10;
+		}
+	}
 
     CGRect tooltipViewFrame = CGRectMake(x, point.y, 309.0, _tooltipView.frame.size.height);
     if (nil == conditionCollection) {
