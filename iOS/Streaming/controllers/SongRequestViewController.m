@@ -517,6 +517,10 @@
     for(NSUInteger i = 0; i < textFields.count; i++) {
         id <US2ValidatorUIProtocol> textUI = [textFields objectAtIndex:i];
         id cell = ((UIView *)textUI).superview.superview;
+		if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+			cell = ((UIView *) cell).superview;
+		}
+
         if ([cell isKindOfClass:[FormTableViewCell class]]) {
             FormTableViewCell *formTableViewCell = (FormTextFieldTableViewCell *)cell;
             kFormTableViewCellStatus status = textUI.isValid == YES ? kFormTableViewCellStatusValid : kFormTableViewCellStatusInvalid;

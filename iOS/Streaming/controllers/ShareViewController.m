@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "StreamingViewController.h"
 #import "UnicaradioUINavigationController.h"
+#import "SystemUtils.h"
 
 #import <Twitter/Twitter.h>
 #import <Social/Social.h>
@@ -30,6 +31,10 @@
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
 		self.title = NSLocalizedString(@"SHARE_SHEET_TITLE", @"");
+		
+		if(SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+			[self.view setBackgroundColor:[UIColor blackColor]];
+		}
     }
     return self;
 }
