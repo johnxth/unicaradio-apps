@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "../utils/DeviceUtils.h"
 #import "UnicaradioUITabBar.h"
+#import "UnicaradioUITabBarIos7.h"
 
 #import "SystemUtils.h"
 
@@ -23,7 +24,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setValue:[[UnicaradioUITabBar alloc] initWithFrame:self.tabBar.frame] forKeyPath:@"tabBar"];
+        [self setValue:[self createTabBar] forKeyPath:@"tabBar"];
     }
     return self;
 }
@@ -31,18 +32,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-	
-	/*UIColor *startRed = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
-    UIColor *middleRed = [UIColor colorWithRed:0x7F/255.0 green:0 blue:0 alpha:1];
-    UIColor *endRed = [UIColor colorWithRed:0x69/255.0 green:0 blue:0 alpha:1];
-	
-	CAGradientLayer *gradientNavBar = [CAGradientLayer layer];
-	gradientNavBar.colors = [NSArray arrayWithObjects:(id)[startRed CGColor], (id)[middleRed CGColor], (id)[endRed CGColor], nil];
-	gradientNavBar.frame = self.tabBar.bounds;
-	gradientNavBar.name = @"unicaradioUITabBar";
-	[self.tabBar.layer insertSublayer:gradientNavBar atIndex:1];
-	self.tabBar.tintColor = [UIColor whiteColor];*/
 }
 
 - (void)viewDidUnload
@@ -66,6 +55,15 @@
 		return UIInterfaceOrientationMaskAll;
 	} else {
 		return UIInterfaceOrientationMaskLandscape;
+	}
+}
+
+- (UITabBar *) createTabBar
+{
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+		return [[UnicaradioUITabBarIos7 alloc] initWithFrame:self.tabBar.frame];
+	} else {
+		return [[UnicaradioUITabBar alloc] initWithFrame:self.tabBar.frame];
 	}
 }
 

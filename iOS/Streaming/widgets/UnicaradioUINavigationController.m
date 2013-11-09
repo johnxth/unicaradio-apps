@@ -8,6 +8,7 @@
 
 #import "UnicaradioUINavigationController.h"
 #import "UnicaradioUINavigationBar.h"
+#import "UnicaradioUINavigationBarIos7.h"
 
 #import "SystemUtils.h"
 
@@ -21,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setValue:[[UnicaradioUINavigationBar alloc] initWithFrame:self.navigationBar.frame] forKeyPath:@"navigationBar"];
+        [self setValue:[self createNavigationBar] forKeyPath:@"navigationBar"];
     }
     return self;
 }
@@ -39,6 +40,15 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (UINavigationBar *) createNavigationBar
+{
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+		return [[UnicaradioUINavigationBarIos7 alloc] initWithFrame:self.navigationBar.frame];
+	} else {
+		return [[UnicaradioUINavigationBar alloc] initWithFrame:self.navigationBar.frame];
+	}
 }
 
 @end

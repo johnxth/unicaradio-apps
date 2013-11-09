@@ -21,24 +21,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-		if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-			UIColor *startRed = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
-			self.barStyle = UIBarStyleBlackOpaque;
-			self.barTintColor = startRed;
-			self.tintColor = [UIColor whiteColor];
-			self.backgroundColor = startRed;
-		}
     }
     return self;
 }
 
 - (void) drawRect:(CGRect)rect
 {
-	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-		//[super drawRect:rect];
-		return;
-	}
-
 	UIColor *startRed = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
 
 	self.tintColor = startRed;

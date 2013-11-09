@@ -153,7 +153,7 @@
 	StreamingViewController *streamingController;
 	streamingController = [[StreamingViewController alloc] initWithNibName:nil bundle:nil];
 
-	UnicaradioUINavigationController *navStreamingController;
+	UINavigationController *navStreamingController;
 	navStreamingController = [[UnicaradioUINavigationController alloc] initWithRootViewController:streamingController];
 
 	return navStreamingController;
