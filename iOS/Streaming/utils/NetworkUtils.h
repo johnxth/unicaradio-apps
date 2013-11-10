@@ -25,6 +25,8 @@
 
 + (BOOL) isConnectedToWiFi;
 
++ (BOOL) isConnectionOK:(SettingsManager *) settingsManager;
+
 + (BOOL) isConnectionOKForGui:(SettingsManager *) settingsManager;
 
 @end

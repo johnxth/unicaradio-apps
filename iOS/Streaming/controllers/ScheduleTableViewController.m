@@ -22,6 +22,8 @@
 #import "SystemUtils.h"
 #import "NetworkUtils.h"
 
+#import "RefreshType.h"
+
 @interface ScheduleTableViewController ()
 
 @end
@@ -40,6 +42,7 @@
 	self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
 	self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
 	self.state = DAYS;
+	self.currentID = -1;
 	
 	settingsManager = [SettingsManager getInstance];
 }
@@ -75,7 +78,9 @@
 		//FIXME: attributedTitle not always shown in iOS6
 		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PULL_TO_REFRESH_REFRESHING", @"")];
 	}
-    [self refreshData:YES];
+
+	[self replaceRightWithDefaultView];
+    [self refreshData:FORCED];
 }
 
 - (id)initWithSchedule:(Schedule *)s andTitle:(NSString *)t andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -137,23 +142,38 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"GetSchedule" object:nil];
 
-	if([NetworkUtils isConnectionOKForGui:settingsManager]) {
-		[self refreshData:NO];
+	if(![NetworkUtils isConnectionOK:settingsManager]) {
+		return;
+	}
+
+	if(self.schedule == nil) {
+		[self refreshData:NORMAL];
 	}
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+	[self replaceRightWithDefaultView];
+}
+
+- (void) replaceRightWithDefaultView
+{
 	NoItemSelectedViewController *noItemSelectedViewController = [[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil];
 	[self substituteRightController:noItemSelectedViewController];
 }
 
-- (void) refreshData:(bool) force
+- (void) refreshData:(RefreshType)refreshType
 {
-	if(schedule == nil || force) {
-		DownloadScheduleOperation *operation = [[DownloadScheduleOperation alloc] init];
-		[queue addOperation:operation];
+	if(refreshType == FORCED && ![NetworkUtils isConnectionOKForGui:settingsManager]) {
+		return;
+	} else if(refreshType == NORMAL && ![NetworkUtils isConnectionOK:settingsManager]) {
+		return;
+	} else if(![NetworkUtils isConnectionOK:settingsManager]) {
+		return;
 	}
+
+	DownloadScheduleOperation *operation = [[DownloadScheduleOperation alloc] init];
+	[queue addOperation:operation];
 }
 
 - (void) receiveNotification: (NSNotification *)notification
@@ -165,6 +185,11 @@
 	if(SYSTEM_VERSION_LESS_THAN(@"6.0")) {
 		//FIXME: attributedTitle not always shown in iOS6
 		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PULL_TO_REFRESH_MESSAGE", @"")];
+	}
+
+	if(state == DAYS && currentID != -1) {
+		[self drawSecondLevel:currentID];
+		currentID = -1;
 	}
 }
 
@@ -195,9 +220,9 @@
 {
 	UITableViewCell *cell;
 	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-	
+
 	UIColor *textColor = [UIColor whiteColor];
-	
+
 	NSInteger index = indexPath.row;
 	if(self.state == DAYS) {
 		cell.textLabel.text = [days objectAtIndex:index];
@@ -210,15 +235,15 @@
 		cell.textLabel.text = transmission.formatName;
 		cell.detailTextLabel.text = transmission.startTime;
 	}
-	
+
 	cell.backgroundColor = [UIColor clearColor];
 	[cell.textLabel setTextColor:textColor];
 	[cell.detailTextLabel setTextColor:textColor];
-	
+
 	UIView *redColorView = [[UIView alloc] init];
 	redColorView.backgroundColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:0.70];
 	cell.selectedBackgroundView = redColorView;
-	
+
 	return cell;
 }
 
@@ -227,9 +252,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	//NSLog([NSString stringWithFormat:@"selected: %d", [indexPath row]]);
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	if(self.state == TRANSMISSIONS) {
 		NSLog(@"TRANSMISSIONS mode. ignoring.");
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		return;
 	}
 	if([self.refreshControl isRefreshing]) {
@@ -238,22 +263,17 @@
 		return;
 	}
 
-	NSString *dayString = [[[self.tableView cellForRowAtIndexPath:indexPath] textLabel] text];
-	
 	NSInteger dayNumber = indexPath.row;
-	NSLog(@"dayNumber: %d", dayNumber);
-	if(![NSLocalizedString(@"FIRST_DAY", @"") isEqual:@"1"]) {
-		dayNumber = dayNumber - 1 < 0 ? 6 : dayNumber - 1;
-		NSLog(@"Uh! First day isn't 1. New dayNumber: %d", dayNumber);
+	if(schedule == nil) {
+		if([NetworkUtils isConnectionOKForGui:settingsManager]) {
+			currentID = dayNumber;
+			[self refreshData:FORCED];
+		}
+
+		return;
 	}
-	
-	ScheduleTableViewController *scheduleViewController = [[ScheduleTableViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:dayNumber andNibName:self.nibName bundle:self.nibBundle];
-	if([DeviceUtils isPhone]) {
-		[self.navigationController pushViewController:scheduleViewController animated:YES];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	} else {
-		[self substituteRightController:scheduleViewController];
-	}
+
+	[self drawSecondLevel:dayNumber];
 }
 
 - (void) substituteRightController:(UIViewController *) controller
@@ -262,6 +282,30 @@
 	navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:controller];
 	NSArray *newViewControllers = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], navScheduleController, nil];
 	self.splitViewController.viewControllers = newViewControllers;
+}
+
+- (void) drawSecondLevel:(int)position
+{
+	int dayNumber = position;
+	NSString *title = self.days[dayNumber];
+
+	NSLog(@"dayNumber: %d", dayNumber);
+	if(![NSLocalizedString(@"FIRST_DAY", @"") isEqual:@"1"]) {
+		dayNumber = dayNumber - 1 < 0 ? 6 : dayNumber - 1;
+		NSLog(@"Uh! First day isn't 1. New dayNumber: %d", dayNumber);
+	}
+
+	ScheduleTableViewController *scheduleViewController =
+		[[ScheduleTableViewController alloc] initWithSchedule:schedule
+													 andTitle:title
+												 andDayNumber:dayNumber
+												   andNibName:self.nibName
+													   bundle:self.nibBundle];
+	if([DeviceUtils isPhone]) {
+		[self.navigationController pushViewController:scheduleViewController animated:YES];
+	} else {
+		[self substituteRightController:scheduleViewController];
+	}
 }
 
 @end

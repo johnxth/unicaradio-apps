@@ -79,6 +79,20 @@
 	}
 }
 
++ (BOOL) isConnectionOK:(SettingsManager *) settingsManager
+{
+	if(![NetworkUtils isConnected]) {
+		return NO;
+	}
+
+	NetworkType enabledNetworkType = [settingsManager getNetworkType];
+	if(enabledNetworkType == WIFI_ONLY && ![NetworkUtils isConnectedToWiFi]) {
+		return NO;
+	}
+
+	return YES;
+}
+
 + (BOOL) isConnectionOKForGui:(SettingsManager *) settingsManager
 {
 	if(![NetworkUtils isConnected]) {
@@ -88,10 +102,10 @@
 											  cancelButtonTitle: @"OK"
 											  otherButtonTitles: nil];
 		[alert show];
-		
+
 		return NO;
 	}
-	
+
 	NetworkType enabledNetworkType = [settingsManager getNetworkType];
 	if(enabledNetworkType == WIFI_ONLY && ![NetworkUtils isConnectedToWiFi]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"NOT_IN_WIFI_ALERT_TITLE", @"")
@@ -100,10 +114,10 @@
 											  cancelButtonTitle: @"OK"
 											  otherButtonTitles: nil];
 		[alert show];
-		
+
 		return NO;
 	}
-	
+
 	return YES;
 }
 

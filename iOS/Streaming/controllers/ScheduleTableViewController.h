@@ -20,12 +20,12 @@
 	NSOperationQueue *queue;
 	BOOL isDownloading;
 	int clickedItem;
-	
+
 	NSMutableArray *days;
 	ScheduleState state;
 	Schedule *schedule;
 	NSInteger currentID;
-	
+
 	SettingsManager *settingsManager;
 }
 
