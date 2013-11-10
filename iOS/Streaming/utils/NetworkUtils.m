@@ -7,6 +7,7 @@
 //
 
 #import "NetworkUtils.h"
+#import "SettingsManager.h"
 
 #import "../libs/reachability/Reachability.h"
 
@@ -76,6 +77,34 @@
 		default:
 			return NO;
 	}
+}
+
++ (BOOL) isConnectionOKForGui:(SettingsManager *) settingsManager
+{
+	if(![NetworkUtils isConnected]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"NOT_CONNECTED_ALERT_TITLE", @"")
+														message: NSLocalizedString(@"NOT_CONNECTED_ALERT_MESSAGE", @"")
+													   delegate: nil
+											  cancelButtonTitle: @"OK"
+											  otherButtonTitles: nil];
+		[alert show];
+		
+		return NO;
+	}
+	
+	NetworkType enabledNetworkType = [settingsManager getNetworkType];
+	if(enabledNetworkType == WIFI_ONLY && ![NetworkUtils isConnectedToWiFi]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"NOT_IN_WIFI_ALERT_TITLE", @"")
+														message: NSLocalizedString(@"NOT_IN_WIFI_ALERT_MESSAGE", @"")
+													   delegate: nil
+											  cancelButtonTitle: @"OK"
+											  otherButtonTitles: nil];
+		[alert show];
+		
+		return NO;
+	}
+	
+	return YES;
 }
 
 @end

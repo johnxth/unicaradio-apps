@@ -20,6 +20,7 @@
 #import "NoItemSelectedViewController.h"
 
 #import "SystemUtils.h"
+#import "NetworkUtils.h"
 
 @interface ScheduleTableViewController ()
 
@@ -32,11 +33,15 @@
 @synthesize schedule;
 @synthesize currentID;
 
+@synthesize settingsManager;
+
 - (void)initCommon
 {
 	self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
 	self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
 	self.state = DAYS;
+	
+	settingsManager = [SettingsManager getInstance];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -132,7 +137,9 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"GetSchedule" object:nil];
 
-	[self refreshData:NO];
+	if([NetworkUtils isConnectionOKForGui:settingsManager]) {
+		[self refreshData:NO];
+	}
 }
 
 - (void) viewWillDisappear:(BOOL)animated

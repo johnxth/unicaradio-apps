@@ -227,6 +227,7 @@
 /* Begin PBXFileReference section */
 		520B6CCF16AAE6960038C25F /* SubmitButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitButtonTableViewCell.h; sourceTree = "<group>"; };
 		520B6CD016AAE6960038C25F /* SubmitButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitButtonTableViewCell.m; sourceTree = "<group>"; };
+		5211E5BE182F9C45005FB9BC /* RefreshType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshType.h; sourceTree = "<group>"; };
 		5215291816B47AA400889766 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		5215291916B47AA400889766 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		5215291C16B487AA00889766 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
@@ -630,6 +631,7 @@
 				522DA0AD15E375880089126C /* Error.h */,
 				52A3840816982C24009BD922 /* NetworkType.h */,
 				52A3840A16982E34009BD922 /* Preferences.h */,
+				5211E5BE182F9C45005FB9BC /* RefreshType.h */,
 			);
 			path = enums;
 			sourceTree = "<group>";
