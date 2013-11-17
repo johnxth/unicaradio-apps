@@ -24,6 +24,8 @@
 
 #import "RefreshType.h"
 
+#import "Error.h"
+
 @interface ScheduleTableViewController ()
 
 @end
@@ -165,13 +167,19 @@
 - (void) refreshData:(RefreshType)refreshType
 {
 	if(refreshType == FORCED && ![NetworkUtils isConnectionOKForGui:settingsManager]) {
+		[self stopRefresh];
 		return;
 	} else if(refreshType == NORMAL && ![NetworkUtils isConnectionOK:settingsManager]) {
+		[self stopRefresh];
 		return;
 	} else if(![NetworkUtils isConnectionOK:settingsManager]) {
+		[self stopRefresh];
 		return;
 	}
 
+	if(![self.refreshControl isRefreshing]) {
+		[self.refreshControl performSelector:@selector(beginRefreshing)];
+	}
 	DownloadScheduleOperation *operation = [[DownloadScheduleOperation alloc] init];
 	[queue addOperation:operation];
 }
@@ -179,17 +187,56 @@
 - (void) receiveNotification: (NSNotification *)notification
 {
 	NSLog(@"ScheduleViewController - receiveNotification");
-	self.schedule = [Schedule fromJSON:[notification object]];
-	NSLog(@"ScheduleViewController - receiveNotification: json parsed");
+	[self stopRefresh];
+
+	NSData *json = [notification object];
+	[self performSelectorOnMainThread:@selector(refreshCompleted:) withObject:json waitUntilDone:YES];
+}
+
+- (void) stopRefresh
+{
 	[self.refreshControl performSelector:@selector(endRefreshing)];
 	if(SYSTEM_VERSION_LESS_THAN(@"6.0")) {
 		//FIXME: attributedTitle not always shown in iOS6
 		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PULL_TO_REFRESH_MESSAGE", @"")];
 	}
+}
 
-	if(state == DAYS && currentID != -1) {
-		[self drawSecondLevel:currentID];
-		currentID = -1;
+- (void) refreshCompleted:(NSData *)serverResponse
+{
+	if(serverResponse == nil) {
+		NSLog(@"nil response");
+		NSString *title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
+		NSString *message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];
+		return;
+	}
+
+	NSDictionary *resultsDictionary = [serverResponse objectFromJSONData];
+	NSNumber *errorCode = [resultsDictionary objectForKey:@"errorCode"];
+	NSLog(@"errorCode: %d", [errorCode integerValue]);
+	if([errorCode intValue] == NO_ERROR) {
+		self.schedule = [Schedule fromJSON:serverResponse];
+		NSLog(@"ScheduleViewController - receiveNotification: json parsed");
+
+		if(state == DAYS && currentID != -1) {
+			[self drawSecondLevel:currentID];
+			currentID = -1;
+		}
+	} else {
+		NSString *title;
+		NSString *message;
+		if([errorCode intValue] == INTERNAL_DOWNLOAD_ERROR) {
+			title = NSLocalizedString(@"DIALOG_CHECK_CONNECTION_TITLE", @"");
+			message = NSLocalizedString(@"DIALOG_CHECK_CONNECTION_MESSAGE", @"");
+		} else {
+			title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
+			message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
+		}
+
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];
 	}
 }
 
@@ -233,6 +280,9 @@
 		NSArray *transmissionsForCurrentId = [schedule getTransmissionsByDay:currentID];
 		Transmission *transmission = [transmissionsForCurrentId objectAtIndex:index];
 		cell.textLabel.text = transmission.formatName;
+		cell.textLabel.numberOfLines = 2;
+		cell.textLabel.lineBreakMode = UILineBreakModeTailTruncation;
+
 		cell.detailTextLabel.text = transmission.startTime;
 	}
 
@@ -249,7 +299,7 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	//NSLog([NSString stringWithFormat:@"selected: %d", [indexPath row]]);
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -276,7 +326,7 @@
 	[self drawSecondLevel:dayNumber];
 }
 
-- (void) substituteRightController:(UIViewController *) controller
+- (void) substituteRightController:(UIViewController *)controller
 {
 	UnicaradioUINavigationController *navScheduleController;
 	navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:controller];
