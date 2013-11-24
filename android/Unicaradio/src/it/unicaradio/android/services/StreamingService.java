@@ -23,6 +23,7 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.Build;
@@ -381,6 +382,11 @@ public class StreamingService extends Service implements PlayerCallback
 	 */
 	@Override
 	public void playerStarted()
+	{
+	}
+
+	@Override
+	public void playerAudioTrackCreated(AudioTrack audioTrack)
 	{
 	}
 
