@@ -11,6 +11,15 @@
 		]]>
 	</string>
 	<string name="updates">
+		Versione 2.0.3\n
+		\tNovità e bug risolti:\n
+		\t- [nuovo] Supporto architettura Intel x86;\n
+		\t- [bug] Bugfix.\n
+		\n
+		Versione 2.0.2\n
+		\tCorrezioni:\n
+		\t- [bug] Bugfix.\n
+		\n
 		Versione 2.0.1\n
 		\tCorrezioni:\n
 		\t- [mod] Fix grafici;\n
@@ -33,33 +42,6 @@
 		\t- [bug] Dopo un errore o una chiamata il
 		pulsante pausa non cambia stato;\n
 		\t- [bug] Non funziona su Android >= 4.0;\n
-		\n
-		Versione 1.1\n
-		\tCorrezioni:\n
-		\t- [bug]
-		L\'applicazione non va in pausa
-		all\'arrivo di una chiamata;\n
-		\t- [bug] Audio scattoso su alcuni dispositivi;\n
-		\t-
-		[bug] L\'applicazione si chiude
-		quando va in background;\n
-		\t- [bug] Palinsesto con orario sbagliato;\n
-		\t- [bug] Dopo
-		lo stop viene ancora caricata una
-		cover;\n
-		\t- [bug] Verifica della connessione ad Internet;\n
-		\t- [bug] Crash per
-		assenza della connessione quando si è in
-		play;\n
-		\t- [mod] Invio mail senza ulteriore conferma;\n
-		\t- [mod] Nuovi
-		pulsanti di play e pausa;\n
-		\t- [mod] Grafica
-		palinsesto a colori sfalsati;\n
-		\t- [nuovo] Notifiche.\n
-		\n
-		Versione 1.0:\n
-		\t- Prima versione.\n
 	</string>
 	<string name="application_updated">Aggiornamento</string>
 
