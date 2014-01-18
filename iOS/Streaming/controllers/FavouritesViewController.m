@@ -8,6 +8,8 @@
 
 #import "FavouritesViewController.h"
 
+#import "SystemUtils.h"
+
 @interface FavouritesViewController ()
 
 @end

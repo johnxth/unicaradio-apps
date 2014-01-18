@@ -7,6 +7,7 @@
 //
 
 #import "LicenceViewController.h"
+#import "SystemUtils.h"
 
 @interface LicenceViewController ()
 
@@ -27,8 +28,10 @@
 {
 	[super viewDidLoad];
 
-	[self.tableView setBackgroundView:nil];
-	[self.tableView setBackgroundColor:[UIColor blackColor]];
+	if(SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+		[self.tableView setBackgroundView:nil];
+		[self.tableView setBackgroundColor:[UIColor blackColor]];
+	}
 }
 
 #pragma mark - Table view data source

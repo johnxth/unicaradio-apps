@@ -16,6 +16,8 @@
 		52208E6515C09322006B27BD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6415C09322006B27BD /* AudioToolbox.framework */; };
 		52208E6715C0933D006B27BD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6615C0933D006B27BD /* CFNetwork.framework */; };
 		52208E6915C0935B006B27BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52208E6815C0935B006B27BD /* QuartzCore.framework */; };
+		52257BB5182E3BDB00FA74FE /* UnicaradioUINavigationBarIos7.m in Sources */ = {isa = PBXBuildFile; fileRef = 52257BB4182E3BDB00FA74FE /* UnicaradioUINavigationBarIos7.m */; };
+		52257BBB182E3CC200FA74FE /* UnicaradioUITabBarIos7.m in Sources */ = {isa = PBXBuildFile; fileRef = 52257BBA182E3CC200FA74FE /* UnicaradioUITabBarIos7.m */; };
 		522C18491751450C0006EE9E /* libiUC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 522C1846175144E80006EE9E /* libiUC.a */; };
 		522C1850175149FF0006EE9E /* iUCSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 522C184F175149FF0006EE9E /* iUCSettings.plist */; };
 		522C185317514A350006EE9E /* iUCLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 522C185117514A350006EE9E /* iUCLocalizable.strings */; };
@@ -45,6 +47,7 @@
 		528D4889168CC5EB00248B54 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4885168CC5EB00248B54 /* Icon-72@2x.png */; };
 		528D488A168CC5EB00248B54 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4886168CC5EB00248B54 /* Icon.png */; };
 		528D488B168CC5EB00248B54 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4887168CC5EB00248B54 /* Icon@2x.png */; };
+		529A186E1826AB980009C98D /* SystemUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 529A186D1826AB980009C98D /* SystemUtils.m */; };
 		529ECADC15E0EB7F00F4EA0A /* CaptchaParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */; };
 		52A12B0D16963692007B2BC6 /* NetworkTypeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */; };
 		52A159B015C52AD100E09F51 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A159A615C52AD100E09F51 /* schedule@2x.png */; };
@@ -224,6 +227,7 @@
 /* Begin PBXFileReference section */
 		520B6CCF16AAE6960038C25F /* SubmitButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitButtonTableViewCell.h; sourceTree = "<group>"; };
 		520B6CD016AAE6960038C25F /* SubmitButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitButtonTableViewCell.m; sourceTree = "<group>"; };
+		5211E5BE182F9C45005FB9BC /* RefreshType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshType.h; sourceTree = "<group>"; };
 		5215291816B47AA400889766 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		5215291916B47AA400889766 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		5215291C16B487AA00889766 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
@@ -233,6 +237,10 @@
 		52208E6415C09322006B27BD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		52208E6615C0933D006B27BD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		52208E6815C0935B006B27BD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		52257BB3182E3BDB00FA74FE /* UnicaradioUINavigationBarIos7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUINavigationBarIos7.h; sourceTree = "<group>"; };
+		52257BB4182E3BDB00FA74FE /* UnicaradioUINavigationBarIos7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUINavigationBarIos7.m; sourceTree = "<group>"; };
+		52257BB9182E3CC200FA74FE /* UnicaradioUITabBarIos7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnicaradioUITabBarIos7.h; sourceTree = "<group>"; };
+		52257BBA182E3CC200FA74FE /* UnicaradioUITabBarIos7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnicaradioUITabBarIos7.m; sourceTree = "<group>"; };
 		522C1840175144E80006EE9E /* iUC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iUC.xcodeproj; path = iUC/iUC.xcodeproj; sourceTree = "<group>"; };
 		522C184F175149FF0006EE9E /* iUCSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = iUCSettings.plist; path = ../iUC/iUC/iUCSettings.plist; sourceTree = "<group>"; };
 		522C185217514A350006EE9E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = iUC/iUC/it.lproj/iUCLocalizable.strings; sourceTree = "<group>"; };
@@ -274,6 +282,8 @@
 		528D4885168CC5EB00248B54 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		528D4886168CC5EB00248B54 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		528D4887168CC5EB00248B54 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		529A186C1826AB980009C98D /* SystemUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemUtils.h; sourceTree = "<group>"; };
+		529A186D1826AB980009C98D /* SystemUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemUtils.m; sourceTree = "<group>"; };
 		529ECADA15E0EB7F00F4EA0A /* CaptchaParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaParser.h; sourceTree = "<group>"; };
 		529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaParser.m; sourceTree = "<group>"; };
 		52A12B0B16963692007B2BC6 /* NetworkTypeChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTypeChooseViewController.h; sourceTree = "<group>"; };
@@ -496,6 +506,8 @@
 				529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */,
 				52B0B2041689A6F3002ACAB8 /* DeviceUtils.h */,
 				52B0B2051689A6F3002ACAB8 /* DeviceUtils.m */,
+				529A186C1826AB980009C98D /* SystemUtils.h */,
+				529A186D1826AB980009C98D /* SystemUtils.m */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -619,6 +631,7 @@
 				522DA0AD15E375880089126C /* Error.h */,
 				52A3840816982C24009BD922 /* NetworkType.h */,
 				52A3840A16982E34009BD922 /* Preferences.h */,
+				5211E5BE182F9C45005FB9BC /* RefreshType.h */,
 			);
 			path = enums;
 			sourceTree = "<group>";
@@ -629,6 +642,8 @@
 				52A5294716AAA6C000CC28EB /* US2FormValidation */,
 				52C31B9B15CB0BFE005681EA /* UnicaradioUINavigationBar.h */,
 				52C31B9C15CB0BFE005681EA /* UnicaradioUINavigationBar.m */,
+				52257BB3182E3BDB00FA74FE /* UnicaradioUINavigationBarIos7.h */,
+				52257BB4182E3BDB00FA74FE /* UnicaradioUINavigationBarIos7.m */,
 				52ADD0AA15CC099300C2B153 /* UnicaradioUITabBarController.h */,
 				52ADD0AB15CC099300C2B153 /* UnicaradioUITabBarController.m */,
 				52328ABD15CD6FB700B67825 /* DTCustomColoredAccessory.h */,
@@ -639,6 +654,8 @@
 				52DC0E011686601700C28163 /* UnicaradioUINavigationController.m */,
 				528D4864168C9D4300248B54 /* UnicaradioUITabBar.h */,
 				528D4865168C9D4300248B54 /* UnicaradioUITabBar.m */,
+				52257BB9182E3CC200FA74FE /* UnicaradioUITabBarIos7.h */,
+				52257BBA182E3CC200FA74FE /* UnicaradioUITabBarIos7.m */,
 			);
 			path = widgets;
 			sourceTree = "<group>";
@@ -696,9 +713,9 @@
 				52E77A83169E135600E5C701 /* managers */,
 				52C219E715CEB1AC009E55E0 /* models */,
 				523B6BE815DFE3F6001E6B10 /* operations */,
-				52D51EDA15BBF76900BC8C94 /* resources */,
 				523B6BED15DFEA95001E6B10 /* utils */,
 				52C31B9915CB0B32005681EA /* widgets */,
+				52D51EDA15BBF76900BC8C94 /* resources */,
 				52D51E7F15BBEE3F00BC8C94 /* AppDelegate.h */,
 				52D51E8015BBEE3F00BC8C94 /* AppDelegate.m */,
 				52D51E8515BBEE3F00BC8C94 /* first.png */,
@@ -756,30 +773,30 @@
 		52D51EB915BBF1B500BC8C94 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				52D51EE615BC093F00BC8C94 /* SongRequestViewController.h */,
-				52D51EE715BC093F00BC8C94 /* SongRequestViewController.m */,
+				52AFF7C016ADDCCD0012E0BE /* UnicaradioBaseViewController.h */,
+				52AFF7C116ADDCCD0012E0BE /* UnicaradioBaseViewController.m */,
 				52D51EBC15BBF1B500BC8C94 /* StreamingViewController.h */,
 				52D51EBD15BBF1B500BC8C94 /* StreamingViewController.m */,
+				52FBA83E1688A86900C19D61 /* ScheduleSplitViewController.h */,
+				52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */,
+				52A7893B16C6AB43008B7AA2 /* ScheduleTableViewController.h */,
+				52A7893C16C6AB44008B7AA2 /* ScheduleTableViewController.m */,
+				52FBA8381688991000C19D61 /* NoItemSelectedViewController.h */,
+				52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */,
+				52D51EE615BC093F00BC8C94 /* SongRequestViewController.h */,
+				52D51EE715BC093F00BC8C94 /* SongRequestViewController.m */,
 				52D51EEF15BC0B7600BC8C94 /* FavouritesViewController.h */,
 				52D51EF015BC0B7600BC8C94 /* FavouritesViewController.m */,
 				5279553015C3326B00827501 /* InfoViewController.h */,
 				5279553115C3326B00827501 /* InfoViewController.m */,
-				52FBA8381688991000C19D61 /* NoItemSelectedViewController.h */,
-				52FBA8391688991000C19D61 /* NoItemSelectedViewController.m */,
-				52FBA83E1688A86900C19D61 /* ScheduleSplitViewController.h */,
-				52FBA83F1688A86900C19D61 /* ScheduleSplitViewController.m */,
 				52A36A071694AAD500BC8CEC /* SettingsViewController.h */,
 				52A36A081694AAD500BC8CEC /* SettingsViewController.m */,
 				52A12B0B16963692007B2BC6 /* NetworkTypeChooseViewController.h */,
 				52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */,
-				52AFF7C016ADDCCD0012E0BE /* UnicaradioBaseViewController.h */,
-				52AFF7C116ADDCCD0012E0BE /* UnicaradioBaseViewController.m */,
-				52A5D3F616B322BA006ACE43 /* ShareViewController.h */,
-				52A5D3F716B322BA006ACE43 /* ShareViewController.m */,
-				52A7893B16C6AB43008B7AA2 /* ScheduleTableViewController.h */,
-				52A7893C16C6AB44008B7AA2 /* ScheduleTableViewController.m */,
 				521634AE16CC16BF00570E00 /* LicenceViewController.h */,
 				521634AF16CC16BF00570E00 /* LicenceViewController.m */,
+				52A5D3F616B322BA006ACE43 /* ShareViewController.h */,
+				52A5D3F716B322BA006ACE43 /* ShareViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -1171,6 +1188,7 @@
 			files = (
 				52E1721015E526DD0020A27C /* Reachability.m in Sources */,
 				52D51E7D15BBEE3F00BC8C94 /* main.m in Sources */,
+				52257BB5182E3BDB00FA74FE /* UnicaradioUINavigationBarIos7.m in Sources */,
 				52D51E8115BBEE3F00BC8C94 /* AppDelegate.m in Sources */,
 				52D51EBF15BBF1B500BC8C94 /* StreamingViewController.m in Sources */,
 				52D51EE915BC093F00BC8C94 /* SongRequestViewController.m in Sources */,
@@ -1181,6 +1199,7 @@
 				52328ABF15CD6FB700B67825 /* DTCustomColoredAccessory.m in Sources */,
 				52C219EB15CEB236009E55E0 /* Schedule.m in Sources */,
 				52C219EE15CEB24C009E55E0 /* Transmission.m in Sources */,
+				52257BBB182E3CC200FA74FE /* UnicaradioUITabBarIos7.m in Sources */,
 				5240F86B15CEE8D4004EE213 /* Day.m in Sources */,
 				523B6BF015DFEAB3001E6B10 /* NetworkUtils.m in Sources */,
 				529ECADC15E0EB7F00F4EA0A /* CaptchaParser.m in Sources */,
@@ -1203,6 +1222,7 @@
 				52E77A87169E138600E5C701 /* SettingsManager.m in Sources */,
 				52A5294F16AAA6C000CC28EB /* FormTableViewCell.m in Sources */,
 				52A5295016AAA6C000CC28EB /* FormTextFieldTableViewCell.m in Sources */,
+				529A186E1826AB980009C98D /* SystemUtils.m in Sources */,
 				52A5295116AAA6C000CC28EB /* FormTextViewTableViewCell.m in Sources */,
 				52A5295716AAAC0B00CC28EB /* TooltipView.m in Sources */,
 				52A5295816AAAC0B00CC28EB /* ValidTooltipView.m in Sources */,

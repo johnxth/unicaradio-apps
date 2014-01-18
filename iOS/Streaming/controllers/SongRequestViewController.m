@@ -24,6 +24,8 @@
 #import "US2ValidatorTextField.h"
 #import "US2ValidatorEmail.h"
 
+#import "SystemUtils.h"
+
 @interface SongRequestViewController ()
 
 @end
@@ -51,9 +53,10 @@
 {
     [super viewDidLoad];
 	NSLog(@"SongRequestViewController - viewDidLoad");
-	
+
 	[self.tableView setBackgroundView:nil];
 	[self.tableView setBackgroundColor:[UIColor blackColor]];
+	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
 	[self initTextFields];
 }
@@ -285,6 +288,7 @@
 	if(indexPath.section == 1) {
         SubmitButtonTableViewCell *cell = [self submitButtonTableViewCellFromTableView:tableView];
         [cell.button addTarget:self action:@selector(submitButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+		cell.backgroundColor = [UIColor clearColor];
 
         return cell;
     }
@@ -314,11 +318,6 @@
 	cell.delegate = self;
 
 	return cell;
-}
-
-- (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [_tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (NSString *) getDataFilePath
@@ -465,6 +464,14 @@
 			x = 6.0;
 		}
 	}
+	
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+		if([DeviceUtils isIPad]) {
+			x += 45;
+		} else {
+			x += 10;
+		}
+	}
 
     CGRect tooltipViewFrame = CGRectMake(x, point.y, 309.0, _tooltipView.frame.size.height);
     if (nil == conditionCollection) {
@@ -501,6 +508,8 @@
 
 - (void)submitButtonTouched:(UIButton *)button
 {
+	NSLog(@"x: %f, y: %f, w: %f, h: %f", button.frame.origin.x, button.frame.origin.y, button.frame.size.width, button.frame.size.height);
+	
     // Create string which will contain the first error in form
     NSMutableString *errorString = [NSMutableString string];
 
@@ -508,6 +517,10 @@
     for(NSUInteger i = 0; i < textFields.count; i++) {
         id <US2ValidatorUIProtocol> textUI = [textFields objectAtIndex:i];
         id cell = ((UIView *)textUI).superview.superview;
+		if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+			cell = ((UIView *) cell).superview;
+		}
+
         if ([cell isKindOfClass:[FormTableViewCell class]]) {
             FormTableViewCell *formTableViewCell = (FormTextFieldTableViewCell *)cell;
             kFormTableViewCellStatus status = textUI.isValid == YES ? kFormTableViewCellStatusValid : kFormTableViewCellStatusInvalid;

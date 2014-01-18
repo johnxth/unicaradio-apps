@@ -31,4 +31,9 @@
 	return [[UIScreen mainScreen] bounds].size.height == 568;
 }
 
++ (BOOL) isIPad
+{
+	return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+}
+
 @end

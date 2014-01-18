@@ -20,7 +20,7 @@
 #define WAIT_IMAGE_PRESSED @"wait_pressed.png"
 #define DEFAULT_COVER_FILENAME @"cover.png"
 
-#define SERVER_URL @"http://streaming.unicaradio.it:80/mobile"
+#define SERVER_URL @"http://streaming.unicaradio.it/mobile"
 #define COVER_URL @"http://www.unicaradio.it/regia/OnAir.jpg"
 
 #pragma mark - Interface

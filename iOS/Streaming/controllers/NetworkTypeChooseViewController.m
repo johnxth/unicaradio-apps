@@ -7,6 +7,7 @@
 //
 
 #import "NetworkTypeChooseViewController.h"
+#import "SystemUtils.h"
 
 @interface NetworkTypeChooseViewController ()
 
@@ -33,8 +34,10 @@
 {
     [super viewDidLoad];
 
-	[self.tableView setBackgroundView:nil];
-	[self.tableView setBackgroundColor:[UIColor blackColor]];
+	if(SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+		[self.tableView setBackgroundView:nil];
+		[self.tableView setBackgroundColor:[UIColor blackColor]];
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,7 +122,9 @@
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.bounds.size.width - 40, 30)];
 	//If you add a bit to x and decrease y, it will be more in line with the tableView cell (that is in iPad and landscape)
 	label.backgroundColor = [UIColor clearColor];
-	label.textColor = [UIColor whiteColor];
+	if(SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+		label.textColor = [UIColor whiteColor];
+	}
 	label.font = [UIFont boldSystemFontOfSize:18];
 	label.text = sectionTitle;
 	

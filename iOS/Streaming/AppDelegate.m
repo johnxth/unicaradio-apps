@@ -20,6 +20,7 @@
 #import "controllers/ScheduleSplitViewController.h"
 
 #import "utils/DeviceUtils.h"
+#import "SystemUtils.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -33,6 +34,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
     // Override point for customization after application launch.
     UIViewController *streamingController, *scheduleController, *songRequestController, *favouritesController, *infoController;
 
@@ -71,6 +73,12 @@
 	updateChecker.updateURL = [NSURL URLWithString:@"http://www.unicaradio.it/regia/test/updates_iOS.php"];
 	updateChecker.appStoreURL = [NSURL URLWithString:@"http://itunes.com/apps/unicaradio"];
 	[updateChecker checkVersion];
+
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+	} else {
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+	}
 
     return YES;
 }
@@ -145,7 +153,7 @@
 	StreamingViewController *streamingController;
 	streamingController = [[StreamingViewController alloc] initWithNibName:nil bundle:nil];
 
-	UnicaradioUINavigationController *navStreamingController;
+	UINavigationController *navStreamingController;
 	navStreamingController = [[UnicaradioUINavigationController alloc] initWithRootViewController:streamingController];
 
 	return navStreamingController;
@@ -196,7 +204,7 @@
 	
 	UnicaradioUINavigationController *navFavouritesController;
 	navFavouritesController = [[UnicaradioUINavigationController alloc] initWithRootViewController:favouritesController];
-	
+
 	return navFavouritesController;
 }
 
@@ -207,7 +215,7 @@
 	
 	UnicaradioUINavigationController *navInfoController;
 	navInfoController = [[UnicaradioUINavigationController alloc] initWithRootViewController:infoController];
-	
+
 	return navInfoController;
 }
 

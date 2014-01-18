@@ -19,7 +19,12 @@
 
 #import "NoItemSelectedViewController.h"
 
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#import "SystemUtils.h"
+#import "NetworkUtils.h"
+
+#import "RefreshType.h"
+
+#import "Error.h"
 
 @interface ScheduleTableViewController ()
 
@@ -32,11 +37,16 @@
 @synthesize schedule;
 @synthesize currentID;
 
+@synthesize settingsManager;
+
 - (void)initCommon
 {
 	self.title = NSLocalizedString(@"CONTROLLER_TITLE_SCHEDULE", @"");
 	self.tabBarItem.image = [UIImage imageNamed:@"schedule"];
 	self.state = DAYS;
+	self.currentID = -1;
+	
+	settingsManager = [SettingsManager getInstance];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -70,7 +80,9 @@
 		//FIXME: attributedTitle not always shown in iOS6
 		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PULL_TO_REFRESH_REFRESHING", @"")];
 	}
-    [self refreshData:YES];
+
+	[self replaceRightWithDefaultView];
+    [self refreshData:FORCED];
 }
 
 - (id)initWithSchedule:(Schedule *)s andTitle:(NSString *)t andDayNumber:(NSInteger)dayNumberZeroIndexed andNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -120,7 +132,9 @@
 	self.tableView.rowHeight = 55;
 	self.tableView.backgroundColor = [UIColor blackColor];
 
-	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
+	if(SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+		self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:1];
+	}
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -130,32 +144,99 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"GetSchedule" object:nil];
 
-	[self refreshData:NO];
+	if(![NetworkUtils isConnectionOK:settingsManager]) {
+		return;
+	}
+
+	if(self.schedule == nil) {
+		[self refreshData:NORMAL];
+	}
 }
 
 - (void) viewWillDisappear:(BOOL)animated
+{
+	[self replaceRightWithDefaultView];
+}
+
+- (void) replaceRightWithDefaultView
 {
 	NoItemSelectedViewController *noItemSelectedViewController = [[NoItemSelectedViewController alloc] initWithNibName:@"NoItemSelectedViewController_iPad" bundle:nil];
 	[self substituteRightController:noItemSelectedViewController];
 }
 
-- (void) refreshData:(bool) force
+- (void) refreshData:(RefreshType)refreshType
 {
-	if(schedule == nil || force) {
-		DownloadScheduleOperation *operation = [[DownloadScheduleOperation alloc] init];
-		[queue addOperation:operation];
+	if(refreshType == FORCED && ![NetworkUtils isConnectionOKForGui:settingsManager]) {
+		[self stopRefresh];
+		return;
+	} else if(refreshType == NORMAL && ![NetworkUtils isConnectionOK:settingsManager]) {
+		[self stopRefresh];
+		return;
+	} else if(![NetworkUtils isConnectionOK:settingsManager]) {
+		[self stopRefresh];
+		return;
 	}
+
+	if(![self.refreshControl isRefreshing]) {
+		[self.refreshControl performSelector:@selector(beginRefreshing)];
+	}
+	DownloadScheduleOperation *operation = [[DownloadScheduleOperation alloc] init];
+	[queue addOperation:operation];
 }
 
 - (void) receiveNotification: (NSNotification *)notification
 {
 	NSLog(@"ScheduleViewController - receiveNotification");
-	self.schedule = [Schedule fromJSON:[notification object]];
-	NSLog(@"ScheduleViewController - receiveNotification: json parsed");
+	[self stopRefresh];
+
+	NSData *json = [notification object];
+	[self performSelectorOnMainThread:@selector(refreshCompleted:) withObject:json waitUntilDone:YES];
+}
+
+- (void) stopRefresh
+{
 	[self.refreshControl performSelector:@selector(endRefreshing)];
 	if(SYSTEM_VERSION_LESS_THAN(@"6.0")) {
 		//FIXME: attributedTitle not always shown in iOS6
 		self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PULL_TO_REFRESH_MESSAGE", @"")];
+	}
+}
+
+- (void) refreshCompleted:(NSData *)serverResponse
+{
+	if(serverResponse == nil) {
+		NSLog(@"nil response");
+		NSString *title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
+		NSString *message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];
+		return;
+	}
+
+	NSDictionary *resultsDictionary = [serverResponse objectFromJSONData];
+	NSNumber *errorCode = [resultsDictionary objectForKey:@"errorCode"];
+	NSLog(@"errorCode: %d", [errorCode integerValue]);
+	if([errorCode intValue] == NO_ERROR) {
+		self.schedule = [Schedule fromJSON:serverResponse];
+		NSLog(@"ScheduleViewController - receiveNotification: json parsed");
+
+		if(state == DAYS && currentID != -1) {
+			[self drawSecondLevel:currentID];
+			currentID = -1;
+		}
+	} else {
+		NSString *title;
+		NSString *message;
+		if([errorCode intValue] == INTERNAL_DOWNLOAD_ERROR) {
+			title = NSLocalizedString(@"DIALOG_CHECK_CONNECTION_TITLE", @"");
+			message = NSLocalizedString(@"DIALOG_CHECK_CONNECTION_MESSAGE", @"");
+		} else {
+			title = NSLocalizedString(@"DIALOG_SEND_FAILED_TITLE", @"");
+			message = NSLocalizedString(@"DIALOG_SEND_FAILED_MESSAGE", @"");
+		}
+
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];
 	}
 }
 
@@ -186,9 +267,9 @@
 {
 	UITableViewCell *cell;
 	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-	
+
 	UIColor *textColor = [UIColor whiteColor];
-	
+
 	NSInteger index = indexPath.row;
 	if(self.state == DAYS) {
 		cell.textLabel.text = [days objectAtIndex:index];
@@ -199,28 +280,31 @@
 		NSArray *transmissionsForCurrentId = [schedule getTransmissionsByDay:currentID];
 		Transmission *transmission = [transmissionsForCurrentId objectAtIndex:index];
 		cell.textLabel.text = transmission.formatName;
+		cell.textLabel.numberOfLines = 2;
+		cell.textLabel.lineBreakMode = UILineBreakModeTailTruncation;
+
 		cell.detailTextLabel.text = transmission.startTime;
 	}
-	
+
 	cell.backgroundColor = [UIColor clearColor];
 	[cell.textLabel setTextColor:textColor];
 	[cell.detailTextLabel setTextColor:textColor];
-	
+
 	UIView *redColorView = [[UIView alloc] init];
 	redColorView.backgroundColor = [UIColor colorWithRed:0xA8/255.0 green:0 blue:0 alpha:0.70];
 	cell.selectedBackgroundView = redColorView;
-	
+
 	return cell;
 }
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	//NSLog([NSString stringWithFormat:@"selected: %d", [indexPath row]]);
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	if(self.state == TRANSMISSIONS) {
 		NSLog(@"TRANSMISSIONS mode. ignoring.");
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		return;
 	}
 	if([self.refreshControl isRefreshing]) {
@@ -229,30 +313,49 @@
 		return;
 	}
 
-	NSString *dayString = [[[self.tableView cellForRowAtIndexPath:indexPath] textLabel] text];
-	
 	NSInteger dayNumber = indexPath.row;
-	NSLog(@"dayNumber: %d", dayNumber);
-	if(![NSLocalizedString(@"FIRST_DAY", @"") isEqual:@"1"]) {
-		dayNumber = dayNumber - 1 < 0 ? 6 : dayNumber - 1;
-		NSLog(@"Uh! First day isn't 1. New dayNumber: %d", dayNumber);
+	if(schedule == nil) {
+		if([NetworkUtils isConnectionOKForGui:settingsManager]) {
+			currentID = dayNumber;
+			[self refreshData:FORCED];
+		}
+
+		return;
 	}
-	
-	ScheduleTableViewController *scheduleViewController = [[ScheduleTableViewController alloc] initWithSchedule:schedule andTitle:dayString andDayNumber:dayNumber andNibName:self.nibName bundle:self.nibBundle];
-	if([DeviceUtils isPhone]) {
-		[self.navigationController pushViewController:scheduleViewController animated:YES];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	} else {
-		[self substituteRightController:scheduleViewController];
-	}
+
+	[self drawSecondLevel:dayNumber];
 }
 
-- (void) substituteRightController:(UIViewController *) controller
+- (void) substituteRightController:(UIViewController *)controller
 {
 	UnicaradioUINavigationController *navScheduleController;
 	navScheduleController = [[UnicaradioUINavigationController alloc] initWithRootViewController:controller];
 	NSArray *newViewControllers = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], navScheduleController, nil];
 	self.splitViewController.viewControllers = newViewControllers;
+}
+
+- (void) drawSecondLevel:(int)position
+{
+	int dayNumber = position;
+	NSString *title = self.days[dayNumber];
+
+	NSLog(@"dayNumber: %d", dayNumber);
+	if(![NSLocalizedString(@"FIRST_DAY", @"") isEqual:@"1"]) {
+		dayNumber = dayNumber - 1 < 0 ? 6 : dayNumber - 1;
+		NSLog(@"Uh! First day isn't 1. New dayNumber: %d", dayNumber);
+	}
+
+	ScheduleTableViewController *scheduleViewController =
+		[[ScheduleTableViewController alloc] initWithSchedule:schedule
+													 andTitle:title
+												 andDayNumber:dayNumber
+												   andNibName:self.nibName
+													   bundle:self.nibBundle];
+	if([DeviceUtils isPhone]) {
+		[self.navigationController pushViewController:scheduleViewController animated:YES];
+	} else {
+		[self substituteRightController:scheduleViewController];
+	}
 }
 
 @end

@@ -20,17 +20,20 @@
 	NSOperationQueue *queue;
 	BOOL isDownloading;
 	int clickedItem;
-	
+
 	NSMutableArray *days;
 	ScheduleState state;
 	Schedule *schedule;
 	NSInteger currentID;
+
+	SettingsManager *settingsManager;
 }
 
 @property (nonatomic, strong) NSMutableArray *days;
 @property (nonatomic) ScheduleState state;
 @property (nonatomic, strong) Schedule *schedule;
 @property (nonatomic) NSInteger currentID;
+@property (nonatomic, strong) SettingsManager *settingsManager;
 
 - (id) initWithSchedule:(Schedule *)schedule
 			   andTitle:(NSString*)title

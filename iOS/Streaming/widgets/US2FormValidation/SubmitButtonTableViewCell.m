@@ -25,6 +25,7 @@
 
 #import "SubmitButtonTableViewCell.h"
 #import "DeviceUtils.h"
+#import "SystemUtils.h"
 
 @interface SubmitButtonTableViewCell ()
 	- (void)_initUserInterface;
@@ -59,16 +60,34 @@
 	float width = 300.0;
 	if(![DeviceUtils isPhone]) {
 		x = 300.0; //iPad
+		if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+			width = 250.0;
+			x = 380.0;
+		}
 	} else if([DeviceUtils isLandscape]) {
 		if([DeviceUtils is4InchRetinaIPhone]) {
 			width = 550.0;
 		} else {
 			width = 460.0;
 		}
+		if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+			x = 10.0;
+		}
+	} else {
+		if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+			x = 10.0;
+		}
 	}
+
+	UIColor *background = [UIColor clearColor];
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+		background = [UIColor whiteColor];
+	}
+
     CGRect buttonFrame = CGRectMake(x, 0.0, width, frame.size.height);
-    _button            = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _button.frame      = buttonFrame;
+    _button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _button.frame = buttonFrame;
+	_button.backgroundColor = background;
     [_button setTitle:NSLocalizedString(@"SUBMIT_BUTTON", @"") forState:UIControlStateNormal];
     [self.contentView addSubview:_button];
 

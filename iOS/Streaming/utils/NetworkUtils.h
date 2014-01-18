@@ -10,6 +10,8 @@
 
 #define TIMEOUT_CONNECTION 60.0
 
+@class SettingsManager;
+
 @interface NetworkUtils : NSObject
 {
 	
@@ -22,5 +24,9 @@
 + (BOOL) isConnected;
 
 + (BOOL) isConnectedToWiFi;
+
++ (BOOL) isConnectionOK:(SettingsManager *) settingsManager;
+
++ (BOOL) isConnectionOKForGui:(SettingsManager *) settingsManager;
 
 @end

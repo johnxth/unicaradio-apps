@@ -17,6 +17,7 @@
 
 #import "../utils/DeviceUtils.h"
 #import "../utils/NetworkUtils.h"
+#import "SystemUtils.h"
 
 @interface StreamingViewController ()
 
@@ -47,7 +48,7 @@
     if (self) {
         self.title = NSLocalizedString(@"CONTROLLER_TITLE_ONAIR", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"onair"];
-
+		
 		if(infos == nil) {
 			infos = [[TrackInfos alloc] init];	
 		}
@@ -202,30 +203,7 @@
 
 - (BOOL) isConnectionOK
 {
-	if(![NetworkUtils isConnected]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"NOT_CONNECTED_ALERT_TITLE", @"")
-														message: NSLocalizedString(@"NOT_CONNECTED_ALERT_MESSAGE", @"")
-													   delegate: nil
-											  cancelButtonTitle: @"OK"
-											  otherButtonTitles: nil];
-		[alert show];
-
-		return NO;
-	}
-
-	NetworkType enabledNetworkType = [settingsManager getNetworkType];
-	if(enabledNetworkType == WIFI_ONLY && ![NetworkUtils isConnectedToWiFi]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"NOT_IN_WIFI_ALERT_TITLE", @"")
-														message: NSLocalizedString(@"NOT_IN_WIFI_ALERT_MESSAGE", @"")
-													   delegate: nil
-											  cancelButtonTitle: @"OK"
-											  otherButtonTitles: nil];
-		[alert show];
-
-		return NO;
-	}
-
-	return YES;
+	return [NetworkUtils isConnectionOKForGui:settingsManager];
 }
 
 - (BOOL) isPlayerLoading

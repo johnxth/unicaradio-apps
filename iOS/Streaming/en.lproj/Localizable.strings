@@ -18,6 +18,12 @@
 "SHARE_SHEET_TITLE" = "Share with...";
 "CANCEL_BUTTON" = "Cancel";
 
+"NOT_CONNECTED_ALERT_TITLE" = "You are not connected to the Internet";
+"NOT_CONNECTED_ALERT_MESSAGE" = "Oh oh... it seems you're not connected. Retry.";
+
+"NOT_IN_WIFI_ALERT_TITLE" = "Not connected to a WiFi network!";
+"NOT_IN_WIFI_ALERT_MESSAGE" = "Oh oh... you are not connected to a WiFi network. Please, check your settings if you want to use this type of network.";
+
 // Streaming
 "STREAMING_AUTHOR_LABEL" = "Author";
 "STREAMING_TITLE_LABEL" = "Title";
@@ -65,7 +71,7 @@
 "TOOLTIP_OK" = "All good!";
 
 "SUBMIT_BUTTON" = "Submit";
-
+„„„
 // Settings
 // Categories
 "CATEGORY_NETWORK" = "Network";
