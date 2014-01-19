@@ -50,6 +50,8 @@
 		5294A651188C4A4D00BC30D0 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5294A64D188C4A4D00BC30D0 /* LICENSE.txt */; };
 		5294A652188C4A4D00BC30D0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5294A64E188C4A4D00BC30D0 /* README.md */; };
 		5294A653188C4A4D00BC30D0 /* UIDevice+Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5294A650188C4A4D00BC30D0 /* UIDevice+Hardware.m */; };
+		5294A658188C542800BC30D0 /* ScheduleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5294A657188C542800BC30D0 /* ScheduleTableViewCell.xib */; };
+		5294A65B188C650200BC30D0 /* ScheduleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5294A65A188C650200BC30D0 /* ScheduleTableViewCell.m */; };
 		529A186E1826AB980009C98D /* SystemUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 529A186D1826AB980009C98D /* SystemUtils.m */; };
 		529ECADC15E0EB7F00F4EA0A /* CaptchaParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */; };
 		52A12B0D16963692007B2BC6 /* NetworkTypeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */; };
@@ -288,6 +290,9 @@
 		5294A64E188C4A4D00BC30D0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		5294A64F188C4A4D00BC30D0 /* UIDevice+Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Hardware.h"; sourceTree = "<group>"; };
 		5294A650188C4A4D00BC30D0 /* UIDevice+Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Hardware.m"; sourceTree = "<group>"; };
+		5294A657188C542800BC30D0 /* ScheduleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleTableViewCell.xib; sourceTree = "<group>"; };
+		5294A659188C650200BC30D0 /* ScheduleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleTableViewCell.h; sourceTree = "<group>"; };
+		5294A65A188C650200BC30D0 /* ScheduleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleTableViewCell.m; sourceTree = "<group>"; };
 		529A186C1826AB980009C98D /* SystemUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemUtils.h; sourceTree = "<group>"; };
 		529A186D1826AB980009C98D /* SystemUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemUtils.m; sourceTree = "<group>"; };
 		529ECADA15E0EB7F00F4EA0A /* CaptchaParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaParser.h; sourceTree = "<group>"; };
@@ -671,6 +676,8 @@
 				528D4865168C9D4300248B54 /* UnicaradioUITabBar.m */,
 				52257BB9182E3CC200FA74FE /* UnicaradioUITabBarIos7.h */,
 				52257BBA182E3CC200FA74FE /* UnicaradioUITabBarIos7.m */,
+				5294A659188C650200BC30D0 /* ScheduleTableViewCell.h */,
+				5294A65A188C650200BC30D0 /* ScheduleTableViewCell.m */,
 			);
 			path = widgets;
 			sourceTree = "<group>";
@@ -887,6 +894,7 @@
 				52A5D3F916B324EA006ACE43 /* ShareView_iOS5.xib */,
 				52A789C016B1D8B4004C5C91 /* ShareView_iOS6.xib */,
 				521634B316CC16EF00570E00 /* LicenceViewController.xib */,
+				5294A657188C542800BC30D0 /* ScheduleTableViewCell.xib */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -1112,6 +1120,7 @@
 				52A159B115C52AD100E09F51 /* schedule.png in Resources */,
 				52A159B215C52AD100E09F51 /* song@2x.png in Resources */,
 				52A159B315C52AD100E09F51 /* favorites@2x.png in Resources */,
+				5294A658188C542800BC30D0 /* ScheduleTableViewCell.xib in Resources */,
 				52A159B415C52AD100E09F51 /* onair.png in Resources */,
 				52A159B515C52AD100E09F51 /* song.png in Resources */,
 				5294A651188C4A4D00BC30D0 /* LICENSE.txt in Resources */,
@@ -1241,6 +1250,7 @@
 				52A36A091694AAD500BC8CEC /* SettingsViewController.m in Sources */,
 				52A12B0D16963692007B2BC6 /* NetworkTypeChooseViewController.m in Sources */,
 				52E77A87169E138600E5C701 /* SettingsManager.m in Sources */,
+				5294A65B188C650200BC30D0 /* ScheduleTableViewCell.m in Sources */,
 				52A5294F16AAA6C000CC28EB /* FormTableViewCell.m in Sources */,
 				52A5295016AAA6C000CC28EB /* FormTextFieldTableViewCell.m in Sources */,
 				529A186E1826AB980009C98D /* SystemUtils.m in Sources */,

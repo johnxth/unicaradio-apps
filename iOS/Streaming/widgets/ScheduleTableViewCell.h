@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface ScheduleTableViewCell : UITableViewCell
+{
+	
+}
+
+@property (nonatomic, weak) IBOutlet UILabel *textLabel;
+@property (nonatomic, weak) IBOutlet UILabel *detailTextLabel;
 
 @end
