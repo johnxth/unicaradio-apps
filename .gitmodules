@@ -7,3 +7,6 @@
 [submodule "iOS/iUC"]
 	path = iOS/iUC
 	url = https://github.com/paolinux86/iUC.git
+[submodule "iOS/UIDevice-Hardware"]
+	path = iOS/UIDevice-Hardware
+	url = https://github.com/InderKumarRathore/UIDevice-Hardware.git

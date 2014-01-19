@@ -47,6 +47,9 @@
 		528D4889168CC5EB00248B54 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4885168CC5EB00248B54 /* Icon-72@2x.png */; };
 		528D488A168CC5EB00248B54 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4886168CC5EB00248B54 /* Icon.png */; };
 		528D488B168CC5EB00248B54 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528D4887168CC5EB00248B54 /* Icon@2x.png */; };
+		5294A651188C4A4D00BC30D0 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5294A64D188C4A4D00BC30D0 /* LICENSE.txt */; };
+		5294A652188C4A4D00BC30D0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5294A64E188C4A4D00BC30D0 /* README.md */; };
+		5294A653188C4A4D00BC30D0 /* UIDevice+Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 5294A650188C4A4D00BC30D0 /* UIDevice+Hardware.m */; };
 		529A186E1826AB980009C98D /* SystemUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 529A186D1826AB980009C98D /* SystemUtils.m */; };
 		529ECADC15E0EB7F00F4EA0A /* CaptchaParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 529ECADB15E0EB7F00F4EA0A /* CaptchaParser.m */; };
 		52A12B0D16963692007B2BC6 /* NetworkTypeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A12B0C16963692007B2BC6 /* NetworkTypeChooseViewController.m */; };
@@ -143,7 +146,6 @@
 		52DC0E021686601700C28163 /* UnicaradioUINavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DC0E011686601700C28163 /* UnicaradioUINavigationController.m */; };
 		52E171FC15E3DFB70020A27C /* DownloadScheduleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E171FB15E3DFB70020A27C /* DownloadScheduleOperation.m */; };
 		52E1720715E440470020A27C /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720115E440470020A27C /* AudioStreamer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		52E1720815E440470020A27C /* UIDevice+Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720315E440470020A27C /* UIDevice+Hardware.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		52E1720915E440470020A27C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720615E440470020A27C /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		52E1720F15E445790020A27C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E1720E15E445790020A27C /* SystemConfiguration.framework */; };
 		52E1721015E526DD0020A27C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E1720C15E441560020A27C /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -282,6 +284,10 @@
 		528D4885168CC5EB00248B54 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		528D4886168CC5EB00248B54 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		528D4887168CC5EB00248B54 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		5294A64D188C4A4D00BC30D0 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		5294A64E188C4A4D00BC30D0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		5294A64F188C4A4D00BC30D0 /* UIDevice+Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Hardware.h"; sourceTree = "<group>"; };
+		5294A650188C4A4D00BC30D0 /* UIDevice+Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Hardware.m"; sourceTree = "<group>"; };
 		529A186C1826AB980009C98D /* SystemUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemUtils.h; sourceTree = "<group>"; };
 		529A186D1826AB980009C98D /* SystemUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemUtils.m; sourceTree = "<group>"; };
 		529ECADA15E0EB7F00F4EA0A /* CaptchaParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaParser.h; sourceTree = "<group>"; };
@@ -418,8 +424,6 @@
 		52E171FB15E3DFB70020A27C /* DownloadScheduleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadScheduleOperation.m; sourceTree = "<group>"; };
 		52E1720015E440470020A27C /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
 		52E1720115E440470020A27C /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
-		52E1720215E440470020A27C /* UIDevice+Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Hardware.h"; sourceTree = "<group>"; };
-		52E1720315E440470020A27C /* UIDevice+Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Hardware.m"; sourceTree = "<group>"; };
 		52E1720515E440470020A27C /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		52E1720615E440470020A27C /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		52E1720B15E441560020A27C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -532,6 +536,17 @@
 			);
 			path = Defaults;
 			sourceTree = "<group>";
+		};
+		5294A64C188C4A4D00BC30D0 /* UIDevice-Hardware */ = {
+			isa = PBXGroup;
+			children = (
+				5294A64D188C4A4D00BC30D0 /* LICENSE.txt */,
+				5294A64E188C4A4D00BC30D0 /* README.md */,
+				5294A64F188C4A4D00BC30D0 /* UIDevice+Hardware.h */,
+				5294A650188C4A4D00BC30D0 /* UIDevice+Hardware.m */,
+			);
+			path = "UIDevice-Hardware";
+			sourceTree = SOURCE_ROOT;
 		};
 		52A4C10216A1C52F00A116AD /* Products */ = {
 			isa = PBXGroup;
@@ -890,6 +905,7 @@
 				52E1720415E440470020A27C /* JSONKit */,
 				524777A41691A35F000F953E /* MarqueeLabel */,
 				52E1720A15E441300020A27C /* reachability */,
+				5294A64C188C4A4D00BC30D0 /* UIDevice-Hardware */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -899,8 +915,6 @@
 			children = (
 				52E1720015E440470020A27C /* AudioStreamer.h */,
 				52E1720115E440470020A27C /* AudioStreamer.m */,
-				52E1720215E440470020A27C /* UIDevice+Hardware.h */,
-				52E1720315E440470020A27C /* UIDevice+Hardware.m */,
 			);
 			path = audiostreamer;
 			sourceTree = "<group>";
@@ -981,6 +995,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
+				TargetAttributes = {
+					52D51E6B15BBEE3E00BC8C94 = {
+						DevelopmentTeam = 95364KKU56;
+					};
+				};
 			};
 			buildConfigurationList = 52D51E6615BBEE3E00BC8C94 /* Build configuration list for PBXProject "Streaming" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1095,6 +1114,7 @@
 				52A159B315C52AD100E09F51 /* favorites@2x.png in Resources */,
 				52A159B415C52AD100E09F51 /* onair.png in Resources */,
 				52A159B515C52AD100E09F51 /* song.png in Resources */,
+				5294A651188C4A4D00BC30D0 /* LICENSE.txt in Resources */,
 				52A159B615C52AD100E09F51 /* favorites.png in Resources */,
 				52A159B715C52AD100E09F51 /* info@2x.png in Resources */,
 				52A159B815C52AD100E09F51 /* info.png in Resources */,
@@ -1134,6 +1154,7 @@
 				52A5296916AABFE000CC28EB /* image_icon_validation_valid.png in Resources */,
 				52A5296A16AABFE000CC28EB /* image_icon_validation_valid@2x.png in Resources */,
 				52A5296B16AABFE000CC28EB /* image_icon_validation_waiting.png in Resources */,
+				5294A652188C4A4D00BC30D0 /* README.md in Resources */,
 				52A5296C16AABFE000CC28EB /* image_icon_validation_waiting@2x.png in Resources */,
 				52A5296D16AABFE000CC28EB /* image_tooltip_invalid.png in Resources */,
 				52A5296E16AABFE000CC28EB /* image_tooltip_invalid@2x.png in Resources */,
@@ -1207,8 +1228,8 @@
 				52EA363B15E29AFC004866FA /* SongRequest.m in Sources */,
 				52EA364515E2D485004866FA /* RequestSongOperation.m in Sources */,
 				52E171FC15E3DFB70020A27C /* DownloadScheduleOperation.m in Sources */,
+				5294A653188C4A4D00BC30D0 /* UIDevice+Hardware.m in Sources */,
 				52E1720715E440470020A27C /* AudioStreamer.m in Sources */,
-				52E1720815E440470020A27C /* UIDevice+Hardware.m in Sources */,
 				52E1720915E440470020A27C /* JSONKit.m in Sources */,
 				52DC0E021686601700C28163 /* UnicaradioUINavigationController.m in Sources */,
 				52FBA83A1688991000C19D61 /* NoItemSelectedViewController.m in Sources */,
@@ -1411,7 +1432,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Paolo Cortis (SK28VT2EJK)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streaming/Streaming-Prefix.pch";
 				INFOPLIST_FILE = "Streaming/Streaming-Info.plist";
@@ -1423,10 +1444,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "B81A800C-8B69-4218-AA3E-B6D3ACD33FC0";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s armv6s armv6";
 				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1436,7 +1457,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: PAOLO CORTIS (95364KKU56)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Streaming/Streaming-Prefix.pch";
 				INFOPLIST_FILE = "Streaming/Streaming-Info.plist";
@@ -1447,10 +1468,11 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8C41AA80-83C9-47A2-BC7A-FDB7C0E65BA1";
+				"PROVISIONING_PROFILE[sdk=*]" = "5AE134B9-92ED-4160-A2A6-B5B441C8756D";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s armv6s armv6";
 				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
