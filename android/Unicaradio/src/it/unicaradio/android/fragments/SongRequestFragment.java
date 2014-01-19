@@ -20,7 +20,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import it.unicaradio.android.R;
 import it.unicaradio.android.listeners.SongRequestTaskFailedListener;
@@ -58,6 +58,15 @@ public class SongRequestFragment extends UnicaradioFragment
 	private TextView authorView;
 
 	private TextView titleView;
+
+	// FIXME: Remove when remove support for android api level 7
+	public static final Pattern EMAIL_ADDRESS = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+																"\\@" +
+																"[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+																"(" +
+																"\\." +
+																"[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+																")+");
 
 	/**
 	 * {@inheritDoc}
@@ -246,7 +255,7 @@ public class SongRequestFragment extends UnicaradioFragment
 	private boolean isEmailValid()
 	{
 		String email = emailView.getText().toString().trim();
-		return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+		return EMAIL_ADDRESS.matcher(email).matches();
 	}
 
 	private void warnUserForNotValidEmail()
