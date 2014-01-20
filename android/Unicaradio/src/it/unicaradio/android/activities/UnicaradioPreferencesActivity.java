@@ -265,6 +265,12 @@ public class UnicaradioPreferencesActivity extends SherlockPreferenceActivity im
 		return StringUtils.EMPTY;
 	}
 
+	@Override
+	protected boolean isValidFragment(String fragmentName)
+	{
+		return StringUtils.equals(fragmentName, UnicaradioPreferencesFragment.class.getName());
+	}
+
 	static final class OpenPreferenceLink implements OnPreferenceClickListener
 	{
 		private Context context;
