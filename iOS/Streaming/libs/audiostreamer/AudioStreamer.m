@@ -16,6 +16,7 @@
 #if TARGET_OS_IPHONE			
 #import <CFNetwork/CFNetwork.h>
 #import "UIDevice+Hardware.h"
+
 #define kCFCoreFoundationVersionNumber_MIN 550.32
 #else
 #define kCFCoreFoundationVersionNumber_MIN 550.00
@@ -660,6 +661,17 @@ void ASReadStreamCallBack
 	return fileTypeHint;
 }
 
+- (NSString *) getUserAgentString
+{
+	NSString *userAgent = @"UnicaRadio/%@ (%@; %@; iOS %@)";
+	NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+	NSString *deviceType = [[UIDevice currentDevice] model];
+	NSString *deviceModel = [[UIDevice currentDevice] hardwareDescription];
+	NSString *osVersion = [[UIDevice currentDevice] systemVersion];
+
+	return [NSString stringWithFormat:userAgent, appVersion, deviceType, deviceModel, osVersion];
+}
+
 //
 // openReadStream
 //
@@ -691,6 +703,9 @@ void ASReadStreamCallBack
 				(CFStringRef)[NSString stringWithFormat:@"bytes=%d-%d", seekByteOffset, fileLength - 1]);
 			discontinuous = vbr;
 		}
+
+		NSString *userAgent = [self getUserAgentString];
+		CFHTTPMessageSetHeaderFieldValue(message, CFSTR("User-Agent"), (CFStringRef) userAgent);
 		
 		//
 		// Create the read stream that will receive data from the HTTP request
@@ -2069,9 +2084,9 @@ cleanup:
 				AudioStreamBasicDescription pasbd = formatList[i].mASBD;
 
 				if(pasbd.mFormatID == kAudioFormatMPEG4AAC_HE_V2 && 
-#if TARGET_OS_IPHONE			
+/*#if TARGET_OS_IPHONE
 				   [[UIDevice currentDevice] platformHasCapability:(UIDeviceSupportsARMV7)] && 
-#endif
+#endif*/
 				   kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_MIN)
 				{
 					// We found HE-AAC v2 (SBR+PS), but before trying to play it

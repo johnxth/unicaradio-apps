@@ -15,6 +15,7 @@
 #import "Transmission.h"
 #import "DownloadScheduleOperation.h"
 #import "UnicaradioUINavigationController.h"
+#import "ScheduleTableViewCell.h"
 #import "DeviceUtils.h"
 
 #import "NoItemSelectedViewController.h"
@@ -265,8 +266,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UITableViewCell *cell;
-	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+	/*UITableViewCell *cell;
+	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];*/
+	NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ScheduleTableViewCell" owner:self options:nil];
+	ScheduleTableViewCell *cell = [nib objectAtIndex:0];
 
 	UIColor *textColor = [UIColor whiteColor];
 
