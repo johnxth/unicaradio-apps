@@ -65,11 +65,47 @@
     [super viewDidLoad];
 	NSLog(@"StreamingViewController - viewDidLoad");
 
+	if([self appHasBeenUpdated]) {
+		[self showUpdatesDialog];
+	}
+
 	if(streamer == nil || ![streamer isPlaying] || ![streamer isWaiting]) {
 		[self clearUi: YES];
 	}
 
 	[self updateUi];
+}
+
+- (BOOL) appHasBeenUpdated
+{
+	int currentVersion = [[[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey] intValue];
+	int lastVersion = [settingsManager getInstalledVersion];
+	if(currentVersion > lastVersion) {
+		[settingsManager updateInstalledVersion];
+		return true;
+		//return (lastVersion > 0);
+	}
+	
+	return false;
+}
+
+- (void) showUpdatesDialog
+{
+	NSString *changesToShow = @"Alcuni cambiamenti...";
+
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"APP_UPDATED", @"")
+													message:changesToShow
+												   delegate:self
+										  cancelButtonTitle:NSLocalizedString(@"OK_BUTTON", @"")
+										  otherButtonTitles:nil];
+	
+	
+	[self performSelectorOnMainThread:@selector(openDialog:) withObject:alert waitUntilDone:NO];
+}
+
+- (void) openDialog:(UIAlertView *)alert
+{
+	[alert show];
 }
 
 - (void)viewDidUnload

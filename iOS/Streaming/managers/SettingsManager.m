@@ -92,4 +92,18 @@
 	[self savePreference:PREF_COVER_NETWORK andValue:[NSNumber numberWithInt:networkType]];
 }
 
+- (int) getInstalledVersion
+{
+	id installedVersionAsId = [self getPreference:PREF_INSTALLED_VERSION];
+
+	return [installedVersionAsId intValue];
+}
+
+- (void) updateInstalledVersion
+{
+	NSString *currentVersionId = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+
+	[self savePreference:PREF_INSTALLED_VERSION andValue:[NSNumber numberWithInt:[currentVersionId intValue]]];
+}
+
 @end

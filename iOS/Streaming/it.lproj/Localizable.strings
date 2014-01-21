@@ -24,6 +24,9 @@
 "NOT_IN_WIFI_ALERT_TITLE" = "Non sei connesso in WiFi";
 "NOT_IN_WIFI_ALERT_MESSAGE" = "Oh oh... non sei connesso in WiFi. Controlla le impostazioni, se vuoi usare questo tipo di rete";
 
+"OK_BUTTON" = "Ok";
+"APP_UPDATED" = "UnicaRadio è stata aggiornata.";
+
 // Streaming
 "STREAMING_AUTHOR_LABEL" = "Autore";
 "STREAMING_TITLE_LABEL" = "Titolo";

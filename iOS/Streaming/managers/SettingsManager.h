@@ -14,6 +14,7 @@
 
 #define PREF_NETWORK_TYPE @"PREF_NETWORK_TYPE"
 #define PREF_COVER_NETWORK @"PREF_COVER_NETWORK"
+#define PREF_INSTALLED_VERSION @"PREF_INSTALLED_VERSION"
 
 @interface SettingsManager : NSObject
 {
@@ -29,8 +30,10 @@
 
 - (NetworkType) getNetworkType;
 - (NetworkType) getNetworkTypeForCover;
+- (int) getInstalledVersion;
 
 - (void) saveNetworkType:(NetworkType) networkType;
 - (void) saveNetworkTypeForCover:(NetworkType) networkType;
+- (void) updateInstalledVersion;
 
 @end
