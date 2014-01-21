@@ -91,7 +91,7 @@
 
 - (void) showUpdatesDialog
 {
-	NSString *changesToShow = @"Alcuni cambiamenti...";
+	NSString *changesToShow = NSLocalizedString(@"UPDATES", @"");
 
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"APP_UPDATED", @"")
 													message:changesToShow

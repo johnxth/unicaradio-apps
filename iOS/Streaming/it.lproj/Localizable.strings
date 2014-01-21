@@ -27,6 +27,17 @@
 "OK_BUTTON" = "Ok";
 "APP_UPDATED" = "UnicaRadio è stata aggiornata.";
 
+"UPDATES" = "Versione 1.0.2:
+ Novità e bugfix:
+  - [nuovo] Supporto per iOS7 e modifiche grafiche;
+  - [mod] Migliorata la tab del palinsesto;
+  - [mod] Ascolta UnicaRadio con lo schermo del tuo dispositivo spento;
+  - [bug] Sistemato l'orario non visibile quando il nome del programma è troppo lungo;
+  - [bug] Sistemato un crash in caso di assenza di connessione.
+
+Versione 1.0.1:
+ Prima versione sull'App Store!";
+
 // Streaming
 "STREAMING_AUTHOR_LABEL" = "Autore";
 "STREAMING_TITLE_LABEL" = "Titolo";
