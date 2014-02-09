@@ -10,10 +10,22 @@
 
 #import <MessageUI/MessageUI.h>
 
+@protocol SharePopoverDelegate <NSObject>
+
+- (void) dismissSharePopoverAnimated:(BOOL)animated;
+- (void) presentViewControllerForSharePopover:(UIViewController *)viewController;
+
+@end
+
 @interface ShareViewController : UIViewController<MFMailComposeViewControllerDelegate>
 {
 	UIPopoverController *popoverController;
 }
+
+@property (nonatomic, retain) id<SharePopoverDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UILabel *facebookLabel;
+@property (strong, nonatomic) IBOutlet UILabel *twitterLabel;
+@property (strong, nonatomic) IBOutlet UILabel *mailLabel;
 
 typedef enum {
 	TWITTER,
@@ -27,6 +39,6 @@ typedef enum {
 - (IBAction) shareOnTwitter:(id)sender;
 - (IBAction) shareOnEmail:(id)sender;
 
-+ (void) share: (SharingPlace) place withUIViewController:(UIViewController *)viewController;
++ (UIViewController *) share: (SharingPlace) place withUIViewController:(UIViewController *)viewController;
 
 @end

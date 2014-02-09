@@ -138,6 +138,7 @@ static char *const sharePopoverKey = "sharePopoverKey";
 {
 	if(self.sharePopover == nil) {
 		ShareViewController *shareViewController = [[ShareViewController alloc] init];
+		shareViewController.delegate = self;
 		UINavigationController *navShareViewController = [[UINavigationController alloc] initWithRootViewController:shareViewController];
 		self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:navShareViewController];
 		[shareViewController setPopOver:self.sharePopover];
@@ -151,6 +152,17 @@ static char *const sharePopoverKey = "sharePopoverKey";
 		self.sharePopover.popoverContentSize = CGSizeMake(354, 175);
 		[self.sharePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 	}
+}
+
+
+- (void) dismissSharePopoverAnimated:(BOOL)animated
+{
+	[self.sharePopover dismissPopoverAnimated:animated];
+}
+
+- (void) presentViewControllerForSharePopover:(UIViewController *)viewController
+{
+	[self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (CGRect) getRectForSharePopover:(UISegmentedControl *)control
@@ -167,21 +179,15 @@ static char *const sharePopoverKey = "sharePopoverKey";
 	return rect;
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	switch (buttonIndex) {
-		case 0:
-		case 1:
-			[ShareViewController share:buttonIndex withUIViewController:self];
-			break;
-		case 2:
-			if(NSClassFromString(@"SLComposeViewController") != nil) {
-				[ShareViewController share:buttonIndex withUIViewController:self];
-			}
-			break;
-		default:
-			break;
+	if(buttonIndex > FACEBOOK) {
+		return;
 	}
+	
+	UIViewController *controller;
+	controller = [ShareViewController share:buttonIndex withUIViewController:self];
+	[self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error

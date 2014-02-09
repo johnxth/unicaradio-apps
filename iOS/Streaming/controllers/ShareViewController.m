@@ -22,6 +22,8 @@
 
 @implementation ShareViewController
 
+@synthesize delegate;
+
 - (id)init
 {
 	NSString *nibName = @"ShareView_iOS5";
@@ -34,48 +36,56 @@
 		
 		if(SYSTEM_VERSION_LESS_THAN(@"7.0")) {
 			[self.view setBackgroundColor:[UIColor blackColor]];
+			self.twitterLabel.textColor = [UIColor whiteColor];
+			self.facebookLabel.textColor = [UIColor whiteColor];
+			self.mailLabel.textColor = [UIColor whiteColor];
 		}
     }
     return self;
 }
 
-+ (void) shareOnFacebook:(UIViewController *)viewController
++ (UIViewController *) shareOnFacebook
 {
 	SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
 	[controller setInitialText:[ShareViewController getSharingMessage]];
 	[controller addURL:[NSURL URLWithString:@"http://www.unicaradio.it"]];
 
-	[viewController presentViewController:controller animated:YES completion:nil];
+	//[viewController presentViewController:controller animated:YES completion:nil];
+	return controller;
 }
 
 - (IBAction) shareOnFacebook:(id)sender
 {
-	[ShareViewController shareOnFacebook:self];
-	[popoverController dismissPopoverAnimated:YES];
+	[self.delegate presentViewControllerForSharePopover:[ShareViewController shareOnFacebook]];
+	[self.delegate dismissSharePopoverAnimated:YES];
+	//[popoverController dismissPopoverAnimated:YES];
 }
 
-+ (void) shareOnTwitter:(UIViewController *)viewController
++ (UIViewController *) shareOnTwitter
 {
 	if(NSClassFromString(@"SLComposeViewController") != nil) {
 		SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         [controller setInitialText:[ShareViewController getSharingMessage]];
 
-        [viewController presentViewController:controller animated:YES completion:Nil];
+		//[viewController presentViewController:controller animated:YES completion:nil];
+		return controller;
 	} else {
 		TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
 		[tweetSheet setInitialText:[ShareViewController getSharingMessage]];
 
-		[viewController presentModalViewController:tweetSheet animated:YES];
+		//[viewController presentModalViewController:tweetSheet animated:YES];
+		return tweetSheet;
 	}
 }
 
 - (IBAction) shareOnTwitter:(id)sender
 {
-	[ShareViewController shareOnTwitter:self];
-	[popoverController dismissPopoverAnimated:YES];
+	[self.delegate presentViewControllerForSharePopover:[ShareViewController shareOnTwitter]];
+	[self.delegate dismissSharePopoverAnimated:YES];
+	//[popoverController dismissPopoverAnimated:YES];
 }
 
-+ (void) shareOnEmail:(UIViewController *)viewController
++ (UIViewController *) shareOnEmail:(UIViewController *)viewController
 {
 	MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
 	mailer.mailComposeDelegate = viewController;
@@ -87,13 +97,16 @@
 		mailer.modalPresentationStyle = UIModalPresentationPageSheet;
 	}
 
-	[viewController presentModalViewController:mailer animated:YES];
+	//[viewController presentModalViewController:mailer animated:YES];
+	return mailer;
 }
 
 - (IBAction) shareOnEmail:(id)sender
 {
-	[ShareViewController shareOnEmail:self];
-	[popoverController dismissPopoverAnimated:YES];
+	UIViewController *viewController = (UIViewController *) self.delegate;
+	[self.delegate presentViewControllerForSharePopover:[ShareViewController shareOnEmail:viewController]];
+	[self.delegate dismissSharePopoverAnimated:YES];
+	//[popoverController dismissPopoverAnimated:YES];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
@@ -116,17 +129,17 @@
     [super didReceiveMemoryWarning];
 }
 
-+ (void)share:(SharingPlace)place withUIViewController:(UIViewController *)viewController
++ (UIViewController *) share:(SharingPlace)place withUIViewController:(UIViewController *)viewController
 {
 	switch (place) {
 		case TWITTER:
-			[self shareOnTwitter:viewController];
+			return [self shareOnTwitter];
 			break;
 		case EMAIL:
-			[self shareOnEmail:viewController];
+			return [self shareOnEmail:viewController];
 			break;
 		case FACEBOOK:
-			[self shareOnFacebook:viewController];
+			return [self shareOnFacebook];
 		default:
 			break;
 	}
